@@ -2,7 +2,6 @@
 layout: project
 title: "Example Project"
 description: "A modern web application built with React and Node.js"
-image: "/assets/images/projects/example-project.jpg"
 tech_stack: ["React", "Node.js", "MongoDB"]
 github_url: "https://github.com/zeikar/example-project"
 demo_url: "https://example-project.com"
