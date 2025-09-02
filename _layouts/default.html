@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'en' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% seo %}
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="font-sans antialiased">
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
+        <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="{{ '/' | relative_url }}" class="text-xl font-bold text-blue-600">
+                    {{ site.title }}
+                </a>
+                <ul class="flex space-x-8">
+                    <li><a href="{{ '/' | relative_url }}" class="text-gray-700 hover:text-blue-600 transition-colors">Home</a></li>
+                    <li><a href="{{ '/#projects' | relative_url }}" class="text-gray-700 hover:text-blue-600 transition-colors">Projects</a></li>
+                    <li><a href="{{ '/#about' | relative_url }}" class="text-gray-700 hover:text-blue-600 transition-colors">About</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        {{ content }}
+    </main>
+
+    <footer class="bg-gray-900 text-white py-8 mt-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center flex-wrap gap-4">
+                <p>&copy; {{ site.time | date: "%Y" }} {{ site.title }}. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    {% if site.github_username %}
+                    <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener" 
+                       class="hover:text-gray-300 transition-colors">GitHub</a>
+                    {% endif %}
+                    {% if site.twitter_username %}
+                    <a href="https://twitter.com/{{ site.twitter_username }}" target="_blank" rel="noopener" 
+                       class="hover:text-gray-300 transition-colors">Twitter</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+</body>
+</html>

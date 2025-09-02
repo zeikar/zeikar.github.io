@@ -1,0 +1,55 @@
+---
+layout: default
+---
+
+<article class="py-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ page.title }}</h1>
+            <p class="text-xl text-gray-600 mb-6">{{ page.description }}</p>
+            
+            {% if page.tech_stack %}
+            <div class="flex flex-wrap justify-center gap-2 mb-8">
+                {% for tech in page.tech_stack %}
+                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">
+                    {{ tech }}
+                </span>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="flex justify-center gap-4 flex-wrap">
+                {% if page.github_url %}
+                <a href="{{ page.github_url }}" target="_blank" rel="noopener" 
+                   class="px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors font-medium">
+                    View on GitHub
+                </a>
+                {% endif %}
+                {% if page.demo_url %}
+                <a href="{{ page.demo_url }}" target="_blank" rel="noopener" 
+                   class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                    Live Demo
+                </a>
+                {% endif %}
+            </div>
+        </header>
+
+        {% if page.image %}
+        <div class="mb-12 text-center">
+            <img src="{{ page.image | relative_url }}" alt="{{ page.title }}" 
+                 class="max-w-full h-auto rounded-lg shadow-lg mx-auto" loading="lazy">
+        </div>
+        {% endif %}
+
+        <div class="prose prose-lg max-w-none">
+            {{ content }}
+        </div>
+
+        <nav class="mt-12 text-center">
+            <a href="{{ '/#projects' | relative_url }}" 
+               class="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium">
+                ← Back to Projects
+            </a>
+        </nav>
+    </div>
+</article>

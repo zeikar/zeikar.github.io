@@ -1,0 +1,36 @@
+<div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+    {% if project.image %}
+    <div class="aspect-video overflow-hidden">
+        <img src="{{ project.image | relative_url }}" alt="{{ project.title }}" 
+             class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy">
+    </div>
+    {% endif %}
+    
+    <div class="p-6">
+        <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ project.title }}</h3>
+        <p class="text-gray-600 mb-4 line-clamp-3">{{ project.description }}</p>
+        
+        {% if project.tech_stack %}
+        <div class="flex flex-wrap gap-2 mb-4">
+            {% for tech in project.tech_stack %}
+            <span class="px-2 py-1 bg-gray-100 text-gray-700 rounded text-sm font-medium">
+                {{ tech }}
+            </span>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <div class="flex gap-3 flex-wrap">
+            <a href="{{ project.url | relative_url }}" 
+               class="px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors font-medium">
+                View Details
+            </a>
+            {% if project.github_url %}
+            <a href="{{ project.github_url }}" target="_blank" rel="noopener" 
+               class="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors font-medium">
+                GitHub
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
