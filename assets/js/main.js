@@ -96,29 +96,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Floating Navigation Scroll Effect
-    const nav = document.querySelector('.nav-floating');
-    let lastScrollY = window.scrollY;
-    
-    window.addEventListener('scroll', () => {
-        const currentScrollY = window.scrollY;
-        
-        if (currentScrollY > 100) {
-            nav.style.transform = 'translateX(-50%) translateY(0)';
-            nav.style.background = 'rgba(255, 255, 255, 0.15)';
-        } else {
-            nav.style.background = 'rgba(255, 255, 255, 0.1)';
-        }
-        
-        // Hide nav on scroll down, show on scroll up
-        if (currentScrollY > lastScrollY && currentScrollY > 200) {
-            nav.style.transform = 'translateX(-50%) translateY(-100px)';
-        } else {
-            nav.style.transform = 'translateX(-50%) translateY(0)';
-        }
-        
-        lastScrollY = currentScrollY;
-    });
 
     // Scroll Animations
     const observerOptions = {
