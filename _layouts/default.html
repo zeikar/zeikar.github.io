@@ -1,65 +1,135 @@
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: 'en' }}">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     {% seo %}
-    
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{{ '/assets/images/favicon.ico' | relative_url }}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="{{ '/assets/images/favicon-16x16.png' | relative_url }}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="{{ '/assets/images/favicon-32x32.png' | relative_url }}"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="{{ '/assets/images/apple-touch-icon.png' | relative_url }}"
+    />
+    <link
+      rel="manifest"
+      href="{{ '/assets/images/site.webmanifest' | relative_url }}"
+    />
+    <meta name="theme-color" content="#ffffff" />
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'sans': ['Inter', 'system-ui', 'sans-serif']
-                    }
-                }
-            }
-        }
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "system-ui", "sans-serif"],
+            },
+          },
+        },
+      };
     </script>
-    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body class="font-sans antialiased">
+    <link
+      rel="stylesheet"
+      href="{{ '/assets/css/style.css' | relative_url }}"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="font-sans antialiased">
     <!-- Floating Navigation -->
-    <nav class="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 nav-floating">
-        <div class="flex items-center gap-8 px-8 py-4 glass-card rounded-full backdrop-blur-lg bg-white/10 border border-white/20 shadow-2xl">
-            <a href="{{ '/' | relative_url }}" class="text-xl font-bold text-white hover:text-cyan-400 transition-colors">
-                {{ site.title }}
-            </a>
-            <ul class="flex space-x-6">
-                <li><a href="{{ '/' | relative_url }}" class="nav-link text-white/80 hover:text-cyan-400 transition-all duration-300 relative">Home</a></li>
-                <li><a href="{{ '/#projects' | relative_url }}" class="nav-link text-white/80 hover:text-cyan-400 transition-all duration-300 relative">Projects</a></li>
-                <li><a href="{{ '/#about' | relative_url }}" class="nav-link text-white/80 hover:text-cyan-400 transition-all duration-300 relative">About</a></li>
-            </ul>
-        </div>
+    <nav
+      class="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 nav-floating"
+    >
+      <div
+        class="flex items-center gap-8 px-8 py-4 glass-card rounded-full backdrop-blur-lg bg-white/10 border border-white/20 shadow-2xl"
+      >
+        <a
+          href="{{ '/' | relative_url }}"
+          class="text-xl font-bold text-white hover:text-cyan-400 transition-colors"
+        >
+          {{ site.title }}
+        </a>
+        <ul class="flex space-x-6">
+          <li>
+            <a
+              href="{{ '/' | relative_url }}"
+              class="nav-link text-white/80 hover:text-cyan-400 transition-all duration-300 relative"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a
+              href="{{ '/#projects' | relative_url }}"
+              class="nav-link text-white/80 hover:text-cyan-400 transition-all duration-300 relative"
+              >Projects</a
+            >
+          </li>
+          <li>
+            <a
+              href="{{ '/#about' | relative_url }}"
+              class="nav-link text-white/80 hover:text-cyan-400 transition-all duration-300 relative"
+              >About</a
+            >
+          </li>
+        </ul>
+      </div>
     </nav>
 
-    <main>
-        {{ content }}
-    </main>
+    <main>{{ content }}</main>
 
     <footer class="bg-gray-900 text-white py-8 mt-16">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center flex-wrap gap-4">
-                <p>&copy; {{ site.time | date: "%Y" }} {{ site.title }}. All rights reserved.</p>
-                <div class="flex space-x-6">
-                    {% if site.github_username %}
-                    <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener" 
-                       class="hover:text-gray-300 transition-colors">GitHub</a>
-                    {% endif %}
-                    {% if site.twitter_username %}
-                    <a href="https://twitter.com/{{ site.twitter_username }}" target="_blank" rel="noopener" 
-                       class="hover:text-gray-300 transition-colors">Twitter</a>
-                    {% endif %}
-                </div>
-            </div>
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center flex-wrap gap-4">
+          <p>
+            &copy; {{ site.time | date: "%Y" }} {{ site.title }}. All rights
+            reserved.
+          </p>
+          <div class="flex space-x-6">
+            {% if site.github_username %}
+            <a
+              href="https://github.com/{{ site.github_username }}"
+              target="_blank"
+              rel="noopener"
+              class="hover:text-gray-300 transition-colors"
+              >GitHub</a
+            >
+            {% endif %} {% if site.twitter_username %}
+            <a
+              href="https://twitter.com/{{ site.twitter_username }}"
+              target="_blank"
+              rel="noopener"
+              class="hover:text-gray-300 transition-colors"
+              >Twitter</a
+            >
+            {% endif %}
+          </div>
         </div>
+      </div>
     </footer>
 
     <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
-</body>
+  </body>
 </html>
