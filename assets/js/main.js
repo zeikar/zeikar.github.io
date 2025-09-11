@@ -75,21 +75,37 @@ document.addEventListener('DOMContentLoaded', function() {
     
     createParticles();
     
-    // Smooth scrolling for navigation links
-    const navLinks = document.querySelectorAll('a[href^="#"]');
+    // Smooth scrolling for navigation links and prevent same page reload
+    const navLinks = document.querySelectorAll('nav a');
     
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-            e.preventDefault();
+            const href = this.getAttribute('href');
             
-            const targetId = this.getAttribute('href').substring(1);
-            const targetElement = document.getElementById(targetId);
-            
-            if (targetElement) {
-                const targetPosition = targetElement.offsetTop - 100;
+            // Check if it's a hash link (internal navigation)
+            if (href.startsWith('#')) {
+                e.preventDefault();
                 
+                const targetId = href.substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    const targetPosition = targetElement.offsetTop - 100;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+            // Check if it's the same page (prevent reload)
+            else if (href === window.location.pathname || 
+                     href === window.location.pathname + window.location.search ||
+                     href === '/' && window.location.pathname === '/') {
+                e.preventDefault();
+                // Scroll to top smoothly instead of reloading
                 window.scrollTo({
-                    top: targetPosition,
+                    top: 0,
                     behavior: 'smooth'
                 });
             }

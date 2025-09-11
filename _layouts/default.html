@@ -75,21 +75,14 @@
         <ul class="flex space-x-6">
           <li>
             <a
-              href="#top"
+              href="{{ '/' | relative_url }}"
               class="nav-link text-white/80 hover:text-cyan-400 transition-all duration-300 relative"
               >Home</a
             >
           </li>
           <li>
             <a
-              href="{{ '/#projects' | relative_url }}"
-              class="nav-link text-white/80 hover:text-cyan-400 transition-all duration-300 relative"
-              >Projects</a
-            >
-          </li>
-          <li>
-            <a
-              href="{{ '/#about' | relative_url }}"
+              href="{{ '/about.html' | relative_url }}"
               class="nav-link text-white/80 hover:text-cyan-400 transition-all duration-300 relative"
               >About</a
             >
@@ -100,7 +93,7 @@
 
     <main>{{ content }}</main>
 
-    <footer class="bg-gray-900 text-white py-8 mt-16">
+    <footer class="bg-gray-900 text-white py-8">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center flex-wrap gap-4">
           <p>
