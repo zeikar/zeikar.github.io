@@ -21,17 +21,15 @@ layout: default
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
         <div class="text-center mb-20">
             <h2 class="text-5xl md:text-6xl font-bold text-white mb-6">
-                Featured <span class="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Projects</span>
+                My <span class="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Experiments</span>
             </h2>
             <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-                A collection of projects that showcase my passion for creating innovative digital experiences
+                Digital solutions built with curiosity and code - each project tells a story of innovation
             </p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {% assign featured_projects = site.projects | where: "featured", true | sort: "date" | reverse %}
-            {% assign other_projects = site.projects | where: "featured", nil | sort: "date" | reverse %}
-            {% assign all_projects = featured_projects | concat: other_projects %}
+            {% assign all_projects = site.projects | sort: "date" | reverse %}
             
             {% for project in all_projects %}
             {% include project-card.html %}

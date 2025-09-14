@@ -6,7 +6,6 @@ tech_stack: ["React", "Next.js", "JavaScript", "HTML5", "Vercel"]
 github_url: "https://github.com/zeikar/captiony"
 demo_url: "https://captiony.vercel.app"
 date: 2024-10-01
-featured: true
 ---
 
 ## Project Overview

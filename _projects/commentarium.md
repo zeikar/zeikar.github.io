@@ -6,7 +6,6 @@ tech_stack: ["Chrome Extension", "JavaScript", "HTML/CSS", "Web APIs"]
 github_url: "https://github.com/zeikar/commentarium-extension"
 demo_url: "https://commentarium.app"
 date: 2024-12-01
-featured: true
 ---
 
 ## Project Overview

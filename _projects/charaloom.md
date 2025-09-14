@@ -6,7 +6,6 @@ tech_stack: ["React", "Next.js", "Tailwind CSS", "AI APIs", "Vercel"]
 github_url: "https://github.com/zeikar/charaloom"
 demo_url: "https://charaloom.vercel.app"
 date: 2024-11-01
-featured: true
 ---
 
 ## Project Overview
