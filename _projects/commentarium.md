@@ -5,7 +5,7 @@ description: "A Chrome extension that transforms web browsing into a social expe
 tech_stack: ["Chrome Extension", "JavaScript", "HTML/CSS", "Web APIs"]
 github_url: "https://github.com/zeikar/commentarium-extension"
 demo_url: "https://commentarium.app"
-date: 2024-12-01
+sequence: 1
 ---
 
 ## Project Overview

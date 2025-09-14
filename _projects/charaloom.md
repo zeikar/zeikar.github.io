@@ -5,7 +5,7 @@ description: "AI Character Creation & Chat Platform - Create your own AI charact
 tech_stack: ["React", "Next.js", "Tailwind CSS", "AI APIs", "Vercel"]
 github_url: "https://github.com/zeikar/charaloom"
 demo_url: "https://charaloom.vercel.app"
-date: 2024-11-01
+sequence: 2
 ---
 
 ## Project Overview

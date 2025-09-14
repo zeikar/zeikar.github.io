@@ -29,7 +29,7 @@ layout: default
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {% assign all_projects = site.projects | sort: "date" | reverse %}
+            {% assign all_projects = site.projects | sort: "sequence" %}
             
             {% for project in all_projects %}
             {% include project-card.html %}
