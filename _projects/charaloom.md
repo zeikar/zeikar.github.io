@@ -3,7 +3,6 @@ layout: project
 title: "Charaloom"
 description: "AI character creation and streaming chat platform with multilingual UX, Firebase auth, and creator-friendly sharing."
 tech_stack: ["Next.js 16", "React 19", "TypeScript", "Firebase", "OpenAI AI SDK"]
-github_url: "https://github.com/zeikar/charaloom"
 demo_url: "https://charaloom.vercel.app"
 sequence: 3
 ---

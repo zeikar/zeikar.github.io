@@ -1,7 +1,7 @@
 ---
 layout: project
 title: "LiveClaw"
-description: "Desktop AI companion built on Electron with Live2D avatars, OpenClaw-based chat, and integrated speech synthesis."
+description: "OpenClaw-powered desktop companion with Live2D avatars, voice input/output, and a practical Electron architecture."
 tech_stack: ["Electron", "React 19", "TypeScript", "Charivo", "OpenClaw"]
 github_url: "https://github.com/zeikar/liveclaw"
 image: "/assets/images/projects/liveclaw.png"
@@ -10,35 +10,42 @@ sequence: 2
 
 ## Project Overview
 
-LiveClaw is a desktop AI companion that brings Live2D avatars and local-first chat workflows into a single Electron app. It integrates Charivo for character orchestration and OpenClaw as the local LLM backend.
+LiveClaw is an OpenClaw-powered desktop companion currently in active development. It combines Live2D characters, local-first chat, and speech features in a single Electron app built with React and TypeScript.
 
 ## Key Features
 
-- **Desktop-first UX**: Native-packaged experience for macOS, Windows, and Linux
-- **Live2D Character Rendering**: Avatar motion and expression playback via Charivo renderer stack
-- **Local LLM Integration**: OpenClaw provider in Electron main process for stable local chat calls
-- **Voice Output**: OpenAI TTS playback for spoken assistant responses
-- **IPC-based Architecture**: Clear boundary between renderer UI and backend provider operations
-- **Roadmap-ready Foundation**: Structured for upcoming STT and streaming improvements
+- **Electron Desktop Shell**: Native packaging targets for macOS, Windows, and Linux
+- **Live2D Integration**: Avatar rendering and motion playback via `@charivo/render-live2d`
+- **OpenClaw Chat Backend**: OpenAI-compatible local LLM calls routed through the main process
+- **Direct TTS Playback**: Renderer-side OpenAI TTS for quick local voice output
+- **Clear Process Boundary**: Renderer UI and provider calls are separated through IPC
+- **WIP Roadmap**: Foundation prepared for STT and streaming upgrades
+
+## Architecture Notes
+
+- **Renderer Layer**: React UI + Charivo orchestration + Live2D panel
+- **Main Process Layer**: OpenClaw provider and Node-side API calls
+- **Provider Access Pattern**: Chat via IPC to avoid renderer CORS/PNA issues
+- **TTS Path**: Direct renderer API usage for local development convenience
 
 ## Technical Challenges & Solutions
 
-### Challenge 1: Cross-process orchestration
-Used IPC boundaries to bridge renderer interactions with provider logic in the Electron main process.
+### Challenge 1: Cross-process coordination
+Chat events, rendering lifecycle, and provider calls were split cleanly between renderer and main process responsibilities.
 
-### Challenge 2: Realtime character feedback
-Connected chat events to character rendering layers to keep text output and avatar behavior in sync.
+### Challenge 2: Character synchronization
+Live2D state and conversation flow were wired through Charivo so motion/response behavior stays coherent.
 
-### Challenge 3: Practical local security
-Balanced local development speed with key-handling constraints and clear environment-based configuration.
+### Challenge 3: Local-dev practicality vs security
+Direct renderer-side TTS improves local iteration speed, but requires explicit key-handling cautions for trusted environments.
 
 ## What I Learned
 
-- Packaging AI-enabled apps for desktop targets with Electron tooling
-- Structuring hybrid UI + local-provider systems without coupling
-- Applying Charivo modules inside a production desktop architecture
-- Managing tradeoffs between local convenience and secure key usage
+- Desktop packaging and runtime workflows with Electron + electron-vite
+- Hybrid architecture patterns for renderer/main process separation
+- Applying framework modules (`Charivo`) in a real desktop product
+- Making pragmatic tradeoffs while keeping a path to production hardening
 
 ## Impact
 
-LiveClaw is a concrete bridge from reusable framework modules to a user-facing desktop product, validating Charivo in a real application context.
+LiveClaw validates a practical path from reusable character framework modules to a user-facing desktop companion product.
