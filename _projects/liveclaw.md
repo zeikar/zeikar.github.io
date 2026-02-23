@@ -5,7 +5,7 @@ description: "OpenClaw-powered desktop companion with Live2D avatars, voice inpu
 tech_stack: ["Electron", "React 19", "TypeScript", "Charivo", "OpenClaw"]
 github_url: "https://github.com/zeikar/liveclaw"
 image: "/assets/images/projects/liveclaw.png"
-sequence: 2
+sequence: 4
 ---
 
 ## Project Overview

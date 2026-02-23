@@ -6,7 +6,7 @@ tech_stack: ["JavaScript", "HTML", "CSS", "GitHub Pages"]
 github_url: "https://github.com/zeikar/kakaotalk-viewer"
 demo_url: "https://zeikar.github.io/kakaotalk-viewer/"
 image: "/assets/images/projects/kakaotalk-viewer.png"
-sequence: 8
+sequence: 10
 ---
 
 ## Project Overview

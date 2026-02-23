@@ -5,7 +5,8 @@ description: "Random decision app with a name wheel and dice roller for quick, f
 tech_stack: ["Next.js 16", "React 19", "TypeScript", "next-intl", "Tailwind CSS 4"]
 github_url: "https://github.com/zeikar/whozzie"
 demo_url: "https://whozzie.vercel.app"
-sequence: 7
+image: "/assets/images/projects/whozzie.png"
+sequence: 9
 ---
 
 ## Project Overview
