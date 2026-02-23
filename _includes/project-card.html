@@ -1,4 +1,4 @@
-<div class="project-card-3d group perspective-1000">
+<div class="project-card-3d group perspective-1000 cursor-pointer" data-project-url="{{ project.url | relative_url }}" role="link" tabindex="0" aria-label="Open {{ project.title }} project details">
     <div class="project-card-inner relative preserve-3d transition-all duration-500 hover:rotate-y-12 hover:-translate-y-4">
         <!-- Main Card -->
         <div class="glass-card rounded-2xl backdrop-blur-lg bg-white/10 border border-white/20 overflow-hidden shadow-2xl">
@@ -36,6 +36,12 @@
                        class="flex-1 px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg hover:from-cyan-400 hover:to-blue-500 transition-all font-medium text-center transform hover:scale-105">
                         View Project
                     </a>
+                    {% if project.demo_url %}
+                    <a href="{{ project.demo_url }}" target="_blank" rel="noopener" 
+                       class="px-4 py-2 bg-emerald-500/20 text-emerald-300 rounded-lg hover:bg-emerald-500/30 transition-all font-medium border border-emerald-400/30 transform hover:scale-105">
+                        Demo
+                    </a>
+                    {% endif %}
                     {% if project.github_url %}
                     <a href="{{ project.github_url }}" target="_blank" rel="noopener" 
                        class="px-4 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-all font-medium border border-white/20 transform hover:scale-105">

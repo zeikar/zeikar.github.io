@@ -1,45 +1,45 @@
 ---
 layout: project
 title: "Captiony"
-description: "Online Subtitle Editor - Create, edit and sync subtitles for your videos online with support for SRT and VTT formats"
-tech_stack: ["React", "Next.js", "JavaScript", "HTML5", "Vercel"]
+description: "Web-based subtitle editor for fast, precise SRT/VTT authoring with timeline controls and local auto-save."
+tech_stack: ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS 4", "Zustand"]
 github_url: "https://github.com/zeikar/captiony"
 demo_url: "https://captiony.vercel.app"
-sequence: 3
+image: "/assets/images/projects/captiony.png"
+sequence: 4
 ---
 
 ## Project Overview
 
-Captiony is a free, web-based subtitle editor designed to make video accessibility simple and efficient. The platform allows users to create, edit, and synchronize subtitles for their videos directly in the browser without requiring any software installation.
+Captiony is a browser-first subtitle editor focused on usability and speed. It supports full subtitle workflows in one screen: upload a video, edit captions on a timeline, preview changes in real time, and export ready-to-use subtitle files.
 
 ## Key Features
 
-- **Multi-format Support**: Full support for SRT and VTT subtitle file formats
-- **Real-time Synchronization**: Edit and sync subtitles with video playback in real-time
-- **Drag & Drop Interface**: Intuitive file handling with drag-and-drop functionality
-- **Export Functionality**: Download edited subtitles in various formats
-- **Browser-based**: No installation required, works entirely in the web browser
-- **Free to Use**: Completely free subtitle editing solution
+- **Timeline Editing**: Drag and resize subtitle bars for precise timing control
+- **Real-time Preview**: Validate subtitle placement and timing while video plays
+- **Import & Export**: Supports both SRT and VTT formats
+- **Auto-save Recovery**: Persist work to localStorage to prevent accidental loss
+- **Keyboard-Driven Workflow**: Shortcut support for faster professional editing
+- **Theme Support**: Dark/light mode for long editing sessions
 
 ## Technical Challenges & Solutions
 
-### Challenge 1: Video Synchronization
-Implemented precise timing controls and visual waveform integration to ensure accurate subtitle-to-audio synchronization across different video formats.
+### Challenge 1: Time-accurate interaction
+Built timeline interactions that keep subtitle timestamps consistent while users drag, resize, seek, and zoom.
 
-### Challenge 2: File Format Compatibility
-Built robust parsers and exporters for multiple subtitle formats, ensuring seamless conversion between SRT and VTT while maintaining formatting integrity.
+### Challenge 2: File-format reliability
+Implemented strict import/export paths for SRT and VTT so edited subtitles round-trip correctly between tools.
 
-### Challenge 3: Browser Performance
-Optimized video processing and subtitle rendering to handle large files smoothly across different browsers and devices.
+### Challenge 3: Browser-only persistence
+Designed a low-friction save strategy using localStorage so users can safely resume work without backend state.
 
 ## What I Learned
 
-- Video processing and HTML5 media APIs
-- Subtitle file format parsing and generation
-- Real-time synchronization algorithms
-- Browser-based file handling and drag-and-drop interfaces
-- Accessibility standards and inclusive design principles
+- Designing timeline-heavy UI for real editing scenarios
+- Balancing precision controls with a clean beginner-friendly UX
+- State management for media, subtitles, and timeline viewport behavior
+- Building reliable browser-native file workflows without server dependency
 
 ## Impact
 
-Captiony democratizes video accessibility by providing content creators, educators, and accessibility professionals with a powerful, free tool to make videos more inclusive. The platform removes technical barriers and makes subtitle creation accessible to everyone.
+Captiony lowers the barrier to accessible video publishing by letting creators produce subtitles quickly without installing heavy desktop tools.

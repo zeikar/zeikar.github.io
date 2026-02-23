@@ -194,6 +194,24 @@ document.addEventListener('DOMContentLoaded', function() {
             const inner = card.querySelector('.project-card-inner');
             inner.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
         });
+
+        const projectUrl = card.dataset.projectUrl;
+        if (projectUrl) {
+            const openProject = (event) => {
+                if (event.target.closest('a, button, input, textarea, select, label')) {
+                    return;
+                }
+                window.location.href = projectUrl;
+            };
+
+            card.addEventListener('click', openProject);
+            card.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    openProject(event);
+                }
+            });
+        }
     });
 
     // Cursor Trail Effect

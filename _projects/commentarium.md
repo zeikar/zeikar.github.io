@@ -1,43 +1,43 @@
 ---
 layout: project
 title: "Commentarium"
-description: "A Chrome extension that transforms web browsing into a social experience by allowing users to rate, comment, and vote on any website"
-tech_stack: ["Chrome Extension", "JavaScript", "HTML/CSS", "Web APIs"]
+description: "Chrome extension that adds a social layer to any page with ratings, comments, and community voting."
+tech_stack: ["Chrome Extension APIs", "React 18", "TypeScript", "Vite", "Jest"]
 github_url: "https://github.com/zeikar/commentarium-extension"
 demo_url: "https://commentarium.app"
-sequence: 1
+image: "/assets/images/projects/commentarium.png"
+sequence: 5
 ---
 
 ## Project Overview
 
-Commentarium is a revolutionary Chrome browser extension that transforms every website into a social experience. Users can rate, comment, and vote on any website, creating a community-driven layer of interaction across the entire web.
+Commentarium is a browser extension that makes the web conversational by letting users leave opinions and discover community sentiment directly on any site.
 
 ## Key Features
 
-- **Universal Rating System**: Rate any website with a simple, intuitive interface
-- **Comment Anywhere**: Leave comments on any page and engage in discussions with other users
-- **Community Voting**: Upvote valuable insights and help surface the most meaningful discussions
-- **Cross-Platform Support**: Works seamlessly across platforms like Wikipedia, YouTube, and any website
-- **Social Web Experience**: Transform passive browsing into active community engagement
+- **Universal Page Rating**: Apply ratings across arbitrary web pages
+- **Contextual Comments**: Add and browse comments tied to the current URL
+- **Voting Mechanics**: Upvote/downvote interactions to surface quality discussions
+- **Cross-site Compatibility**: Content scripts designed for heterogeneous web structures
+- **Fast Iteration Workflow**: Vite-based build and reload loop for extension development
 
 ## Technical Challenges & Solutions
 
-### Challenge 1: Universal Web Integration
-Developed a robust content script injection system that works across all websites while maintaining performance and security standards.
+### Challenge 1: Injection reliability
+Handled content script behavior across different DOM structures and loading strategies without breaking host pages.
 
 ### Challenge 2: Real-time Social Features
-Implemented real-time comment synchronization and voting mechanisms to create a seamless social experience.
+Implemented interaction flows for comments and votes while keeping extension UI responsive.
 
 ### Challenge 3: Cross-Site Compatibility
-Ensured the extension works reliably across different website architectures and content management systems.
+Built predictable extension packaging and manifest workflows for stable cross-page behavior.
 
 ## What I Learned
 
-- Browser extension development and Chrome API integration
-- Cross-origin resource sharing (CORS) and web security principles
-- Real-time data synchronization and social platform architecture
-- User experience design for universal web tools
-- Community-driven feature development and user feedback integration
+- Chrome extension architecture and permission boundaries
+- Practical TypeScript patterns in browser extension contexts
+- Testing and maintaining extension-specific UI with Jest + React
+- Product tradeoffs for social signals on top of existing web surfaces
 
 ## Impact
 

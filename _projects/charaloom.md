@@ -1,45 +1,44 @@
 ---
 layout: project
 title: "Charaloom"
-description: "AI Character Creation & Chat Platform - Create your own AI character, chat freely, save them, and share with the world"
-tech_stack: ["React", "Next.js", "Tailwind CSS", "AI APIs", "Vercel"]
+description: "AI character creation and streaming chat platform with multilingual UX, Firebase auth, and creator-friendly sharing."
+tech_stack: ["Next.js 16", "React 19", "TypeScript", "Firebase", "OpenAI AI SDK"]
 github_url: "https://github.com/zeikar/charaloom"
 demo_url: "https://charaloom.vercel.app"
-sequence: 2
+sequence: 3
 ---
 
 ## Project Overview
 
-Charaloom is an innovative AI-powered platform that enables users to create, customize, and interact with AI-generated characters. The platform democratizes character creation by allowing users to generate unique characters from simple text descriptions without requiring any drawing skills.
+Charaloom is a full-stack AI character platform where users can create characters, manage profiles, and chat in real time. It combines content creation, social discovery, and conversational AI into one product experience.
 
 ## Key Features
 
-- **AI Character Generation**: Create unique characters from text descriptions using advanced AI technology
-- **Full Customization**: Customize character pose, expression, outfit, and background
-- **Interactive Chat**: Engage in conversations with your created AI characters
-- **Community Sharing**: Share characters publicly or keep them private
-- **Multi-language Support**: Available in English and Korean
-- **Responsive Design**: Works seamlessly across all devices
+- **Character CRUD**: Create, edit, and manage personalized AI characters
+- **Streaming Chat**: Low-latency chat flow with OpenAI SDK streaming responses
+- **Auth System**: Google sign-in, anonymous sign-in, and account upgrade support
+- **Content Discovery**: Preset lists and infinite-scroll browsing for character exploration
+- **Multilingual Routing**: Localized UX with `en` and `ko` routes using `next-intl`
+- **Profile Management**: User profile updates, account controls, and privacy-aware flows
 
 ## Technical Challenges & Solutions
 
-### Challenge 1: AI Integration
-Integrated multiple AI services to handle character generation, ensuring consistent quality and fast response times across different character types.
+### Challenge 1: Reliable state boundaries
+Used TanStack Query for server state and Zustand for local UI state to keep chat, feed, and form workflows predictable.
 
-### Challenge 2: Real-time Chat
-Implemented efficient real-time chat functionality that maintains character personality and context throughout conversations.
+### Challenge 2: End-to-end chat architecture
+Structured API and backend layers to keep persona context, history handling, and streaming output maintainable over time.
 
-### Challenge 3: User Experience
-Designed an intuitive workflow that guides users from character creation to interaction, making the complex AI technology accessible to everyone.
+### Challenge 3: Auth and data integration
+Integrated Firebase Auth, Firestore, and Storage with API routes to support secure, user-scoped content operations.
 
 ## What I Learned
 
-- AI service integration and prompt engineering
-- Modern React patterns with Next.js and server-side rendering
-- Real-time communication systems and state management
-- User-centered design for AI-powered applications
-- Deployment and scaling on Vercel platform
+- Applying app-router patterns to a complex product surface
+- Designing AI UX that balances speed, control, and personality consistency
+- Building testable frontend/domain logic with Vitest and React Testing Library
+- Shipping multilingual interfaces without fragmenting core product logic
 
 ## Impact
 
-Charaloom bridges the gap between imagination and interaction, allowing users to bring their creative ideas to life and engage with AI in a personalized, meaningful way. The platform opens up new possibilities for storytelling, roleplay, and creative expression.
+Charaloom turns character ideation into an interactive social product, enabling creators to move from concept to conversation in minutes.
