@@ -15,5 +15,15 @@ permalink: /sitemap.xml
   <url>
     <loc>{{ site.url }}{{ site.baseurl }}{{ project.url }}</loc>
   </url>
+  {% if project.demo_url and project.demo_url contains site.url %}
+  <url>
+    <loc>{{ project.demo_url }}</loc>
+  </url>
+  {% endif %}
+{% endfor %}
+{% for url in site.extra_sitemap_urls %}
+  <url>
+    <loc>{{ url }}</loc>
+  </url>
 {% endfor %}
 </urlset>

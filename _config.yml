@@ -30,6 +30,13 @@ social:
   links:
     - https://github.com/zeikar
 
+# Additional same-origin URLs to include in sitemap.xml
+extra_sitemap_urls:
+  - https://zeikar.github.io/blog/
+  - https://zeikar.github.io/atcoder/
+  - https://zeikar.github.io/leetcode/
+  - https://zeikar.github.io/interactive-developer-clone/
+
 # Exclude from processing
 exclude:
   - .sass-cache/
