@@ -1,0 +1,29 @@
+---
+layout: null
+permalink: /sitemap-main.xml
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>{{ site.url }}{{ site.baseurl }}/</loc>
+  </url>
+  <url>
+    <loc>{{ site.url }}{{ site.baseurl }}/about.html</loc>
+  </url>
+{% assign sorted_projects = site.projects | sort: "sequence" %}
+{% for project in sorted_projects %}
+  <url>
+    <loc>{{ site.url }}{{ site.baseurl }}{{ project.url }}</loc>
+  </url>
+  {% if project.demo_url and project.demo_url contains site.url %}
+  <url>
+    <loc>{{ project.demo_url }}</loc>
+  </url>
+  {% endif %}
+{% endfor %}
+{% for url in site.extra_sitemap_urls %}
+  <url>
+    <loc>{{ url }}</loc>
+  </url>
+{% endfor %}
+</urlset>

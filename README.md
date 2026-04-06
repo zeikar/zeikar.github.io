@@ -8,7 +8,8 @@ The site currently includes:
 - A portfolio landing page
 - An about page
 - Project detail pages generated from the `_projects` collection
-- Manually maintained `sitemap.xml` and `robots.txt`
+- Root `sitemap.xml` index and `robots.txt`
+- Manually maintained `sitemap-main.xml`
 
 ## Project Structure
 
@@ -21,7 +22,8 @@ The site currently includes:
 ├── _layouts/              # Layout templates
 ├── _includes/             # Shared UI partials
 ├── assets/                # CSS, JS, images
-├── sitemap.xml            # Custom sitemap
+├── sitemap.xml            # Root sitemap index
+├── sitemap-main.xml       # Main site sitemap
 └── robots.txt             # Crawl directives
 ```
 
@@ -86,7 +88,7 @@ The `sequence` field controls the ordering on the home page.
 
 ### Add Extra Sitemap URLs
 
-- If a file in `_projects/*.md` has a `demo_url` under `https://zeikar.github.io`, it will be included in `sitemap.xml` automatically.
+- If a file in `_projects/*.md` has a `demo_url` under `https://zeikar.github.io`, it will be included in `sitemap-main.xml` automatically.
 - If a URL should be included separately from project content, add it to `extra_sitemap_urls` in `_config.yml`.
 
 ## Notes
