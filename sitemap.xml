@@ -10,4 +10,7 @@ permalink: /sitemap.xml
   <sitemap>
     <loc>{{ site.url }}/backend-interview-guide/sitemap.xml</loc>
   </sitemap>
+  <sitemap>
+    <loc>{{ site.url }}/charivo/sitemap.xml</loc>
+  </sitemap>
 </sitemapindex>
