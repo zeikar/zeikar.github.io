@@ -1,8 +1,8 @@
 ---
 layout: project
 title: "KakaoTalk Viewer"
-description: "Web-based viewer for exported KakaoTalk chats, with UI inspired by real messenger conversation layouts."
-tech_stack: ["JavaScript", "HTML", "CSS", "GitHub Pages"]
+description: "Browser-only viewer for KakaoTalk export files with search, date navigation, and multi-platform parser support."
+tech_stack: ["Preact", "TypeScript", "Vite", "Tailwind CSS", "Vitest"]
 github_url: "https://github.com/zeikar/kakaotalk-viewer"
 demo_url: "https://zeikar.github.io/kakaotalk-viewer/"
 image: "/assets/images/projects/kakaotalk-viewer.png"
@@ -11,34 +11,35 @@ sequence: 10
 
 ## Project Overview
 
-KakaoTalk Viewer is a simple web viewer for KakaoTalk export files. It focuses on quickly rendering chat logs in a familiar conversation-style interface so users can review history more comfortably.
+KakaoTalk Viewer is a browser-based viewer for KakaoTalk export files. It renders exported `.txt` and `.csv` chat logs in a familiar messenger-style interface, so users can inspect long conversation histories without installing a desktop app or uploading private chat data to a server.
 
 ## Key Features
 
-- **Exported Chat Rendering**: Displays exported KakaoTalk text conversations in a readable UI
-- **Messenger-style Layout**: Interface inspired by KakaoTalk chat visuals
-- **Browser-only Usage**: Runs as a static web app without backend setup
-- **Cross-platform Export Support**: Handles export formats from major KakaoTalk environments
-- **Instant Access via GitHub Pages**: Hosted for immediate use and sharing
+- **Multi-platform Parsing**: Supports KakaoTalk exports from Windows, macOS, Android, and iOS
+- **Private Browser-only Workflow**: Reads and renders files locally in the browser without server upload
+- **Search & Date Navigation**: Find messages quickly and jump by date, oldest message, or latest message
+- **Messenger-style Rendering**: Preserves date headers, invite/leave notifications, multiline messages, and links
+- **Large Chat Performance**: Uses virtual scrolling to keep long conversation histories responsive
+- **Static Deployment**: Runs as a GitHub Pages app with no backend dependency
 
 ## Technical Challenges & Solutions
 
 ### Challenge 1: Export format differences
-Adjusted parsing and display logic to account for differences in exported data from Windows, macOS, and Android versions.
+Built separate parsers for Windows, macOS, Android, and iOS exports, including Korean and English locale variations, 12-hour/24-hour time formats, CSV quoting, multiline messages, and system notifications.
 
-### Challenge 2: Familiar visual structure
-Implemented message grouping and bubble-style rendering so logs feel closer to real chat context.
+### Challenge 2: Navigating long histories
+Added virtualized rendering, message search, date indexing, and calendar-based jumps so old chat rooms remain fast and practical to browse.
 
-### Challenge 3: Zero-backend simplicity
-Kept the app fully static and lightweight for easy deployment and low maintenance overhead.
+### Challenge 3: Privacy-sensitive file handling
+Kept all parsing on the client side. The selected export file is read through browser APIs and never needs to leave the user's local browser session.
 
 ## What I Learned
 
-- Building parser-driven frontends with plain JavaScript
-- Handling text-format edge cases across platform versions
-- Improving readability of dense conversation logs
-- Shipping utility tools quickly with static hosting
+- Designing parser-driven frontend tools with strong test coverage
+- Handling platform, locale, and timestamp differences in real-world text exports
+- Building usable navigation for dense conversation logs
+- Keeping privacy-sensitive utilities simple through static deployment
 
 ## Impact
 
-KakaoTalk Viewer makes exported conversation data easier to inspect and share, especially when users need quick, visual review outside the KakaoTalk app.
+KakaoTalk Viewer makes exported conversation data easier to inspect, search, and revisit while keeping private chat files local to the user's browser.
