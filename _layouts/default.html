@@ -97,6 +97,12 @@
           >
             About
           </a>
+          <a
+            href="{{ '/resume.html' | relative_url }}"
+            class="nav-link {% if page.url == '/resume.html' or page.url == '/resume-ko.html' %}is-active{% endif %}"
+          >
+            Resume
+          </a>
           {% if site.github_username %}
           <a
             href="https://github.com/{{ site.github_username }}"
@@ -118,6 +124,7 @@
         <p>
           (c) {{ site.time | date: "%Y" }} {{ site.title }}
         </p>
+        {% unless page.hide_footer_links == true %}
         <div class="footer-links">
           {% if site.github_username %}
           <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener">GitHub</a>
@@ -125,10 +132,11 @@
           {% if site.twitter_username %}
           <a href="https://twitter.com/{{ site.twitter_username }}" target="_blank" rel="noopener">Twitter</a>
           {% endif %}
-          {% if site.email %}
+          {% if site.email and page.hide_footer_email != true %}
           <a href="mailto:{{ site.email }}">Email</a>
           {% endif %}
         </div>
+        {% endunless %}
       </div>
     </footer>
 
