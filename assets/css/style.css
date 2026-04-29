@@ -664,26 +664,40 @@ a {
   padding-left: 1.15rem;
 }
 
-.resume-projects {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.65rem;
+.resume-project-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
   margin-top: 1rem;
 }
 
-.resume-projects a {
-  display: inline-flex;
-  border: 1px solid rgba(15, 139, 141, 0.28);
-  border-radius: 999px;
-  background: rgba(116, 185, 182, 0.13);
-  color: #106d6f;
-  padding: 0.48rem 0.78rem;
-  font-weight: 700;
+.resume-project {
+  border: 1px solid rgba(31, 42, 55, 0.1);
+  border-radius: 1rem;
+  background: rgba(255, 253, 248, 0.72);
+  padding: 1rem;
 }
 
-.resume-projects a:hover {
-  border-color: rgba(15, 139, 141, 0.48);
-  background: rgba(116, 185, 182, 0.2);
+.resume-project h3 {
+  margin: 0;
+  font-family: "Bricolage Grotesque", "Space Grotesk", sans-serif;
+  font-size: 1.15rem;
+}
+
+.resume-project h3 a {
+  color: var(--accent);
+}
+
+.resume-project h3 a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.resume-project p {
+  margin: 0.55rem 0 0;
+  color: #334155;
+  font-size: 0.95rem;
 }
 
 .resume-grid {
@@ -703,6 +717,17 @@ a {
 
 .resume-panel p {
   margin: 0.55rem 0 0;
+}
+
+.resume-panel a {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.resume-panel a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
 }
 
 .resume-bottom-link {
@@ -783,7 +808,8 @@ a {
   }
 
   .resume-hero,
-  .resume-grid {
+  .resume-grid,
+  .resume-project-list {
     grid-template-columns: 1fr;
   }
 

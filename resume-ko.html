@@ -68,14 +68,108 @@ hide_footer_links: true
 
     <section class="resume-section reveal">
       <div class="resume-section-head">
+        <p class="eyebrow">Earlier Experience</p>
+        <h2>삼성SDS</h2>
+        <p>Software Engineering Intern · 2018-07 - 2018-08</p>
+      </div>
+
+      <div class="resume-timeline">
+        <article class="resume-item">
+          <div class="resume-item-meta">Internship</div>
+          <div class="resume-item-body">
+            <h3>풀스택 솔루션 프로토타입</h3>
+            <p>
+              Java, Spring Boot, gRPC, Vue.js를 사용해 백엔드와 프론트엔드 레이어를 포함한
+              솔루션 프로토타입을 개발했습니다.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="resume-section reveal">
+      <div class="resume-section-head">
         <p class="eyebrow">Selected Projects</p>
         <h2>개인 프로젝트</h2>
       </div>
-      <div class="resume-projects">
-        <a href="{{ '/projects/charivo/' | relative_url }}">Charivo</a>
-        <a href="{{ '/projects/charaloom/' | relative_url }}">Charaloom</a>
-        <a href="{{ '/projects/commentarium/' | relative_url }}">Commentarium</a>
-        <a href="{{ '/projects/kimcp/' | relative_url }}">KiMCP</a>
+      <div class="resume-project-list">
+        <article class="resume-project">
+          <h3><a href="{{ '/projects/charivo/' | relative_url }}">Charivo</a></h3>
+          <p>
+            Live2D와 LLM을 결합한 인터랙티브 AI 캐릭터를 만들기 위한 모듈형 프레임워크입니다.
+            음성, realtime, 렌더링 레이어를 교체 가능한 구조로 설계했습니다.
+          </p>
+          <div class="project-tags">
+            <span>TypeScript</span>
+            <span>Live2D</span>
+            <span>LLM/TTS/STT</span>
+          </div>
+        </article>
+
+        <article class="resume-project">
+          <h3><a href="{{ '/projects/charaloom/' | relative_url }}">Charaloom</a></h3>
+          <p>
+            AI 캐릭터 생성과 스트리밍 채팅을 제공하는 풀스택 플랫폼입니다.
+            다국어 UX, Firebase 인증, 캐릭터 공유 흐름을 포함합니다.
+          </p>
+          <div class="project-tags">
+            <span>Next.js</span>
+            <span>Firebase</span>
+            <span>OpenAI SDK</span>
+          </div>
+        </article>
+
+        <article class="resume-project">
+          <h3><a href="{{ '/projects/commentarium/' | relative_url }}">Commentarium</a></h3>
+          <p>
+            웹 어디에서든 댓글, 평점, 커뮤니티 투표를 남길 수 있도록 페이지 위에
+            소셜 레이어를 더하는 크롬 익스텐션입니다.
+          </p>
+          <div class="project-tags">
+            <span>Chrome Extension</span>
+            <span>React</span>
+            <span>TypeScript</span>
+          </div>
+        </article>
+
+        <article class="resume-project">
+          <h3><a href="{{ '/projects/liveclaw/' | relative_url }}">LiveClaw</a></h3>
+          <p>
+            Electron, React, Charivo, OpenClaw를 사용해 Live2D 아바타와 로컬 우선 채팅,
+            음성 상호작용을 연결한 데스크톱 컴패니언입니다.
+          </p>
+          <div class="project-tags">
+            <span>Electron</span>
+            <span>React</span>
+            <span>Charivo</span>
+          </div>
+        </article>
+
+        <article class="resume-project">
+          <h3><a href="{{ '/projects/captiony/' | relative_url }}">Captiony</a></h3>
+          <p>
+            타임라인 컨트롤, 실시간 미리보기, 로컬 자동 저장을 제공하는 브라우저 기반
+            SRT/VTT 자막 편집기입니다.
+          </p>
+          <div class="project-tags">
+            <span>Next.js</span>
+            <span>TypeScript</span>
+            <span>Media UI</span>
+          </div>
+        </article>
+
+        <article class="resume-project">
+          <h3><a href="{{ '/projects/kimcp/' | relative_url }}">KiMCP</a></h3>
+          <p>
+            네이버, 카카오, TMAP 같은 국내 API를 LLM 애플리케이션과 에이전트 워크플로우에서
+            사용할 수 있도록 노출하는 MCP 서버입니다.
+          </p>
+          <div class="project-tags">
+            <span>Python</span>
+            <span>MCP</span>
+            <span>Korean APIs</span>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -92,6 +186,9 @@ hide_footer_links: true
           <span>Temporal</span>
           <span>LLM APIs</span>
           <span>Next.js</span>
+          <span>React</span>
+          <span>Electron</span>
+          <span>MCP</span>
         </div>
       </article>
 
@@ -106,7 +203,15 @@ hide_footer_links: true
         <ul>
           <li>TOPCIT 특별상</li>
           <li>동국대학교 프로그래밍 경진대회 금상</li>
-          <li>오픈소스 컨트리뷰션 아카데미</li>
+          <li>
+            <a href="https://www.oss.kr/contribution_academy" target="_blank" rel="noopener">오픈소스 컨트리뷰션 아카데미</a>:
+            <a href="https://github.com/yorkie-team/yorkie" target="_blank" rel="noopener">Yorkie</a> 프로젝트에 기여
+          </li>
+          <li>
+            Global Game Jam:
+            <a href="https://globalgamejam.org/2021/games/bear-forest-0" target="_blank" rel="noopener">2021</a> ·
+            <a href="https://globalgamejam.org/2018/games/telephone-operator-%EC%A0%84%ED%99%94-%EA%B5%90%ED%99%98%EC%88%98" target="_blank" rel="noopener">2018</a>
+          </li>
         </ul>
       </article>
     </section>
