@@ -132,4 +132,4 @@ The diff was wildly in our favor. The hardest part was admitting the first desig
 
 ---
 
-*Code: [commentarium-extension](https://github.com/zeikar/commentarium-extension), [commentarium](https://github.com/zeikar/commentarium). The CHIPS-redesign cycle landed as [extension PR #2](https://github.com/zeikar/commentarium-extension/pull/2) and [webapp PR #73](https://github.com/zeikar/commentarium/pull/73).*
+*Code: [commentarium-extension](https://github.com/zeikar/commentarium-extension). The CHIPS-redesign cycle landed as [extension PR #2](https://github.com/zeikar/commentarium-extension/pull/2).*

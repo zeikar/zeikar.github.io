@@ -129,4 +129,4 @@ diff는 압도적으로 우리 편이었다. 가장 어려운 건 첫 번째 디
 
 ---
 
-*코드: [commentarium-extension](https://github.com/zeikar/commentarium-extension), [commentarium](https://github.com/zeikar/commentarium). CHIPS 리디자인 사이클은 [확장 PR #2](https://github.com/zeikar/commentarium-extension/pull/2) 와 [webapp PR #73](https://github.com/zeikar/commentarium/pull/73) 으로 머지됐다.*
+*코드: [commentarium-extension](https://github.com/zeikar/commentarium-extension). CHIPS 리디자인 사이클은 [확장 PR #2](https://github.com/zeikar/commentarium-extension/pull/2) 로 머지됐다.*
