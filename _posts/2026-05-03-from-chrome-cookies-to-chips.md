@@ -1,14 +1,16 @@
 ---
-title: "From chrome.cookies to CHIPS"
+title: "Chrome Extension Iframe Auth: From chrome.cookies to CHIPS"
 subtitle: "How a Chrome extension's iframe survives third-party cookie blocking — without bypassing the browser."
 date: 2026-05-03
 lang: en
 translations:
   ko: /blog/ko/from-chrome-cookies-to-chips/
-description: "We tried to write partitioned session cookies from a Chrome extension's service worker via chrome.cookies. CHIPS — a one-attribute change on the server's Set-Cookie — turned out to be the right answer. A walk-through of the trap, the aha moment, and what the diff looked like."
+description: "Authenticating a Chrome extension's iframe under third-party cookie blocking — the chrome.cookies API trap, the CHIPS Set-Cookie solution, and the diff in between."
 ---
 
-Last week our extension shipped on a new auth contract. A surprisingly mechanical change in the end, but the path there was a sharp lesson on what *bypassing the browser* actually costs you.
+This is a story about authenticating a Chrome extension's iframe in a world that blocks third-party cookies — specifically, why the `chrome.cookies` API was the wrong tool and the standard CHIPS `Set-Cookie` attribute was the right one.
+
+A surprisingly mechanical change in the end. The path there was a sharp lesson on what *bypassing the browser* actually costs you.
 
 The setup is small: [Commentarium](https://commentarium.app) is a comments app for any URL, and the [Chrome extension](https://github.com/zeikar/commentarium-extension) injects a side panel on every page with `commentarium.app/comments?url=…` in an iframe. So the iframe is `commentarium.app` content embedded in arbitrary top-level sites — a textbook third-party context.
 
@@ -16,7 +18,7 @@ Modern browsers block third-party cookies by default. The iframe's session cooki
 
 We had a plan. It worked. Then it didn't.
 
-## First attempt: chrome.cookies (cycle 3)
+## First attempt: writing partitioned cookies via chrome.cookies (cycle 3)
 
 The MV3 broker pattern is well-established: the service worker is the source of auth state, and the iframe talks to it via `chrome.runtime.sendMessage` (gated by `externally_connectable.matches`). On sign-in, the SW would:
 
@@ -51,7 +53,7 @@ That's [CHIPS](https://developer.chrome.com/docs/privacy-security/privacy-sandbo
 
 This is what CHIPS was designed for. We were trying to bypass it.
 
-## Second attempt: CHIPS (cycle 4)
+## Second attempt: server-side Set-Cookie with the CHIPS attribute (cycle 4)
 
 The redesign collapses the SW into a thin token vendor:
 
@@ -115,7 +117,7 @@ The two cycles, side by side:
 
 No `host_permissions`, no `cookies` permission, a **lower** Chrome floor (CHIPS shipped earlier than the partition-key APIs we depended on), and one less explicit security warning at install. About 70 lines of partition-registry bookkeeping deleted from the SW.
 
-## Bonus: cross-partition logout
+## Bonus: cross-partition logout with revokeRefreshTokens
 
 `auth.revokeRefreshTokens(uid)` invalidates all of a user's refresh tokens server-side. With each authenticated route using `verifySessionCookie(cookie, /* checkRevoked */ true)` on the extension surface, a logout on any partition propagates: other partitions' cookies stay physically in their jars but fail validation on the next request. The UI catches the resulting 401 and flips signed-out via a custom `commentarium:signed-out` event. Clean.
 

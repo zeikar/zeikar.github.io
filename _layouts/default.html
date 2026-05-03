@@ -20,6 +20,22 @@
       {% endif %}
     {% endif %}
 
+    {% comment %}
+      Auto-generated OG image for posts via dogimg (https://dogimg.vercel.app).
+      Skipped when the post explicitly sets `image:` in its front matter.
+      jekyll-seo-tag does not emit og:image when page.image is unset, so we
+      slot ours in here without conflict.
+    {% endcomment %}
+    {% if page.layout == 'post' and page.image == nil %}
+      {% assign og_target = page.url | absolute_url | url_encode %}
+      {% assign og_src = 'https://dogimg.vercel.app/api/og?url=' | append: og_target %}
+      <meta property="og:image" content="{{ og_src }}" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:image" content="{{ og_src }}" />
+    {% endif %}
+
     <link
       rel="icon"
       type="image/x-icon"

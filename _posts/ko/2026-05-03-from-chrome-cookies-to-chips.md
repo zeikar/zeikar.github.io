@@ -1,13 +1,15 @@
 ---
-title: "chrome.cookies에서 CHIPS로"
+title: "Chrome 확장 프로그램 iframe 인증: chrome.cookies에서 CHIPS로"
 subtitle: "Chrome 확장의 iframe이 3rd-party 쿠키 차단 환경에서 어떻게 인증받는가 — 브라우저 우회 없이."
 date: 2026-05-03
 translations:
   en: /blog/from-chrome-cookies-to-chips/
-description: "Chrome 확장의 service worker에서 chrome.cookies API로 partitioned 세션 쿠키를 굽다가 깨지고, 결국 서버 쪽 Set-Cookie 한 줄 (Partitioned 속성) 추가로 해결한 이야기. 함정, 전환점, 그리고 diff가 얼마나 줄었는지."
+description: "3rd-party 쿠키 차단 환경에서 Chrome 확장 프로그램의 iframe을 인증시키는 법 — chrome.cookies API의 함정, CHIPS Set-Cookie 해결책, 그리고 그 사이의 diff."
 ---
 
-지난주 [commentarium 확장](https://github.com/zeikar/commentarium-extension)이 새 인증 contract로 출시됐다. 결국엔 굉장히 기계적인 변경이었지만, 거기까지 가는 길이 *브라우저를 우회한다는 게 실제로 어떤 비용을 치르는지*에 대한 날카로운 교훈이었다.
+3rd-party 쿠키를 차단하는 세상에서 Chrome 확장 프로그램의 iframe을 인증시키는 이야기다. 구체적으로는, 왜 `chrome.cookies` API가 잘못된 도구였고 표준 CHIPS `Set-Cookie` 속성이 정답이었는지.
+
+결국엔 굉장히 기계적인 변경이었다. 거기까지 가는 길이 *브라우저를 우회한다는 게 실제로 어떤 비용을 치르는지*에 대한 날카로운 교훈이었다.
 
 세팅은 단순하다. [Commentarium](https://commentarium.app)은 어떤 URL에든 댓글을 다는 웹앱이고, [Chrome 확장](https://github.com/zeikar/commentarium-extension)은 모든 페이지에 사이드 패널을 붙이고 그 안에 `commentarium.app/comments?url=…` iframe을 띄운다. 즉 iframe은 임의의 top-level 사이트에 임베드된 `commentarium.app` 콘텐츠 — 교과서적인 third-party 컨텍스트.
 
@@ -15,7 +17,7 @@ description: "Chrome 확장의 service worker에서 chrome.cookies API로 partit
 
 계획은 있었다. 잘 작동했다. 그러다 안 됐다.
 
-## 1차 시도: chrome.cookies (사이클 ③)
+## 1차 시도: chrome.cookies로 partitioned 쿠키 굽기 (사이클 ③)
 
 MV3 broker 패턴은 어느 정도 정착돼 있다 — service worker가 인증 상태의 source of truth가 되고, iframe은 `chrome.runtime.sendMessage` (그리고 `externally_connectable.matches` gate)로 SW와 통신한다. 로그인 시 SW는 이렇게 동작한다:
 
@@ -50,7 +52,7 @@ Set-Cookie: session=…; Partitioned; SameSite=None; Secure; HttpOnly; Path=/
 
 이게 CHIPS의 본래 디자인이다. 우리가 그걸 우회하려 했던 거였다.
 
-## 2차 시도: CHIPS (사이클 ④)
+## 2차 시도: 서버 측 Set-Cookie + CHIPS 속성 (사이클 ④)
 
 리디자인은 SW를 얇은 토큰 vendor로 축소한다:
 
@@ -112,7 +114,7 @@ cookies().set({
 
 `host_permissions` 없음, `cookies` 권한 없음, **더 낮은** Chrome 버전 floor (CHIPS가 우리가 의존했던 partition-key API보다 먼저 나옴), 인스톨 시점에 명시적 보안 경고 하나 줄어듦. SW에서 partition-registry 부기 코드 약 70줄 삭제.
 
-## 보너스: 크로스 파티션 로그아웃
+## 보너스: revokeRefreshTokens로 크로스 파티션 로그아웃
 
 `auth.revokeRefreshTokens(uid)`는 사용자의 모든 refresh token을 서버 측에서 무효화한다. 인증 라우트들이 extension surface에서 `verifySessionCookie(cookie, /* checkRevoked */ true)`를 쓰면, 어느 한 파티션에서의 로그아웃이 전파된다 — 다른 파티션의 쿠키는 jar에 물리적으로 남아 있지만 다음 요청에서 검증 실패. UI는 401을 잡아서 `commentarium:signed-out` 커스텀 이벤트로 signed-out 상태로 전환한다. 깔끔.
 

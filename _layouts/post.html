@@ -5,7 +5,13 @@ layout: default
 <article class="post-article">
   <div class="container narrow">
     <header class="post-header reveal">
-      <p class="eyebrow">{{ page.date | date: "%B %d, %Y" }}</p>
+      {% assign words = content | strip_html | number_of_words %}
+      {% assign read_min = words | divided_by: 200 | plus: 1 %}
+      {% if page.lang == 'ko' %}
+      <p class="eyebrow">{{ page.date | date: "%Y년 %-m월 %-d일" }} · {{ read_min }}분 읽기</p>
+      {% else %}
+      <p class="eyebrow">{{ page.date | date: "%B %d, %Y" }} · {{ read_min }} min read</p>
+      {% endif %}
       <h1 class="post-title">{{ page.title }}</h1>
       {% if page.subtitle %}
       <p class="post-subtitle">{{ page.subtitle }}</p>
