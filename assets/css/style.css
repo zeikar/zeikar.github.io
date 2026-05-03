@@ -1158,12 +1158,12 @@ a {
 }
 
 /* Rouge syntax highlighting (dark code block — github-dark inspired) */
-.post-content .highlight {
+.post-content div.highlight {
   background: transparent;
   padding: 0;
 }
 
-.post-content .highlight pre {
+.post-content div.highlight pre {
   margin: 0;
 }
 
