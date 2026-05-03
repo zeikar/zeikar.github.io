@@ -16,8 +16,11 @@ permalink: /blog/
     <ol class="blog-list">
       {% for post in site.posts %}
       <li class="blog-card reveal">
-        <a href="{{ post.url | relative_url }}" class="blog-card-link">
-          <p class="blog-card-date">{{ post.date | date: "%B %d, %Y" }}</p>
+        <a href="{{ post.url | relative_url }}" class="blog-card-link" hreflang="{{ post.lang | default: 'en' }}">
+          <div class="blog-card-meta">
+            <span class="blog-card-date">{{ post.date | date: "%B %d, %Y" }}</span>
+            <span class="blog-card-lang" data-lang="{{ post.lang | default: 'en' }}">{{ post.lang | default: 'en' | upcase }}</span>
+          </div>
           <h2 class="blog-card-title">{{ post.title }}</h2>
           {% if post.subtitle %}
           <p class="blog-card-subtitle">{{ post.subtitle }}</p>

@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html lang="{{ site.lang | default: 'en' }}">
+<html lang="{{ page.lang | default: site.lang | default: 'en' }}">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     {% seo %}
+
+    {% comment %} hreflang annotations for posts that have translations {% endcomment %}
+    {% if page.translations %}
+      {% assign self_lang = page.lang | default: 'en' %}
+      <link rel="alternate" hreflang="{{ self_lang }}" href="{{ page.url | absolute_url }}" />
+      {% for tr in page.translations %}
+      <link rel="alternate" hreflang="{{ tr[0] }}" href="{{ tr[1] | absolute_url }}" />
+      {% endfor %}
+      {% if self_lang == 'en' %}
+      <link rel="alternate" hreflang="x-default" href="{{ page.url | absolute_url }}" />
+      {% elsif page.translations.en %}
+      <link rel="alternate" hreflang="x-default" href="{{ page.translations.en | absolute_url }}" />
+      {% endif %}
+    {% endif %}
 
     <link
       rel="icon"

@@ -2,6 +2,9 @@
 title: "From chrome.cookies to CHIPS"
 subtitle: "How a Chrome extension's iframe survives third-party cookie blocking — without bypassing the browser."
 date: 2026-05-03
+lang: en
+translations:
+  ko: /blog/ko/from-chrome-cookies-to-chips/
 description: "We tried to write partitioned session cookies from a Chrome extension's service worker via chrome.cookies. CHIPS — a one-attribute change on the server's Set-Cookie — turned out to be the right answer. A walk-through of the trap, the aha moment, and what the diff looked like."
 ---
 

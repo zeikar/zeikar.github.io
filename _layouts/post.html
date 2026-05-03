@@ -10,6 +10,16 @@ layout: default
       {% if page.subtitle %}
       <p class="post-subtitle">{{ page.subtitle }}</p>
       {% endif %}
+
+      {% if page.translations %}
+      <div class="post-translations">
+        {% for tr in page.translations %}
+        <a href="{{ tr[1] | relative_url }}" class="post-translation-link" hreflang="{{ tr[0] }}">
+          {% if tr[0] == 'ko' %}한국어로 읽기{% elsif tr[0] == 'en' %}Read in English{% else %}{{ tr[0] | upcase }}{% endif %}
+        </a>
+        {% endfor %}
+      </div>
+      {% endif %}
     </header>
 
     <div class="post-content">
@@ -17,7 +27,9 @@ layout: default
     </div>
 
     <footer class="post-footer">
-      <a href="{{ '/blog/' | relative_url }}" class="btn btn-ghost">&larr; All posts</a>
+      <a href="{{ '/blog/' | relative_url }}" class="btn btn-ghost">
+        {% if page.lang == 'ko' %}&larr; 모든 글{% else %}&larr; All posts{% endif %}
+      </a>
     </footer>
   </div>
 </article>

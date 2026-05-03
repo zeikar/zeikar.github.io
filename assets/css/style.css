@@ -917,12 +917,35 @@ a {
   padding: 1.5rem 1.75rem;
 }
 
+.blog-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin: 0 0 0.4rem;
+}
+
 .blog-card-date {
   color: var(--ink-soft);
   font-size: 0.875rem;
-  margin: 0 0 0.4rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+}
+
+.blog-card-lang {
+  font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.35rem;
+  background: rgba(15, 139, 141, 0.1);
+  color: var(--accent);
+}
+
+.blog-card-lang[data-lang="ko"] {
+  background: rgba(235, 94, 40, 0.1);
+  color: var(--brand);
 }
 
 .blog-card-title {
@@ -975,6 +998,32 @@ a {
   color: var(--ink-soft);
   line-height: 1.5;
   margin: 0;
+}
+
+.post-translations {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.post-translation-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  background: var(--surface);
+  transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+}
+
+.post-translation-link:hover {
+  border-color: rgba(235, 94, 40, 0.45);
+  color: var(--brand);
+  background: rgba(235, 94, 40, 0.05);
 }
 
 .post-content {

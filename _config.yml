@@ -24,6 +24,14 @@ defaults:
       type: posts
     values:
       layout: post
+      lang: en
+  - scope:
+      path: "_posts/ko"
+      type: posts
+    values:
+      layout: post
+      lang: ko
+      permalink: /blog/ko/:title/
 
 # Collections
 collections:
