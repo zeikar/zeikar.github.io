@@ -1,0 +1,23 @@
+---
+layout: default
+---
+
+<article class="post-article">
+  <div class="container narrow">
+    <header class="post-header reveal">
+      <p class="eyebrow">{{ page.date | date: "%B %d, %Y" }}</p>
+      <h1 class="post-title">{{ page.title }}</h1>
+      {% if page.subtitle %}
+      <p class="post-subtitle">{{ page.subtitle }}</p>
+      {% endif %}
+    </header>
+
+    <div class="post-content">
+      {{ content }}
+    </div>
+
+    <footer class="post-footer">
+      <a href="{{ '/blog/' | relative_url }}" class="btn btn-ghost">&larr; All posts</a>
+    </footer>
+  </div>
+</article>

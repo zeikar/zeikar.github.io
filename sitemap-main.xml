@@ -21,6 +21,12 @@ permalink: /sitemap-main.xml
   </url>
   {% endif %}
 {% endfor %}
+{% for post in site.posts %}
+  <url>
+    <loc>{{ site.url }}{{ site.baseurl }}{{ post.url }}</loc>
+    <lastmod>{{ post.date | date_to_xmlschema }}</lastmod>
+  </url>
+{% endfor %}
 {% for url in site.extra_sitemap_urls %}
   <url>
     <loc>{{ url }}</loc>

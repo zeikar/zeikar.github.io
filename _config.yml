@@ -16,6 +16,15 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
 
+# Posts permalink (under /blog/) + default layout
+permalink: /blog/:title/
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+
 # Collections
 collections:
   projects:

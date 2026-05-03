@@ -1,0 +1,33 @@
+---
+layout: default
+title: Blog
+permalink: /blog/
+---
+
+<section class="section-space blog-section">
+  <div class="container narrow">
+    <header class="section-head reveal">
+      <p class="eyebrow">Writing</p>
+      <h1>Notes from the lab</h1>
+      <p>Build logs, architecture decisions, and the occasional rabbit hole.</p>
+    </header>
+
+    {% if site.posts.size > 0 %}
+    <ol class="blog-list">
+      {% for post in site.posts %}
+      <li class="blog-card reveal">
+        <a href="{{ post.url | relative_url }}" class="blog-card-link">
+          <p class="blog-card-date">{{ post.date | date: "%B %d, %Y" }}</p>
+          <h2 class="blog-card-title">{{ post.title }}</h2>
+          {% if post.subtitle %}
+          <p class="blog-card-subtitle">{{ post.subtitle }}</p>
+          {% endif %}
+        </a>
+      </li>
+      {% endfor %}
+    </ol>
+    {% else %}
+    <p class="blog-empty">No posts yet. Working on it.</p>
+    {% endif %}
+  </div>
+</section>

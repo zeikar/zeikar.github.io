@@ -98,6 +98,12 @@
             About
           </a>
           <a
+            href="{{ '/blog/' | relative_url }}"
+            class="nav-link {% if page.url contains '/blog' %}is-active{% endif %}"
+          >
+            Blog
+          </a>
+          <a
             href="{{ '/resume.html' | relative_url }}"
             class="nav-link {% if page.url == '/resume.html' or page.url == '/resume-ko.html' %}is-active{% endif %}"
           >
