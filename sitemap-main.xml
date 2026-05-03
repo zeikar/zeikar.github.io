@@ -8,7 +8,7 @@ permalink: /sitemap-main.xml
     <loc>{{ site.url }}{{ site.baseurl }}/</loc>
   </url>
   <url>
-    <loc>{{ site.url }}{{ site.baseurl }}/about.html</loc>
+    <loc>{{ site.url }}{{ site.baseurl }}/about/</loc>
   </url>
 {% assign sorted_projects = site.projects | sort: "sequence" %}
 {% for project in sorted_projects %}

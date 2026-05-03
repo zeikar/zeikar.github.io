@@ -15,9 +15,11 @@ highlighter: rouge
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
+  - jekyll-redirect-from
 
-# Posts permalink (under /blog/) + default layout
-permalink: /blog/:title/
+# Posts permalink (under /blog/) + default layout. Scoped to type: posts only —
+# a site-level `permalink` would also rewrite pages like about.html into
+# /about/ directory form, breaking existing /about.html and /resume.html URLs.
 defaults:
   - scope:
       path: ""
@@ -25,6 +27,7 @@ defaults:
     values:
       layout: post
       lang: en
+      permalink: /blog/:title/
   - scope:
       path: "_posts/ko"
       type: posts
