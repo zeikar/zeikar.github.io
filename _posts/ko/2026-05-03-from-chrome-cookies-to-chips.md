@@ -17,7 +17,7 @@ description: "3rd-party 쿠키 차단 환경에서 Chrome 확장 프로그램의
 
 계획은 있었다. 잘 작동했다. 그러다 안 됐다.
 
-## 1차 시도: chrome.cookies로 partitioned 쿠키 굽기 (사이클 ③)
+## 1차 시도: chrome.cookies로 partitioned 쿠키 굽기
 
 MV3 broker 패턴은 어느 정도 정착돼 있다 — service worker가 인증 상태의 source of truth가 되고, iframe은 `chrome.runtime.sendMessage` (그리고 `externally_connectable.matches` gate)로 SW와 통신한다. 로그인 시 SW는 이렇게 동작한다:
 
@@ -52,7 +52,7 @@ Set-Cookie: session=…; Partitioned; SameSite=None; Secure; HttpOnly; Path=/
 
 이게 CHIPS의 본래 디자인이다. 우리가 그걸 우회하려 했던 거였다.
 
-## 2차 시도: 서버 측 Set-Cookie + CHIPS 속성 (사이클 ④)
+## 2차 시도: 서버 측 Set-Cookie + CHIPS 속성
 
 리디자인은 SW를 얇은 토큰 vendor로 축소한다:
 
@@ -102,7 +102,7 @@ cookies().set({
 
 브라우저가 알아서 올바른 파티션 jar에 넣는다. iframe의 다음 요청부터 그게 따라간다. 끝.
 
-## 두 사이클 비교
+## 두 접근 비교
 
 | | chrome.cookies path | CHIPS path |
 |---|---|---|
@@ -131,4 +131,4 @@ diff는 압도적으로 우리 편이었다. 가장 어려운 건 첫 번째 디
 
 ---
 
-*코드: [commentarium-extension](https://github.com/zeikar/commentarium-extension). CHIPS 리디자인 사이클은 [익스텐션 PR #2](https://github.com/zeikar/commentarium-extension/pull/2) 로 머지됐다.*
+*코드: [commentarium-extension](https://github.com/zeikar/commentarium-extension). CHIPS 리디자인은 [익스텐션 PR #2](https://github.com/zeikar/commentarium-extension/pull/2) 로 머지됐다.*

@@ -18,7 +18,7 @@ Modern browsers block third-party cookies by default. The iframe's session cooki
 
 We had a plan. It worked. Then it didn't.
 
-## First attempt: writing partitioned cookies via chrome.cookies (cycle 3)
+## First attempt: writing partitioned cookies via chrome.cookies
 
 The MV3 broker pattern is well-established: the service worker is the source of auth state, and the iframe talks to it via `chrome.runtime.sendMessage` (gated by `externally_connectable.matches`). On sign-in, the SW would:
 
@@ -53,7 +53,7 @@ That's [CHIPS](https://developer.chrome.com/docs/privacy-security/privacy-sandbo
 
 This is what CHIPS was designed for. We were trying to bypass it.
 
-## Second attempt: server-side Set-Cookie with the CHIPS attribute (cycle 4)
+## Second attempt: server-side Set-Cookie with the CHIPS attribute
 
 The redesign collapses the SW into a thin token vendor:
 
@@ -105,7 +105,7 @@ The browser drops it into the right partition jar. The next request from the ifr
 
 ## What the diff looked like
 
-The two cycles, side by side:
+The two approaches, side by side:
 
 | | chrome.cookies path | CHIPS path |
 |---|---|---|
@@ -134,4 +134,4 @@ The diff was wildly in our favor. The hardest part was admitting the first desig
 
 ---
 
-*Code: [commentarium-extension](https://github.com/zeikar/commentarium-extension). The CHIPS-redesign cycle landed as [extension PR #2](https://github.com/zeikar/commentarium-extension/pull/2).*
+*Code: [commentarium-extension](https://github.com/zeikar/commentarium-extension). The CHIPS redesign landed as [extension PR #2](https://github.com/zeikar/commentarium-extension/pull/2).*
