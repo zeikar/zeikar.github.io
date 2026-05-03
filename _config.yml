@@ -12,6 +12,8 @@ github_username: zeikar
 # Build settings
 markdown: kramdown
 highlighter: rouge
+sass:
+  style: expanded
 plugins:
   - jekyll-feed
   - jekyll-seo-tag

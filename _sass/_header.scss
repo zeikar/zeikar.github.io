@@ -1,0 +1,84 @@
+.site-header {
+  position: sticky;
+  top: 1.15rem;
+  z-index: 40;
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.site-header.is-scrolled .nav-shell {
+  box-shadow: var(--shadow-strong);
+}
+
+.nav-shell {
+  width: min(1120px, calc(100% - 2.5rem));
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid rgba(31, 42, 55, 0.1);
+  border-radius: 1rem;
+  background: rgba(255, 253, 248, 0.78);
+  backdrop-filter: blur(14px);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: "Bricolage Grotesque", "Space Grotesk", sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+.brand-dot {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--brand), #ff9f68);
+  box-shadow: 0 0 0 6px rgba(235, 94, 40, 0.18);
+}
+
+.primary-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.nav-link {
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+  color: var(--ink-soft);
+  font-weight: 600;
+  transition: all 180ms ease;
+}
+
+.nav-link:hover {
+  color: var(--ink);
+  background: rgba(15, 139, 141, 0.1);
+}
+
+.nav-link.is-active {
+  color: #fff;
+  background: linear-gradient(135deg, var(--brand), #f18d5f);
+}
+
+.nav-link-ext {
+  border: 1px dashed rgba(15, 139, 141, 0.45);
+}
+
+.nav-toggle {
+  display: none;
+  border: 1px solid rgba(31, 42, 55, 0.2);
+  background: var(--surface);
+  color: var(--ink);
+  padding: 0.45rem 0.85rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.site-main {
+  padding-top: 2.1rem;
+}

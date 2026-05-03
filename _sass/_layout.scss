@@ -1,0 +1,68 @@
+.site-shell {
+  min-height: 100vh;
+  position: relative;
+}
+
+.container {
+  width: min(1120px, calc(100% - 2.5rem));
+  margin-inline: auto;
+}
+
+.narrow {
+  width: min(900px, 100%);
+}
+
+.section-space {
+  padding: 6.5rem 0;
+}
+
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(14px);
+  opacity: 0.45;
+  animation: drift 18s ease-in-out infinite;
+}
+
+.orb-a {
+  width: 34rem;
+  height: 34rem;
+  top: -14rem;
+  left: -10rem;
+  background: radial-gradient(circle at 30% 30%, #ffd49d 0%, #f4b07a 45%, transparent 72%);
+}
+
+.orb-b {
+  width: 30rem;
+  height: 30rem;
+  bottom: -12rem;
+  right: -8rem;
+  animation-delay: -6s;
+  background: radial-gradient(circle at 40% 40%, #b7ede8 0%, #95d8d3 45%, transparent 72%);
+}
+
+.orb-c {
+  width: 20rem;
+  height: 20rem;
+  top: 26%;
+  right: 16%;
+  animation-delay: -10s;
+  background: radial-gradient(circle at 50% 50%, #ffd1bc 0%, #f9ab86 44%, transparent 70%);
+}
+
+.ambient-grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(to right, rgba(31, 42, 55, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(31, 42, 55, 0.04) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(circle at center, black 44%, transparent 100%);
+}
