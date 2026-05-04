@@ -62,6 +62,35 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  const blogFilter = document.querySelector('.blog-filter');
+  const blogList = document.querySelector('.blog-list');
+  const blogEmptyStates = document.querySelectorAll('.blog-empty[data-empty-for]');
+
+  if (blogFilter && blogList) {
+    const applyFilter = (lang) => {
+      blogList.dataset.active = lang;
+      blogFilter.querySelectorAll('.blog-filter-btn').forEach((b) => {
+        const active = b.dataset.filter === lang;
+        b.classList.toggle('is-active', active);
+        b.setAttribute('aria-pressed', String(active));
+      });
+      const visibleCount = blogList.querySelectorAll(`.blog-card[data-lang="${lang}"]`).length;
+      blogEmptyStates.forEach((p) => {
+        p.hidden = !(p.dataset.emptyFor === lang && visibleCount === 0);
+      });
+    };
+
+    blogFilter.addEventListener('click', (event) => {
+      const btn = event.target.closest('[data-filter]');
+      if (!btn) {
+        return;
+      }
+      applyFilter(btn.dataset.filter);
+    });
+
+    applyFilter(blogList.dataset.active || 'en');
+  }
+
   const interactiveSelector = 'a, button, input, textarea, select, label';
   const projectCards = document.querySelectorAll('.project-card[data-project-url]');
 

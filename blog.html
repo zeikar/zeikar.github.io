@@ -13,9 +13,14 @@ permalink: /blog/
     </header>
 
     {% if site.posts.size > 0 %}
-    <ol class="blog-list">
+    <div class="blog-filter" role="group" aria-label="Filter posts by language">
+      <button type="button" class="blog-filter-btn is-active" data-filter="en" aria-pressed="true">EN</button>
+      <button type="button" class="blog-filter-btn" data-filter="ko" aria-pressed="false">KO</button>
+    </div>
+
+    <ol class="blog-list" data-active="en">
       {% for post in site.posts %}
-      <li class="blog-card reveal">
+      <li class="blog-card reveal" data-lang="{{ post.lang | default: 'en' }}">
         <a href="{{ post.url | relative_url }}" class="blog-card-link" hreflang="{{ post.lang | default: 'en' }}">
           <div class="blog-card-meta">
             <span class="blog-card-date">{{ post.date | date: "%B %d, %Y" }}</span>
@@ -29,6 +34,8 @@ permalink: /blog/
       </li>
       {% endfor %}
     </ol>
+    <p class="blog-empty" data-empty-for="en" hidden>No English posts yet. Working on it.</p>
+    <p class="blog-empty" data-empty-for="ko" hidden>한국어 글이 아직 없어요.</p>
     {% else %}
     <p class="blog-empty">No posts yet. Working on it.</p>
     {% endif %}
