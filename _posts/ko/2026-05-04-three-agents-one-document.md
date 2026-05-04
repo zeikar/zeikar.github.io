@@ -46,7 +46,7 @@ ELIF overall == "중":                            publish; Enhancement 항목만
 ELIF overall == "상":                            publish
 ```
 
-1회 수정 케이스에서 재리뷰를 건너뛰는 건 의도된 거다 — reviewer의 contract에서 critical 항목은 기계적으로 적용 가능할 만큼 구체적이고 (추가할 섹션, 고칠 사실), SubagentStop hook이 저장 시 링크 체커를 다시 돌리니까 구조적 무결성은 reviewer 한 번 더 안 돌려도 보장된다.
+1회 수정 케이스에서 재리뷰를 건너뛰는 건 의도된 거다 — reviewer가 이미 패치를 구체적으로 지정해 놓아서 재판단이 아니라 적용 문제고, SubagentStop hook이 저장 시 링크 체커를 다시 돌려 구조적 깨짐을 잡는다.
 
 이 분기는 오케스트레이터가 자유 형식 리뷰에서 `overall`과 `critical_count`를 안정적으로 뽑아낼 수 있어야만 작동한다. 에이전트한테 "등급을 명확히 표시하라"고 부탁하는 걸로는 부족하다 — Claude는 매번 다른 형식으로 박는다. 어떤 때는 리스트 안에, 어떤 때는 섹션 헤더로, 어떤 때는 그냥 한 문장으로.
 

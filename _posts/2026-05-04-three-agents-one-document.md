@@ -47,7 +47,7 @@ ELIF overall == "polish":                             publish; report Enhancemen
 ELIF overall == "pass":                               publish
 ```
 
-The single-patch case skips re-review on purpose: critical items in the reviewer's contract are concrete enough to apply mechanically (specific section to add, fact to correct), and the SubagentStop hook re-runs the link checker on save anyway, so structural integrity is still guaranteed without paying for another reviewer pass.
+The single-patch case skips re-review on purpose: the reviewer already specified the patch concretely, so applying it is a mechanical task rather than a re-judgment, and the SubagentStop hook re-runs the link checker on save to catch any structural breakage.
 
 That branch only works if the orchestrator can reliably extract `overall` and `critical_count` from a free-form review. Telling an agent to "include the grade clearly" isn't enough — Claude formats it differently every run, sometimes inside a list, sometimes as a section header, sometimes as a sentence.
 
