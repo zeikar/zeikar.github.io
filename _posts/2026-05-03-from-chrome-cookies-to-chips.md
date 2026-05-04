@@ -2,6 +2,7 @@
 title: "Chrome Extension Iframe Auth: From chrome.cookies to CHIPS"
 subtitle: "How a Chrome extension's iframe survives third-party cookie blocking — without bypassing the browser."
 date: 2026-05-03
+last_modified_at: 2026-05-04
 lang: en
 translations:
   ko: /blog/ko/from-chrome-cookies-to-chips/
@@ -72,10 +73,10 @@ async function refreshSessionOp(): Promise<AuthResponse> {
 }
 ```
 
-The iframe — which is in 1st-party `commentarium.app` context, even when embedded — calls `/api/login` itself:
+The iframe — whose request to `/api/login` is same-origin to `commentarium.app` from inside the iframe, even though the iframe itself is third-party relative to the top-level site — calls `/api/login` itself:
 
 ```ts
-// iframe (1st-party context)
+// iframe code: same-origin fetch to commentarium.app
 const { idToken } = await broker.refreshSession();
 await fetch("/api/login", {
   method: "POST",
@@ -128,7 +129,7 @@ No `host_permissions`, no `cookies` permission, a **lower** Chrome floor (CHIPS 
 1. **Before reaching for a Chrome API workaround, look at the cookie spec.** CHIPS exists precisely for this case — partitioned cookies for embedded contexts. We had read the `chrome.cookies` docs four times before reading the cookie attribute docs once.
 2. **Manual E2E catches what unit tests cannot.** The chrome.cookies failure was *only* visible on a real page hosted on a real second domain. Unit tests passed. Browser permission semantics are too easy to mock past.
 3. **The thinner the service worker, the better.** Once the SW is just *vend ID tokens*, the surface area for surprise shrinks. Most of the deleted lines were carrying sample-of-one assumptions about partition semantics.
-4. **CHIPS is Chrome / Edge today.** Firefox is implementing; Safari has different opinions. For a Chrome-Web-Store extension, this is fine. For a cross-browser extension, you'd need a different shape entirely.
+4. **CHIPS support is Chromium-only as of May 2026.** Chrome and Edge ship it; Firefox has it [under implementation](https://caniuse.com/mdn-http_headers_set-cookie_partitioned), Safari has different opinions. For a Chrome-Web-Store extension, this is fine. For a cross-browser extension, you'd need a different shape entirely. Check the live support table before relying on this.
 
 The diff was wildly in our favor. The hardest part was admitting the first design was the wrong shape.
 

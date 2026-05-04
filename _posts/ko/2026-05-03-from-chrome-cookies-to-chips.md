@@ -2,6 +2,7 @@
 title: "Chrome 확장 프로그램 iframe 인증: chrome.cookies에서 CHIPS로"
 subtitle: "Chrome 익스텐션의 iframe이 3rd-party 쿠키 차단 환경에서 어떻게 인증받는가 — 브라우저 우회 없이."
 date: 2026-05-03
+last_modified_at: 2026-05-04
 translations:
   en: /blog/from-chrome-cookies-to-chips/
 description: "3rd-party 쿠키 차단 환경에서 Chrome 확장 프로그램의 iframe을 인증시키는 법 — chrome.cookies API의 함정, CHIPS Set-Cookie 해결책, 그리고 그 사이의 diff."
@@ -71,10 +72,10 @@ async function refreshSessionOp(): Promise<AuthResponse> {
 }
 ```
 
-iframe은 — 임베드돼 있어도 1st-party `commentarium.app` 컨텍스트라는 점이 핵심 — 자기가 직접 `/api/login`을 부른다:
+iframe 안에서 보면 `/api/login` 요청은 `commentarium.app`에 대한 same-origin fetch다 — iframe 자체는 top-level 사이트 기준 third-party지만, iframe 내부 코드가 자기 origin으로 부르는 건 same-origin. 그래서 iframe이 직접 `/api/login`을 호출한다:
 
 ```ts
-// iframe (1st-party 컨텍스트)
+// iframe 코드: commentarium.app으로 same-origin fetch
 const { idToken } = await broker.refreshSession();
 await fetch("/api/login", {
   method: "POST",
@@ -125,7 +126,7 @@ cookies().set({
 1. **Chrome API workaround로 손이 가기 전에 cookie 스펙을 보자.** CHIPS는 정확히 이 케이스 — 임베디드 컨텍스트를 위한 partitioned 쿠키 — 를 위해 존재한다. `chrome.cookies` 문서를 네 번 읽고 나서야 cookie attribute 문서를 처음 읽었다.
 2. **Manual E2E는 단위 테스트가 못 잡는 걸 잡는다.** chrome.cookies 실패는 *실제 두 번째 도메인에 호스팅된 실제 페이지에서만* 보였다. 단위 테스트는 통과했다. 브라우저의 권한 체계는 mock으로 너무 쉽게 우회된다.
 3. **Service worker는 얇을수록 좋다.** SW가 *ID token만 발급*하는 일만 하면, 깜짝 놀랄 표면적이 줄어든다. 삭제된 라인의 대부분은 파티션 시맨틱에 대한 sample-of-one 가정을 끌고 다니던 코드였다.
-4. **CHIPS는 오늘 기준 Chrome / Edge.** Firefox는 구현 중, Safari는 다른 입장. Chrome Web Store용 익스텐션에는 이걸로 충분. 크로스 브라우저 익스텐션이라면 다른 모양이 필요하다.
+4. **CHIPS는 2026년 5월 기준 Chromium 계열만 지원.** Chrome과 Edge는 ship됐고, Firefox는 [구현 중](https://caniuse.com/mdn-http_headers_set-cookie_partitioned), Safari는 다른 입장. Chrome Web Store용 익스텐션에는 이걸로 충분. 크로스 브라우저 익스텐션이라면 다른 모양이 필요하니, 의존하기 전에 최신 지원 표를 확인할 것.
 
 diff는 압도적으로 우리 편이었다. 가장 어려운 건 첫 번째 디자인이 잘못된 모양이었다는 걸 인정하는 거였다.
 
