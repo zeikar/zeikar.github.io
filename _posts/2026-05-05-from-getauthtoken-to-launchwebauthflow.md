@@ -47,7 +47,7 @@ The webapp's `chrome.runtime.sendMessage(EXT_ID, { type: "signIn.google" })` was
 
 Two platform behaviors collide.
 
-**Behavior #1**: `chrome.identity.getAuthToken({ interactive: true })`'s cancel callback is unreliable. On most platforms, when the user closes the chooser without selecting, Chrome calls back with `chrome.runtime.lastError = "The user did not approve access."` and the Promise rejects. On some platforms — macOS, in our case — that path can drop the callback entirely. The Promise neither resolves nor rejects. The await just hangs.
+**Behavior #1**: `chrome.identity.getAuthToken({ interactive: true })`'s cancel callback behaved unreliably in our testing. On most platforms, when the user closes the chooser without selecting, Chrome calls back with `chrome.runtime.lastError = "The user did not approve access."` and the Promise rejects. In our macOS QA environment, that path dropped the callback entirely. The Promise neither resolves nor rejects. The await just hangs.
 
 **Behavior #2**: MV3 service workers idle out. The official rule is a 30-second timer that resets on every event the SW handles. A pending message-handler response *should* keep the SW alive, but in practice the SW is torn down somewhere in the 30-to-60-second window if the work is just sitting in a hung await. When the SW dies, the message channel closes, and the webapp sees "channel closed before response."
 
@@ -165,7 +165,7 @@ Three details worth highlighting.
 
 **State verified first.** Both success and error responses echo back `state`. Verifying it before reading any other fragment field gates everything downstream on a CSRF check. A maliciously crafted redirect can't smuggle an `error=access_denied` past us as a "user cancelled" signal.
 
-**No keepalive, no timeout race.** Both went away. The OAuth flow now resolves or rejects on roughly human time scales, well within the SW's idle window.
+**No keepalive, no timeout race.** Both went away. The OAuth flow now resolves or rejects inside `launchWebAuthFlow`, the API that owns the prompt, so we no longer need a separate SW keepalive or a custom timeout to work around lifetime limits.
 
 ## The Cloud Console caveat
 
@@ -179,7 +179,7 @@ You can't reuse a "Chrome App"-type OAuth client_id with `launchWebAuthFlow`. Ch
 |---|---|---|
 | Cancel detection | Silently dropped on some platforms | Promise rejects within ~1s |
 | SW keepalive ping | Required (every 20s) | None |
-| Timeout race | Required (60s, racing the SW lifetime cap) | None |
+| Timeout | Required (first 5 min, racing the SW lifetime cap; then 60s) | None |
 | User wait on cancel | ~60s before generic error | ~1s, structured `auth/popup-closed-by-user` |
 | OAuth client type | Chrome App (manifest `oauth2`) | Web application (Cloud Console redirect URI) |
 | State / CSRF defense | None (Chrome handles it internally) | Explicit, verified before fragment is consumed |

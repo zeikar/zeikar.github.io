@@ -46,7 +46,7 @@ but the message channel closed before a response was received
 
 플랫폼 동작 두 개가 충돌한다.
 
-**Behavior #1**: `chrome.identity.getAuthToken({ interactive: true })`의 cancel callback이 불안정하다. 대부분의 플랫폼에선 사용자가 chooser를 안 고르고 닫으면 Chrome이 `chrome.runtime.lastError = "The user did not approve access."`로 콜백하고 Promise가 reject된다. 일부 플랫폼 — 우리 경우는 macOS — 에선 그 path가 callback을 통째로 떨군다. Promise가 resolve도 reject도 안 된다. await가 그냥 hang.
+**Behavior #1**: `chrome.identity.getAuthToken({ interactive: true })`의 cancel callback이 불안정하게 관찰됐다. 대부분의 플랫폼에선 사용자가 chooser를 안 고르고 닫으면 Chrome이 `chrome.runtime.lastError = "The user did not approve access."`로 콜백하고 Promise가 reject된다. 그런데 우리 macOS QA 환경에선 그 path가 callback을 통째로 떨궜다. Promise가 resolve도 reject도 안 된다. await가 그냥 hang.
 
 **Behavior #2**: MV3 service worker는 idle out 된다. 공식적으로는 SW가 처리하는 모든 이벤트마다 리셋되는 30초 타이머다. 응답 대기 중인 message handler는 *원칙상* SW를 살려둬야 하는데, 실제론 hang된 await 위에 그냥 앉아 있으면 30~60초 사이 어딘가에서 SW가 죽는다. SW가 죽으면 message channel이 닫히고, 웹앱이 "channel closed before response"를 본다.
 
@@ -164,7 +164,7 @@ async function signInGoogleOp(): Promise<AuthResponse> {
 
 **state를 먼저 검증.** 성공/실패 redirect 모두 `state`를 echo한다. 다른 fragment field를 읽기 전에 검증하면 downstream 전체가 CSRF check 위에 올라간다. 악의적으로 만든 redirect가 `error=access_denied`를 "사용자가 cancel함" 신호로 위장해서 끼워넣지 못한다.
 
-**keepalive 없음, timeout race 없음.** 둘 다 사라졌다. OAuth flow가 이제 사람의 시간 척도에서 resolve / reject되고, SW idle window 안에 안전하게 들어간다.
+**keepalive 없음, timeout race 없음.** 둘 다 사라졌다. OAuth flow가 이제 prompt를 소유한 `launchWebAuthFlow` 안에서 resolve / reject되므로, 별도의 SW keepalive와 사용자 정의 timeout으로 lifetime 제약을 우회할 필요가 없다.
 
 ## Cloud Console 주의사항
 
@@ -178,7 +178,7 @@ async function signInGoogleOp(): Promise<AuthResponse> {
 |---|---|---|
 | Cancel 감지 | 일부 플랫폼에서 조용히 떨어짐 | ~1초 안에 Promise reject |
 | SW keepalive ping | 필요 (20초마다) | 없음 |
-| Timeout race | 필요 (60초, SW lifetime cap과 race) | 없음 |
+| Timeout | 필요 (처음엔 5분, SW lifetime cap과 race; 이후 60초) | 없음 |
 | Cancel 시 사용자 대기 | ~60초 후 generic 에러 | ~1초, 구조화된 `auth/popup-closed-by-user` |
 | OAuth client 타입 | Chrome App (manifest `oauth2`) | Web application (Cloud Console redirect URI) |
 | State / CSRF 방어 | 없음 (Chrome 내부 처리) | 명시적, fragment 소비 전 검증 |
