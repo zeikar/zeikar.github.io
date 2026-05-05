@@ -4,7 +4,7 @@ subtitle: "Chrome 계정 chooser가 어쩌다 cancel callback을 조용히 삼�
 date: 2026-05-05
 translations:
   en: /blog/from-getauthtoken-to-launchwebauthflow/
-description: "chrome.identity.getAuthToken이 cancel callback을 조용히 떨굴 때, MV3 SW idle timer가 그걸 60초 spinner로 만든다. keepalive band-aid는 Chrome 자기 SW lifetime cap과 race한다. launchWebAuthFlow가 둘 다 우회하는 primitive다."
+description: "chrome.identity.getAuthToken이 cancel callback을 조용히 떨굴 때, MV3 SW idle timer가 그걸 60초 spinner로 만든다. keepalive band-aid는 Chrome의 per-request 5분 cap과 race한다. launchWebAuthFlow가 둘 다 우회하는 primitive다."
 ---
 
 OAuth에서 cancel을 어떻게 감지할 것인가 — 구체적으로는, Chrome 익스텐션에서 `chrome.identity.getAuthToken`을 어떻게 band-aid로 둘러싸려고 했는지, 그 band-aid가 왜 자기 자신과 race했는지, 그리고 다른 `chrome.identity` primitive로 한 발짝 물러섰더니 band-aid가 사라진 이야기다.
@@ -191,7 +191,7 @@ async function signInGoogleOp(): Promise<AuthResponse> {
 1. **플랫폼 quirk band-aid는 다른 플랫폼 quirk와 race한다.** keepalive + timeout이 우리가 살려두려고 했던 바로 그 SW lifetime cap과 race하고 있었다. 잘못된 layer를 패치한다는 건 한 플랫폼 제약을 다른 플랫폼 제약으로 바꾸는 것뿐이다.
 2. **"올바른 primitive"가 "올바른 workaround"를 이긴다.** `launchWebAuthFlow`가 결정론적인 cancel 신호를 가지고 있다는 걸 보고 나니, `getAuthToken` band-aid가 한물간 것처럼 보였다. timer 저글링 30줄은 잘못된 자리에 있던 mass-and-energy였다.
 3. **OAuth 응답의 다른 필드를 읽기 전에 `state`를 검증하라.** 성공/실패 redirect 모두 echo한다. 먼저 검사하는 건 공짜 CSRF 방어이고, "취소했는데 앱이 다른 걸 시도했다고 한다" 류의 이상한 보고 카테고리를 통째로 차단한다.
-4. **MV3 SW lifetime은 구조적 제약이지 tweak 대상이 아니다.** 30초 idle 타이머와 ~5분 soft cap을 아키텍처 입력으로 다뤄라. 디자인이 cap을 넘어 SW를 살려둬야 한다면, 아마 잘못된 모양이다 — 우리가 그랬듯이.
+4. **MV3 SW lifetime은 구조적 제약이지 tweak 대상이 아니다.** 30초 idle 타이머와 ~5분 per-request cap을 아키텍처 입력으로 다뤄라. 디자인이 single request를 5분 넘게 끌어야 한다면, 아마 잘못된 모양이다 — 우리가 그랬듯이.
 
 답을 찾고 나니 수정은 다시, 놀랍게도 기계적이었다. 가장 어려운 건 band-aid가 *거의* 작동하고 있던 게 아니란 걸 인정하는 거였다.
 

@@ -5,7 +5,7 @@ date: 2026-05-05
 lang: en
 translations:
   ko: /blog/ko/from-getauthtoken-to-launchwebauthflow/
-description: "When chrome.identity.getAuthToken silently drops its cancel callback, the MV3 SW idle timer turns it into a 60-second spinner. A keepalive band-aid races Chrome's own SW lifetime cap. launchWebAuthFlow is the primitive that side-steps both."
+description: "When chrome.identity.getAuthToken silently drops its cancel callback, the MV3 SW idle timer turns it into a 60-second spinner. A keepalive band-aid races Chrome's per-request 5-minute cap. launchWebAuthFlow is the primitive that side-steps both."
 ---
 
 This is a story about cancel detection in OAuth — specifically, why we were band-aiding around `chrome.identity.getAuthToken` in a Chrome extension, why the band-aid raced itself, and how stepping back to a different `chrome.identity` primitive made the band-aid disappear.
@@ -192,7 +192,7 @@ You can't reuse a "Chrome App"-type OAuth client_id with `launchWebAuthFlow`. Ch
 1. **Platform-quirk band-aids race other platform quirks.** The keepalive + timeout was racing the very SW lifetime cap that we were keeping alive against. Patching at the wrong layer means trading one platform constraint for another.
 2. **"Right primitive" beats "right workaround."** Once we noticed `launchWebAuthFlow` had a deterministic cancel signal, the `getAuthToken` band-aid looked dated. Thirty lines of timer juggling was mass-and-energy in the wrong place.
 3. **Verify `state` before reading any other OAuth response field.** Both success and error redirects echo it. Checking it first is a free CSRF defense and rules out a category of weird "I cancelled but the app says I tried something else" reports.
-4. **MV3 SW lifetime is a structural constraint, not a tweakable.** Treat the 30-second idle timer and ~5-minute soft cap as architecture inputs. If your design needs to keep a SW alive past the cap, you're probably in the wrong shape — like we were.
+4. **MV3 SW lifetime is a structural constraint, not a tweakable.** Treat the 30-second idle timer and ~5-minute per-request cap as architecture inputs. If your design needs a single request to take longer than 5 minutes, you're probably in the wrong shape — like we were.
 
 The fix once we found it was, again, surprisingly mechanical. The hardest part was admitting the band-aid wasn't *almost* working.
 
