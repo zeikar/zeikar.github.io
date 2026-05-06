@@ -5,7 +5,7 @@ description: >-
   Digital Innovation Lab - 
   Where ideas come to life through code
 baseurl: ""
-url: "https://zeikar.github.io"
+url: "https://zeikar.dev"
 twitter_username: zeikar_dev
 github_username: zeikar
 
@@ -54,10 +54,10 @@ social:
 
 # Additional same-origin URLs to include in sitemap.xml
 extra_sitemap_urls:
-  - https://zeikar.github.io/blog/
-  - https://zeikar.github.io/atcoder/
-  - https://zeikar.github.io/leetcode/
-  - https://zeikar.github.io/interactive-developer-clone/
+  - https://zeikar.dev/blog/
+  - https://zeikar.dev/atcoder/
+  - https://zeikar.dev/leetcode/
+  - https://zeikar.dev/interactive-developer-clone/
 
 # Exclude from processing
 exclude:

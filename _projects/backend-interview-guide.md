@@ -4,7 +4,7 @@ title: "Backend Interview Guide"
 description: "Korean backend interview guide organized across database, cloud, system design, and programming, drafted and reviewed with Codex, Claude Code, and an agent harness."
 tech_stack: ["Codex", "Claude Code", "Agent Harness", "Markdown", "Python", "GitHub"]
 github_url: "https://github.com/zeikar/backend-interview-guide"
-demo_url: "https://zeikar.github.io/backend-interview-guide/"
+demo_url: "https://zeikar.dev/backend-interview-guide/"
 sequence: 8.5
 ---
 
