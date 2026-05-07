@@ -1,7 +1,7 @@
 # zeikar.github.io
 
 This repository powers my personal portfolio and project archive site.  
-It is a Jekyll-based static site deployed to `https://zeikar.github.io` via GitHub Pages.
+It is a Jekyll-based static site deployed to `https://zeikar.dev` via GitHub Pages.
 
 The site currently includes:
 
@@ -79,7 +79,7 @@ title: "My Project"
 description: "Short summary"
 tech_stack: ["Jekyll", "GitHub Pages"]
 github_url: "https://github.com/zeikar/my-project"
-demo_url: "https://zeikar.github.io/my-project/"
+demo_url: "https://zeikar.dev/my-project/"
 sequence: 99
 ---
 ```
@@ -88,7 +88,7 @@ The `sequence` field controls the ordering on the home page.
 
 ### Add Extra Sitemap URLs
 
-- If a file in `_projects/*.md` has a `demo_url` under `https://zeikar.github.io`, it will be included in `sitemap-main.xml` automatically.
+- If a file in `_projects/*.md` has a `demo_url` under `https://zeikar.dev`, it will be included in `sitemap-main.xml` automatically.
 - If a URL should be included separately from project content, add it to `extra_sitemap_urls` in `_config.yml`.
 
 ## Notes
