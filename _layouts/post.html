@@ -32,6 +32,8 @@ layout: default
       {{ content }}
     </div>
 
+    {% include giscus.html %}
+
     <footer class="post-footer">
       <a href="{{ '/blog/' | relative_url }}" class="btn btn-ghost">
         {% if page.lang == 'ko' %}&larr; 모든 글{% else %}&larr; All posts{% endif %}

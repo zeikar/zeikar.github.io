@@ -1,0 +1,20 @@
+{% if site.giscus.repo_id and site.giscus.repo_id != "" %}
+<section class="post-comments" aria-label="{% if page.lang == 'ko' %}댓글{% else %}Comments{% endif %}">
+  <script src="https://giscus.app/client.js"
+          data-repo="{{ site.giscus.repo }}"
+          data-repo-id="{{ site.giscus.repo_id }}"
+          data-category="{{ site.giscus.category }}"
+          data-category-id="{{ site.giscus.category_id }}"
+          data-mapping="pathname"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="bottom"
+          data-theme="preferred_color_scheme"
+          data-lang="{% if page.lang == 'ko' %}ko{% else %}en{% endif %}"
+          data-loading="lazy"
+          crossorigin="anonymous"
+          async>
+  </script>
+</section>
+{% endif %}

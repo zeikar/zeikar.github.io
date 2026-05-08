@@ -47,6 +47,15 @@ collections:
     output: true
     permalink: /:collection/:name/
 
+# Comments (giscus). Fill in the four values from https://giscus.app
+# (after enabling Discussions on the repo and installing the giscus app).
+# Leave repo_id empty to disable rendering site-wide.
+giscus:
+  repo: zeikar/zeikar.github.io
+  repo_id: "R_kgDOPod7vA"
+  category: Comments
+  category_id: "DIC_kwDOPod7vM4C8ny0"
+
 # SEO settings
 lang: en
 author:
