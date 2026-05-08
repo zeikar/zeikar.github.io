@@ -21,15 +21,60 @@
     {% endif %}
 
     {% comment %}
-      og:image:width / og:image:height help social crawlers render the
-      preview without round-tripping the image. jekyll-seo-tag doesn't
-      emit dimensions; we know our dogimg fallback is 1200x630, so we
-      add them whenever page.image points at it. Other custom images
-      stay unannotated, which is fine — dimensions are optional.
+      OG image strategy: pages can set `image:` in front matter for a custom
+      asset; otherwise we fall back to dogimg, which fetches the page URL
+      and renders a 1200x630 preview from its title/description. Either path
+      gets explicit dimensions so social crawlers don't round-trip the image.
     {% endcomment %}
+    {% unless page.image %}
+    {% capture default_og %}https://dogimg.vercel.app/api/og?url={{ page.url | absolute_url | url_encode }}{% endcapture %}
+    <meta property="og:image" content="{{ default_og }}" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:image" content="{{ default_og }}" />
+    {% endunless %}
     {% if page.image and page.image contains 'dogimg.vercel.app' %}
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
+    {% endif %}
+
+    {% comment %}
+      Homepage-only WebSite structured data. Signals our preferred site name
+      (and short alternates) to Google for the search-result site title.
+      jekyll-seo-tag already handles og:site_name and <title> from site.title.
+    {% endcomment %}
+    {% if page.url == '/' %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": {{ site.title | smartify | jsonify }},
+      "alternateName": ["Zeikar Lab", "Zeikar"],
+      "url": {{ '/' | absolute_url | jsonify }}
+    }
+    </script>
+    {% endif %}
+
+    {% comment %}
+      About-page Person structured data. sameAs links help Google connect
+      this profile to external identities (GitHub/Twitter/LinkedIn) for
+      knowledge-panel signals.
+    {% endcomment %}
+    {% if page.url == '/about/' %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Zeikar",
+      "url": {{ '/about/' | absolute_url | jsonify }},
+      "jobTitle": "Software Engineer",
+      "sameAs": [
+        "https://github.com/zeikar",
+        "https://twitter.com/zeikar_dev",
+        "https://linkedin.com/in/zeikar"
+      ]
+    }
+    </script>
     {% endif %}
 
     <link

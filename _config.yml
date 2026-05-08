@@ -6,6 +6,9 @@ description: >-
   Where ideas come to life through code
 baseurl: ""
 url: "https://zeikar.dev"
+twitter:
+  username: zeikar_dev
+  card: summary_large_image
 twitter_username: zeikar_dev
 github_username: zeikar
 
@@ -23,6 +26,15 @@ plugins:
 # a site-level `permalink` would also rewrite pages like about.html into
 # /about/ directory form, breaking existing /about.html and /resume.html URLs.
 defaults:
+  # Site-wide jekyll-seo-tag override: by default its JSON-LD `name` falls
+  # back to site.author ("Zeikar"), which is wrong for a WebSite/WebPage
+  # entity. Pin it to the site title so the structured-data signal is
+  # consistent with og:site_name and our own WebSite JSON-LD.
+  - scope:
+      path: ""
+    values:
+      seo:
+        name: "Zeikar's Lab"
   - scope:
       path: ""
       type: posts
@@ -46,7 +58,9 @@ collections:
 
 # SEO settings
 lang: en
-author: Zeikar
+author:
+  name: Zeikar
+  twitter: zeikar_dev
 social:
   name: Zeikar
   links:
