@@ -62,6 +62,7 @@ extra_sitemap_urls:
   - https://zeikar.dev/blog/
   - https://zeikar.dev/atcoder/
   - https://zeikar.dev/leetcode/
+  - https://zeikar.dev/javascript-30/
   - https://zeikar.dev/interactive-developer-clone/
 
 # Exclude from processing

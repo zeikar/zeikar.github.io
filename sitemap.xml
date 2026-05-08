@@ -13,4 +13,7 @@ permalink: /sitemap.xml
   <sitemap>
     <loc>{{ site.url }}/charivo/sitemap.xml</loc>
   </sitemap>
+  <sitemap>
+    <loc>{{ site.url }}/kakaotalk-viewer/sitemap.xml</loc>
+  </sitemap>
 </sitemapindex>
