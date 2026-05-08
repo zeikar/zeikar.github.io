@@ -6,9 +6,12 @@ require "cgi"
 # twitter:card=summary_large_image once each — no duplicates from a
 # fallback <meta> block in the layout.
 #
-# Posts are always covered. For non-post pages we only fill when the
-# layout is `default`, which is the user-facing HTML pages (index,
-# about, blog, resume*) and skips XML/feed/verification files.
+# Coverage:
+#   - site.documents : posts + every collection doc (so _projects/*.md
+#     gets covered too, regardless of its `layout: project`).
+#   - site.pages with layout == "default" : top-level user-facing HTML
+#     (index, about, blog, resume*). Skips XML/feed/verification files,
+#     which have no layout.
 Jekyll::Hooks.register :site, :post_read do |site|
   base = site.config["url"].to_s.chomp("/")
   fill = lambda do |item|
@@ -17,7 +20,7 @@ Jekyll::Hooks.register :site, :post_read do |site|
     item.data["image"] = "https://dogimg.vercel.app/api/og?url=#{encoded}"
   end
 
-  site.posts.docs.each(&fill)
+  site.documents.each(&fill)
 
   site.pages.each do |page|
     next unless page.data["layout"] == "default"
