@@ -7,7 +7,7 @@ translations:
 description: "Open Graph 이미지 자동 생성의 세 가지 접근 — 손 디자인 PNG, param-driven 서비스, 그리고 @vercel/og 기반 URL-driven 생성기 dogimg."
 ---
 
-이 링크를 누르기 전에 본 OG 카드 — Slack이나 Twitter, Facebook에 이 URL을 붙였다면 떴을 그 미리보기 — 는 내가 그린 게 아니다. [dogimg](https://github.com/zeikar/dogimg)가 생성했다. 이 사이트의 OG 이미지를 만드는 방법을 세 번 다른 방향으로 시도했고, 그중 실제로 글을 계속 써도 살아남은 건 하나뿐이라 만들게 된 작은 서비스다.
+이 링크를 누르기 전에 본 OG 카드 — Slack이나 Twitter, Facebook에 이 URL을 붙였다면 떴을 그 미리보기 — 는 내가 그린 게 아니다. [dogimg](https://dogimg.vercel.app)가 생성했다. 이 사이트의 OG 이미지를 만드는 방법을 세 번 다른 방향으로 시도했고, 그중 실제로 글을 계속 써도 살아남은 건 하나뿐이라 만들게 된 작은 서비스다.
 
 이 글은 그 세 가지 접근을 순서대로 짚고, 왜 URL-driven 생성이 이겼는지에 대한 글이다.
 
