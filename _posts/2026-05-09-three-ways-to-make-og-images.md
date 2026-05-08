@@ -18,7 +18,7 @@ The first OG image for zeikar.dev was a 1200×630 PNG. I made it in Figma. I exp
 
 It looked fine for one page. By the third post, I was looking at a future where every new post meant another Figma file, another export, another drag-in — and any time I changed the site's brand color or favicon, every OG image already shipped was visually stale.
 
-The honest problem: an OG image is a poster of metadata that already exists on the page. The `<title>`, the description, the theme color, the favicon. All of it is already there for the browser to render. Hand-designing OG images means writing the same content twice — once for the page, once for the poster.
+The honest problem: an OG image is a poster of metadata that already exists on the page. The `<title>`, the description, the theme color, the favicon. All of it is already there for browsers and crawlers to read. Hand-designing OG images means writing the same content twice — once for the page, once for the poster.
 
 ## Stage 2: Param-driven generators (vercel/og-image and friends)
 
@@ -48,7 +48,7 @@ What it does, in three steps:
 
 1. Fetch the HTML at `{URL}`.
 2. Parse `og:*`, `twitter:*`, `<title>`, `<meta name="theme-color">`, and the favicon from the document.
-3. Render a 1200×630 PNG with [`@vercel/og`](https://vercel.com/docs/functions/og-image-generation), using the page's theme color as a gradient accent and the favicon as the card's icon.
+3. Render a 1200×630 PNG with [`@vercel/og`](https://vercel.com/docs/og-image-generation/), using the page's theme color as a gradient accent and the favicon as the card's icon.
 
 The frame here is **URL-as-truth**. The caller doesn't pack anything. The page already knows what it's about, and dogimg asks the page directly. If the post's title changes, the OG image changes — without redeploying the generator, regenerating PNGs, or even thinking about it.
 

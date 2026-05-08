@@ -7,7 +7,7 @@ translations:
 description: "Open Graph 이미지 자동 생성의 세 가지 접근 — 손 디자인 PNG, param-driven 서비스, 그리고 @vercel/og 기반 URL-driven 생성기 dogimg."
 ---
 
-이 링크를 누르기 전에 본 OG 카드 — Slack이나 Twitter, Facebook에 이 URL을 붙였다면 떴을 그 미리보기 — 는 내가 그린 게 아니다. [dogimg](https://dogimg.vercel.app)가 생성했다. 이 사이트의 OG 이미지를 만드는 방법을 세 번 다른 방향으로 시도했고, 그중 실제로 글을 계속 써도 살아남은 건 하나뿐이라 만들게 된 작은 서비스다.
+이 링크를 누르기 전에 본 OG 카드(Slack이나 Twitter, Facebook에 이 URL을 붙였다면 떴을 그 미리보기)는 내가 그린 게 아니다. [dogimg](https://dogimg.vercel.app)가 생성했다. 이 사이트의 OG 이미지를 만드는 방법을 세 번 다른 방향으로 시도했고, 그중 실제로 글을 계속 써도 살아남은 건 하나뿐이라 만들게 된 작은 서비스다.
 
 이 글은 그 세 가지 접근을 순서대로 짚고, 왜 URL-driven 생성이 이겼는지에 대한 글이다.
 
@@ -17,7 +17,7 @@ zeikar.dev의 첫 OG 이미지는 1200×630 PNG였다. Figma에서 만들고, ex
 
 페이지가 하나일 때는 괜찮았다. 세 번째 글을 쓸 즈음에는 미래가 보였다 — 글이 늘어날 때마다 Figma 파일 하나, export 한 번, drag-in 한 번. 사이트의 brand color나 favicon이 바뀌면 이미 배포된 OG 이미지들은 전부 시각적으로 낡은 것이 된다.
 
-솔직한 문제 정의: OG 이미지는 페이지에 이미 존재하는 메타데이터를 시각화한 포스터다. `<title>`, description, theme color, favicon. 브라우저가 렌더링하기 위해 이미 다 거기 있다. OG 이미지를 손으로 디자인한다는 건 같은 콘텐츠를 두 번 쓰는 일이다 — 한 번은 페이지를 위해, 한 번은 포스터를 위해.
+솔직한 문제 정의: OG 이미지는 페이지에 이미 존재하는 메타데이터를 시각화한 포스터다. `<title>`, description, theme color, favicon. 브라우저와 크롤러가 읽을 정보로 이미 다 거기 있다. OG 이미지를 손으로 디자인한다는 건 같은 콘텐츠를 두 번 쓰는 일이다 — 한 번은 페이지를 위해, 한 번은 포스터를 위해.
 
 ## 2단계: param-driven 생성기 (vercel/og-image 류)
 
@@ -47,7 +47,7 @@ https://dogimg.vercel.app/api/og?url={URL}
 
 1. `{URL}`에서 HTML을 fetch.
 2. 문서에서 `og:*`, `twitter:*`, `<title>`, `<meta name="theme-color">`, favicon을 파싱.
-3. [`@vercel/og`](https://vercel.com/docs/functions/og-image-generation)로 1200×630 PNG를 렌더 — 페이지의 theme color를 gradient 액센트로, favicon을 카드 아이콘으로 사용.
+3. [`@vercel/og`](https://vercel.com/docs/og-image-generation/)로 1200×630 PNG를 렌더 — 페이지의 theme color를 gradient 액센트로, favicon을 카드 아이콘으로 사용.
 
 이 단계의 프레임은 **URL-as-truth**다. 호출자는 아무것도 packing하지 않는다. 페이지는 이미 자기에 대해 알고 있고, dogimg는 그 페이지에 직접 묻는다. 글의 title이 바뀌면 OG 이미지도 바뀐다 — 생성기 재배포도, PNG 재생성도, 심지어 신경 쓰는 것조차 필요 없이.
 
