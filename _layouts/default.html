@@ -21,18 +21,11 @@
     {% endif %}
 
     {% comment %}
-      OG image strategy: pages can set `image:` in front matter for a custom
-      asset; otherwise we fall back to dogimg, which fetches the page URL
-      and renders a 1200x630 preview from its title/description. Either path
-      gets explicit dimensions so social crawlers don't round-trip the image.
+      _plugins/og_image.rb sets page.image to a dogimg URL for every doc and
+      default-layout page that doesn't define one explicitly, so jekyll-seo-tag
+      handles og:image / twitter:image. Emit explicit dimensions whenever the
+      image is dogimg-rendered, so social crawlers don't round-trip the image.
     {% endcomment %}
-    {% unless page.image %}
-    {% capture default_og %}https://dogimg.vercel.app/api/og?url={{ page.url | absolute_url | url_encode }}{% endcapture %}
-    <meta property="og:image" content="{{ default_og }}" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta name="twitter:image" content="{{ default_og }}" />
-    {% endunless %}
     {% if page.image and page.image contains 'dogimg.vercel.app' %}
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
