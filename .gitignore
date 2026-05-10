@@ -8,3 +8,5 @@ _site/
 .bundle/
 vendor/
 Gemfile.lock
+# hyperclaude artifacts (research/plans/reviews)
+.hyperclaude/
