@@ -6,7 +6,7 @@ tech_stack: ["Next.js 13", "TypeScript", "@vercel/og", "Tailwind CSS", "Vercel"]
 github_url: "https://github.com/zeikar/dogimg"
 demo_url: "https://dogimg.vercel.app"
 image: "/assets/images/projects/dogimg.png"
-sequence: 3
+sequence: 5
 ---
 
 ## Project Overview

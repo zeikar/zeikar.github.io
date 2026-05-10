@@ -6,7 +6,7 @@ tech_stack: ["Next.js 15", "React 19", "TypeScript", "Firebase Auth", "Tailwind 
 github_url: "https://github.com/zeikar/nextjs-firebase-boilerplate"
 demo_url: "https://nextjs-firebase-starter.vercel.app/"
 image: "/assets/images/projects/nextjs-firebase-boilerplate.png"
-sequence: 7
+sequence: 9
 ---
 
 ## Project Overview

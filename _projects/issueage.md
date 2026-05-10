@@ -5,7 +5,7 @@ description: "Static site generator that publishes GitHub Issues as a Svelte-ren
 tech_stack: ["Svelte", "JavaScript", "GitHub Issues", "GitHub Pages", "sirv"]
 github_url: "https://github.com/zeikar/issueage"
 demo_url: "https://zeikar.dev/issueage/"
-sequence: 12
+sequence: 14
 ---
 
 ## Project Overview
