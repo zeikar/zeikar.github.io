@@ -4,6 +4,7 @@ title: "hyperclaude"
 description: "Claude Code plugin that splits the AI coding workflow: Claude builds, Codex critiques. A gated research → plan → review → ship pipeline with skills, agents, commands, and hooks."
 tech_stack: ["Node.js 18+", "Claude Code plugin runtime", "codex-cli", "Bash", "git"]
 github_url: "https://github.com/zeikar/hyperclaude"
+demo_url: "https://zeikar.dev/hyperclaude/"
 image: "/assets/images/projects/hyperclaude.png"
 sequence: 2
 ---

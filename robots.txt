@@ -4,4 +4,5 @@ Allow: /
 Sitemap: https://zeikar.dev/sitemap.xml
 Sitemap: https://zeikar.dev/backend-interview-guide/sitemap.xml
 Sitemap: https://zeikar.dev/charivo/sitemap.xml
+Sitemap: https://zeikar.dev/hyperclaude/sitemap.xml
 Sitemap: https://zeikar.dev/kakaotalk-viewer/sitemap.xml
