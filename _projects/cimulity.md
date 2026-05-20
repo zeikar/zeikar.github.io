@@ -4,6 +4,7 @@ title: "Cimulity"
 description: "Browser city-sim built on a strict one-way data flow: input → tools → engine → core → render, with React reduced to a shell."
 tech_stack: ["Next.js 16", "React 19", "TypeScript (strict)", "PixiJS 8", "Vitest", "Tailwind CSS 4"]
 github_url: "https://github.com/zeikar/cimulity"
+demo_url: "https://zeikar.dev/cimulity/"
 sequence: 3
 ---
 
