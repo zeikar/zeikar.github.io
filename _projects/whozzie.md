@@ -6,7 +6,7 @@ tech_stack: ["Next.js 16", "React 19", "TypeScript", "next-intl", "Tailwind CSS 
 github_url: "https://github.com/zeikar/whozzie"
 demo_url: "https://whozzie.vercel.app"
 image: "/assets/images/projects/whozzie.png"
-sequence: 11
+sequence: 13
 ---
 
 ## Project Overview

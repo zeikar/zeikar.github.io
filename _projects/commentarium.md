@@ -6,7 +6,7 @@ tech_stack: ["Chrome Extension APIs", "React 18", "TypeScript", "Vite", "Jest"]
 github_url: "https://github.com/zeikar/commentarium-extension"
 demo_url: "https://commentarium.app"
 image: "/assets/images/projects/commentarium.png"
-sequence: 4
+sequence: 5
 ---
 
 ## Project Overview

@@ -4,7 +4,7 @@ title: "like-surgeon"
 description: "Local-first CLI that scans, diffs, and diagnoses your YouTube Music and YouTube liked songs — region-aware ghost detection, metadata drift, cross-source matching."
 tech_stack: ["Python 3.11+", "uv", "SQLite", "ytmusicapi", "YouTube Data API v3", "RapidFuzz"]
 github_url: "https://github.com/zeikar/like-surgeon"
-sequence: 3
+sequence: 4
 ---
 
 ## Project Overview

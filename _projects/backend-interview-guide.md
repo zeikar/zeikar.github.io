@@ -5,7 +5,7 @@ description: "Korean backend interview guide organized across database, cloud, s
 tech_stack: ["Codex", "Claude Code", "Agent Harness", "Markdown", "Python", "GitHub"]
 github_url: "https://github.com/zeikar/backend-interview-guide"
 demo_url: "https://zeikar.dev/backend-interview-guide/"
-sequence: 10.5
+sequence: 12
 ---
 
 ## Project Overview

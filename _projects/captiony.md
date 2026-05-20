@@ -6,7 +6,7 @@ tech_stack: ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS 4", "Zustand"
 github_url: "https://github.com/zeikar/captiony"
 demo_url: "https://captiony.vercel.app"
 image: "/assets/images/projects/captiony.png"
-sequence: 8
+sequence: 9
 ---
 
 ## Project Overview
