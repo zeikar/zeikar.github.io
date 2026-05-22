@@ -8,7 +8,7 @@ translations:
 description: "Why hyperclaude's persistent-teammate revise loops grew a long cross-loop protocol — request-id counters, solicit_sent_at timestamps, and the 1-round-lag race that ate an afternoon."
 ---
 
-This is about the autonomous revise loops in [hyperclaude](https://github.com/zeikar/hyperclaude) — a Claude Code plugin built around a deliberate split: Claude builds, Codex critiques. Two of its skills, `hyper-plan-loop` and `hyper-implement-loop`, take a task and run plan → review → revise (or implement → review → fix) on their own, looping until Codex returns no blocking findings or a hard cap is hit. A single Claude-side teammate stays alive across rounds; Codex stays the reviewer.
+This is about the autonomous revise loops in [hyperclaude](/hyperclaude/) ([code](https://github.com/zeikar/hyperclaude)) — a Claude Code plugin built around a deliberate split: Claude builds, Codex critiques. Two of its skills, `hyper-plan-loop` and `hyper-implement-loop`, take a task and run plan → review → revise (or implement → review → fix) on their own, looping until Codex returns no blocking findings or a hard cap is hit. A single Claude-side teammate stays alive across rounds; Codex stays the reviewer.
 
 If you sketch that on a whiteboard, it's twenty lines:
 

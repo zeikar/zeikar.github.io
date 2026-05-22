@@ -7,7 +7,7 @@ translations:
 description: "hyperclaude의 persistent-teammate 리바이즈 루프가 왜 긴 cross-loop 프로토콜을 갖게 됐는가 — request-id 카운터, solicit_sent_at 타임스탬프, 그리고 오후 하나를 통째로 잡아먹은 1-round-lag race."
 ---
 
-[hyperclaude](https://github.com/zeikar/hyperclaude)의 autonomous revise loop 이야기다. Claude는 만들고 Codex는 비평한다는 분업 위에 세운 Claude Code 플러그인이고, 그중 두 스킬 — `hyper-plan-loop`, `hyper-implement-loop` — 가 태스크 하나를 받아서 plan → review → revise (또는 implement → review → fix)를 자기들끼리 돌린다. Codex가 더 이상 블로커를 안 내거나 hard cap에 닿을 때까지. Claude 쪽 teammate 하나는 라운드 사이에 계속 살아 있고, Codex는 계속 리뷰어다.
+[hyperclaude](/hyperclaude/) ([코드](https://github.com/zeikar/hyperclaude))의 autonomous revise loop 이야기다. Claude는 만들고 Codex는 비평한다는 분업 위에 세운 Claude Code 플러그인이고, 그중 두 스킬 — `hyper-plan-loop`, `hyper-implement-loop` — 가 태스크 하나를 받아서 plan → review → revise (또는 implement → review → fix)를 자기들끼리 돌린다. Codex가 더 이상 블로커를 안 내거나 hard cap에 닿을 때까지. Claude 쪽 teammate 하나는 라운드 사이에 계속 살아 있고, Codex는 계속 리뷰어다.
 
 화이트보드에 그리면 20줄짜리다:
 
