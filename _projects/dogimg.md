@@ -23,4 +23,4 @@ That's the whole contract: `GET /api/og?url=<target>` returns an `image/png`. Dr
 <meta property="og:image" content="https://dogimg.vercel.app/api/og?url=https://your-site.com/post" />
 ```
 
-It isn't just a demo, either — every social card on this site is a live DOGimg call, wired in at build time by a small Jekyll plugin.
+It isn't just a demo, either — every social card on this site is a live DOGimg call, wired in at build time by a small Jekyll plugin. I tried three approaches before settling on this URL-driven one, and wrote up why it won: [Three ways to generate Open Graph images](/blog/three-ways-to-make-og-images/).
