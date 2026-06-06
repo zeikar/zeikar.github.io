@@ -9,37 +9,21 @@ image: "/assets/images/projects/charivo.png"
 sequence: 1
 ---
 
-## Project Overview
+Charivo splits an interactive AI character into parts that come apart. Rendering (Live2D), language (the LLM), and voice (TTS/STT) live in separate packages wired together through interfaces — so swapping the TTS provider, or dropping in a different model, never means touching the renderer.
 
-Charivo is a framework that abstracts the complexity of interactive character systems into composable modules. Instead of tightly coupling rendering, language, and audio, it lets developers combine components by interface contracts.
+## How it's put together
 
-## Key Features
+The framework keeps four concerns apart: orchestration, stateful managers, browser-side clients, and server-side providers. You compose a character from independent packages:
 
-- **Modular Package System**: Core, LLM, TTS, STT, Realtime, and Renderer layers are independently swappable
-- **Live2D Simplification**: High-level APIs reduce raw SDK setup to a few integration steps
-- **Emotion-aware Interaction**: Conversation output can map to character expressions and motions
-- **Voice Pipeline**: Pluggable text-to-speech and speech-to-text with browser and remote providers
-- **Realtime Voice Support**: OpenAI Realtime API support via WebRTC-focused client modules
-- **Framework Agnostic**: Usable from React, Vue, or vanilla environments
+- `@charivo/core` — the orchestrator: attach a renderer, an LLM, and a TTS player, then call `charivo.userSay("...")`
+- `@charivo/render` + `@charivo/render-live2d` — Live2D model loading, motion playback, and mouse/gaze tracking
+- `@charivo/llm` and `@charivo/tts` — a manager + client split, with `/remote` clients that keep provider keys on the server instead of in the browser
+- `@charivo/realtime` — swap the LLM + TTS pair for a single speech-to-speech manager
 
-## Technical Challenges & Solutions
+Keeping browser clients and server providers on opposite sides of that line is deliberate: the frontend never holds a provider credential.
 
-### Challenge 1: Extensibility without chaos
-Adopted manager-based architecture with clear interfaces so new providers can be added without rewriting consumers.
+## Realtime voice
 
-### Challenge 2: Runtime coordination
-Built event-driven orchestration to synchronize dialogue state, audio playback, and visual animation.
+For low-latency conversation you attach a realtime manager instead of the LLM + TTS pair. The browser streams microphone audio to a server route and plays the model's voice straight back — and because one character session drives the renderer too, a reply moves the character's expression and motion, not just its mouth.
 
-### Challenge 3: Production-safe integrations
-Separated client and server concerns to avoid exposing sensitive provider credentials in frontend contexts.
-
-## What I Learned
-
-- Designing SDK-style TypeScript APIs for long-term maintainability
-- Managing monorepo package boundaries and developer experience
-- Coordinating multimodal systems (text, voice, and animation) in one framework
-- Translating complex engine setup into pragmatic developer tooling
-
-## Impact
-
-Charivo makes advanced character interaction systems accessible to application developers who need production flexibility without Live2D + LLM boilerplate overhead.
+Two live demos: the [Live2D web app](https://charivo.vercel.app/) and the [Companion](https://charivo-companion.vercel.app/), which adds realtime voice with cross-session memory.

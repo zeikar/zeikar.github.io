@@ -8,34 +8,10 @@ demo_url: "https://zeikar.dev/issueage/"
 sequence: 16
 ---
 
-## Project Overview
+Issueage treats GitHub Issues as a CMS: write content as issues, and it builds a small Svelte site from them and publishes it to GitHub Pages. No database, no separate authoring tool — the issue tracker *is* the editor.
 
-Issueage is a static site generator that turns a GitHub repository's Issues into a Svelte-rendered website published on GitHub Pages. Issues become content entries; the generator builds a small Svelte app and deploys it to the `gh-pages` branch via a template-based workflow.
+## How you use it
 
-## Key Features
+Create a repo from the template (or graft it onto an existing one), edit `config.json`, push, and point GitHub Pages at the `gh-pages` branch. The build pulls your issues through the GitHub API, maps title/body/labels into a content model, and emits a Svelte app served by `sirv`.
 
-- **Issues-as-CMS Workflow**: GitHub Issues serve as the content source — no database, no separate authoring UI
-- **Svelte Frontend**: The generated site is a small Svelte app with client-side routing and rendering
-- **GitHub Pages Deployment**: Publishes to `gh-pages` so any GitHub repo can host the site for free
-- **Template-driven Setup**: Bootstrap a new site by creating a repo from the template and editing `config.json`
-
-## Technical Challenges & Solutions
-
-### Challenge 1: Treating Issues as content
-Built a fetch and render layer that pulls issues through the GitHub API and shapes them into pages, mapping title, body, and labels into the site's content model.
-
-### Challenge 2: Keeping the build single-purpose
-Kept the workflow narrow on purpose: configure once, push, and let the bundled scripts produce a deployable static build for GitHub Pages.
-
-### Challenge 3: Reusable across repos
-Designed it as a GitHub template so anyone — including my own portfolio site — could fork it and get a working Issues-driven page without rewriting the build glue.
-
-## What I Learned
-
-- How to repurpose GitHub-native primitives (Issues, Pages) into a complete content pipeline
-- How to package a static-site workflow as a reusable template
-- How to keep a small, opinionated SSG narrow enough to stay maintainable
-
-## Impact
-
-Issueage was the original engine behind my personal portfolio and an early experiment in turning GitHub itself into a publishing platform.
+It was the original engine behind this very portfolio before the rewrite to Jekyll — an early experiment in bending GitHub's own primitives (Issues, Actions, Pages) into a complete publishing pipeline.

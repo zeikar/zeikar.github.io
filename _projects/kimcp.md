@@ -8,36 +8,14 @@ image: "/assets/images/projects/kimcp.png"
 sequence: 11
 ---
 
-## Project Overview
+KiMCP is an MCP server that hands an LLM a set of Korean web and map APIs as tools — so an assistant can actually search Naver, look up a place on KakaoMap, or get transit directions instead of guessing.
 
-KiMCP (Korea-integrated Model Context Protocol) is an MCP server that helps LLM applications use Korean web and map APIs through a unified tool interface. It focuses on practical integrations needed by Korean-language assistant products.
+## Tools it exposes
 
-## Key Features
+- **Naver** — blog, news, cafe, 지식iN, local, image, and shopping search
+- **Daum** — blog and cafe search
+- **Maps & routing** — KakaoMap place search, car directions (Kakao), and public-transit directions (TMAP)
 
-- **Naver Search Tools**: Blog, news, cafe, knowledge iN, image, local, and shopping search
-- **Daum Search Tools**: Blog and cafe integrations
-- **Navigation Integrations**: Kakao map search plus driving and transit routing through Kakao/TMAP
-- **Tool-level Fallback Behavior**: API-specific tools can be enabled/disabled by available keys
-- **Claude Desktop Integration**: Supports direct install and local inspection workflows
+## Degrade-by-key design
 
-## Technical Challenges & Solutions
-
-### Challenge 1: API heterogeneity
-Unified multiple provider APIs behind MCP-compatible tools with consistent input/output patterns.
-
-### Challenge 2: Operational flexibility
-Designed key-dependent tool activation so partial setups still provide useful capabilities.
-
-### Challenge 3: Developer onboarding
-Kept setup friction low with `uv` workflows and direct `mcp install` / `mcp dev` commands.
-
-## What I Learned
-
-- Building MCP-native tool servers for real assistant use cases
-- Designing interfaces across API ecosystems with different conventions
-- Balancing broad coverage and maintainable Python service architecture
-- Improving local DX for agent tooling experimentation
-
-## Impact
-
-KiMCP expands what Korean-focused LLM assistants can do by connecting local data and navigation ecosystems to MCP-compatible clients.
+You set only the API keys you have. Each tool checks for its provider's key at startup, and if it's missing the tool simply isn't registered — so a Naver-only setup exposes the Naver tools and quietly drops the rest instead of erroring. Built on the MCP Python SDK with `uv` for setup and a one-line `mcp install` into Claude Desktop.

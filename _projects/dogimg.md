@@ -2,43 +2,25 @@
 layout: project
 title: "DOGimg"
 description: "Dynamic Open Graph image generator that creates share-ready preview cards from any URL."
-tech_stack: ["Next.js 13", "TypeScript", "@vercel/og", "Tailwind CSS", "Vercel"]
+tech_stack: ["Next.js 16", "TypeScript", "@vercel/og", "Tailwind CSS", "Vercel"]
 github_url: "https://github.com/zeikar/dogimg"
 demo_url: "https://dogimg.vercel.app"
 image: "/assets/images/projects/dogimg.png"
 sequence: 6
 ---
 
-## Project Overview
+DOGimg turns any URL into a share-ready Open Graph image with a single API call. Point it at a page and it returns a 1200×630 PNG built from that page's own metadata — no manual design step.
 
-DOGimg is a utility product for generating Open Graph images directly from a webpage URL. It helps creators and developers quickly produce social preview images without manual design work.
+## How it works
 
-## Key Features
+1. Fetch the target page's HTML
+2. Parse its metadata — `og:*`, `twitter:*`, `<title>`, `theme-color`, and the favicon
+3. Render a 1200×630 card with `@vercel/og`
 
-- **URL-based Generation**: Create OG images by passing a target URL
-- **API-first Usage**: Direct endpoint integration for automated workflows
-- **Meta Data Extraction**: Uses page title, description, and favicon as generation inputs
-- **Share-ready Output**: Designed for social link previews and SEO snippets
-- **Simple Local Run**: Works locally with standard Next.js development setup
+That's the whole contract: `GET /api/og?url=<target>` returns an `image/png`. Drop the URL straight into an `og:image` tag and your link previews are done.
 
-## Technical Challenges & Solutions
+```html
+<meta property="og:image" content="https://dogimg.vercel.app/api/og?url=https://your-site.com/post" />
+```
 
-### Challenge 1: Reliable source extraction
-Implemented HTML parsing to consistently collect key metadata from arbitrary webpages.
-
-### Challenge 2: Render quality in API responses
-Used `@vercel/og`-based rendering so generated images remain fast and visually consistent.
-
-### Challenge 3: Practical integration path
-Kept the API contract simple (`/api/og?url=...`) so it can be plugged into existing sites with minimal effort.
-
-## What I Learned
-
-- Building focused API tools on top of Next.js route handlers
-- Converting page metadata into visual output pipelines
-- Designing utility products with low integration friction
-- Balancing simplicity and output quality for SEO-focused tooling
-
-## Impact
-
-DOGimg reduces the effort required to produce social preview assets and makes OG-image workflows easier to automate.
+It isn't just a demo, either — every social card on this site is a live DOGimg call, wired in at build time by a small Jekyll plugin.

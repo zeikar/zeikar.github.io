@@ -9,36 +9,13 @@ image: "/assets/images/projects/whozzie.png"
 sequence: 13
 ---
 
-## Project Overview
+Whozzie settles "who goes first?" arguments. Two tools, no setup: a spin-the-wheel picker for names or items, and a multi-die roller — for when a coin flip isn't enough.
 
-Whozzie is a lightweight decision-making web app built for everyday moments when you need a fair random choice. It provides two core tools: a wheel-based picker for names/items and a multi-dice roller.
+## What it does
 
-## Key Features
+- **Wheel picker** — type in names or options and spin for a fair random pick
+- **Dice roller** — roll `d4`, `d6`, `d8`, `d10`, `d12`, `d20`, with a running history of rolls
+- **Bilingual** — full English and Korean UI via next-intl locale routing
+- **Responsive** — built for a phone passed around a table as much as a desktop
 
-- **Wheel Picker**: Add names or items and spin to select a random result
-- **Dice Roller**: Roll multiple dice types (`d4`, `d6`, `d8`, `d10`, `d12`, `d20`) with history tracking
-- **Multilingual UX**: Localized experience in English and Korean
-- **Fast, Simple Flow**: Minimal input friction for quick team/class/group use cases
-- **Responsive Interface**: Optimized for desktop and mobile use
-
-## Technical Challenges & Solutions
-
-### Challenge 1: Clean random interactions
-Built UI flows where input, randomization, and result feedback remain clear and predictable even with repeated spins/rolls.
-
-### Challenge 2: Internationalization coverage
-Used `next-intl`-based locale routing and message separation to keep translations maintainable as features expand.
-
-### Challenge 3: SEO and routing consistency
-Configured localized sitemap/robots behavior and route structure so pages are crawlable while preserving i18n URLs.
-
-## What I Learned
-
-- Designing fun utility products with low cognitive load
-- Structuring i18n-ready UI early in the project lifecycle
-- Balancing playful interaction with deterministic app behavior
-- Shipping compact tools that still feel polished
-
-## Impact
-
-Whozzie turns common “who goes first?” moments into a fast and enjoyable interaction that works across language contexts.
+It's intentionally small — a polished single-purpose utility rather than a feature pile. The one constraint I cared about was wiring i18n in from the start, so adding a language later doesn't mean untangling hardcoded strings.

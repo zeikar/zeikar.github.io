@@ -8,36 +8,12 @@ image: "/assets/images/projects/fairy-of-grass.png"
 sequence: 15
 ---
 
-## Project Overview
+Fairy of Grass keeps a GitHub contribution graph green by committing for you. It's a template repo: a GitHub Actions workflow runs once a day (~12:00 GMT) and pushes an empty commit, which counts as a contribution without pretending to be real work.
 
-Fairy of Grass is a template repository for automating contribution activity on GitHub. It is designed for users who want to set up a simple scheduled workflow that creates regular commits with minimal configuration.
+## Setup is three steps
 
-## Key Features
+1. Create a repo from the template
+2. Add one secret — `USER_EMAIL` — so the commit is attributed to you
+3. Done; the daily schedule takes it from there
 
-- **Template-based Setup**: Start from a GitHub template repository
-- **Scheduled Automation**: Runs daily using GitHub Actions cron scheduling
-- **Secret-driven Identity**: Uses repository secrets (`USER_EMAIL`) for commit metadata
-- **Minimal Configuration**: Small setup surface for quick onboarding
-- **Contribution Graph Focus**: Built specifically for consistent daily contribution updates
-
-## Technical Challenges & Solutions
-
-### Challenge 1: Frictionless onboarding
-Kept setup to a few clear steps: create from template, add secret, and run.
-
-### Challenge 2: Stable scheduled execution
-Used GitHub Actions scheduling patterns to ensure regular, low-maintenance automation.
-
-### Challenge 3: Reusable public template design
-Structured the project as a reusable template so others can deploy the same workflow quickly.
-
-## What I Learned
-
-- Designing lightweight automation templates for broad reuse
-- Managing scheduled repository workflows with GitHub Actions
-- Documenting setup flows clearly for non-expert users
-- Balancing simplicity and flexibility in template repos
-
-## Impact
-
-Fairy of Grass provides a quick path to daily GitHub automation and serves as a simple example of practical, reusable Actions-based workflow design.
+The whole thing is one cron-scheduled Action and a single secret — deliberately tiny, so it's easy to read end-to-end before you trust it with your profile. (Whether you *should* farm your own grass is between you and your contribution graph.)

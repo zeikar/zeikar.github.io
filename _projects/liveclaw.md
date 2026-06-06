@@ -8,44 +8,13 @@ image: "/assets/images/projects/liveclaw.png"
 sequence: 7
 ---
 
-## Project Overview
+LiveClaw is a desktop companion — a Live2D character you can talk to — built as an Electron app on top of my own [Charivo](/projects/charivo/) framework. It's a work in progress, and as much as anything it's a test of whether the framework holds up in a real product.
 
-LiveClaw is an OpenClaw-powered desktop companion currently in active development. It combines Live2D characters, local-first chat, and speech features in a single Electron app built with React and TypeScript.
+## The shape of it
 
-## Key Features
+Charivo orchestrates the character in the React renderer (`useCharivo` + a `Live2DPanel`), but *where* the provider calls happen is the interesting decision:
 
-- **Electron Desktop Shell**: Native packaging targets for macOS, Windows, and Linux
-- **Live2D Integration**: Avatar rendering and motion playback via `@charivo/render-live2d`
-- **OpenClaw Chat Backend**: OpenAI-compatible local LLM calls routed through the main process
-- **Direct TTS Playback**: Renderer-side OpenAI TTS for quick local voice output
-- **Clear Process Boundary**: Renderer UI and provider calls are separated through IPC
-- **WIP Roadmap**: Foundation prepared for STT and streaming upgrades
+- **Chat runs in the main process.** The renderer sends messages over IPC to Electron's Node side, which calls [OpenClaw](https://openclaw.ai/) — a local, OpenAI-compatible LLM at `localhost:18789`. Routing it through the main process sidesteps the renderer's CORS / Private Network Access limits.
+- **TTS runs in the renderer.** OpenAI's audio API is called directly from the browser side — a deliberate shortcut for local-dev convenience, with the obvious caveat that the key sits in the renderer.
 
-## Architecture Notes
-
-- **Renderer Layer**: React UI + Charivo orchestration + Live2D panel
-- **Main Process Layer**: OpenClaw provider and Node-side API calls
-- **Provider Access Pattern**: Chat via IPC to avoid renderer CORS/PNA issues
-- **TTS Path**: Direct renderer API usage for local development convenience
-
-## Technical Challenges & Solutions
-
-### Challenge 1: Cross-process coordination
-Chat events, rendering lifecycle, and provider calls were split cleanly between renderer and main process responsibilities.
-
-### Challenge 2: Character synchronization
-Live2D state and conversation flow were wired through Charivo so motion/response behavior stays coherent.
-
-### Challenge 3: Local-dev practicality vs security
-Direct renderer-side TTS improves local iteration speed, but requires explicit key-handling cautions for trusted environments.
-
-## What I Learned
-
-- Desktop packaging and runtime workflows with Electron + electron-vite
-- Hybrid architecture patterns for renderer/main process separation
-- Applying framework modules (`Charivo`) in a real desktop product
-- Making pragmatic tradeoffs while keeping a path to production hardening
-
-## Impact
-
-LiveClaw validates a practical path from reusable character framework modules to a user-facing desktop companion product.
+So the build doubles as a forcing function for Charivo: if attaching a renderer, an LLM provider, and a TTS player to a real Electron app turns out to be awkward, that's a framework bug to fix upstream.

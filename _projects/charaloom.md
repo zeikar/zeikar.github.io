@@ -8,37 +8,17 @@ image: "/assets/images/projects/charaloom.png"
 sequence: 8
 ---
 
-## Project Overview
+Charaloom is a full app for making AI characters and chatting with them: create a character, give it a persona, and talk to it in a streaming chat — plus the supporting cast a real product needs (accounts, credits, a community board, discovery).
 
-Charaloom is a full-stack AI character platform where users can create characters, manage profiles, and chat in real time. It combines content creation, social discovery, and conversational AI into one product experience.
+## What's in it
 
-## Key Features
+- **Character CRUD + discovery** — create, edit, and delete characters, browse a preset list with infinite scroll, and like the ones you want
+- **Streaming chat** — per-character chat rooms backed by the Vercel AI SDK + OpenAI, with history you can review or clear
+- **Credits** — a signup bonus, per-chat consumption, and a usage ledger, with admin scripts to adjust balances or seed characters
+- **Accounts** — Google and anonymous sign-in, anonymous→Google upgrade, profile editing, and account deletion
+- **Community board** — posts and comments, plus tag search with autocomplete
+- **Built for two languages** — `en`/`ko` routing via next-intl, with a dynamic sitemap, robots, and a PWA manifest for SEO
 
-- **Character CRUD**: Create, edit, and manage personalized AI characters
-- **Streaming Chat**: Low-latency chat flow with OpenAI SDK streaming responses
-- **Auth System**: Google sign-in, anonymous sign-in, and account upgrade support
-- **Content Discovery**: Preset lists and infinite-scroll browsing for character exploration
-- **Multilingual Routing**: Localized UX with `en` and `ko` routes using `next-intl`
-- **Profile Management**: User profile updates, account controls, and privacy-aware flows
+## Under the hood
 
-## Technical Challenges & Solutions
-
-### Challenge 1: Reliable state boundaries
-Used TanStack Query for server state and Zustand for local UI state to keep chat, feed, and form workflows predictable.
-
-### Challenge 2: End-to-end chat architecture
-Structured API and backend layers to keep persona context, history handling, and streaming output maintainable over time.
-
-### Challenge 3: Auth and data integration
-Integrated Firebase Auth, Firestore, and Storage with API routes to support secure, user-scoped content operations.
-
-## What I Learned
-
-- Applying app-router patterns to a complex product surface
-- Designing AI UX that balances speed, control, and personality consistency
-- Building testable frontend/domain logic with Vitest and React Testing Library
-- Shipping multilingual interfaces without fragmenting core product logic
-
-## Impact
-
-Charaloom turns character ideation into an interactive social product, enabling creators to move from concept to conversation in minutes.
+State is split on purpose: TanStack Query owns server state (characters, feeds, chat history), Zustand holds local UI state, and Zod validates anything crossing the wire. Auth, Firestore, and Storage all go through Firebase, with the Admin SDK on server routes so user-scoped writes stay locked down. Built on Next.js (App Router) + React 19, tested with Vitest and React Testing Library.

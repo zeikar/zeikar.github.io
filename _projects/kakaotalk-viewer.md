@@ -9,37 +9,15 @@ image: "/assets/images/projects/kakaotalk-viewer.png"
 sequence: 14
 ---
 
-## Project Overview
+KakaoTalk Viewer opens exported KakaoTalk chat files in the browser and renders them like the real messenger — date dividers, multiline messages, join/leave notices, links — so a long backed-up conversation is actually readable. Everything happens client-side; the chat file never leaves your browser.
 
-KakaoTalk Viewer is a browser-based viewer for KakaoTalk export files. It renders exported `.txt` and `.csv` chat logs in a familiar messenger-style interface, so users can inspect long conversation histories without installing a desktop app or uploading private chat data to a server.
+## What it handles
 
-## Key Features
+- **Every export source** — auto-detects KakaoTalk `.txt`/`.csv` exports from Windows, macOS, Android, and iOS, across Korean and English locale formats (12- and 24-hour time, CSV quoting, system messages)
+- **Navigation that scales** — full-text search, per-person filtering, jump-to-date, and jump to the first or last message
+- **"Which messages are mine?"** — pick your own name and your side of the conversation lines up correctly
+- **Long rooms stay smooth** — virtualized rendering (react-virtuoso) so a chat with tens of thousands of lines doesn't choke
 
-- **Multi-platform Parsing**: Supports KakaoTalk exports from Windows, macOS, Android, and iOS
-- **Private Browser-only Workflow**: Reads and renders files locally in the browser without server upload
-- **Search & Date Navigation**: Find messages quickly and jump by date, oldest message, or latest message
-- **Messenger-style Rendering**: Preserves date headers, invite/leave notifications, multiline messages, and links
-- **Large Chat Performance**: Uses virtual scrolling to keep long conversation histories responsive
-- **Static Deployment**: Runs as a GitHub Pages app with no backend dependency
+## Parsing is the real work
 
-## Technical Challenges & Solutions
-
-### Challenge 1: Export format differences
-Built separate parsers for Windows, macOS, Android, and iOS exports, including Korean and English locale variations, 12-hour/24-hour time formats, CSV quoting, multiline messages, and system notifications.
-
-### Challenge 2: Navigating long histories
-Added virtualized rendering, message search, date indexing, and calendar-based jumps so old chat rooms remain fast and practical to browse.
-
-### Challenge 3: Privacy-sensitive file handling
-Kept all parsing on the client side. The selected export file is read through browser APIs and never needs to leave the user's local browser session.
-
-## What I Learned
-
-- Designing parser-driven frontend tools with strong test coverage
-- Handling platform, locale, and timestamp differences in real-world text exports
-- Building usable navigation for dense conversation logs
-- Keeping privacy-sensitive utilities simple through static deployment
-
-## Impact
-
-KakaoTalk Viewer makes exported conversation data easier to inspect, search, and revisit while keeping private chat files local to the user's browser.
+The interesting part isn't the UI, it's the parsers. Each platform exports a slightly different shape, so `src/parser/**` carries per-platform logic for those differences — and both `src/parser/**` and `src/lib/**` are held to **100% test coverage** in CI, because a parser that's right 95% of the time silently mangles the other 5% of someone's chat history.

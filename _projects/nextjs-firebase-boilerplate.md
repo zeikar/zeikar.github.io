@@ -2,44 +2,20 @@
 layout: project
 title: "Next.js Firebase Boilerplate"
 description: "Production-ready starter for Next.js + Firebase with server-side auth, TypeScript, and reusable app scaffolding."
-tech_stack: ["Next.js 15", "React 19", "TypeScript", "Firebase Auth", "Tailwind CSS 4"]
+tech_stack: ["Next.js 16", "React 19", "TypeScript", "Firebase Auth", "Tailwind CSS 4"]
 github_url: "https://github.com/zeikar/nextjs-firebase-boilerplate"
 demo_url: "https://nextjs-firebase-starter.vercel.app/"
 image: "/assets/images/projects/nextjs-firebase-boilerplate.png"
 sequence: 10
 ---
 
-## Project Overview
+A Next.js + Firebase starter that ships the part everyone re-implements from scratch: real server-side authentication. The point is to skip straight to building features instead of re-wiring Firebase auth on every new project.
 
-Next.js Firebase Boilerplate is a reusable foundation for rapidly building secure web applications. It packages common authentication and application scaffolding concerns into a ready-to-start structure.
+## What you get on day one
 
-## Key Features
+- **Server-side auth** — sessions verified with the Firebase Admin SDK, not just client-side checks
+- **The full account lifecycle** — Google and anonymous sign-in, anonymous→Google upgrade, and account deletion
+- **The boring-but-needed bits** — a notification system, an auth modal, reusable components, SEO defaults, and a Vercel-ready deploy
+- **Type-safe throughout** — TypeScript + Tailwind, structured so you extend it rather than fight it
 
-- **Server-side Authentication**: Firebase Admin SDK session verification for protected flows
-- **Multiple Sign-in Modes**: Google + Anonymous sign-in with account upgrade support
-- **Account Lifecycle Controls**: Includes account deletion and session management patterns
-- **Type-safe Foundation**: TypeScript-first structure for maintainable growth
-- **UI/UX Utilities Included**: Notification system, auth modal, and reusable components
-- **Deploy-ready Baseline**: Built for quick setup and smooth Vercel deployment
-
-## Technical Challenges & Solutions
-
-### Challenge 1: Auth flow consistency
-Implemented server/client auth boundaries so session validation remains secure and predictable.
-
-### Challenge 2: Environment configuration clarity
-Documented Firebase Admin/Web SDK setup patterns to reduce integration errors during onboarding.
-
-### Challenge 3: Reusability at project start
-Organized folder/module structure to support immediate product extension without heavy refactoring.
-
-## What I Learned
-
-- Designing starter templates that stay useful beyond initial setup
-- Balancing abstraction and clarity in auth scaffolding
-- Building ergonomic DX for rapid project initialization
-- Packaging practical defaults without over-opinionating architecture
-
-## Impact
-
-The boilerplate shortens time-to-first-feature for Firebase-backed Next.js projects and helps developers start from a secure, production-minded baseline.
+The trickiest thing it documents isn't code — it's the Firebase env setup. The Admin and Web SDK configs have to be supplied as single-line JSON with the `private_key` newlines escaped, which is exactly the kind of silent-failure trap that eats an afternoon. The starter spells it out so you don't rediscover it the hard way.
