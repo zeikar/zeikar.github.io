@@ -36,7 +36,7 @@ Pinned every Codex invocation to read-only: fresh `codex exec` calls pass `--san
 `hyper-docs-sync` reads a `Code | Docs` mapping table from the consumer project's `CLAUDE.md` / `AGENTS.md` and dispatches targeted updates per affected doc, falling back to a heuristic when no table exists.
 
 ### Challenge 4: Autonomous revise loops that stay convergent
-`hyper-plan-loop` / `hyper-implement-loop` spawn a Claude teammate **once** and reuse its retained context across rounds: the teammate revises, the Codex bridge re-reviews, and the loop repeats until no blocking findings remain or a review cap is reached. The reviewer is always the bridge, never a teammate — preserving the builder/critic split — and a strict reply contract plus teardown protocol keep the multi-agent loop from stalling.
+`hyper-plan-loop` / `hyper-implement-loop` spawn a Claude teammate **once** and reuse its retained context across rounds: the teammate revises, the Codex bridge re-reviews, and the loop repeats until no blocking findings remain or a review cap is reached. The reviewer is always the bridge, never a teammate — preserving the builder/critic split — and a strict reply contract plus teardown protocol keep the multi-agent loop from stalling. The dogfooded failure modes that grew that contract into a 300-line protocol are their own write-up: [How my agent-team revise loop earned a 300-line protocol](/blog/revise-loop-protocol/).
 
 ## What I Learned
 
