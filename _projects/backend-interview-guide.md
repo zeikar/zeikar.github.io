@@ -21,4 +21,4 @@ Four categories, 69 topic documents in total:
 
 ## How it was written
 
-This was also an experiment in agent-assisted writing at scale: I used Codex, Claude Code, and an agent harness to draft and review documents in parallel, then made a final human pass to flatten the tone and cut weak explanations. Keeping 69 docs coherent meant leaning on structure — category indexes, consistent topic boundaries, and a Markdown link checker so navigation doesn't rot as the corpus grows. Licensed CC BY 4.0.
+This was also an experiment in agent-assisted writing at scale: I used Codex, Claude Code, and an agent harness to draft and review documents in parallel, then made a final human pass to flatten the tone and cut weak explanations. The harness behind it — separate writer, reviewer, and consistency-checker agents instead of one all-in-one — is its own write-up: [Three Agents, One Document](/blog/three-agents-one-document/). Keeping 69 docs coherent meant leaning on structure — category indexes, consistent topic boundaries, and a Markdown link checker so navigation doesn't rot as the corpus grows. Licensed CC BY 4.0.
