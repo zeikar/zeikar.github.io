@@ -6,6 +6,14 @@
 
     {% seo %}
 
+    {% comment %}
+      RSS auto-discovery. jekyll-feed builds /feed.xml but doesn't inject the
+      <link rel="alternate"> itself — feed_meta emits it so readers and crawlers
+      can find the feed. jekyll-seo-tag already emits BlogPosting JSON-LD for
+      posts, so no hand-rolled Article schema is needed here.
+    {% endcomment %}
+    {% feed_meta %}
+
     {% comment %} hreflang annotations for posts that have translations {% endcomment %}
     {% if page.translations %}
       {% assign self_lang = page.lang | default: 'en' %}
