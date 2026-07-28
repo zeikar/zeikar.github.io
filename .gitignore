@@ -10,3 +10,6 @@ vendor/
 Gemfile.lock
 # hyperclaude artifacts (research/plans/reviews)
 .hyperclaude/
+
+# Playwright MCP visual-review output (local only)
+.playwright-mcp/

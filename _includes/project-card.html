@@ -3,8 +3,14 @@
   data-project-url="{{ project.url | relative_url }}"
   role="link"
   tabindex="0"
-  aria-label="Open {{ project.title }} details"
+  aria-label="Open {% if project.gadget_no %}unit {{ project.gadget_no }}, {% endif %}{{ project.title }} details"
 >
+  {% if project.gadget_no %}
+  <div class="unit-strip">
+    <span class="unit-no">UNIT {{ project.gadget_no | prepend: '0' | slice: -2, 2 }}</span>
+  </div>
+  {% endif %}
+
   <div class="project-media">
     {% if project.image %}
     <img
@@ -24,11 +30,11 @@
     <p>{{ project.description }}</p>
 
     {% if project.tech_stack %}
-    <div class="project-tags">
-      {% for tech in project.tech_stack limit:6 %}
-      <span>{{ tech }}</span>
-      {% endfor %}
-    </div>
+    {%- comment -%}
+      Joined with a nbsp AFTER the separator so a wrap breaks before the dot,
+      carrying it to the next line instead of leaving it dangling at the end.
+    {%- endcomment -%}
+    <p class="unit-spec">{{ project.tech_stack | slice: 0, 6 | join: " ·&nbsp;" }}</p>
     {% endif %}
 
     <div class="project-actions">

@@ -6,6 +6,7 @@ tech_stack: ["Svelte", "JavaScript", "GitHub Issues", "GitHub Pages", "sirv"]
 github_url: "https://github.com/zeikar/issueage"
 demo_url: "https://zeikar.dev/issueage/"
 sequence: 16
+gadget_no: 1
 ---
 
 Issueage treats GitHub Issues as a CMS: write content as issues, and it builds a small Svelte site from them and publishes it to GitHub Pages. No database, no separate authoring tool — the issue tracker *is* the editor.

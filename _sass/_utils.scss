@@ -9,6 +9,28 @@
   transform: translateY(0);
 }
 
+/* The reveal is opt-OUT: elements start invisible and only IntersectionObserver
+   clears them. So a reduced-motion user, a failed observer, or any non-scrolling
+   render leaves the whole catalogue blank. Restore content instead of animating
+   it, and stop the ambient orbs drifting. (See also the <noscript> override in
+   _layouts/default.html, which covers JS being off entirely.) */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.in-view {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .ambient-orb {
+    animation: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 @keyframes drift {
   0%,
   100% {

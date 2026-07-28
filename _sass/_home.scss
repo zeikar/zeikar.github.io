@@ -7,6 +7,16 @@
   color: var(--accent);
 }
 
+/* `.section-head p` and `.resume-section-head p` are (0,1,1) and outrank the
+   (0,1,0) `.eyebrow` class, so an eyebrow inside either container silently
+   loses its accent colour and picks up a top margin — which is why /resume/
+   renders "Resume" teal but "Experience" grey. Restore at higher specificity. */
+.section-head .eyebrow,
+.resume-section-head .eyebrow {
+  margin: 0;
+  color: var(--accent);
+}
+
 .home-hero {
   padding-top: 4.2rem;
 }

@@ -6,6 +6,7 @@ tech_stack: ["Electron", "React 19", "TypeScript", "Charivo", "OpenClaw"]
 github_url: "https://github.com/zeikar/liveclaw"
 image: "/assets/images/projects/liveclaw.png"
 sequence: 7
+gadget_no: 14
 ---
 
 LiveClaw is a desktop companion — a Live2D character you can talk to — built as an Electron app on top of my own [Charivo](/projects/charivo/) framework. It's a work in progress, and as much as anything it's a test of whether the framework holds up in a real product.

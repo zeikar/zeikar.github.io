@@ -24,8 +24,14 @@ html {
 body {
   margin: 0;
   color: var(--ink);
-  font-family: "Space Grotesk", "Sora", system-ui, sans-serif;
-  background: radial-gradient(circle at top left, #fff8ef 0%, #f4f0e6 45%, #f7f3ea 100%);
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  /* Faint graph-paper ruling over the warm base. Cards are opaque, so the grid
+     only reads in the gutters and margins — enough to feel like a lab notebook
+     without sitting behind body copy. */
+  background:
+    repeating-linear-gradient(to right, rgba(31, 42, 55, 0.05) 0 1px, transparent 1px 28px),
+    repeating-linear-gradient(to bottom, rgba(31, 42, 55, 0.05) 0 1px, transparent 1px 28px),
+    radial-gradient(circle at top left, #fff8ef 0%, #f4f0e6 45%, #f7f3ea 100%);
   line-height: 1.6;
 }
 

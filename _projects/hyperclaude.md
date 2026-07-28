@@ -7,6 +7,7 @@ github_url: "https://github.com/zeikar/hyperclaude"
 demo_url: "https://zeikar.dev/hyperclaude/"
 image: "/assets/images/projects/hyperclaude.png"
 sequence: 2
+gadget_no: 16
 ---
 
 ## Project Overview

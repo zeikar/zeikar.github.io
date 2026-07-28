@@ -7,6 +7,7 @@ github_url: "https://github.com/zeikar/captiony"
 demo_url: "https://captiony.vercel.app"
 image: "/assets/images/projects/captiony.png"
 sequence: 9
+gadget_no: 11
 ---
 
 Captiony is a browser-based subtitle editor — upload a video, lay captions onto a timeline, preview them over the video as you go, and export an SRT or VTT file. No desktop install, no upload to a server.

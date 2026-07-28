@@ -7,7 +7,7 @@ layout: default
     <a href="{{ '/#projects' | relative_url }}" class="back-link reveal"><- Back to projects</a>
 
     <header class="project-hero reveal">
-      <p class="eyebrow">Case Study</p>
+      <p class="eyebrow">{% if page.gadget_no %}<span class="unit-no">UNIT {{ page.gadget_no | prepend: '0' | slice: -2, 2 }}</span> &middot; {% endif %}Case Study</p>
       <h1>{{ page.title }}</h1>
       <p class="project-summary">{{ page.description }}</p>
 

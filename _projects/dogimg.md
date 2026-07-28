@@ -7,6 +7,7 @@ github_url: "https://github.com/zeikar/dogimg"
 demo_url: "https://dogimg.vercel.app"
 image: "/assets/images/projects/dogimg.png"
 sequence: 6
+gadget_no: 4
 ---
 
 DOGimg turns any URL into a share-ready Open Graph image with a single API call. Point it at a page and it returns a 1200×630 PNG built from that page's own metadata — no manual design step.

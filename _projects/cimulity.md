@@ -6,6 +6,7 @@ tech_stack: ["Next.js 16", "React 19", "TypeScript (strict)", "PixiJS 8", "Vites
 github_url: "https://github.com/zeikar/cimulity"
 demo_url: "https://zeikar.dev/cimulity/"
 sequence: 3
+gadget_no: 13
 ---
 
 ## Project Overview

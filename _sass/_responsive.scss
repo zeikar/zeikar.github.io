@@ -77,6 +77,12 @@
     flex: 1;
   }
 
+  /* "Browse the Catalogue" is wide enough that the pair overflows a 390px
+     content box and stacks at ragged widths — match the card treatment. */
+  .hero-actions .btn {
+    flex: 1;
+  }
+
   .resume-item {
     grid-template-columns: 1fr;
     gap: 0.45rem;

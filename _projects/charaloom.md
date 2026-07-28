@@ -6,6 +6,7 @@ tech_stack: ["Next.js 16", "React 19", "TypeScript", "Firebase", "OpenAI AI SDK"
 demo_url: "https://charaloom.vercel.app"
 image: "/assets/images/projects/charaloom.png"
 sequence: 8
+gadget_no: 10
 ---
 
 Charaloom is a full app for making AI characters and chatting with them: create a character, give it a persona, and talk to it in a streaming chat — plus the supporting cast a real product needs (accounts, credits, a community board, discovery).

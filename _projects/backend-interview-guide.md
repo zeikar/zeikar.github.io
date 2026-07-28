@@ -6,6 +6,7 @@ tech_stack: ["Codex", "Claude Code", "Agent Harness", "Markdown", "Python", "Git
 github_url: "https://github.com/zeikar/backend-interview-guide"
 demo_url: "https://zeikar.dev/backend-interview-guide/"
 sequence: 12
+gadget_no: 6
 ---
 
 A Korean-language knowledge base for backend interviews — built because solid mid-to-senior interview material in Korean is genuinely hard to find. It's Markdown-first and organized for prep, not flashcards: each topic is about explaining trade-offs out loud, not memorizing a definition.

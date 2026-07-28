@@ -4,7 +4,11 @@
   gap: 1rem;
 }
 
+/* Flex column so every card's action row lands on the same baseline within a
+   grid row — otherwise short descriptions leave the buttons floating mid-card. */
 .project-card {
+  display: flex;
+  flex-direction: column;
   background: var(--surface);
   border: 1px solid rgba(31, 42, 55, 0.11);
   border-radius: 1rem;
@@ -25,7 +29,38 @@
   outline-offset: 2px;
 }
 
+/* Catalogue header strip: mono unit number + a dashed rule running to the edge,
+   so a card reads as a numbered entry rather than a portfolio tile. */
+.unit-strip {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.5rem 0 0.5rem 1rem;
+  background: rgba(235, 94, 40, 0.075);
+  border-bottom: 1px solid rgba(31, 42, 55, 0.09);
+}
+
+/* Runs flush to the card edge — stopping short of it reads as a dangling dash
+   rather than a ruled sheet. */
+.unit-strip::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px dashed rgba(31, 42, 55, 0.24);
+}
+
+.unit-no {
+  font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--brand-strong);
+}
+
+/* flex-shrink:0 — the card is now a flex column stretched by the grid row, so
+   without this the thumbnail and strip get squeezed to absorb the extra height. */
 .project-media {
+  flex-shrink: 0;
   aspect-ratio: 16 / 9;
   background: linear-gradient(135deg, #ffd8b8, #b8ebe6);
   overflow: hidden;
@@ -58,7 +93,15 @@
 }
 
 .project-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   padding: 1rem;
+}
+
+.project-body .project-actions {
+  margin-top: auto;
+  padding-top: 1rem;
 }
 
 .project-body h3 {
@@ -71,6 +114,30 @@
   margin: 0.55rem 0 0;
   color: var(--ink-soft);
   font-size: 0.95rem;
+}
+
+/* Spec line, not tag pills — a catalogue entry lists its specs on one rule.
+   Scoped under .project-body so .project-tags elsewhere (about, project page)
+   keeps the pill treatment. */
+.project-body .unit-spec {
+  margin: 0.9rem 0 0;
+  padding-top: 0.65rem;
+  border-top: 1px dashed rgba(31, 42, 55, 0.18);
+  font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.7rem;
+  line-height: 1.6;
+  color: rgba(82, 96, 109, 0.9);
+}
+
+/* Marginal note sitting directly above the grid. The hero can't carry this —
+   by the time you reach a card reading "UNIT 12" the explanation is offscreen. */
+.section-head .lab-note {
+  margin-top: 0.85rem;
+  font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.78rem;
+  /* Was 0.72 alpha — 3.21:1, under AA. This line is the only thing explaining
+     why UNIT 12 sits before UNIT 16, so it has to be readable. */
+  color: rgba(82, 96, 109, 0.9);
 }
 
 .project-tags {

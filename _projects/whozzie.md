@@ -7,6 +7,7 @@ github_url: "https://github.com/zeikar/whozzie"
 demo_url: "https://whozzie.vercel.app"
 image: "/assets/images/projects/whozzie.png"
 sequence: 13
+gadget_no: 9
 ---
 
 Whozzie settles "who goes first?" arguments. Two tools, no setup: a spin-the-wheel picker for names or items, and a multi-die roller — for when a coin flip isn't enough.

@@ -6,6 +6,7 @@ tech_stack: ["GitHub Actions", "YAML", "Template Repository", "Automation"]
 github_url: "https://github.com/zeikar/fairy-of-grass"
 image: "/assets/images/projects/fairy-of-grass.png"
 sequence: 15
+gadget_no: 2
 ---
 
 Fairy of Grass keeps a GitHub contribution graph green by committing for you. It's a template repo: a GitHub Actions workflow runs once a day (~12:00 GMT) and pushes an empty commit, which counts as a contribution without pretending to be real work.

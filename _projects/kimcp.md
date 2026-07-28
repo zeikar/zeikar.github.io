@@ -6,6 +6,7 @@ tech_stack: ["Python 3.10+", "MCP Python SDK", "uv", "HTTPX", "Korean Open APIs"
 github_url: "https://github.com/zeikar/kimcp"
 image: "/assets/images/projects/kimcp.png"
 sequence: 11
+gadget_no: 8
 ---
 
 KiMCP is an MCP server that hands an LLM a set of Korean web and map APIs as tools — so an assistant can actually search Naver, look up a place on KakaoMap, or get transit directions instead of guessing.

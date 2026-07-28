@@ -7,6 +7,7 @@ github_url: "https://github.com/zeikar/charivo"
 demo_url: "https://charivo.vercel.app/"
 image: "/assets/images/projects/charivo.png"
 sequence: 1
+gadget_no: 12
 ---
 
 Charivo splits an interactive AI character into parts that come apart. Rendering (Live2D), language (the LLM), and voice (TTS/STT) live in separate packages wired together through interfaces — so swapping the TTS provider, or dropping in a different model, never means touching the renderer.

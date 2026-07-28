@@ -7,6 +7,7 @@ github_url: "https://github.com/zeikar/nextjs-firebase-boilerplate"
 demo_url: "https://nextjs-firebase-starter.vercel.app/"
 image: "/assets/images/projects/nextjs-firebase-boilerplate.png"
 sequence: 10
+gadget_no: 7
 ---
 
 A Next.js + Firebase starter that ships the part everyone re-implements from scratch: real server-side authentication. The point is to skip straight to building features instead of re-wiring Firebase auth on every new project.

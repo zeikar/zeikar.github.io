@@ -50,7 +50,7 @@
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": {{ site.title | smartify | jsonify }},
-      "alternateName": ["Zeikar Lab", "Zeikar"],
+      "alternateName": ["Irregular Apparatus Lab", "Zeikar Lab", "Zeikar"],
       "url": {{ '/' | absolute_url | jsonify }}
     }
     </script>
@@ -115,7 +115,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Sora:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
 
@@ -123,6 +123,20 @@
       rel="stylesheet"
       href="{{ '/assets/css/style.css' | relative_url }}"
     />
+
+    {% comment %}
+      .reveal starts at opacity:0 and is only cleared by IntersectionObserver, so
+      without JS every project card, section head, and post renders blank. Must
+      come after the stylesheet — same specificity, so source order decides.
+    {% endcomment %}
+    <noscript>
+      <style>
+        .reveal {
+          opacity: 1;
+          transform: none;
+        }
+      </style>
+    </noscript>
   </head>
   <body class="site-shell" id="top">
     <div class="ambient-bg" aria-hidden="true">

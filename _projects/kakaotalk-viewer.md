@@ -7,6 +7,7 @@ github_url: "https://github.com/zeikar/kakaotalk-viewer"
 demo_url: "https://zeikar.dev/kakaotalk-viewer/"
 image: "/assets/images/projects/kakaotalk-viewer.png"
 sequence: 14
+gadget_no: 3
 ---
 
 KakaoTalk Viewer opens exported KakaoTalk chat files in the browser and renders them like the real messenger — date dividers, multiline messages, join/leave notices, links — so a long backed-up conversation is actually readable. Everything happens client-side; the chat file never leaves your browser.

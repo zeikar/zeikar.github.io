@@ -7,6 +7,7 @@ github_url: "https://github.com/zeikar/commentarium-extension"
 demo_url: "https://commentarium.app"
 image: "/assets/images/projects/commentarium.png"
 sequence: 5
+gadget_no: 5
 ---
 
 Commentarium is a Chrome extension that adds a social layer — ratings, comments, and votes — to any page on the web. It injects a side panel that talks to a Next.js + Firebase backend holding the comments, the auth, and the API.

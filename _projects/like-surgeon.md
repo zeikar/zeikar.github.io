@@ -5,6 +5,7 @@ description: "Local-first CLI that scans, diffs, and diagnoses your YouTube Musi
 tech_stack: ["Python 3.11+", "uv", "SQLite", "ytmusicapi", "YouTube Data API v3", "RapidFuzz"]
 github_url: "https://github.com/zeikar/like-surgeon"
 sequence: 4
+gadget_no: 15
 ---
 
 ## Project Overview
