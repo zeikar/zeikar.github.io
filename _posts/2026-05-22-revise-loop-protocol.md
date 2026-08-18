@@ -8,6 +8,8 @@ translations:
 description: "Why hyperclaude's persistent-teammate revise loops grew a long cross-loop protocol — request-id counters, solicit_sent_at timestamps, and the 1-round-lag race that ate an afternoon."
 ---
 
+> **Update (2026-08-18):** Most of this protocol no longer exists. Measuring why these loops were so expensive turned up an upstream bug — one Agent-tool parameter was silently dropping the plugin agent's definition, and that is what created the mailbox all of these races lived in. Removing it took the shared protocol from 192 lines to 39. The failures below were real; the conclusion at the end was not. → [My 300-Line Agent Protocol Was Working Around One Parameter](/blog/protocol-working-around-a-bug/)
+
 This is about the autonomous revise loops in [hyperclaude](/hyperclaude/) ([code](https://github.com/zeikar/hyperclaude)) — a Claude Code plugin built around a deliberate split: Claude builds, Codex critiques. Two of its skills, `hyper-plan-loop` and `hyper-implement-loop`, take a task and run plan → review → revise (or implement → review → fix) on their own, looping until Codex returns no blocking findings or a hard cap is hit. A single Claude-side teammate stays alive across rounds; Codex stays the reviewer.
 
 If you sketch that on a whiteboard, it's twenty lines:

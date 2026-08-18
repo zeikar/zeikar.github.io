@@ -7,6 +7,8 @@ translations:
 description: "hyperclaude의 persistent-teammate 리바이즈 루프가 왜 긴 cross-loop 프로토콜을 갖게 됐는가 — request-id 카운터, solicit_sent_at 타임스탬프, 그리고 오후 하나를 통째로 잡아먹은 1-round-lag race."
 ---
 
+> **업데이트 (2026-08-18):** 이 프로토콜은 이제 대부분 없다. 이 루프가 왜 그렇게 비싼지 측정하다가 업스트림 버그를 찾았다. Agent 툴 파라미터 하나가 플러그인 에이전트의 정의를 조용히 폐기하고 있었고, 아래 race들이 살던 메일박스가 바로 거기서 생긴 것이었다. 그걸 없애니 공유 프로토콜이 192줄에서 39줄이 됐다. 아래 실패들은 실재했지만, 마지막 결론은 아니었다. → [내 300줄짜리 에이전트 프로토콜은 파라미터 하나를 우회하고 있었다](/blog/ko/protocol-working-around-a-bug/)
+
 [hyperclaude](/hyperclaude/) ([코드](https://github.com/zeikar/hyperclaude))의 autonomous revise loop 이야기다. Claude는 만들고 Codex는 비평한다는 분업 위에 세운 Claude Code 플러그인이고, 그중 두 스킬 — `hyper-plan-loop`, `hyper-implement-loop` — 가 태스크 하나를 받아서 plan → review → revise (또는 implement → review → fix)를 자기들끼리 돌린다. Codex가 더 이상 블로커를 안 내거나 hard cap에 닿을 때까지. Claude 쪽 teammate 하나는 라운드 사이에 계속 살아 있고, Codex는 계속 리뷰어다.
 
 화이트보드에 그리면 20줄짜리다:
