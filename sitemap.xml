@@ -17,6 +17,9 @@ permalink: /sitemap.xml
     <loc>{{ site.url }}/hyperclaude/sitemap.xml</loc>
   </sitemap>
   <sitemap>
+    <loc>{{ site.url }}/iki/sitemap.xml</loc>
+  </sitemap>
+  <sitemap>
     <loc>{{ site.url }}/kakaotalk-viewer/sitemap.xml</loc>
   </sitemap>
 </sitemapindex>
