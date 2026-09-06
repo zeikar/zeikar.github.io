@@ -25,9 +25,8 @@ gadget_no: 17
 for the web — the kind of rig that makes a drawn character blink, look around,
 talk, and turn its head. Live2D Cubism owns this space and
 [Inochi2D](https://inochi2d.com/) is the established open alternative; Iki
-exists because three things it wanted never lined up in one place: a format you
-own, a web-first runtime with no native toolchain, and rigging an AI agent can
-actually drive.
+exists because three things it wanted never lined up in one place: a permissive
+license, a plain-text format, and a rig an agent can build.
 
 It is the render layer [Charivo](/charivo/) consumes, built so that swapping
 the Live2D SDK out is a matter of changing an adapter.
@@ -70,10 +69,8 @@ gesture.
 
 ## Status
 
-Early, but real, and MIT throughout — runtime, format, editor core, generator,
-MCP server. No publication license, no revenue tiers, no per-title fee. If you
-need production-grade 2D rigging today, use Cubism; if you want an open web
-format you can script against, that is what this is.
+Early, but real. If you need production-grade 2D rigging today, use Cubism; if
+you want an open web format you can script against, that is what this is.
 
 The [playground](https://zeikar.dev/iki/playground/) drives a generated
 character with the same parameters a host would, and the
