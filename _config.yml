@@ -56,6 +56,11 @@ giscus:
   category: Comments
   category_id: "DIC_kwDOPod7vM4C8ny0"
 
+# Google Analytics 4 measurement ID (G-XXXXXXXXXX). Leave empty to disable.
+# Only emitted in production builds (JEKYLL_ENV=production, set by the Pages
+# workflow), so local `jekyll serve` traffic isn't counted.
+google_analytics: "G-TL9N5ZKRN2"
+
 # SEO settings
 lang: en
 author:
