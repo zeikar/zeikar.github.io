@@ -1,18 +1,18 @@
 ---
 layout: project
-title: "Issueage"
-description: "Static site generator that publishes GitHub Issues as a Svelte-rendered GitHub Pages site, started as the original engine behind my personal portfolio."
-tech_stack: ["Svelte", "JavaScript", "GitHub Issues", "GitHub Pages", "sirv"]
-github_url: "https://github.com/zeikar/issueage"
-demo_url: "https://zeikar.dev/issueage/"
+title: "Repozine"
+description: "Static site generator that publishes GitHub Issues or Discussions as an Astro-built GitHub Pages site, started (as Issueage) as the original engine behind my personal portfolio."
+tech_stack: ["Astro", "React", "Tailwind CSS", "GitHub GraphQL API", "GitHub Actions", "Pagefind"]
+github_url: "https://github.com/zeikar/repozine"
+demo_url: "https://zeikar.dev/repozine/"
 sequence: 16
 gadget_no: 1
 ---
 
-Issueage treats GitHub Issues as a CMS: write content as issues, and it builds a small Svelte site from them and publishes it to GitHub Pages. No database, no separate authoring tool — the issue tracker *is* the editor.
+Repozine treats GitHub Issues (or Discussions) as a CMS: write content as issues, and it builds a static Astro site from them and publishes it to GitHub Pages. No database, no separate authoring tool — the issue tracker *is* the editor.
 
 ## How you use it
 
-Create a repo from the template (or graft it onto an existing one), edit `config.json`, push, and point GitHub Pages at the `gh-pages` branch. The build pulls your issues through the GitHub API, maps title/body/labels into a content model, and emits a Svelte app served by `sirv`.
+Create a repo from the template (or graft it onto an existing one), edit `config.json`, push, and set GitHub Pages to deploy from GitHub Actions. The workflow pulls your issues or discussions through the GitHub GraphQL API at build time, renders them into static pages with search, and redeploys when posts or their comments change.
 
-It was the original engine behind this very portfolio before the rewrite to Jekyll — an early experiment in bending GitHub's own primitives (Issues, Actions, Pages) into a complete publishing pipeline.
+It started as Issueage, the original engine behind this very portfolio before the rewrite to Jekyll — an early experiment in bending GitHub's own primitives (Issues, Actions, Pages) into a complete publishing pipeline — and was later rebuilt on Astro and renamed.
