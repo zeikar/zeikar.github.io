@@ -7,3 +7,4 @@ Sitemap: https://zeikar.dev/charivo/sitemap.xml
 Sitemap: https://zeikar.dev/hyperclaude/sitemap.xml
 Sitemap: https://zeikar.dev/iki/sitemap.xml
 Sitemap: https://zeikar.dev/kakaotalk-viewer/sitemap.xml
+Sitemap: https://zeikar.dev/repozine/sitemap.xml
