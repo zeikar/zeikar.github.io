@@ -9,4 +9,5 @@ Sitemap: https://zeikar.dev/hyperclaude/sitemap.xml
 Sitemap: https://zeikar.dev/iki/sitemap.xml
 Sitemap: https://zeikar.dev/kakaotalk-viewer/sitemap.xml
 Sitemap: https://zeikar.dev/leetcode/sitemap.xml
+Sitemap: https://zeikar.dev/pokemon-numerals/sitemap.xml
 Sitemap: https://zeikar.dev/repozine/sitemap.xml

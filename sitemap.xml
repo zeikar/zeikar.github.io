@@ -29,6 +29,9 @@ permalink: /sitemap.xml
     <loc>{{ site.url }}/leetcode/sitemap.xml</loc>
   </sitemap>
   <sitemap>
+    <loc>{{ site.url }}/pokemon-numerals/sitemap.xml</loc>
+  </sitemap>
+  <sitemap>
     <loc>{{ site.url }}/repozine/sitemap.xml</loc>
   </sitemap>
 </sitemapindex>
