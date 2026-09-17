@@ -50,7 +50,7 @@ If a new sub-Pages site lands under zeikar.dev, add its sitemap to both [sitemap
 
 ### Project ordering
 
-`_projects/*.md` are sorted by integer `sequence:` in front matter on the home page and in [sitemap-main.xml](sitemap-main.xml). New project entries need a `sequence: N`. If `demo_url` is on `zeikar.dev`, it auto-joins the sitemap.
+`_projects/*.md` are sorted by integer `sequence:` in front matter on the home page and in [sitemap-main.xml](sitemap-main.xml). `sequence` is the curated display order ("listed here by preference"); `gadget_no` is the UNIT number by build order and never changes. New project entries need both. If `demo_url` is on `zeikar.dev`, it auto-joins the sitemap — don't also list it in `extra_sitemap_urls`.
 
 ### Manifest needs empty Jekyll front matter
 
@@ -59,5 +59,7 @@ If a new sub-Pages site lands under zeikar.dev, add its sitemap to both [sitemap
 ## Content tone
 
 Home and About copy intentionally lean playful and self-deprecating to match the `(>_<)` favicon. Resume pages stay professional as deliberate contrast. Don't carry resume tone into home/about, or vice versa.
+
+Project pages have no shared template. Open with a paragraph that says what the thing is, then build sections around that project's strongest technical points, with project-specific headings and details checked against the source repo. The old Overview / Key Features / Challenges / What I Learned / Impact skeleton is retired. `description` is both the card text and the hero summary; the card shows the first 6 `tech_stack` items, listed without version numbers. Link sibling projects as `/projects/<name>/`. The resume's Independent Work blurbs paraphrase project descriptions, so when a description's facts change, update `resume.html` and `resume-ko.html` too.
 
 In `.html` page bodies, HTML-escape angle brackets in copy: `(&gt;_&lt;)`, not `(>_<)`. Kramdown only processes `.md`, but the HTML parser can still misread a bare `<`.
