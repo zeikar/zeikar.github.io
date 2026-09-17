@@ -1,8 +1,8 @@
 ---
 layout: project
 title: "Repozine"
-description: "Static site generator that publishes GitHub Issues or Discussions as an Astro-built GitHub Pages site, started (as Issueage) as the original engine behind my personal portfolio."
-tech_stack: ["Astro", "React", "Tailwind CSS", "GitHub GraphQL API", "GitHub Actions", "Pagefind"]
+description: "Template that turns a GitHub repository's Issues or Discussions into a static Astro blog, rebuilt and deployed to GitHub Pages by GitHub Actions."
+tech_stack: ["Astro", "GitHub GraphQL API", "GitHub Actions", "TypeScript", "React", "Tailwind CSS"]
 github_url: "https://github.com/zeikar/repozine"
 demo_url: "https://zeikar.dev/repozine/"
 sequence: 16
@@ -13,6 +13,8 @@ Repozine treats GitHub Issues (or Discussions) as a CMS: write content as issues
 
 ## How you use it
 
-Create a repo from the template (or graft it onto an existing one), edit `config.json`, push, and set GitHub Pages to deploy from GitHub Actions. The workflow pulls your issues or discussions through the GitHub GraphQL API at build time, renders them into static pages with search, and redeploys when posts or their comments change.
+Create a repo from the template (or add it to an existing repo on its own `repozine` branch). Before the first push, set GitHub Pages to deploy from GitHub Actions, and if you publish from Discussions, turn them on and add a category for posts. Then edit `config.json` and push. The workflow pulls your issues or discussions through the GitHub GraphQL API at build time, renders them into static pages, and redeploys when posts or their comments change. My [LeetCode study log](/projects/leetcode/) is built with it.
+
+Search runs over the text of every post, written out at build time, and matches words anywhere rather than only from their start. Korean joins words together, so a search for 복잡도 needs to find 시간복잡도는; a prefix-only index missed most of those.
 
 It started as Issueage, the original engine behind this very portfolio before the rewrite to Jekyll — an early experiment in bending GitHub's own primitives (Issues, Actions, Pages) into a complete publishing pipeline — and was later rebuilt on Astro and renamed.
