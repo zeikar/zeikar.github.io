@@ -1,25 +1,35 @@
 ---
 layout: project
 title: "Charaloom"
-description: "AI character creation and streaming chat platform with multilingual UX, Firebase auth, and creator-friendly sharing."
-tech_stack: ["Next.js 16", "React 19", "TypeScript", "Firebase", "OpenAI AI SDK"]
+description: "AI character platform: build characters and worlds, chat one-on-one or in groups, and play branching stories, in English and Korean."
+tech_stack: ["Next.js 16", "Vercel AI SDK", "OpenAI", "Firebase", "React 19", "TypeScript", "next-intl", "TanStack Query"]
 demo_url: "https://charaloom.vercel.app"
 image: "/assets/images/projects/charaloom.png"
 sequence: 8
 gadget_no: 10
 ---
 
-Charaloom is a full app for making AI characters and chatting with them: create a character, give it a persona, and talk to it in a streaming chat — plus the supporting cast a real product needs (accounts, credits, a community board, discovery).
+Charaloom is a web app for writing AI characters and then spending time with them. You give a character a persona and a greeting, then talk to it, put it in a room with other characters, or start a story with it. Around that sit the parts a real product needs: accounts, credits, a community, and ways to find other people's characters.
 
-## What's in it
+## Characters live in a shared setting
 
-- **Character CRUD + discovery** — create, edit, and delete characters, browse a preset list with infinite scroll, and like the ones you want
-- **Streaming chat** — per-character chat rooms backed by the Vercel AI SDK + OpenAI, with history you can review or clear
-- **Credits** — a signup bonus, per-chat consumption, and a usage ledger, with admin scripts to adjust balances or seed characters
-- **Accounts** — Google and anonymous sign-in, anonymous→Google upgrade, profile editing, and account deletion
-- **Community board** — posts and comments, plus tag search with autocomplete
-- **Built for two languages** — `en`/`ko` routing via next-intl, with a dynamic sitemap, robots, and a PWA manifest for SEO
+- **Characters** can be private or public, tagged (with tag suggestions as you type), liked, and gathered into public or private collections.
+- **Relationships** between characters are written out explicitly, and they carry into the conversations those characters share.
+- **Worlds** are settings of their own. A character joins a world by request, and the world's owner approves or rejects the link. Once approved, the world comes along into that character's stories.
 
-## Under the hood
+## Conversations that branch
 
-State is split on purpose: TanStack Query owns server state (characters, feeds, chat history), Zustand holds local UI state, and Zod validates anything crossing the wire. Auth, Firestore, and Storage all go through Firebase, with the Admin SDK on server routes so user-scoped writes stay locked down. Built on Next.js (App Router) + React 19, tested with Vitest and React Testing Library.
+- **One-on-one chat** streams replies. Editing a message or regenerating a reply doesn't overwrite anything: the old version stays as a branch you can switch back to.
+- **Group chat** holds two to five characters in one room. On each turn the app picks which of them answer, up to three, and they reply one after another.
+- **Stories** are turn-based interactive fiction seeded by a character or a world, with the same branching as chat. A style preset (immersive, cinematic, lyrical, light novel, dialogue-forward) or a short prompt of your own sets the prose style.
+
+A story can be published to a public gallery, and a chat can be shared as a read-only link. Both keep the same link when republished and stop working once revoked.
+
+## Everything around it
+
+- **Community.** A board with announcements and community posts, per language. Comments on characters, worlds, published stories, shared chats, and posts. You can follow creators and get notified when they publish or when someone comments on your work.
+- **Credits.** A signup bonus and a daily login bonus, spent per chat and story turn, with a history of every change.
+- **Accounts.** Google or anonymous sign-in. An anonymous account can be upgraded to Google later.
+- **Two languages.** English and Korean routes throughout, with a dynamic sitemap and a PWA manifest.
+
+It's built on Next.js (App Router) with Firebase for auth, data, and storage, and the Vercel AI SDK streaming OpenAI models.
