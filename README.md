@@ -1,98 +1,77 @@
 # zeikar.github.io
 
-This repository powers my personal portfolio and project archive site.  
-It is a Jekyll-based static site deployed to `https://zeikar.dev` via GitHub Pages.
+Source for [zeikar.dev](https://zeikar.dev), the Irregular Apparatus Lab: a catalogue of my projects, a blog in English and Korean, and a resume. It's a Jekyll site, built and deployed to GitHub Pages by [a GitHub Actions workflow](.github/workflows/pages.yml) on every push to `main`.
 
-The site currently includes:
-
-- A portfolio landing page
-- An about page
-- Project detail pages generated from the `_projects` collection
-- Root `sitemap.xml` index and `robots.txt`
-- Manually maintained `sitemap-main.xml`
-
-## Project Structure
+## What's where
 
 ```text
 .
-├── _config.yml            # Jekyll configuration
-├── index.html             # Home page
-├── about.html             # About page
-├── _projects/             # Project detail content
-├── _layouts/              # Layout templates
-├── _includes/             # Shared UI partials
-├── assets/                # CSS, JS, images
-├── sitemap.xml            # Root sitemap index
-├── sitemap-main.xml       # Main site sitemap
-└── robots.txt             # Crawl directives
+├── index.html               # Home: hero + project catalogue
+├── about.html
+├── blog.html                # Post index
+├── resume.html              # Resume (English)
+├── resume-ko.html           # Resume (Korean)
+├── _projects/               # One Markdown file per project page
+├── _posts/                  # English posts
+│   └── ko/                  # Korean translations
+├── _layouts/  _includes/  _sass/
+├── _plugins/og_image.rb     # Fills in a DOGimg social card for pages without an image
+├── assets/                  # CSS entry, JS, images
+├── sitemap.xml              # Sitemap index
+├── sitemap-main.xml         # This site's URLs, generated at build time
+├── robots.txt
+└── CLAUDE.md                # Conventions for agents (and a good read for humans)
 ```
 
-## Local Development
+## Local development
 
-### 1. Requirements
-
-- Ruby
-- Bundler
-
-Node.js is not required.
-
-### 2. Install Dependencies
+Requires Ruby and Bundler. No Node toolchain.
 
 ```bash
 bundle install
+bundle exec jekyll serve   # http://127.0.0.1:4000, rebuilds on change
+bundle exec jekyll build   # production output in _site/
 ```
 
-### 3. Run the Development Server
+## Adding content
 
-```bash
-bundle exec jekyll serve
-```
+### A project
 
-Default local URL:
-
-```text
-http://127.0.0.1:4000
-```
-
-Jekyll will rebuild automatically when files change.
-
-## Production Build
-
-Generate the static site:
-
-```bash
-bundle exec jekyll build
-```
-
-The output is generated in the `_site/` directory.
-
-## Content Workflow
-
-### Add a New Project
-
-Add a Markdown file under `_projects/` with front matter like this:
+Add `_projects/<name>.md`:
 
 ```md
 ---
 layout: project
 title: "My Project"
-description: "Short summary"
-tech_stack: ["Jekyll", "GitHub Pages"]
+description: "One sentence; it's the home card text and the page summary."
+tech_stack: ["TypeScript", "WebGL2"]
 github_url: "https://github.com/zeikar/my-project"
 demo_url: "https://zeikar.dev/my-project/"
-sequence: 99
+image: "/assets/images/projects/my-project.png"
+sequence: 21
+gadget_no: 21
 ---
 ```
 
-The `sequence` field controls the ordering on the home page.
+- `sequence` is the order on the home page. `gadget_no` is the UNIT number, assigned by build order, and never changes.
+- The card shows the first six `tech_stack` entries. Leave out version numbers.
+- `demo_url` and `image` are optional. Without an `image`, the social card comes from DOGimg.
 
-### Add Extra Sitemap URLs
+The page body has no fixed template. See [CLAUDE.md](CLAUDE.md) for how the pages are written.
 
-- If a file in `_projects/*.md` has a `demo_url` under `https://zeikar.dev`, it will be included in `sitemap-main.xml` automatically.
-- If a URL should be included separately from project content, add it to `extra_sitemap_urls` in `_config.yml`.
+### A blog post
 
-## Notes
+English posts go in `_posts/` and publish under `/blog/<slug>/`. Korean posts go in `_posts/ko/` under `/blog/ko/<slug>/`. Link a pair with `translations:` in each post's front matter:
 
-- Core site settings are managed in `_config.yml`.
-- SEO metadata is handled with `jekyll-seo-tag`.
-- Feed generation uses `jekyll-feed`.
+```yaml
+translations:
+  ko: /blog/ko/some-post/
+```
+
+### Sitemaps
+
+`sitemap.xml` is an index. It points to `sitemap-main.xml`, which lists this site's pages, posts and projects, and to the sitemaps of other repos deployed under zeikar.dev (`/charivo/`, `/iki/`, …).
+
+- A project whose `demo_url` is on zeikar.dev joins `sitemap-main.xml` automatically.
+- Any other same-site URL goes in `extra_sitemap_urls` in `_config.yml`.
+- When a new sub-site goes live under zeikar.dev, add its sitemap to both `sitemap.xml` and `robots.txt`.
