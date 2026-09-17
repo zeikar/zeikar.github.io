@@ -6,7 +6,7 @@ tech_stack: ["Vanilla JavaScript", "BigInt", "CSS", "PokéAPI", "Node test runne
 github_url: "https://github.com/zeikar/pokemon-numerals"
 demo_url: "https://zeikar.dev/pokemon-numerals/"
 image: "/assets/images/projects/pokemon-numerals.png"
-sequence: 18
+sequence: 10
 gadget_no: 18
 ---
 

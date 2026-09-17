@@ -6,7 +6,7 @@ tech_stack: ["TypeScript", "Live2D", "OpenAI Realtime", "Gemini Live", "LLM/TTS/
 github_url: "https://github.com/zeikar/charivo"
 demo_url: "https://charivo.vercel.app/"
 image: "/assets/images/projects/charivo.png"
-sequence: 1
+sequence: 2
 gadget_no: 12
 ---
 

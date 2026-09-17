@@ -6,7 +6,7 @@ tech_stack: ["Next.js", "Firebase Admin SDK", "Firebase Auth", "Firestore", "Typ
 github_url: "https://github.com/zeikar/nextjs-firebase-boilerplate"
 demo_url: "https://nextjs-firebase-starter.vercel.app/"
 image: "/assets/images/projects/nextjs-firebase-boilerplate.png"
-sequence: 11
+sequence: 13
 gadget_no: 7
 ---
 

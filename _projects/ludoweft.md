@@ -5,7 +5,7 @@ description: "Claude Code and Codex plugin where an agent translates a game's te
 tech_stack: ["Node.js", "Claude Code plugin", "Codex plugin", "JSONL", "FreeMote"]
 github_url: "https://github.com/zeikar/ludoweft"
 image: "/assets/images/projects/ludoweft.png"
-sequence: 20
+sequence: 7
 gadget_no: 20
 ---
 
