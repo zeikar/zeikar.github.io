@@ -23,6 +23,8 @@ Treating the Pokédex as a lookup table works until the first edge case, so the 
 
 ## What's on the page
 
+![The clock ticking from Bulbasaur : Charmander : Ekans onward, switching to decimal and back](/assets/images/projects/pokemon-numerals-demo.gif)
+
 - **A live clock and date** on a handheld-style LCD. The clock ticks every second and the colons blink, and the Clock key (or `#clock` in a link) shows only the clock, full screen.
 - **A numeral system switch.** Decimal, Binary and Hexadecimal sit next to Pokémon as if nothing were unusual.
 - **A generation picker.** Gen 1 is the default; pick Gen 9 and the base grows to 1026, so 2026 becomes Bulbasaur, Gholdengo.
