@@ -1,43 +1,27 @@
 ---
 layout: project
 title: "like-surgeon"
-description: "Local-first CLI that scans, diffs, and diagnoses your YouTube Music and YouTube liked songs — region-aware ghost detection, metadata drift, cross-source matching."
-tech_stack: ["Python 3.11+", "uv", "SQLite", "ytmusicapi", "YouTube Data API v3", "RapidFuzz"]
+description: "Local-first CLI that snapshots YouTube Music and YouTube likes into SQLite, explains where they diverged, and repairs them after confirmation."
+tech_stack: ["Python 3.11+", "ytmusicapi", "YouTube Data API v3", "SQLite", "RapidFuzz", "Typer", "SQLAlchemy"]
 github_url: "https://github.com/zeikar/like-surgeon"
 sequence: 4
 gadget_no: 15
 ---
 
-## Project Overview
+YouTube Music and YouTube each keep a list of your likes, and the two drift apart without telling you. Songs go dead, get swapped for re-uploads, or exist on one side only. like-surgeon scans both lists, keeps every scan as a frozen snapshot, and turns the differences into findings it can explain and, where it's safe, fix.
 
-like-surgeon syncs, backs up, and (eventually) repairs your YouTube Music liked songs. MVP 0.3.1 — read-only scanner across YouTube Music *and* YouTube, with cross-source diagnosis, region-aware ghost detection, and metadata drift. **Local-first. No server, no destructive actions.**
+## One relink, several findings
 
-## Key Features
+Most findings trace back to one YouTube Music behavior. When a liked song's license expires, YT Music creates a replacement track with a new video ID and moves your like to it. YouTube doesn't follow, so its like still points at the dead original. If the replacement's title and artists still match closely, that shows up as pointer drift; if not, as a song liked only in YT Music. Liking the replacement on YouTube then produces a duplicate, because YT Music propagates the like back next to the entry it already had. Fixing one bucket often just moves the song into another, so repairs have to account for the whole lifecycle.
 
-- **Dual-source Snapshots**: Authenticates with YouTube Music (`ytmusicapi`, browser-header) and YouTube Data API v3 (Google OAuth), snapshots both into a local SQLite database. Point-in-time metadata is frozen on each `SnapshotItem` — a later rename doesn't rewrite history.
-- **Cross-source Matching**: `compare-likes` runs a three-stage match — `video_id` → `canonical_key` → RapidFuzz fuzzy on `title | artists` — and persists each run as a `Diagnosis` with per-finding rows.
-- **Ghost Detection**: Detects deleted, private, region-blocked, and otherwise unavailable YouTube likes at scan time via `videos.list?part=status,contentDetails`. Region-blocked surfaces only when the user sets an ISO 3166-1 alpha-2 region in `config.json`.
-- **Metadata Drift**: Diffs title and artists between snapshot pairs so silent provider-side renames surface as `metadata_drift` findings.
-- **Music Classifier**: Heuristics on YouTube likes — `- Topic` channels, "Provided to YouTube by …", `artist - title` patterns, negatives like `vlog`, `tutorial`, `gameplay`.
-- **Auth UX**: `auth ytmusic --from-browser chrome` reads YT Music cookies straight from a logged-in browser via `browser-cookie3` and writes a ytmusicapi-compatible `browser.json` (POSIX mode `0o600`). Manual paste flow stays as a fallback.
+## Matching and ghosts
 
-## Technical Challenges & Solutions
+`compare-likes` matches the snapshots in stages: exact video ID, a normalized `artists|title` key, then RapidFuzz on title and artists. With YouTube auth, a fourth pass pairs leftover videos that share a channel, a normalized title and a duration within two seconds, which catches label re-uploads the text matching misses.
 
-### Challenge 1: ytmusicapi OAuth dead-end
-Explored ytmusicapi OAuth (Device Code) to escape browser-header cookie staleness — abandoned in 0.2.1 because ytmusicapi 1.12 + Google's current backend reject every non-TV `clientName` for OAuth-issued tokens, and TV clients return YouTube-shape responses ytmusicapi can't parse. Salvaged a `fetch_liked_songs` parse-error boundary so stale auth surfaces as a clean re-auth hint instead of a traceback.
+Dead likes are caught at scan time. Asking `videos.list` for `contentDetails` alongside the status adds each video's region restriction at no extra quota, since the call costs one unit however many parts it requests. Deleted, private and rejected videos become findings. Region-blocked ones don't: a restriction can lift, and unliking would lose the like for good.
 
-### Challenge 2: Region-blocked ghosts without extra quota
-Folded `regionRestriction` checking into the existing `videos.list` call by widening `part=status` to `part=status,contentDetails`. `videos.list` is 1 quota unit regardless of `part=` selection, so ghost detection got region-awareness for free.
+## Repairs, and the one it doesn't make
 
-### Challenge 3: Heuristic classification without false certainty
-Treated `compare-likes` output as a *starting point* for review, not a verdict — nothing is mutated on the user's behalf. The 0.4 milestone introduces write actions only after the read side is trusted.
+`sync` prints its plan and quota cost first, and orders its calls to fail safe. Moving a drifted like adds the new like before removing the old one, so a half-finished fix leaves a duplicate, not a lost like. A song liked on YouTube but missing from YT Music is unliked and re-liked to trigger propagation, then checked in YT Music five seconds later.
 
-## What I Learned
-
-- Designing a local-first CLI around a SQLite snapshot model where every scan is immutable history
-- Working around community-maintained API constraints (ytmusicapi) while keeping the official API (YouTube Data API v3) as the source of truth where it matters
-- Three-stage matching (exact → canonical → fuzzy) as a practical pattern for reconciling music libraries across providers
-
-## Impact
-
-A personal tool that turns "are my YouTube Music likes actually safe?" into a question with a real answer. Roadmap: write actions for cross-source like sync (0.4) → local web UI (1.0).
+Pairing a relinked replacement with its dead original by title alone was planned, reviewed twice and parked. Titles are a false-positive trap, where a translated subtitle and a remix tag look alike, and a wrong pair would feed the like-then-unlike fix. For that case the tool reports and I move the like by hand.
