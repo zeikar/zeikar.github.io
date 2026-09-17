@@ -1,8 +1,8 @@
 ---
 layout: project
 title: "hyperclaude"
-description: "Claude Code plugin that splits the AI coding workflow: Claude builds, Codex critiques. A gated research → plan → review → ship pipeline with skills, agents, commands, and hooks."
-tech_stack: ["Node.js 18+", "Claude Code plugin runtime", "codex-cli", "Bash", "git"]
+description: "Claude Code plugin where Claude plans and writes the code and Codex reviews it read-only, looping until Codex has nothing blocking left."
+tech_stack: ["Claude Code plugin", "Codex CLI", "Node.js", "git"]
 github_url: "https://github.com/zeikar/hyperclaude"
 demo_url: "https://zeikar.dev/hyperclaude/"
 image: "/assets/images/projects/hyperclaude.png"
@@ -10,42 +10,20 @@ sequence: 2
 gadget_no: 16
 ---
 
-## Project Overview
+hyperclaude runs a coding task through a fixed division of labor: Claude is the builder, Codex is the critic. Claude researches, plans, writes the code and updates the docs. Codex reviews the plan, the diff and the docs. Small changes skip the steps they don't need, but a behavior change always gets a code review. I run my own projects through it.
 
-hyperclaude pushes Claude Code beyond stock with a deliberate division of labor between two AI coding agents: **Claude is the builder, Codex is the critic**. It wraps a gated research → plan → review → implement → review → ship pipeline, with autonomous multi-agent revise loops that self-converge. v0.14 alpha, dogfooded daily.
+## Codex reviews, never edits
 
-## Key Features
+Every Codex call goes through one Node bridge script, the only part of the plugin that starts Codex, and every call is pinned to a read-only sandbox. A fresh `codex exec` gets `--sandbox read-only`. `codex exec resume` doesn't accept that flag, so it gets `-c sandbox_mode=read-only` instead. Codex can read the repo and search the web, but it can't write a patch: code review is a review prompt, not a write-capable mode. Each review lands as a Markdown file under `.hyperclaude/` for the next step to pick up. The plugin has no npm dependencies.
 
-- **Commands**: `/hyperclaude:hyper-setup` — a local prerequisite doctor that probes Node/codex-cli/git and never spawns Codex or agents (the only command; everything else is description-triggered)
-- **Skills**: Codex-backed gates (`hyper-research`, `hyper-plan-review`, `hyper-code-review`, `hyper-docs-review`), Claude orchestrators (`hyper-plan`, `hyper-docs-sync`, `hyper-implement`), autonomous loops (`hyper-plan-loop`, `hyper-implement-loop`), and implementation discipline (`hyper-tdd`, `hyper-debug`)
-- **Agents**: Claude implementation arm — `planner`, `implementer`, `verifier`, `documenter`, `researcher`, `fixer`
-- **Autonomous revise loops**: `hyper-plan-loop` and `hyper-implement-loop` spawn a persistent Claude teammate (planner / fixer) that revises while Codex stays the reviewer, looping until Codex returns no blocking findings or a hard cap is hit — built on Claude Code's experimental agent-teams
-- **Hooks**: a SessionStart hook that injects a workflow router plus an optional `.hyperclaude/` artifact snapshot footer
-- **Codex as Critic, Never Editor**: every Codex invocation is read-only — fresh `codex exec` (research / plan-review / code-review / docs-review) passes `--sandbox read-only`; `codex exec resume` (which doesn't accept the flag) gets `-c sandbox_mode=read-only` as a config override
-- **Artifact Convention**: `.hyperclaude/{research,plans,plan-reviews,code-reviews,docs-reviews}/` with timestamped slugs that link a research → plan → plan-review trio end-to-end
-- **Zero npm dependencies**: Node 18+ stdlib only, plus `codex-cli ≥ 0.130.0` and `git` on PATH
+## Loops that stop on their own
 
-## Technical Challenges & Solutions
+The plan, implement and docs loops run review → revise without me. Claude's agent in each loop is spawned once and keeps its context between rounds, and Codex resumes its own review thread. After each review the loop sorts findings by what they say, not by the severity label Codex attached. Correctness bugs, security holes, broken tests and missing behavior block, and so do wrong file paths or task order in a plan. Style and nits get reported but never start another round. The loop ends when a review has nothing blocking, or at a cap on review rounds.
 
-### Challenge 1: Splitting cost between two agents without coupling them
-Designed each gate as a self-contained skill so Codex critiques can be invoked anywhere in the workflow without baking Codex into Claude's agent layer. A single thin bridge script is the only Codex-spawning code, and the `.hyperclaude/` directory is the only shared interface.
+What made plans converge came out of measuring round counts. The longest-running plans were 40–47% preamble, including sections that existed only to answer the previous review, and those drew new findings of their own. The one that converged cleanly was 12%. The planner now keeps a plan to a task list and re-reads whatever a finding cites before editing. Codex also kept flagging things I had asked for as scope creep, because it never saw the conversation, so reviews now carry a short brief of what was requested.
 
-### Challenge 2: Keeping Codex bounded to review
-Pinned every Codex invocation to read-only: fresh `codex exec` calls pass `--sandbox read-only`; `codex exec resume` (which doesn't accept the flag) gets an explicit `-c sandbox_mode=read-only` config override. The bridge's argv is minimal and auditable, and Codex never authors a patch — even code review is a plain read-only `codex exec` with a review prompt, not a write-capable mode.
+## The protocol a measurement deleted
 
-### Challenge 3: Code-to-doc traceability
-`hyper-docs-sync` reads a `Code | Docs` mapping table from the consumer project's `CLAUDE.md` / `AGENTS.md` and dispatches targeted updates per affected doc, falling back to a heuristic when no table exists.
+The first loops kept Claude's agent alive as an agent-teams teammate that talked to the orchestrating session through a mailbox, and during a multi-minute Codex review that mailbox raced. Replies from the previous round came back, and idle notifications arrived a round late. Each fix added state: request-id counters, send timestamps, a message classifier, a degrade layer. I wrote it up as [How My Agent-Team Revise Loop Earned a 300-Line Protocol](/blog/revise-loop-protocol/).
 
-### Challenge 4: Autonomous revise loops that stay convergent
-`hyper-plan-loop` / `hyper-implement-loop` spawn a Claude teammate **once** and reuse its retained context across rounds: the teammate revises, the Codex bridge re-reviews, and the loop repeats until no blocking findings remain or a review cap is reached. The reviewer is always the bridge, never a teammate — preserving the builder/critic split — and a strict reply contract plus teardown protocol keep the multi-agent loop from stalling. The dogfooded failure modes that grew that contract into a 300-line protocol are their own write-up: [How my agent-team revise loop earned a 300-line protocol](/blog/revise-loop-protocol/).
-
-## What I Learned
-
-- Wiring multi-agent workflows around a single plugin runtime without an MCP layer
-- Designing skills, agents, commands, and hooks that compose into a research → plan → implement → review cycle
-- Keeping bridges between AI tools small and auditable — argv stays minimal so the trust boundary is obvious
-- Driving convergent automation with persistent agent-teammates and a hard-capped review loop instead of a long-running daemon
-
-## Impact
-
-hyperclaude is the workflow I now use daily — including building and shipping this very page through its own plan and implement loops. Open-source so others can fork the conventions instead of rebuilding the wiring.
+Three months later a loop burned through a 5-hour usage limit far faster than a normal session. Cross-tabbing 434 local transcripts traced it to one parameter. Spawning the agent with `name:` made it a team member, and Claude Code then dropped the plugin's agent definition, re-attached a skill listing every round and invalidated the prompt cache, so cost grew quadratically with the number of rounds. Without `name:` there is no team and no mailbox, which left most of the protocol with nothing to route. The shared protocol file went from 192 lines to 39: [My 300-Line Agent Protocol Was Working Around One Parameter](/blog/protocol-working-around-a-bug/).
