@@ -16,7 +16,7 @@ tech_stack:
 github_url: "https://github.com/zeikar/iki"
 demo_url: "https://zeikar.dev/iki/"
 image: "/assets/images/projects/iki.png"
-sequence: 17
+sequence: 2
 gadget_no: 17
 ---
 

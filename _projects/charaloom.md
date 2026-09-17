@@ -5,7 +5,7 @@ description: "AI character platform: build characters and worlds, chat one-on-on
 tech_stack: ["Next.js", "Vercel AI SDK", "OpenAI", "Firebase", "React", "TypeScript", "next-intl", "TanStack Query"]
 demo_url: "https://charaloom.vercel.app"
 image: "/assets/images/projects/charaloom.png"
-sequence: 8
+sequence: 9
 gadget_no: 10
 ---
 

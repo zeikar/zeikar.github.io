@@ -5,7 +5,7 @@ description: "GitHub Actions template that auto-generates daily contributions by
 tech_stack: ["GitHub Actions", "Cron Schedule", "Template Repository", "Git"]
 github_url: "https://github.com/zeikar/fairy-of-grass"
 image: "/assets/images/projects/fairy-of-grass.png"
-sequence: 15
+sequence: 16
 gadget_no: 2
 ---
 

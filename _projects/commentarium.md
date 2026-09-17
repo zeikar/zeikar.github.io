@@ -6,7 +6,7 @@ tech_stack: ["Chrome Extension", "Next.js", "React", "TypeScript", "Firebase"]
 github_url: "https://github.com/zeikar/commentarium-extension"
 demo_url: "https://commentarium.app"
 image: "/assets/images/projects/commentarium.png"
-sequence: 5
+sequence: 6
 gadget_no: 5
 ---
 

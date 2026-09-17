@@ -5,7 +5,7 @@ description: "Electron desktop app that gives your local OpenClaw agent a Live2D
 tech_stack: ["Electron", "OpenClaw", "Charivo", "Live2D", "OpenAI Realtime", "React", "TypeScript"]
 github_url: "https://github.com/zeikar/liveclaw"
 image: "/assets/images/projects/liveclaw.png"
-sequence: 7
+sequence: 8
 gadget_no: 14
 ---
 
