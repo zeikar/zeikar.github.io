@@ -1,15 +1,16 @@
 ---
 layout: project
 title: "Iki"
-description: "Open MIT-licensed 2D rig puppet animation engine for the web — a from-scratch Live2D alternative whose format an AI agent can rig from layered art."
+description: "MIT-licensed 2D rig engine for the web, with an MCP server and a Claude Code plugin that let an AI agent rig a character from layered art."
 tech_stack:
   [
     "TypeScript",
     "WebGL2",
+    "MCP",
+    "Claude Code plugin",
     "pnpm Monorepo",
     "React",
     "Vitest",
-    "MCP",
     "Changesets",
   ]
 github_url: "https://github.com/zeikar/iki"
@@ -19,60 +20,35 @@ sequence: 17
 gadget_no: 17
 ---
 
-## Project Overview
+**Iki** (息 breath · 生き life · 粋 chic) is a 2D puppet rig engine for the web, and an AI agent can build its rigs: give it a character's art as separate layers and a rigged, animated model comes back. Live2D Cubism is the industry standard and [Inochi2D](https://inochi2d.com/) the established open alternative. I made Iki because I couldn't find a permissive license, a plain-text format, and a rig an agent can build in one place.
 
-**Iki** (息 breath · 生き life · 粋 chic) is a 2D rig puppet animation engine
-for the web — the kind of rig that makes a drawn character blink, look around,
-talk, and turn its head. Live2D Cubism owns this space and
-[Inochi2D](https://inochi2d.com/) is the established open alternative; Iki
-exists because three things it wanted never lined up in one place: a permissive
-license, a plain-text format, and a rig an agent can build.
+## An agent does the rigging
 
-It is the render layer [Charivo](/charivo/) consumes, built so that swapping
-the Live2D SDK out is a matter of changing an adapter.
+- **What goes in:** transparent PNG layers named by role, or one layered PSD in the editor. `face`, `eye_L`, `eye_R` and `mouth` are required; irises, brows, lashes, nose, hair, and body are optional.
+- **What comes out:** a validated `.iki` model that blinks, gazes, lip-syncs, turns, nods and tilts its head, and moves its brows, with hair swaying on physics. On a turn the nose leads, the features slide across the face, and the back hair trails behind, so it reads as a head rotating rather than a cutout sliding.
+- **How an agent drives it:** the `@ikijs/mcp` server exposes `auto_rig_from_layers`, plus `compose_layers_from_parts` to place generated part images on a shared canvas and `measure_layers`, a geometry report that catches an iris the wrong size for its eye or a cropped edge before it costs another round of image generation.
 
-## How it's put together
+The Claude Code plugin bundles the server with two skills: a single pass from a text description to a finished `.iki`, and a generator/critic loop in which an artist agent draws and re-rigs while a critic agent scores the render against a reference image until it's worth shipping.
 
-Four packages in a strictly layered monorepo, published to npm under `@ikijs`:
+```
+/plugin marketplace add zeikar/iki
+/plugin install iki@iki
+```
 
-- **`@ikijs/format`** — the `.iki` schema, types, loader, and a fail-fast
-  validator that reports the exact path that failed. Single source of truth for
-  the model contract.
-- **`@ikijs/engine`** — the WebGL2 runtime. Parameter-driven color quads,
-  atlas-sampled texture parts, warp-mesh and grid deformation, stencil clipping
-  masks, and spring and chain physics. It depends only on the format package
-  and knows nothing about any host.
-- **`@ikijs/editor`** — headless editing core: documents, invertible commands,
-  undo/redo, atlas layout, and the auto-rigger. No UI.
-- **`@ikijs/mcp`** — an MCP server that exposes reading, validating, and
-  rigging to AI agents.
+## What a rig is made of
 
-## A rig is a small set of numbers
+That only works because the model is small and readable. A `.iki` file is one JSON document, textures included, and it's made of:
 
-The whole point of the format is that it is legible. A posed frame is sixteen
-named parameters — `ParamAngleX`, `ParamEyeLOpen`, `ParamHairSwayX` — in a
-plain JSON file you can open in a text editor, diff in git, and generate from a
-script. A host drives those same ids from lip-sync RMS, gaze, blink timers, and
-expressions.
+- **Parameters.** Named, ranged values like `ParamAngleX` or `ParamEyeLOpen`. A standard set of sixteen ids lets any host drive any model without wiring it up per model.
+- **Parts.** Quads or triangle meshes cut from a texture atlas, moved, rotated, scaled, and faded by parameters through linear bindings.
+- **Deformers.** Pivoted matrix deformers in a parent hierarchy, plus warp grids with keyforms, including 2D grids that blend a head turn with a nod.
+- **Clipping masks.** Stencil-based, so an iris clipped to its eye white never spills out at extreme gaze.
+- **Physics.** Spring-mass-damper rigs and multi-segment gravity chains for hair.
 
-That legibility is what makes the interesting part possible.
+The validator fails fast and names the exact path, e.g. `parts[3].mesh.indices[12] 40 is out of range`, so an agent can check its own output. The WebGL2 runtime depends only on the format and knows nothing about its host, which sets parameters from lip-sync, gaze, and expressions while the engine's motion driver handles idle blinking, breathing, and physics.
 
-## The part it is really exploring
+## Using it
 
-Rigging a character is the expensive, manual step in this whole field, and it
-is the step Live2D gives an agent no way into. Because `.iki` is open and
-small, Iki closes that loop: role-named PNG or PSD layers go in, and a rigged
-model that blinks, gazes, opens its mouth, turns its head, and emotes with its
-brows comes out — through an MCP tool an agent calls directly, or a Claude
-skill that chains image generation, layer composition, and rigging into one
-gesture.
+The format, engine, a headless editing core, and the MCP server are on npm under `@ikijs`. The [playground](https://zeikar.dev/iki/playground/) moves a generated character with the same sliders a host would drive. The [editor](https://zeikar.dev/iki/editor/) authors parts, deformers, and physics rigs and exports a validated `.iki`. It's still early and the schema is settling; for production-grade rigging today, use Cubism.
 
-## Status
-
-Early, but real. If you need production-grade 2D rigging today, use Cubism; if
-you want an open web format you can script against, that is what this is.
-
-The [playground](https://zeikar.dev/iki/playground/) drives a generated
-character with the same parameters a host would, and the
-[editor](https://zeikar.dev/iki/editor/) authors parts, deformers, and physics
-rigs in the browser.
+[Charivo](/projects/charivo/) dogfoods it through a private `render-iki` adapter that its CI builds against Iki's published engine; Charivo's published renderer and demos still use Live2D.
