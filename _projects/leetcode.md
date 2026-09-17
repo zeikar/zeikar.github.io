@@ -14,7 +14,7 @@ A study log that has been running since 2021, and the tool that made it work. Ev
 
 ## The log
 
-The notes live in the repo's GitHub Discussions, so writing one is just opening a discussion. [Repozine](/repozine/) builds them into a static site with search and difficulty filters, and redeploys whenever a note or a comment changes.
+The notes live in the repo's GitHub Discussions, so writing one is just opening a discussion. [Repozine](/projects/repozine/) builds them into a static site with search and difficulty filters, and redeploys whenever a note or a comment changes.
 
 Two notes-to-code links keep the log honest:
 
