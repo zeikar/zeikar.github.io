@@ -5,6 +5,7 @@ description: "Template that turns a GitHub repository's Issues or Discussions in
 tech_stack: ["Astro", "GitHub GraphQL API", "GitHub Actions", "TypeScript", "React", "Tailwind CSS"]
 github_url: "https://github.com/zeikar/repozine"
 demo_url: "https://zeikar.dev/repozine/"
+image: "/assets/images/projects/repozine.png"
 sequence: 12
 gadget_no: 1
 ---
