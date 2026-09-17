@@ -2,7 +2,7 @@
 layout: project
 title: "like-surgeon"
 description: "Local-first CLI that snapshots YouTube Music and YouTube likes into SQLite, explains where they diverged, and repairs them after confirmation."
-tech_stack: ["Python 3.11+", "ytmusicapi", "YouTube Data API v3", "SQLite", "RapidFuzz", "Typer", "SQLAlchemy"]
+tech_stack: ["Python", "ytmusicapi", "YouTube Data API v3", "SQLite", "RapidFuzz", "Typer", "SQLAlchemy"]
 github_url: "https://github.com/zeikar/like-surgeon"
 sequence: 4
 gadget_no: 15

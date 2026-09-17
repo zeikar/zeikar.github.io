@@ -2,7 +2,7 @@
 layout: project
 title: "Captiony"
 description: "Browser subtitle editor that times SRT/VTT captions on a draggable timeline against a local video or a YouTube link."
-tech_stack: ["Next.js 15", "React 19", "TypeScript", "Zustand", "react-player", "Tailwind CSS 4"]
+tech_stack: ["Next.js", "React", "TypeScript", "Zustand", "react-player", "Tailwind CSS"]
 github_url: "https://github.com/zeikar/captiony"
 demo_url: "https://captiony.vercel.app"
 image: "/assets/images/projects/captiony.png"

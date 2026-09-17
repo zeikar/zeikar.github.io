@@ -2,7 +2,7 @@
 layout: project
 title: "Charaloom"
 description: "AI character platform: build characters and worlds, chat one-on-one or in groups, and play branching stories, in English and Korean."
-tech_stack: ["Next.js 16", "Vercel AI SDK", "OpenAI", "Firebase", "React 19", "TypeScript", "next-intl", "TanStack Query"]
+tech_stack: ["Next.js", "Vercel AI SDK", "OpenAI", "Firebase", "React", "TypeScript", "next-intl", "TanStack Query"]
 demo_url: "https://charaloom.vercel.app"
 image: "/assets/images/projects/charaloom.png"
 sequence: 8
