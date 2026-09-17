@@ -14,10 +14,10 @@ KakaoTalk Viewer opens exported KakaoTalk chat files in the browser and renders 
 
 ## What it handles
 
-- **Every export source** — auto-detects KakaoTalk `.txt`/`.csv` exports from Windows, macOS, Android, and iOS, across Korean and English locale formats (12- and 24-hour time, CSV quoting, system messages)
+- **Four export sources** — auto-detects KakaoTalk `.txt`/`.csv` exports from Windows, macOS, Android, and iOS: Korean exports plus known English date and system-message patterns, with 12- and 24-hour time and CSV quoting
 - **Navigation that scales** — full-text search, per-person filtering, jump-to-date, and jump to the first or last message
 - **"Which messages are mine?"** — pick your own name and your side of the conversation lines up correctly
-- **Long rooms stay smooth** — virtualized rendering (react-virtuoso) so a chat with tens of thousands of lines doesn't choke
+- **Long rooms stay smooth** — messages render in a virtualized list (react-virtuoso), so only the ones on screen are mounted
 
 ## Parsing is the real work
 
