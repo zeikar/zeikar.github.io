@@ -1,0 +1,8 @@
+{%- comment -%}
+  Outputs the URL for a project image, preferring a sibling .webp when one
+  exists. Front-matter `image:` stays the .png because it doubles as og:image,
+  and not every link-preview crawler reads WebP.
+{%- endcomment -%}
+{%- assign webp = include.path | replace: ".png", ".webp" -%}
+{%- assign webp_file = site.static_files | where: "path", webp | first -%}
+{%- if webp_file -%}{{ webp | relative_url }}{%- else -%}{{ include.path | relative_url }}{%- endif -%}

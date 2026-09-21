@@ -18,6 +18,8 @@ Personal portfolio + project archive at zeikar.dev. Jekyll static site deployed 
 
 [_plugins/og_image.rb](_plugins/og_image.rb) runs at `post_read` and auto-fills `page.image` with `https://dogimg.vercel.app/api/og?url=<page-url>` whenever a doc lacks an explicit `image:`. Coverage: **`site.documents`** (posts + every collection doc, including `_projects/*.md`) plus **top-level pages with `layout: default`**. `jekyll-seo-tag` then emits `og:image` / `twitter:image` from `page.image`. Don't add a layout-level OG-image fallback in [_layouts/default.html](_layouts/default.html) — it would be dead code under this plugin.
 
+A project's explicit `image:` is therefore also its `og:image`, so keep it PNG (not every link-preview crawler reads WebP). For display, [_includes/image-src.html](_includes/image-src.html) swaps in a same-named `.webp` sibling when one exists in `site.static_files`; the home card and the project page both go through it.
+
 ### SEO signals live in the layout, not in _config.yml
 
 [_layouts/default.html](_layouts/default.html) injects:

@@ -14,7 +14,7 @@
   <div class="project-media">
     {% if project.image %}
     <img
-      src="{{ project.image | relative_url }}"
+      src="{% include image-src.html path=project.image %}"
       alt="{{ project.title }} preview"
       loading="lazy"
     />
