@@ -7,13 +7,14 @@ seo:
 ---
 
 {% assign all_projects = site.projects | sort: "sequence" %}
+{% assign live_projects = all_projects | where_exp: "p", "p.demo_url" %}
 
 <section class="home-hero section-space">
   <div class="container hero-shell reveal">
     <p class="eyebrow">Irregular Apparatus Lab (&gt;_&lt;)</p>
     <h1 class="hero-title">I build small machines for oddly specific problems.</h1>
     <p class="hero-copy">
-      A GitHub Action that fakes your contribution graph. A CLI that performs
+      A 2D rig engine that hands the rigging to an AI agent. A CLI that performs
       surgery on your liked songs. A city sim with a stricter data flow than most
       production apps. Every one gets a unit number the day it starts. The rest are
       still in a folder called /someday, pretending they'll be ready next week.
@@ -34,8 +35,8 @@ seo:
         <span class="metric-label">Where the rest live</span>
       </article>
       <article class="metric-card reveal">
-        <span class="metric-value">Web + Desktop</span>
-        <span class="metric-label">Wherever they need to run</span>
+        <span class="metric-value">{{ live_projects | size }}</span>
+        <span class="metric-label">Live right now, go poke one</span>
       </article>
     </div>
   </div>
