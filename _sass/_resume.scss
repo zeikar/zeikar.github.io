@@ -184,3 +184,282 @@
   text-decoration-thickness: 2px;
   text-underline-offset: 3px;
 }
+
+.resume-name {
+  display: none;
+}
+
+.resume-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0.6rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+}
+
+.resume-contact li + li::before {
+  content: "·";
+  margin-right: 0.6rem;
+  color: rgba(31, 42, 55, 0.35);
+}
+
+.resume-contact a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+/* Print / Save as PDF: the same markup, re-set as a submission-ready A4 page.
+   A4 content is ~690px wide, which trips the 1024px and 760px rules in
+   _responsive.scss (loaded after this file) — every selector carries
+   .resume-page so it outranks them regardless of source order. */
+@page resume {
+  size: A4;
+  margin: 16mm 17mm;
+}
+
+@media print {
+  body:has(.resume-page) {
+    background: #fff;
+    font-size: 9.5pt;
+    line-height: 1.5;
+  }
+
+  /* Everything but <main>, not just our own chrome: browser extensions append
+     their own nodes to <body> or straight to <html>, and anything outside the
+     named `resume` page gets forced onto an extra sheet of its own. */
+  html:has(.resume-page) > :not(head, body),
+  body:has(.resume-page) > :not(.site-main) {
+    display: none !important;
+  }
+
+  body:has(.resume-page) .site-main {
+    padding: 0;
+  }
+
+  .section-space.resume-page {
+    padding: 0;
+    page: resume;
+  }
+
+  .resume-page .container {
+    width: auto;
+  }
+
+  /* Korean otherwise wraps mid-word ("개발했습 / 니다"). */
+  .resume-page:lang(ko) {
+    word-break: keep-all;
+  }
+
+  /* Sections below the fold are still at opacity 0 unless scrolled past. */
+  .resume-page .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .resume-page :is(.resume-actions, .resume-bottom-link, .resume-hero .eyebrow) {
+    display: none;
+  }
+
+  .resume-page :is(.resume-hero, .resume-section, .resume-panel, .resume-project) {
+    background: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .resume-page a {
+    color: var(--accent);
+  }
+
+  .resume-page .resume-hero {
+    display: block;
+    padding-bottom: 12pt;
+    border-bottom: 1.5pt solid var(--ink);
+  }
+
+  .resume-page .resume-name {
+    display: block;
+    margin: 0;
+    font-family: "Bricolage Grotesque", "Space Grotesk", sans-serif;
+    font-size: 22pt;
+    font-weight: 800;
+    line-height: 1.1;
+  }
+
+  .resume-page .resume-hero h1 {
+    margin: 4pt 0 0;
+    font-size: 12pt;
+    color: var(--accent);
+  }
+
+  .resume-page .resume-copy {
+    max-width: none;
+    margin-top: 7pt;
+    color: #334155;
+    font-size: 9.5pt;
+  }
+
+  .resume-page .resume-contact {
+    flex-direction: row;
+    gap: 0 6pt;
+    margin-top: 6pt;
+    font-size: 8.5pt;
+  }
+
+  .resume-page .resume-contact li + li::before {
+    content: "·";
+    margin-right: 6pt;
+  }
+
+  .resume-page .resume-section,
+  .resume-page .resume-grid {
+    margin-top: 22pt;
+  }
+
+  /* Shorter than a sheet, so move it whole rather than strand its heading. */
+  .resume-page .resume-section:has(.resume-project-list) {
+    break-inside: avoid;
+  }
+
+  .resume-page .resume-section-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 8pt;
+    break-after: avoid;
+  }
+
+  /* One label style for every section, with a hairline out to the margin. */
+  .resume-page :is(.resume-section-head .eyebrow, .resume-panel h2) {
+    display: flex;
+    flex-basis: 100%;
+    align-items: center;
+    gap: 6pt;
+    margin: 0;
+    color: var(--accent);
+    font-family: inherit;
+    font-size: 7.5pt;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .resume-page :is(.resume-section-head .eyebrow, .resume-panel h2)::after {
+    content: "";
+    flex: 1;
+    border-top: 0.5pt solid var(--line);
+  }
+
+  .resume-page .resume-section-head h2 {
+    margin-top: 6pt;
+    font-size: 13pt;
+  }
+
+  .resume-page .resume-section-head p:not(.eyebrow) {
+    margin: 0;
+    font-size: 9pt;
+  }
+
+  .resume-page .resume-timeline {
+    margin-top: 9pt;
+    gap: 10pt;
+  }
+
+  .resume-page .resume-item {
+    grid-template-columns: 58pt 1fr;
+    gap: 10pt;
+    padding-top: 0;
+    border-top: 0;
+    break-inside: avoid;
+  }
+
+  .resume-page .resume-item + .resume-item {
+    padding-top: 10pt;
+    border-top: 0.5pt solid var(--line);
+  }
+
+  .resume-page .resume-item-meta {
+    font-size: 8.5pt;
+  }
+
+  .resume-page .resume-item-body h3 {
+    font-size: 10.5pt;
+  }
+
+  .resume-page .resume-item-body p {
+    margin-top: 2pt;
+  }
+
+  .resume-page :is(.resume-item-body, .resume-panel) ul {
+    margin-top: 4pt;
+    padding-left: 11pt;
+  }
+
+  .resume-page .resume-project-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 13pt 18pt;
+    margin-top: 10pt;
+  }
+
+  .resume-page .resume-project {
+    break-inside: avoid;
+  }
+
+  .resume-page .resume-project h3 {
+    font-size: 10pt;
+  }
+
+  .resume-page .resume-project p {
+    margin-top: 2pt;
+    font-size: 8.8pt;
+  }
+
+  /* Pills become a dot-separated line. */
+  .resume-page .project-tags {
+    display: block;
+    margin-top: 2pt;
+    color: var(--ink-soft);
+    font-size: 8pt;
+  }
+
+  .resume-page .project-tags span {
+    display: inline;
+    border: 0;
+    background: none;
+    padding: 0;
+    color: inherit;
+    font-size: inherit;
+    font-weight: 500;
+  }
+
+  .resume-page .project-tags span + span::before {
+    content: " · ";
+  }
+
+  .resume-page .resume-grid {
+    grid-template-columns: 1.3fr 0.8fr 1.2fr;
+    gap: 18pt;
+    break-inside: avoid;
+  }
+
+  .resume-page .resume-panel p {
+    margin-top: 6pt;
+  }
+
+  .resume-page .resume-panel p + p {
+    margin-top: 1pt;
+  }
+
+  .resume-page .project-tags.large {
+    margin-top: 6pt;
+    color: #334155;
+    font-size: 9pt;
+  }
+}

@@ -87,4 +87,13 @@
     grid-template-columns: 1fr;
     gap: 0.45rem;
   }
+
+  /* Wrapped lines would start with a dangling separator. */
+  .resume-contact {
+    flex-direction: column;
+  }
+
+  .resume-contact li + li::before {
+    content: none;
+  }
 }

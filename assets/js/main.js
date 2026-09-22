@@ -91,6 +91,34 @@ document.addEventListener('DOMContentLoaded', () => {
     applyFilter(blogList.dataset.active || 'en');
   }
 
+  const resumeName = document.querySelector('[data-resume-name]');
+
+  if (resumeName) {
+    const defaultName = resumeName.textContent;
+    const defaultTitle = document.title;
+
+    const applyName = () => {
+      const name = (new URLSearchParams(window.location.hash.slice(1)).get('name') || '').trim();
+      resumeName.textContent = name || defaultName;
+    };
+
+    applyName();
+    // Typing #name=… into the address bar of an open page doesn't reload it.
+    window.addEventListener('hashchange', applyName);
+
+    // Chrome and Safari use the document title as the Save-as-PDF file name.
+    window.addEventListener('beforeprint', () => {
+      document.title = `${resumeName.textContent}_${resumeName.dataset.pdfTitle}`;
+    });
+    window.addEventListener('afterprint', () => {
+      document.title = defaultTitle;
+    });
+  }
+
+  document.querySelectorAll('[data-print]').forEach((button) => {
+    button.addEventListener('click', () => window.print());
+  });
+
   const interactiveSelector = 'a, button, input, textarea, select, label';
   const projectCards = document.querySelectorAll('.project-card[data-project-url]');
 

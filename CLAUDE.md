@@ -41,6 +41,10 @@ translations:
 
 Both [_layouts/default.html](_layouts/default.html) (hreflang) and [_layouts/post.html](_layouts/post.html) (translation link button) read this field. The resume page pair (`/resume/` + `/resume-ko/`) also uses it.
 
+### Resume PDF is the print stylesheet
+
+The resume's PDF button only calls `window.print()`; the submission layout is the `@media print` block at the end of [_sass/_resume.scss](_sass/_resume.scss) (A4 via a named `@page resume`). Every selector there carries `.resume-page` because A4 width trips the 760px rules in `_responsive.scss`, which load later. The name at the top of the PDF is print-only and defaults to `site.author.name`; the real name is supplied only through a `#name=…` URL fragment read by [assets/js/main.js](assets/js/main.js). Never write the real name into the source.
+
 ### Sitemap is hand-rolled
 
 The site does **not** use `jekyll-sitemap` despite the Gemfile listing — it's not in the `plugins:` array in [_config.yml](_config.yml). [sitemap.xml](sitemap.xml) is a manual sitemap *index* pointing at:

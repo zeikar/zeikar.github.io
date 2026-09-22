@@ -14,14 +14,26 @@ redirect_from:
     <header class="resume-hero reveal">
       <div>
         <p class="eyebrow">Resume</p>
+        {% comment %}
+          Print-only. The real name is never in the source: main.js swaps it in
+          from a #name=… fragment, which stays out of server logs and analytics.
+        {% endcomment %}
+        <p class="resume-name" data-resume-name data-pdf-title="{{ page.title }}">{{ site.author.name }}</p>
         <h1>Software Engineer</h1>
         <p class="resume-copy">
           Software engineer focused on AI workflow platforms, media automation, and distributed systems,
           with full-stack product experience from idea to shipped interface.
         </p>
+        <ul class="resume-contact">
+          <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+          <li><a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener">github.com/{{ site.github_username }}</a></li>
+          <li><a href="https://zeikar.dev/">zeikar.dev</a></li>
+          <li><a href="https://linkedin.com/in/zeikar" target="_blank" rel="noopener">linkedin.com/in/zeikar</a></li>
+        </ul>
       </div>
       <div class="resume-actions">
         <a class="btn btn-primary" href="https://linkedin.com/in/zeikar" target="_blank" rel="noopener">LinkedIn</a>
+        <button class="btn btn-ghost" type="button" data-print>PDF</button>
         <a class="btn btn-ghost" href="{{ '/resume-ko/' | relative_url }}">한국어</a>
       </div>
     </header>
