@@ -1,6 +1,6 @@
 ---
 title: "How My Agent-Team Revise Loop Earned a 300-Line Protocol"
-subtitle: "Five dogfooded failure modes that turned twenty lines of pseudocode into a state machine — inside hyperclaude's plan-loop and implement-loop."
+subtitle: "Five dogfooded failure modes that turned seven lines of pseudocode into a state machine — inside hyperclaude's plan-loop and implement-loop."
 date: 2026-05-22
 lang: en
 translations:
@@ -12,7 +12,7 @@ description: "Why hyperclaude's persistent-teammate revise loops grew a long cro
 
 This is about the autonomous revise loops in [hyperclaude](/hyperclaude/) ([code](https://github.com/zeikar/hyperclaude)) — a Claude Code plugin built around a deliberate split: Claude builds, Codex critiques. Two of its skills, `hyper-plan-loop` and `hyper-implement-loop`, take a task and run plan → review → revise (or implement → review → fix) on their own, looping until Codex returns no blocking findings or a hard cap is hit. A single Claude-side teammate stays alive across rounds; Codex stays the reviewer.
 
-If you sketch that on a whiteboard, it's twenty lines:
+If you sketch that on a whiteboard, it's seven lines:
 
 ```
 spawn teammate
@@ -24,7 +24,7 @@ loop:
 teardown
 ```
 
-The actual SKILL.md plus shared reference is north of 400 lines. Almost none of that growth was planned — it was bugs found by dogfooding that prompt-only discipline could not survive. This post walks through five of them, roughly in the order they bit me.
+The actual SKILL.md plus shared reference is north of 400 lines, and the protocol files alone (the shared reference plus each loop's failure protocol) run past 300. Almost none of that growth was planned — it was bugs found by dogfooding that prompt-only discipline could not survive. This post walks through five of them, roughly in the order they bit me.
 
 ## The naive loop has more failure modes than lines
 

@@ -22,7 +22,7 @@ The honest problem: an OG image is a poster of metadata that already exists on t
 
 ## Stage 2: Param-driven generators (vercel/og-image and friends)
 
-The next stop was `@vercel/og`-style services, where you call an endpoint with the content as query parameters:
+The next stop was param-driven services, where you call an endpoint with the content as query parameters:
 
 ```
 https://og-generator.example/api/og?title=My+Post&description=...&theme=teal

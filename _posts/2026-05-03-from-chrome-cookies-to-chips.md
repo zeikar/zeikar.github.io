@@ -2,7 +2,7 @@
 title: "Chrome Extension Iframe Auth: From chrome.cookies to CHIPS"
 subtitle: "How a Chrome extension's iframe survives third-party cookie blocking — without bypassing the browser."
 date: 2026-05-03
-last_modified_at: 2026-05-04
+last_modified_at: 2026-09-28
 lang: en
 translations:
   ko: /blog/ko/from-chrome-cookies-to-chips/
@@ -15,7 +15,7 @@ A surprisingly mechanical change in the end. The path there was a sharp lesson o
 
 The setup is small: [Commentarium](https://commentarium.app) is a comments app for any URL, and the [Chrome extension](https://github.com/zeikar/commentarium-extension) injects a side panel on every page with `commentarium.app/comments?url=…` in an iframe. So the iframe is `commentarium.app` content embedded in arbitrary top-level sites — a textbook third-party context.
 
-Modern browsers block third-party cookies by default. The iframe's session cookie won't stick, the user can't sign in, no comments. The whole product is dead in a third-party context.
+Chrome blocks third-party cookies by default in Incognito, and anyone can turn blocking on in settings. Once they're blocked, the iframe's session cookie won't stick, the user can't sign in, no comments. The whole product is dead in a third-party context.
 
 We had a plan. It worked. Then it didn't.
 
@@ -129,7 +129,7 @@ No `host_permissions`, no `cookies` permission, a **lower** Chrome floor (CHIPS 
 1. **Before reaching for a Chrome API workaround, look at the cookie spec.** CHIPS exists precisely for this case — partitioned cookies for embedded contexts. We had read the `chrome.cookies` docs four times before reading the cookie attribute docs once.
 2. **Manual E2E catches what unit tests cannot.** The chrome.cookies failure was *only* visible on a real page hosted on a real second domain. Unit tests passed. Browser permission semantics are too easy to mock past.
 3. **The thinner the service worker, the better.** Once the SW is just *vend ID tokens*, the surface area for surprise shrinks. Most of the deleted lines were carrying sample-of-one assumptions about partition semantics.
-4. **CHIPS support is Chromium-only as of May 2026.** Chrome and Edge ship it; Firefox has it [under implementation](https://caniuse.com/mdn-http_headers_set-cookie_partitioned), Safari has different opinions. For a Chrome-Web-Store extension, this is fine. For a cross-browser extension, you'd need a different shape entirely. Check the live support table before relying on this.
+4. **Check CHIPS support before leaning on it elsewhere.** Chrome has it from 114 (our floor), Firefox from 141, and Safari from 26.2, after shipping it in 18.4 and pulling it again. For a Chrome-Web-Store extension, this is fine. For a cross-browser extension, check the [live support table](https://caniuse.com/mdn-http_headers_set-cookie_partitioned) first.
 
 The diff was wildly in our favor. The hardest part was admitting the first design was the wrong shape.
 

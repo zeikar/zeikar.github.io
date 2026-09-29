@@ -1,6 +1,6 @@
 ---
 title: "My 300-Line Agent Protocol Was Working Around One Parameter"
-subtitle: "I measured why an autonomous loop burned a 5-hour limit so fast, found an upstream bug, and deleting the bug deleted most of the protocol I'd just written about."
+subtitle: "I measured why an autonomous loop burned a 5-hour limit so fast, found an upstream bug, and dropping the one parameter behind it deleted most of the protocol I'd just written about."
 date: 2026-08-18
 lang: en
 translations:
@@ -23,7 +23,7 @@ Claude Code writes every session and subagent to `~/.claude/projects/**/*.jsonl`
 Two gotchas, both of which I hit:
 
 - **Dedupe by `message.id`.** One API request is logged once per content block, so counting lines multiplies usage by two or three.
-- **Cost weights matter more than token counts.** In base-input-equivalents: a 5-minute cache write is 1.25x, a 1-hour write 2x, a cache **read is 0.1x**. A re-write costs twenty times what a cache hit costs. Any analysis that sums raw tokens will point the wrong way.
+- **Cost weights matter more than token counts.** In base-input-equivalents: a 5-minute cache write is 1.25x, a 1-hour write 2x, a cache **read is 0.1x**. A re-write costs 12.5 to 20 times what a cache hit costs. Any analysis that sums raw tokens will point the wrong way.
 
 The model hypothesis died fast. Sorting by cache efficiency, one-shot subagents on the *cheap* model had the best write-to-read ratio in the whole corpus. Model was uncorrelated. What correlated perfectly was something else.
 
@@ -53,7 +53,7 @@ subagent_type: "myplugin:planner"                 →  skill_listing 0,  0 tools
 
 It's filed upstream twice ([#78234](https://github.com/anthropics/claude-code/issues/78234), [#81746](https://github.com/anthropics/claude-code/issues/81746)); one reporter had disassembled the binary and found the source filter that discards plugin-scoped definitions.
 
-## Deleting the bug deleted the protocol
+## Dropping the parameter deleted the protocol
 
 Here's the part I didn't expect. `name:` is what makes an agent a *team member* — which is what gives it a mailbox. Spawn without it and the agent is a background task, so its final text comes back as the task's own result. There is no mailbox, so there is nothing to route.
 

@@ -92,7 +92,7 @@ Agents will report "checked, all valid" while shipping a document with a broken 
 }
 ```
 
-When either of those agents finishes, Claude Code runs the link checker. Exit code 2 hard-fails the agent. The "I verified the links" claim is now policed by a script that *actually* verified them. The reviewer has no matcher because the reviewer doesn't write — it has nothing for the script to validate.
+When either of those agents finishes, Claude Code runs the link checker. Exit code 2 won't let the agent stop: the checker's output goes back to it on stderr, and it has to fix the links first. The "I verified the links" claim is now policed by a script that *actually* verified them. The reviewer has no matcher because the reviewer doesn't write — it has nothing for the script to validate.
 
 This is the cheapest reliability win in the whole harness. The hook is fifteen seconds of Python; the bug it prevents is a doc that publishes with a 404.
 
