@@ -1,6 +1,10 @@
+/* Column so .site-main can grow: on a page shorter than the window (the 404)
+   the footer sits at the bottom instead of mid-screen. */
 .site-shell {
   min-height: 100vh;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .container {
