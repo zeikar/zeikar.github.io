@@ -10,7 +10,7 @@ layout: default
       {% if page.lang == 'ko' %}
       <p class="eyebrow">{{ page.date | date: "%Y년 %-m월 %-d일" }} · {{ read_min }}분 읽기</p>
       {% else %}
-      <p class="eyebrow">{{ page.date | date: "%B %d, %Y" }} · {{ read_min }} min read</p>
+      <p class="eyebrow">{{ page.date | date: "%B %-d, %Y" }} · {{ read_min }} min read</p>
       {% endif %}
       <h1 class="post-title">{{ page.title }}</h1>
       {% if page.subtitle %}

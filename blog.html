@@ -24,12 +24,12 @@ permalink: /blog/
       <li class="blog-card" data-lang="{{ post.lang | default: 'en' }}">
         <a href="{{ post.url | relative_url }}" class="blog-card-link" hreflang="{{ post.lang | default: 'en' }}">
           <div class="blog-card-meta">
-            <span class="blog-card-date">{{ post.date | date: "%B %d, %Y" }}</span>
+            <span class="blog-card-date">{{ post.date | date: "%B %-d, %Y" }}</span>
             <span class="blog-card-lang" data-lang="{{ post.lang | default: 'en' }}">{{ post.lang | default: 'en' | upcase }}</span>
           </div>
-          <h2 class="blog-card-title">{{ post.title }}</h2>
+          <h2 class="blog-card-title"{% if post.lang != site.lang %} lang="{{ post.lang }}"{% endif %}>{{ post.title }}</h2>
           {% if post.subtitle %}
-          <p class="blog-card-subtitle">{{ post.subtitle }}</p>
+          <p class="blog-card-subtitle"{% if post.lang != site.lang %} lang="{{ post.lang }}"{% endif %}>{{ post.subtitle }}</p>
           {% endif %}
         </a>
       </li>

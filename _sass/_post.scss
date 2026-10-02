@@ -83,9 +83,9 @@
   color: var(--ink);
 }
 
-.post-content p,
-.post-content ul,
-.post-content ol {
+/* :where() keeps this reset at zero specificity; as a plain `.post-content p`
+   it outranked `.post-content > * + *` and paragraphs ran together. */
+:where(.post-content p, .post-content ul, .post-content ol) {
   margin: 0;
 }
 

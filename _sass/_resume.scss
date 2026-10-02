@@ -250,11 +250,6 @@
     width: auto;
   }
 
-  /* Korean otherwise wraps mid-word ("개발했습 / 니다"). */
-  .resume-page:lang(ko) {
-    word-break: keep-all;
-  }
-
   .resume-page :is(.resume-actions, .resume-bottom-link, .resume-hero .eyebrow) {
     display: none;
   }
