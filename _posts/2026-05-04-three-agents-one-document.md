@@ -5,7 +5,7 @@ date: 2026-05-04
 lang: en
 translations:
   ko: /blog/ko/three-agents-one-document/
-description: "Building a Claude Code multi-agent pipeline for backend-interview-guide — separate writer/reviewer roles, parseable Output Contracts, and a hook that catches what self-verification doesn't."
+description: "A Claude Code multi-agent doc pipeline: separate writer and reviewer roles, parseable Output Contracts, and a hook that catches what self-checks miss."
 ---
 
 This is about the agent harness behind [backend-interview-guide](https://github.com/zeikar/backend-interview-guide), a Korean reference covering ~33 documents across database, cloud, system design, and programming. The whole `.claude/` setup is small — three agent definitions, one orchestrator skill, one hook — and that's the point. It's not impressive because it's elaborate. It's reliable because each piece exists to stop a specific failure mode.

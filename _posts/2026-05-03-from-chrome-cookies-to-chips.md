@@ -6,7 +6,7 @@ last_modified_at: 2026-09-28
 lang: en
 translations:
   ko: /blog/ko/from-chrome-cookies-to-chips/
-description: "Authenticating a Chrome extension's iframe under third-party cookie blocking — the chrome.cookies API trap, the CHIPS Set-Cookie solution, and the diff in between."
+description: "Authenticating a Chrome extension's iframe under third-party cookie blocking: the chrome.cookies API trap, the CHIPS Set-Cookie fix, and the diff in between."
 ---
 
 This is a story about authenticating a Chrome extension's iframe in a world that blocks third-party cookies — specifically, why the `chrome.cookies` API was the wrong tool and the standard CHIPS `Set-Cookie` attribute was the right one.

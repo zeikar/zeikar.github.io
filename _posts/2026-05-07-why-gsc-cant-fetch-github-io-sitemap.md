@@ -5,7 +5,7 @@ date: 2026-05-07
 lang: en
 translations:
   ko: /blog/ko/why-gsc-cant-fetch-github-io-sitemap/
-description: "Google Search Console kept returning 'Couldn't fetch' on a github.io sitemap that passed every diagnostic — XML schema, Content-Type, Googlebot User-Agent fetch, scope rules, robots.txt all green. The fix had nothing to do with the XML: a custom domain."
+description: "Search Console said 'Couldn't fetch' for a github.io sitemap that passed every check: schema, Content-Type, Googlebot, robots.txt. A custom domain fixed it."
 ---
 
 This is a story about an XML file that wasn't broken. Specifically, why Google Search Console kept saying `Couldn't fetch` on my `sitemap.xml`, why every diagnostic I ran came back green, and why the answer turned out to have nothing to do with the XML.

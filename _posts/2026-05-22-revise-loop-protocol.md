@@ -5,7 +5,7 @@ date: 2026-05-22
 lang: en
 translations:
   ko: /blog/ko/revise-loop-protocol/
-description: "Why hyperclaude's persistent-teammate revise loops grew a long cross-loop protocol — request-id counters, solicit_sent_at timestamps, and the 1-round-lag race that ate an afternoon."
+description: "Why hyperclaude's revise loops grew a cross-loop protocol: request-id counters, solicit_sent_at timestamps, and a 1-round-lag race that ate an afternoon."
 ---
 
 > **Update (2026-08-18):** Most of this protocol no longer exists. Measuring why these loops were so expensive turned up an upstream bug — one Agent-tool parameter was silently dropping the plugin agent's definition, and that is what created the mailbox all of these races lived in. Removing it took the shared protocol from 192 lines to 39. The failures below were real; the conclusion at the end was not. → [My 300-Line Agent Protocol Was Working Around One Parameter](/blog/protocol-working-around-a-bug/)

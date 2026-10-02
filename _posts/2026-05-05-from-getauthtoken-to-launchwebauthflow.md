@@ -5,7 +5,7 @@ date: 2026-05-05
 lang: en
 translations:
   ko: /blog/ko/from-getauthtoken-to-launchwebauthflow/
-description: "When chrome.identity.getAuthToken silently drops its cancel callback, the MV3 SW idle timer turns it into a 60-second spinner. A keepalive band-aid races Chrome's per-request 5-minute cap. launchWebAuthFlow is the primitive that side-steps both."
+description: "getAuthToken can silently drop its cancel callback, leaving a 60-second spinner. A keepalive races Chrome's 5-minute cap. launchWebAuthFlow avoids both."
 ---
 
 This is a story about cancel detection in OAuth — specifically, why we were band-aiding around `chrome.identity.getAuthToken` in a Chrome extension, why the band-aid raced itself, and how stepping back to a different `chrome.identity` primitive made the band-aid disappear.

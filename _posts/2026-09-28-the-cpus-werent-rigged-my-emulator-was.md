@@ -5,7 +5,7 @@ date: 2026-09-28
 lang: en
 translations:
   ko: /blog/ko/the-cpus-werent-rigged-my-emulator-was/
-description: "How I recovered Yu-Gi-Oh! World Championship 2008's CPU rating formula, floor(160 / (1 + 10^(gap / 1000))), and checked it against 9,600 duels played headless in melonDS DS, after a stuck rand() state faked a pattern in the tournament draw."
+description: "Recovering Yu-Gi-Oh! World Championship 2008's CPU rating formula and checking it on 9,600 headless melonDS duels, after a stuck rand() faked a draw pattern."
 ---
 
 *Yu-Gi-Oh! World Championship 2008* on the Nintendo DS has 78 CPU duelists, and each one carries a rating: a number next to a small yellow triangle on its opponent card. Every community table I found lists one number per duelist, the value on a fresh save. None of them says the number moves.
