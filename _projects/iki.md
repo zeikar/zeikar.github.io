@@ -18,6 +18,7 @@ demo_url: "https://zeikar.dev/iki/"
 image: "/assets/images/projects/iki.png"
 sequence: 1
 gadget_no: 17
+date: 2026-06-04
 ---
 
 **Iki** (息 breath · 生き life · 粋 chic) is a 2D puppet rig engine for the web, and an AI agent can build its rigs: give it a character's art as separate layers and a rigged, animated model comes back. Live2D Cubism is the industry standard and [Inochi2D](https://inochi2d.com/) the established open alternative. I made Iki because I couldn't find a permissive license, a plain-text format, and a rig an agent can build in one place.

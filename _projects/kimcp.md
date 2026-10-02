@@ -7,6 +7,7 @@ github_url: "https://github.com/zeikar/kimcp"
 image: "/assets/images/projects/kimcp.png"
 sequence: 21
 gadget_no: 8
+date: 2025-04-02
 ---
 
 KiMCP is an MCP server that hands an LLM a set of Korean web and map APIs as tools — so an assistant can actually search Naver, look up a place on KakaoMap, or get transit directions instead of guessing.

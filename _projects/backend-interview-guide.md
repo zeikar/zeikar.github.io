@@ -8,6 +8,7 @@ demo_url: "https://zeikar.dev/backend-interview-guide/"
 image: "/assets/images/projects/backend-interview-guide.png"
 sequence: 20
 gadget_no: 6
+date: 2024-09-01
 ---
 
 A Korean-language knowledge base for backend interviews — built because solid mid-to-senior interview material in Korean is genuinely hard to find. It's Markdown-first and organized for prep, not flashcards: each topic is about explaining trade-offs out loud, not memorizing a definition.

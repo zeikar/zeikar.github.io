@@ -8,6 +8,7 @@ demo_url: "https://www.youtube.com/channel/UCQyrXQkYvmwkQ2W8oaQEy1w"
 image: "/assets/images/projects/tangent.png"
 sequence: 10
 gadget_no: 22
+date: 2026-09-24
 ---
 
 tangent makes short explainers in the 3Blue1Brown vein: one visual insight per Short, with every shape, equation and graph drawn in code. Claude Code agents do the production, one per stage, and a human approves at checkpoints. It runs the Korean channel [루트와이 (√y, "root why")](https://www.youtube.com/channel/UCQyrXQkYvmwkQ2W8oaQEy1w), whose first two Shorts asked [why A4 paper is 210×297](https://youtube.com/shorts/nlG5vMoo5w0) and [why the Moon always shows the same face](https://youtube.com/shorts/WDywGPVblfU). The agent system is half the point: each milestone logs which stage held things up, and that stage gets automated next.

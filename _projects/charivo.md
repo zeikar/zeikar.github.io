@@ -8,6 +8,7 @@ demo_url: "https://charivo.vercel.app/"
 image: "/assets/images/projects/charivo.png"
 sequence: 2
 gadget_no: 12
+date: 2025-09-16
 ---
 
 Charivo is the framework I build talking characters on: a Live2D model on a canvas, a language model behind it, and a voice going in and out. Each of those is its own `@charivo/*` package behind an interface, so moving a character from OpenAI to Gemini, or from typed chat to live voice, means swapping a client, not rewriting the app.

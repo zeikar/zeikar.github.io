@@ -7,6 +7,7 @@ github_url: "https://github.com/zeikar/ludoweft"
 image: "/assets/images/projects/ludoweft.png"
 sequence: 7
 gadget_no: 20
+date: 2026-08-23
 ---
 
 Ludoweft is a toolkit for making fan translation patches with a coding agent, aimed at text-heavy PC games like visual novels. An adapter turns game resources into a JSONL workspace, the agent translates and reviews it, and the CLI validates the result and rebuilds the files. It ships no game assets, keys or translated text. The same skill and CLI install as a plugin for Claude Code or Codex, with no npm dependencies.

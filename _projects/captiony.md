@@ -8,6 +8,7 @@ demo_url: "https://captiony.vercel.app"
 image: "/assets/images/projects/captiony.png"
 sequence: 18
 gadget_no: 11
+date: 2025-07-29
 ---
 
 Open a video file or paste a YouTube link, lay captions onto a timeline, preview them over the video as you go, and export an SRT or VTT file. No desktop install, no upload to a server.

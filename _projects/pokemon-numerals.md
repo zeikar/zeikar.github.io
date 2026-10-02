@@ -8,6 +8,7 @@ demo_url: "https://zeikar.dev/pokemon-numerals/"
 image: "/assets/images/projects/pokemon-numerals.png"
 sequence: 13
 gadget_no: 18
+date: 2026-09-15
 ---
 
 What if numbers were Pokémon? Pokémon Numerals answers that question with complete seriousness. An integer *n* is written as the Pokémon whose National Pokédex number is *n*, so `01:04:25` reads Bulbasaur : Charmander : Pikachu. Practical applications have not been observed.

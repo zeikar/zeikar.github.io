@@ -8,6 +8,7 @@ demo_url: "https://dogimg.vercel.app"
 image: "/assets/images/projects/dogimg.png"
 sequence: 19
 gadget_no: 4
+date: 2023-01-22
 ---
 
 DOGimg turns any URL into an Open Graph image with a single API call. Point it at a page and it returns a 1200×630 PNG drawn from that page's own metadata: its title, its icon, its color. There's no key and no design step, and a page that declares almost nothing still gets a card of its own.

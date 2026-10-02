@@ -8,6 +8,7 @@ demo_url: "https://zeikar.dev/cimulity/"
 image: "/assets/images/projects/cimulity.png"
 sequence: 4
 gadget_no: 13
+date: 2026-01-07
 ---
 
 You lay roads, zone land as residential, commercial or industrial, and place power plants, water towers, police and fire stations, hospitals, schools and parks on a 64×64 isometric map. The simulation decides what gets built. The ground is a generated heightmap you can raise, lower and flatten, and anything at or below sea level is water. It's playable and still growing, built with my Claude Code plugin [hyperclaude](/projects/hyperclaude/).

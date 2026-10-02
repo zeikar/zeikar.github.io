@@ -7,6 +7,7 @@ demo_url: "https://charaloom.vercel.app"
 image: "/assets/images/projects/charaloom.png"
 sequence: 6
 gadget_no: 10
+date: 2025-03-30
 ---
 
 Charaloom is a web app for writing AI characters and then spending time with them. You give a character a persona and a greeting, then talk to it, put it in a room with other characters, or start a story with it. Around that sit the parts a real product needs: accounts, credits, a community, and ways to find other people's characters.

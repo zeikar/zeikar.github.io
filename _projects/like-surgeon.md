@@ -7,6 +7,7 @@ github_url: "https://github.com/zeikar/like-surgeon"
 image: "/assets/images/projects/like-surgeon.png"
 sequence: 11
 gadget_no: 15
+date: 2026-05-05
 ---
 
 YouTube Music and YouTube each keep a list of your likes, and the two drift apart without telling you. Songs go dead, get swapped for re-uploads, or exist on one side only. like-surgeon scans both lists, keeps every scan as a frozen snapshot, and turns the differences into findings it can explain and, where it's safe, fix.

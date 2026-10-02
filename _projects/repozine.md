@@ -8,6 +8,7 @@ demo_url: "https://zeikar.dev/repozine/"
 image: "/assets/images/projects/repozine.png"
 sequence: 15
 gadget_no: 1
+date: 2020-10-17
 ---
 
 Repozine treats GitHub Issues (or Discussions) as a CMS: write content as issues, and it builds a static Astro site from them and publishes it to GitHub Pages. No database, no separate authoring tool — the issue tracker *is* the editor.

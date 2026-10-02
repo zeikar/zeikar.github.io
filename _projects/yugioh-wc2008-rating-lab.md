@@ -8,6 +8,7 @@ demo_url: "https://zeikar.dev/yugioh-wc2008-rating-lab/"
 image: "/assets/images/projects/yugioh-wc2008-rating-lab.png"
 sequence: 9
 gadget_no: 21
+date: 2026-09-23
 ---
 
 In *Yu-Gi-Oh! World Championship 2008* on the Nintendo DS, every CPU duelist has a rating, and it moves after every CPU-vs-CPU duel in tournament mode. Community guides list only each duelist's starting number, and none of them says ratings move at all. WC2008 Rating Lab records those ratings while you play a tournament and charts how each of the 78 CPUs rises and falls. A Python harness plays the game headless in an emulator and reads the ratings straight from RAM, and its 1,600 tournaments ship with the site as a read-only research dataset.

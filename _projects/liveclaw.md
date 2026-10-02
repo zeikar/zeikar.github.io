@@ -7,6 +7,7 @@ github_url: "https://github.com/zeikar/liveclaw"
 image: "/assets/images/projects/liveclaw.png"
 sequence: 5
 gadget_no: 14
+date: 2026-02-20
 ---
 
 LiveClaw puts a Live2D character on your desktop and connects it to the OpenClaw gateway you already run, so you're talking out loud to your own agent, with its tools and memory, not a hosted chatbot. It's built on my [Charivo](/projects/charivo/) framework and ships as 1.x releases, with a `.dmg` for Apple Silicon Macs, a Windows installer, and an AppImage and `.deb` for Linux.

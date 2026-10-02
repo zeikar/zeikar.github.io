@@ -8,6 +8,7 @@ demo_url: "https://whozzie.vercel.app"
 image: "/assets/images/projects/whozzie.png"
 sequence: 22
 gadget_no: 9
+date: 2025-04-22
 ---
 
 Whozzie ("Who's it gonna be?") is for the moment a group can't decide. Write the names down once, then spin a wheel, roll 3D dice, or play the ladder game (Amidakuji) with the same list, and whoever gets picked is circled in red pen. There's no sign-up, and the names never leave the browser.

@@ -8,6 +8,7 @@ demo_url: "https://zeikar.dev/leetcode/"
 image: "/assets/images/projects/leetcode.png"
 sequence: 14
 gadget_no: 19
+date: 2021-11-03
 ---
 
 A study log that has been running since 2021, and the tool that made it work. Every problem has two halves: a solution file in the repo, and a study note covering what the problem asked, what was tried, what failed, and why the working idea works. The notes are written in Korean and published at [zeikar.dev/leetcode](https://zeikar.dev/leetcode/).

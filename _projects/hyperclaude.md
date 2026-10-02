@@ -8,6 +8,7 @@ demo_url: "https://zeikar.dev/hyperclaude/"
 image: "/assets/images/projects/hyperclaude.png"
 sequence: 3
 gadget_no: 16
+date: 2026-05-10
 ---
 
 hyperclaude runs a coding task through a fixed division of labor: Claude is the builder, Codex is the critic. Claude researches, plans, writes the code and updates the docs. Codex reviews the plan, the diff and the docs. Small changes skip the steps they don't need, but a behavior change always gets a code review. I run my own projects through it.

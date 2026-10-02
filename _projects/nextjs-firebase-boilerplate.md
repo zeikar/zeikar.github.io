@@ -8,6 +8,7 @@ demo_url: "https://nextjs-firebase-starter.vercel.app/"
 image: "/assets/images/projects/nextjs-firebase-boilerplate.png"
 sequence: 16
 gadget_no: 7
+date: 2025-03-29
 ---
 
 The auth flows come already built: Google and anonymous sign-in, anonymous-to-Google upgrade, account deletion, and a small per-user notes demo. Most Next.js + Firebase starters authenticate in the browser. This one keeps the Admin credentials and the checks on the server.
