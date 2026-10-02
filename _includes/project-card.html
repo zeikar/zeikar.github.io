@@ -32,12 +32,12 @@
     {% endif %}
 
     <div class="project-actions">
-      <a href="{{ project.url | relative_url }}" class="btn btn-sm btn-primary">View</a>
+      <a href="{{ project.url | relative_url }}" class="btn btn-sm btn-primary" aria-label="View {{ project.title }}">View</a>
       {% if project.demo_url %}
-      <a href="{{ project.demo_url }}" target="_blank" rel="noopener" class="btn btn-sm btn-ghost">Demo</a>
+      <a href="{{ project.demo_url }}" target="_blank" rel="noopener" class="btn btn-sm btn-ghost" aria-label="Demo of {{ project.title }}">Demo</a>
       {% endif %}
       {% if project.github_url %}
-      <a href="{{ project.github_url }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline">Code</a>
+      <a href="{{ project.github_url }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline" aria-label="Code for {{ project.title }}">Code</a>
       {% endif %}
     </div>
   </div>

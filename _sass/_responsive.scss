@@ -51,14 +51,19 @@
     transform-origin: top right;
     transform: scale(0.96);
     opacity: 0;
+    /* visibility, not just opacity, so a closed menu's links leave the Tab
+       order; it flips only after the fade-out finishes. */
+    visibility: hidden;
     pointer-events: none;
-    transition: opacity 160ms ease, transform 160ms ease;
+    transition: opacity 160ms ease, transform 160ms ease, visibility 0s linear 160ms;
   }
 
   .primary-nav.is-open {
     opacity: 1;
     transform: scale(1);
+    visibility: visible;
     pointer-events: auto;
+    transition-delay: 0s;
   }
 
   .project-grid {
