@@ -4,9 +4,9 @@ layout: default
 
 <article class="section-space project-page">
   <div class="container narrow">
-    <a href="{{ '/#projects' | relative_url }}" class="back-link reveal"><- Back to projects</a>
+    <a href="{{ '/#projects' | relative_url }}" class="back-link"><- Back to projects</a>
 
-    <header class="project-hero reveal">
+    <header class="project-hero">
       <p class="eyebrow">{% if page.gadget_no %}<span class="unit-no">UNIT {{ page.gadget_no | prepend: '0' | slice: -2, 2 }}</span> &middot; {% endif %}Case Study</p>
       <h1>{{ page.title }}</h1>
       <p class="project-summary">{{ page.description }}</p>
@@ -30,12 +30,12 @@ layout: default
     </header>
 
     {% if page.image %}
-    <figure class="project-image reveal">
+    <figure class="project-image">
       <img src="{% include image-src.html path=page.image %}" alt="{{ page.title }} screenshot" loading="lazy" />
     </figure>
     {% endif %}
 
-    <section class="project-content reveal">
+    <section class="project-content">
       {{ content }}
     </section>
   </div>

@@ -10,7 +10,7 @@ seo:
 {% assign live_projects = all_projects | where_exp: "p", "p.demo_url" %}
 
 <section class="home-hero section-space">
-  <div class="container hero-shell reveal">
+  <div class="container hero-shell">
     <p class="eyebrow">Irregular Apparatus Lab (&gt;_&lt;)</p>
     <h1 class="hero-title">I build small machines for oddly specific problems.</h1>
     <p class="hero-copy">
@@ -26,15 +26,15 @@ seo:
     </div>
 
     <div class="hero-metrics">
-      <article class="metric-card reveal">
+      <article class="metric-card">
         <span class="metric-value">{{ all_projects | size }}</span>
         <span class="metric-label">Units catalogued</span>
       </article>
-      <article class="metric-card reveal">
+      <article class="metric-card">
         <span class="metric-value">/someday</span>
         <span class="metric-label">Where the rest live</span>
       </article>
-      <article class="metric-card reveal">
+      <article class="metric-card">
         <span class="metric-value">{{ live_projects | size }}</span>
         <span class="metric-label">Live right now, go poke one</span>
       </article>
@@ -44,7 +44,7 @@ seo:
 
 <section id="projects" class="section-space projects-section">
   <div class="container">
-    <header class="section-head reveal">
+    <header class="section-head">
       <p class="eyebrow">Catalogue</p>
       <h2>Things that survived</h2>
       <p>

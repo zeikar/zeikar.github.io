@@ -255,13 +255,6 @@
     word-break: keep-all;
   }
 
-  /* Sections below the fold are still at opacity 0 unless scrolled past. */
-  .resume-page .reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-
   .resume-page :is(.resume-actions, .resume-bottom-link, .resume-hero .eyebrow) {
     display: none;
   }

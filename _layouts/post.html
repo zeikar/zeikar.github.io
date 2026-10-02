@@ -4,7 +4,7 @@ layout: default
 
 <article class="post-article">
   <div class="container narrow">
-    <header class="post-header reveal">
+    <header class="post-header">
       {% assign words = content | strip_html | number_of_words %}
       {% assign read_min = words | divided_by: 200 | plus: 1 %}
       {% if page.lang == 'ko' %}

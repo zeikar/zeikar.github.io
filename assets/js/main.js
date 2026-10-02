@@ -122,9 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const interactiveSelector = 'a, button, input, textarea, select, label';
   const projectCards = document.querySelectorAll('.project-card[data-project-url]');
 
-  projectCards.forEach((card, index) => {
-    card.style.transitionDelay = `${Math.min(index * 45, 260)}ms`;
-
+  projectCards.forEach((card) => {
     const url = card.getAttribute('data-project-url');
     if (!url) {
       return;
@@ -146,39 +144,5 @@ document.addEventListener('DOMContentLoaded', () => {
         openProject(event);
       }
     });
-  });
-
-  const revealNodes = document.querySelectorAll('.reveal');
-  if (!revealNodes.length) {
-    return;
-  }
-
-  const observer = new IntersectionObserver(
-    (entries, obs) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) {
-          return;
-        }
-
-        entry.target.classList.add('in-view');
-        obs.unobserve(entry.target);
-      });
-    },
-    {
-      threshold: 0.14,
-      rootMargin: '0px 0px -8% 0px',
-    },
-  );
-
-  revealNodes.forEach((node, index) => {
-    if (!(node instanceof HTMLElement)) {
-      return;
-    }
-
-    if (!node.style.transitionDelay) {
-      node.style.transitionDelay = `${Math.min(index * 32, 260)}ms`;
-    }
-
-    observer.observe(node);
   });
 });

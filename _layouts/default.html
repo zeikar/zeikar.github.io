@@ -133,20 +133,6 @@
       rel="stylesheet"
       href="{{ '/assets/css/style.css' | relative_url }}"
     />
-
-    {% comment %}
-      .reveal starts at opacity:0 and is only cleared by IntersectionObserver, so
-      without JS every project card, section head, and post renders blank. Must
-      come after the stylesheet — same specificity, so source order decides.
-    {% endcomment %}
-    <noscript>
-      <style>
-        .reveal {
-          opacity: 1;
-          transform: none;
-        }
-      </style>
-    </noscript>
   </head>
   <body class="site-shell" id="top">
     <div class="ambient-bg" aria-hidden="true">

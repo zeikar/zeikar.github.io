@@ -7,7 +7,7 @@ permalink: /blog/
 
 <section class="section-space blog-section">
   <div class="container narrow">
-    <header class="section-head reveal">
+    <header class="section-head">
       <p class="eyebrow">Writing</p>
       <h1>Notes from the lab</h1>
       <p>Build logs, architecture decisions, and the occasional rabbit hole.</p>
@@ -21,7 +21,7 @@ permalink: /blog/
 
     <ol class="blog-list" data-active="en">
       {% for post in site.posts %}
-      <li class="blog-card reveal" data-lang="{{ post.lang | default: 'en' }}">
+      <li class="blog-card" data-lang="{{ post.lang | default: 'en' }}">
         <a href="{{ post.url | relative_url }}" class="blog-card-link" hreflang="{{ post.lang | default: 'en' }}">
           <div class="blog-card-meta">
             <span class="blog-card-date">{{ post.date | date: "%B %d, %Y" }}</span>
