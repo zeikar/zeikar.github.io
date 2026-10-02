@@ -11,6 +11,7 @@ Source for [zeikar.dev](https://zeikar.dev), the Irregular Apparatus Lab: a cata
 ├── blog.html                # Post index
 ├── resume.html              # Resume (English)
 ├── resume-ko.html           # Resume (Korean)
+├── 404.html                 # Served by GitHub Pages for any missing path
 ├── _projects/               # One Markdown file per project page
 ├── _posts/                  # English posts
 │   └── ko/                  # Korean translations
