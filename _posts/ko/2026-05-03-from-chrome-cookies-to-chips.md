@@ -49,7 +49,7 @@ MV3 broker 패턴은 어느 정도 정착돼 있다. service worker가 인증 �
 Set-Cookie: session=…; Partitioned; SameSite=None; Secure; HttpOnly; Path=/
 ```
 
-[CHIPS](https://developer.chrome.com/docs/privacy-security/privacy-sandbox/chips)(Cookies Having Independent Partitioned State). 이 속성을 붙이면 브라우저가 알아서 쿠키를 iframe의 파티션 jar(키는 임베딩한 top-level 사이트)에 넣고, 같은 iframe의 후속 요청에 다시 보낸다. 쿠키를 쓰는 주체가 익스텐션이 아니라 서버니까 `host_permissions` 따위 필요 없다.
+[CHIPS](https://privacysandbox.google.com/cookies/chips)(Cookies Having Independent Partitioned State). 이 속성을 붙이면 브라우저가 알아서 쿠키를 iframe의 파티션 jar(키는 임베딩한 top-level 사이트)에 넣고, 같은 iframe의 후속 요청에 다시 보낸다. 쿠키를 쓰는 주체가 익스텐션이 아니라 서버니까 `host_permissions` 따위 필요 없다.
 
 CHIPS는 원래 이렇게 쓰라고 만든 기능이다. 우리는 그걸 두고 브라우저를 우회하려 했던 거다.
 

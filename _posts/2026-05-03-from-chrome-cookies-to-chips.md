@@ -50,7 +50,7 @@ Sometimes you stare at a problem long enough that the obvious solution surfaces:
 Set-Cookie: session=…; Partitioned; SameSite=None; Secure; HttpOnly; Path=/
 ```
 
-That's [CHIPS](https://developer.chrome.com/docs/privacy-security/privacy-sandbox/chips) — Cookies Having Independent Partitioned State. Set the attribute, the browser drops the cookie into the iframe's partition jar (keyed by the embedding top-level site, exactly what we want) and serves it back on subsequent same-iframe requests. No `host_permissions` needed, because the *server* is writing the cookie, not the extension.
+That's [CHIPS](https://privacysandbox.google.com/cookies/chips) — Cookies Having Independent Partitioned State. Set the attribute, the browser drops the cookie into the iframe's partition jar (keyed by the embedding top-level site, exactly what we want) and serves it back on subsequent same-iframe requests. No `host_permissions` needed, because the *server* is writing the cookie, not the extension.
 
 This is what CHIPS was designed for. We were trying to bypass it.
 
