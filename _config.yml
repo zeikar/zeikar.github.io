@@ -42,6 +42,8 @@ defaults:
       permalink: /blog/ko/:title/
   # jekyll-seo-tag calls anything with a date a BlogPosting. A project page
   # describes a piece of software, and its `date:` is when the repo started.
+  # dateModified falls back to that date too, as it does for posts; set
+  # last_modified_at on a page if a rewrite should show up as fresh.
   - scope:
       path: ""
       type: projects

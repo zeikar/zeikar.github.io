@@ -56,7 +56,7 @@ If a new sub-Pages site lands under zeikar.dev, add its sitemap to both [sitemap
 
 ### Project ordering
 
-`_projects/*.md` are sorted by integer `sequence:` in front matter on the home page and in [sitemap-main.xml](sitemap-main.xml). `sequence` is the curated display order ("listed here by preference"); `gadget_no` is the UNIT number by build order and never changes. New project entries need both, plus `date:` (the repo's creation date): a collection doc without one gets the build time, which jekyll-seo-tag then publishes as `datePublished` on every deploy. If `demo_url` is on `zeikar.dev`, it auto-joins the sitemap — don't also list it in `extra_sitemap_urls`.
+`_projects/*.md` are sorted by integer `sequence:` in front matter on the home page and in [sitemap-main.xml](sitemap-main.xml). `sequence` is the curated display order ("listed here by preference"); `gadget_no` is the UNIT number by build order and never changes. New project entries need both, plus `date:` (the repo's creation date): a collection doc without one gets the build time, which jekyll-seo-tag then publishes as `datePublished` on every deploy. Never today's date — the UTC build skips future-dated docs, so a same-day KST date silently drops the project. If `demo_url` is on `zeikar.dev`, it auto-joins the sitemap — don't also list it in `extra_sitemap_urls`.
 
 ### Manifest needs empty Jekyll front matter
 

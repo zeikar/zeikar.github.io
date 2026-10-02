@@ -55,10 +55,10 @@ date: 2026-10-01
 ```
 
 - `sequence` is the order on the home page. `gadget_no` is the UNIT number, assigned by build order, and never changes.
-- `date` is when the project started (its repo's creation date). It becomes the page's `datePublished`; without it, Jekyll stamps the build time on every deploy.
+- `date` is when the project started (its repo's creation date). It becomes the page's `datePublished`; without it, Jekyll stamps the build time on every deploy. Never use today's date: the Pages build runs in UTC and skips documents dated in the future, so a same-day KST date can drop the project from the site without a warning.
 - The card shows the first six `tech_stack` entries. Leave out version numbers.
 - `demo_url` and `image` are optional. Without an `image`, both the social card and the home card come from DOGimg, rendered live on every visit, so save that render as the PNG instead.
-- Keep `image` a PNG, since it's also the social card. Drop a smaller `.webp` with the same name next to it and the project page uses that instead. The home card prefers a 960px-wide `.card.webp` (`cwebp -q 80 -resize 960 0`) and falls back to the `.webp`.
+- Keep `image` a PNG, since it's also the social card. Drop a smaller `.webp` with the same name next to it and the project page uses that instead. The home card prefers a 960px-wide `.card.webp` (`cwebp -q 80 -resize 960 0`, only when the PNG is wider than 960px) and falls back to the `.webp`.
 
 The page body has no fixed template. See [CLAUDE.md](CLAUDE.md) for how the pages are written.
 
