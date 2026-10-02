@@ -1,8 +1,16 @@
 {%- comment -%}
   Outputs the URL for a project image, preferring a sibling .webp when one
   exists. Front-matter `image:` stays the .png because it doubles as og:image,
-  and not every link-preview crawler reads WebP.
+  and not every link-preview crawler reads WebP. With card=true, a 960px-wide
+  `.card.webp` sibling wins over both: a 3-up card is ~360px wide, 2-up ~480px.
 {%- endcomment -%}
+{%- assign src = include.path -%}
 {%- assign webp = include.path | replace: ".png", ".webp" -%}
 {%- assign webp_file = site.static_files | where: "path", webp | first -%}
-{%- if webp_file -%}{{ webp | relative_url }}{%- else -%}{{ include.path | relative_url }}{%- endif -%}
+{%- if webp_file -%}{%- assign src = webp -%}{%- endif -%}
+{%- if include.card -%}
+  {%- assign card = include.path | replace: ".png", ".card.webp" -%}
+  {%- assign card_file = site.static_files | where: "path", card | first -%}
+  {%- if card_file -%}{%- assign src = card -%}{%- endif -%}
+{%- endif -%}
+{{- src | relative_url -}}

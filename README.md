@@ -55,8 +55,8 @@ gadget_no: 21
 
 - `sequence` is the order on the home page. `gadget_no` is the UNIT number, assigned by build order, and never changes.
 - The card shows the first six `tech_stack` entries. Leave out version numbers.
-- `demo_url` and `image` are optional. Without an `image`, the social card comes from DOGimg.
-- Keep `image` a PNG, since it's also the social card. Drop a smaller `.webp` with the same name next to it and the card and project page use that instead.
+- `demo_url` and `image` are optional. Without an `image`, both the social card and the home card come from DOGimg, rendered live on every visit, so save that render as the PNG instead.
+- Keep `image` a PNG, since it's also the social card. Drop a smaller `.webp` with the same name next to it and the project page uses that instead. The home card prefers a 960px-wide `.card.webp` (`cwebp -q 80 -resize 960 0`) and falls back to the `.webp`.
 
 The page body has no fixed template. See [CLAUDE.md](CLAUDE.md) for how the pages are written.
 

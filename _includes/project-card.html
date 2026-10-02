@@ -8,7 +8,7 @@
   <div class="project-media">
     {% if project.image %}
     <img
-      src="{% include image-src.html path=project.image %}"
+      src="{% include image-src.html path=project.image card=true %}"
       alt="{{ project.title }} preview"
       loading="lazy"
     />
