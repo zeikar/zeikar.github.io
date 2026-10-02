@@ -90,7 +90,7 @@
 
 /* :where() keeps this reset at zero specificity; as a plain `.post-content p`
    it outranked `.post-content > * + *` and paragraphs ran together. */
-:where(.post-content p, .post-content ul, .post-content ol) {
+:where(.post-content p, .post-content ul, .post-content ol, .post-content blockquote) {
   margin: 0;
 }
 
@@ -148,14 +148,13 @@
 .post-content blockquote {
   border-left: 3px solid var(--brand);
   padding: 0.6rem 1.1rem;
-  margin: 0;
   color: var(--ink-soft);
   background: rgba(235, 94, 40, 0.05);
   border-radius: 0 0.4rem 0.4rem 0;
 }
 
-.post-content blockquote p {
-  margin: 0;
+.post-content blockquote > * + * {
+  margin-top: 0.75rem;
 }
 
 .post-content table {
