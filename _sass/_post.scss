@@ -51,7 +51,7 @@
 
 .post-translation-link:hover {
   border-color: rgba(235, 94, 40, 0.45);
-  color: var(--brand);
+  color: var(--brand-strong);
   background: rgba(235, 94, 40, 0.05);
 }
 
@@ -99,14 +99,14 @@
 }
 
 .post-content a {
-  color: var(--brand);
+  color: var(--brand-strong);
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-thickness: 1px;
 }
 
 .post-content a:hover {
-  color: var(--brand-strong);
+  color: var(--ink);
 }
 
 .post-content strong {

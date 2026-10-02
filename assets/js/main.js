@@ -19,6 +19,11 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', setHeaderState, { passive: true });
 
   if (navToggle && primaryNav) {
+    const closeNav = () => {
+      navToggle.setAttribute('aria-expanded', 'false');
+      primaryNav.classList.remove('is-open');
+    };
+
     navToggle.addEventListener('click', () => {
       const expanded = navToggle.getAttribute('aria-expanded') === 'true';
       navToggle.setAttribute('aria-expanded', String(!expanded));
@@ -26,10 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     primaryNav.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () => {
-        navToggle.setAttribute('aria-expanded', 'false');
-        primaryNav.classList.remove('is-open');
-      });
+      link.addEventListener('click', closeNav);
     });
 
     document.addEventListener('click', (event) => {
@@ -39,9 +41,17 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (!primaryNav.contains(target) && !navToggle.contains(target)) {
-        navToggle.setAttribute('aria-expanded', 'false');
-        primaryNav.classList.remove('is-open');
+        closeNav();
       }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape' || !primaryNav.classList.contains('is-open')) {
+        return;
+      }
+
+      closeNav();
+      navToggle.focus();
     });
   }
 
@@ -128,21 +138,15 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const openProject = (event) => {
+    // Mouse convenience only: keyboard and screen-reader users get the card's
+    // own View link, so the card itself is not a focusable control.
+    card.addEventListener('click', (event) => {
       const target = event.target;
       if (target instanceof Element && target.closest(interactiveSelector)) {
         return;
       }
 
       window.location.href = url;
-    };
-
-    card.addEventListener('click', openProject);
-    card.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        openProject(event);
-      }
     });
   });
 });

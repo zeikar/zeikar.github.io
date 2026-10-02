@@ -1,10 +1,4 @@
-<article
-  class="project-card"
-  data-project-url="{{ project.url | relative_url }}"
-  role="link"
-  tabindex="0"
-  aria-label="Open {% if project.gadget_no %}unit {{ project.gadget_no }}, {% endif %}{{ project.title }} details"
->
+<article class="project-card" data-project-url="{{ project.url | relative_url }}">
   {% if project.gadget_no %}
   <div class="unit-strip">
     <span class="unit-no">UNIT {{ project.gadget_no | prepend: '0' | slice: -2, 2 }}</span>

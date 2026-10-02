@@ -27,14 +27,14 @@
 }
 
 .about-panel a {
-  color: var(--brand);
+  color: var(--brand-strong);
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-thickness: 1px;
 }
 
 .about-panel a:hover {
-  color: var(--brand-strong);
+  color: var(--ink);
 }
 
 .about-bottom {

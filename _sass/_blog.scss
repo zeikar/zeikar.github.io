@@ -39,7 +39,7 @@
 
 .blog-filter-btn[data-filter="ko"].is-active {
   background: rgba(235, 94, 40, 0.1);
-  color: var(--brand);
+  color: var(--brand-strong);
   border-color: rgba(235, 94, 40, 0.45);
 }
 
@@ -102,7 +102,7 @@
 
 .blog-card-lang[data-lang="ko"] {
   background: rgba(235, 94, 40, 0.1);
-  color: var(--brand);
+  color: var(--brand-strong);
 }
 
 .blog-card-title {

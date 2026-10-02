@@ -61,7 +61,14 @@
 
 .nav-link.is-active {
   color: #fff;
-  background: linear-gradient(135deg, var(--brand), #f18d5f);
+  background: linear-gradient(135deg, var(--brand-strong), #cf4a14);
+}
+
+/* The default ring is near-white on the active pill and vanishes on cream. */
+.nav-link:focus-visible,
+.nav-toggle:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
 }
 
 .nav-link-ext {
@@ -73,6 +80,7 @@
   border: 1px solid rgba(31, 42, 55, 0.2);
   background: var(--surface);
   color: var(--ink);
+  min-height: 2.75rem;
   padding: 0.45rem 0.85rem;
   border-radius: 0.75rem;
   font-weight: 600;
