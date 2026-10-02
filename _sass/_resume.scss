@@ -339,6 +339,10 @@
     text-transform: uppercase;
   }
 
+  .resume-page:lang(ko) :is(.resume-section-head .eyebrow, .resume-panel h2) {
+    letter-spacing: 0.04em;
+  }
+
   .resume-page :is(.resume-section-head .eyebrow, .resume-panel h2)::after {
     content: "";
     flex: 1;

@@ -7,6 +7,11 @@
   color: var(--accent);
 }
 
+/* Tracking sized for Latin caps pulls Hangul apart ("기 술"). */
+.eyebrow:lang(ko) {
+  letter-spacing: 0.04em;
+}
+
 /* `.section-head p` and `.resume-section-head p` are (0,1,1) and outrank the
    (0,1,0) `.eyebrow` class, so an eyebrow inside either container silently
    loses its accent colour and picks up a top margin — which is why /resume/
