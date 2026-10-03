@@ -6,7 +6,7 @@ tech_stack: ["Claude Code agents", "Remotion", "TypeScript", "KaTeX", "Gemini TT
 github_url: "https://github.com/zeikar/tangent"
 demo_url: "https://www.youtube.com/channel/UCQyrXQkYvmwkQ2W8oaQEy1w"
 image: "/assets/images/projects/tangent.png"
-sequence: 9
+sequence: 10
 gadget_no: 22
 ---
 

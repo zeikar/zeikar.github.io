@@ -6,7 +6,7 @@ tech_stack: ["Astro", "GitHub GraphQL API", "GitHub Actions", "TypeScript", "Rea
 github_url: "https://github.com/zeikar/repozine"
 demo_url: "https://zeikar.dev/repozine/"
 image: "/assets/images/projects/repozine.png"
-sequence: 14
+sequence: 15
 gadget_no: 1
 ---
 

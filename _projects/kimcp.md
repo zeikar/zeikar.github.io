@@ -5,7 +5,7 @@ description: "MCP server that exposes Korean APIs (Naver, Kakao, TMAP) as tools 
 tech_stack: ["Python", "MCP Python SDK", "uv", "HTTPX", "Korean Open APIs"]
 github_url: "https://github.com/zeikar/kimcp"
 image: "/assets/images/projects/kimcp.png"
-sequence: 20
+sequence: 21
 gadget_no: 8
 ---
 
