@@ -8,6 +8,7 @@ demo_url: "https://zeikar.dev/chordotomy/"
 image: "/assets/images/projects/chordotomy.png"
 sequence: 8
 gadget_no: 23
+date: 2026-09-29
 ---
 
 chordotomy takes a recording and dissects its harmony. It finds the chords on the beat and reads the bass under each one, so slash chords come out as slash chords. Then it estimates the key and gives every chord a Roman numeral and a role: diatonic, secondary dominant, borrowed or chromatic. A [browser viewer](https://zeikar.dev/chordotomy/) plays the recording with its chords and lets you correct them, and a Claude Code skill explains the moves it flagged. It analyzes and doesn't transcribe: no staff notation, no melody, on purpose. Most of what people will feed it is commercial recordings, so the audio never leaves your machine. It's on PyPI as `chordotomy`. And yes, the name is also a spinal surgery.
