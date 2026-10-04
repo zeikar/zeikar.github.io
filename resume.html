@@ -125,23 +125,12 @@ redirect_from:
       </div>
       <div class="resume-project-list">
         <article class="resume-project">
-          <h3><a href="{{ '/projects/charivo/' | relative_url }}">Charivo</a></h3>
-          <p>
-            Modular Live2D + LLM framework for building interactive AI characters with pluggable
-            voice, realtime, and rendering layers over swappable OpenAI and Gemini backends.
-          </p>
-          <div class="project-tags">
-            <span>TypeScript</span>
-            <span>Live2D</span>
-            <span>LLM/TTS/STT</span>
-          </div>
-        </article>
-
-        <article class="resume-project">
           <h3><a href="{{ '/projects/iki/' | relative_url }}">Iki</a></h3>
           <p>
-            Open-source 2D puppet engine for the web and a Live2D alternative, whose Claude Code plugin has
-            an image model draw a character's parts and then rigs them over MCP.
+            Open-source 2D puppet engine for the web, built as a Live2D alternative that an AI agent can rig.
+            Describe a character to its Claude Code plugin and an image model draws the parts, then the MCP server
+            rigs blinking, gaze, lip-sync, head turns, and hair physics automatically. A model is a single JSON file
+            with its textures embedded, and the format library, WebGL2 runtime, and MCP server ship as npm packages.
           </p>
           <div class="project-tags">
             <span>TypeScript</span>
@@ -153,8 +142,10 @@ redirect_from:
         <article class="resume-project">
           <h3><a href="{{ '/projects/hyperclaude/' | relative_url }}">hyperclaude</a></h3>
           <p>
-            Claude Code plugin that pairs Claude as the builder with Codex as a read-only reviewer,
-            running plan and implementation loops until no blocking findings remain.
+            Claude Code plugin where Claude plans and builds and Codex reviews read-only; my other projects are built with it.
+            It loops review and revision automatically until no blocking findings remain.
+            Traced review costs that grew quadratically with the number of rounds to a single agent-spawn parameter
+            by cross-analyzing local session logs; fixing it cut the inter-agent protocol from 192 lines to 39.
           </p>
           <div class="project-tags">
             <span>Claude Code</span>
@@ -164,10 +155,42 @@ redirect_from:
         </article>
 
         <article class="resume-project">
+          <h3><a href="{{ '/projects/tangent/' | relative_url }}">tangent</a></h3>
+          <p>
+            Studio where Claude Code agents make Korean math and science Shorts from topic to upload-ready file,
+            running the YouTube channel 루트와이 (√y). Seven stage agents hand off work only through files, a human
+            approves at each checkpoint, and automated checks catch layout defects in the render.
+            Animation is Remotion code, timed to narration word timestamps from forced alignment.
+          </p>
+          <div class="project-tags">
+            <span>Claude Code Agents</span>
+            <span>Remotion</span>
+            <span>Gemini TTS</span>
+          </div>
+        </article>
+
+        <article class="resume-project">
+          <h3><a href="{{ '/projects/charivo/' | relative_url }}">Charivo</a></h3>
+          <p>
+            TypeScript framework that gives Live2D characters an LLM and a voice, published as nine npm packages.
+            Chat, TTS, STT, and realtime voice (OpenAI Realtime, Gemini Live) each live in a separate package behind
+            an interface, so switching providers means swapping a client. The Live2D model's expressions and motions
+            are exposed as LLM tools, so the character changes its own expression and pose mid-conversation.
+          </p>
+          <div class="project-tags">
+            <span>TypeScript</span>
+            <span>Live2D</span>
+            <span>LLM/TTS/STT</span>
+          </div>
+        </article>
+
+        <article class="resume-project">
           <h3><a href="{{ '/projects/cimulity/' | relative_url }}">Cimulity</a></h3>
           <p>
-            SimCity-style city builder for the browser, where workers are matched to jobs over the road
-            network and their commutes become traffic that feeds back into land value and growth.
+            SimCity-style city builder for the browser. Workers are matched to jobs over the road network, and their
+            commutes are routed along shortest paths into per-road traffic that feeds back into land value, happiness,
+            and growth. The simulation and PixiJS rendering run outside React, which only draws the HUD, so a HUD
+            re-render never restarts the game session.
           </p>
           <div class="project-tags">
             <span>TypeScript</span>
@@ -179,104 +202,15 @@ redirect_from:
         <article class="resume-project">
           <h3><a href="{{ '/projects/charaloom/' | relative_url }}">Charaloom</a></h3>
           <p>
-            Full-stack AI character platform with worlds, one-on-one and group chat, and branching
-            interactive stories, in English and Korean.
+            Full-stack AI character platform for building characters and worlds, with one-on-one and group chat and
+            branching interactive stories. Editing a message or regenerating a reply keeps the old version as a branch,
+            and group chat picks which characters answer each turn and has them reply in order. Also built the accounts,
+            credits, community, and English and Korean support a running service needs.
           </p>
           <div class="project-tags">
             <span>Next.js</span>
             <span>Firebase</span>
             <span>Vercel AI SDK</span>
-          </div>
-        </article>
-
-        <article class="resume-project">
-          <h3><a href="{{ '/projects/commentarium/' | relative_url }}">Commentarium</a></h3>
-          <p>
-            Chrome extension that adds a social layer to any page with contextual comments,
-            ratings, and community voting.
-          </p>
-          <div class="project-tags">
-            <span>Chrome Extension</span>
-            <span>React</span>
-            <span>TypeScript</span>
-          </div>
-        </article>
-
-        <article class="resume-project">
-          <h3><a href="{{ '/projects/liveclaw/' | relative_url }}">LiveClaw</a></h3>
-          <p>
-            Cross-platform Electron app built on Charivo that gives a local OpenClaw agent a Live2D
-            avatar, speech, and streaming voice input, shipped with macOS, Windows, and Linux installers.
-          </p>
-          <div class="project-tags">
-            <span>Electron</span>
-            <span>Charivo</span>
-            <span>OpenClaw</span>
-          </div>
-        </article>
-
-        <article class="resume-project">
-          <h3><a href="{{ '/projects/ludoweft/' | relative_url }}">Ludoweft</a></h3>
-          <p>
-            Claude Code and Codex plugin for game fan translations: the agent translates, and a deterministic
-            CLI extracts, validates, and rebuilds the game files, gated by source hashes and protected tokens.
-          </p>
-          <div class="project-tags">
-            <span>Node.js</span>
-            <span>Claude Code / Codex</span>
-            <span>JSONL</span>
-          </div>
-        </article>
-
-        <article class="resume-project">
-          <h3><a href="{{ '/projects/captiony/' | relative_url }}">Captiony</a></h3>
-          <p>
-            Browser-first subtitle editor for SRT/VTT authoring against a local video or YouTube link,
-            with timeline controls, undo/redo, realtime preview, and local auto-save.
-          </p>
-          <div class="project-tags">
-            <span>Next.js</span>
-            <span>TypeScript</span>
-            <span>Media UI</span>
-          </div>
-        </article>
-
-        <article class="resume-project">
-          <h3><a href="{{ '/projects/repozine/' | relative_url }}">Repozine</a></h3>
-          <p>
-            Template that uses GitHub Issues or Discussions as a CMS, building a static Astro blog through
-            the GitHub GraphQL API and deploying it to GitHub Pages with GitHub Actions.
-          </p>
-          <div class="project-tags">
-            <span>Astro</span>
-            <span>GitHub GraphQL API</span>
-            <span>GitHub Actions</span>
-          </div>
-        </article>
-
-        <article class="resume-project">
-          <h3><a href="{{ '/projects/backend-interview-guide/' | relative_url }}">Backend Interview Guide</a></h3>
-          <p>
-            Korean backend interview knowledge base spanning database, cloud, system design, and programming,
-            drafted and reviewed through a multi-agent workflow with Codex, Claude Code, and a custom agent harness.
-          </p>
-          <div class="project-tags">
-            <span>Markdown</span>
-            <span>Agent Harness</span>
-            <span>Codex / Claude Code</span>
-          </div>
-        </article>
-
-        <article class="resume-project">
-          <h3><a href="https://apkpure.com/tetricube/com.LuciZ.TetriCube" target="_blank" rel="noopener">TetriCube</a></h3>
-          <p>
-            Solo-developed 3D Tetris game built with Unity and C#, integrated with Google Play
-            Game Services for rankings and achievements.
-          </p>
-          <div class="project-tags">
-            <span>Unity</span>
-            <span>C#</span>
-            <span>Google Play</span>
           </div>
         </article>
       </div>
