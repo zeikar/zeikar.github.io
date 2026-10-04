@@ -103,3 +103,25 @@
   margin: 1rem 0 0;
   color: var(--ink-soft);
 }
+
+/* Home "Lab notes": the latest posts side by side under the catalogue. Kept
+   here, not in _blog, because _blog loads after _responsive and would beat
+   its one-column override. */
+.home-notes .blog-list {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.home-notes .blog-card-title {
+  font-size: 1.25rem;
+}
+
+/* Grid rows stretch the cards to equal height; without this the link stops
+   at its text, leaving a strip that lifts on hover but doesn't click. */
+.home-notes .blog-card-link {
+  height: 100%;
+}
+
+/* Only English posts are listed here, so the EN badge says nothing. */
+.home-notes .blog-card-lang {
+  display: none;
+}

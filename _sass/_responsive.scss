@@ -21,6 +21,12 @@
   .resume-actions {
     justify-content: flex-start;
   }
+
+  /* One column at the full container width runs ~120 characters a line. */
+  .home-notes .blog-list {
+    grid-template-columns: 1fr;
+    max-width: 46rem;
+  }
 }
 
 @media (max-width: 760px) {
@@ -72,6 +78,20 @@
 
   .hero-metrics {
     grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  /* Stacked at full height, the three cards pushed the first project nearly
+     two screens down; one line each keeps the stack short. */
+  .metric-card {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    padding: 0.7rem 1rem;
+  }
+
+  .metric-label {
+    margin-top: 0;
   }
 
   .project-actions {
@@ -83,9 +103,12 @@
   }
 
   /* "Browse the Catalogue" is wide enough that the pair overflows a 390px
-     content box and stacks at ragged widths — match the card treatment. */
+     content box. Equal halves wrapped its label onto two lines; growing from
+     content width keeps each label on one line, and a pair that doesn't fit
+     stacks as two full-width buttons instead of ragged ones. */
   .hero-actions .btn {
-    flex: 1;
+    flex: 1 1 auto;
+    white-space: nowrap;
   }
 
   .resume-item {

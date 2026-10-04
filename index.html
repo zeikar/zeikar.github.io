@@ -63,3 +63,29 @@ seo:
     </div>
   </div>
 </section>
+
+{% assign en_posts = site.posts | where: "lang", "en" %}
+{% if en_posts.size > 0 %}
+<section id="notes" class="section-space home-notes">
+  <div class="container">
+    <header class="section-head">
+      <p class="eyebrow">Lab notes</p>
+      <h2>What broke along the way</h2>
+      <p>
+        Build logs from the units above, mostly about the part that didn't work
+        the first time. The blog has every one in Korean too.
+      </p>
+    </header>
+
+    <ol class="blog-list">
+      {% for post in en_posts limit: 3 %}
+      {% include post-card.html heading="h3" %}
+      {% endfor %}
+    </ol>
+
+    <div class="hero-actions">
+      <a href="{{ '/blog/' | relative_url }}" class="btn btn-ghost">Read all posts</a>
+    </div>
+  </div>
+</section>
+{% endif %}
