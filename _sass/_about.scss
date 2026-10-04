@@ -1,4 +1,29 @@
-/* About reads as a spec sheet: a label column and one measured text column,
+.about-logo {
+  display: block;
+  width: 8rem;
+  height: 8rem;
+  margin-bottom: 1.5rem;
+}
+
+/* The ">_" is a terminal prompt and the "<" turns it into a face, so the
+   "_" blinks like a prompt's cursor. The site's only ambient motion. */
+.about-logo .logo-cursor {
+  animation: cursor-blink 1.1s steps(1, end) infinite;
+}
+
+@keyframes cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-logo .logo-cursor {
+    animation: none;
+  }
+}
+
+/* About's facts read as a spec sheet: a label column and one text column,
    ruled between rows instead of boxed. */
 .about-spec {
   padding-bottom: 4.5rem;
@@ -27,13 +52,6 @@
   line-height: 1.3;
 }
 
-.spec-date {
-  display: block;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--ink-soft);
-}
-
 .spec dd {
   margin: 0;
 }
@@ -42,35 +60,15 @@
   margin: 0;
 }
 
-.spec dd a:not(.tape) {
+.spec dd a {
   font-weight: 700;
   text-decoration: underline;
   text-decoration-color: var(--brand);
   text-underline-offset: 3px;
 }
 
-.spec dd a:not(.tape):hover {
+.spec dd a:hover {
   color: var(--brand);
-}
-
-.thread {
-  margin-top: 1.5rem;
-}
-
-.thread-name {
-  font-weight: 700;
-}
-
-.spec .tape-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-top: 0.65rem;
-}
-
-.spec .thread-note {
-  margin-top: 0.65rem;
-  color: var(--ink-soft);
 }
 
 .spec-links {

@@ -1,6 +1,6 @@
 {%- comment -%}
-  A project's tape label, linked to its page: red when the unit has a live
-  demo. Pass the project document as `unit`, or its file name as `name`
+  A project's tape label, linked to its page: purple when the unit has a
+  live demo. Pass the project document as `unit`, or its file name as `name`
   (a post's `unit:` front matter).
 {%- endcomment -%}
 {%- assign unit = include.unit -%}
@@ -9,5 +9,5 @@
   {%- assign unit = site.projects | where: "url", unit_url | first -%}
 {%- endunless -%}
 {%- if unit -%}
-<a href="{{ unit.url | relative_url }}" class="tape{% if unit.demo_url %} tape-red{% endif %}">{{ unit.title }}</a>
+<a href="{{ unit.url | relative_url }}" class="tape{% if unit.demo_url %} tape-live{% endif %}">{{ unit.title }}</a>
 {%- endif -%}

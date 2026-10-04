@@ -12,6 +12,7 @@ redirect_from:
 
 <section class="page-hero">
   <div class="container">
+    {% include logo.svg %}
     <h1 class="hero-title">hi, i'm Zeikar.<br />i make things.</h1>
     <p class="hero-copy">
       Some work. Some don't. Some are still in a folder I don't open. I prefer
@@ -25,64 +26,8 @@ redirect_from:
   <div class="container">
     <dl class="spec">
       <div class="spec-row">
-        <dt>Lately</dt>
-        <dd>
-          <p>
-            Two threads, and yes, it's AI like everyone else. I just try to ship
-            something that actually runs.
-          </p>
-          <div class="thread">
-            <p class="thread-name">Characters that talk and move</p>
-            <p class="tape-row">
-              {% include unit-tape.html name="iki" %}
-              {% include unit-tape.html name="charivo" %}
-              {% include unit-tape.html name="liveclaw" %}
-              {% include unit-tape.html name="charaloom" %}
-            </p>
-            <p class="thread-note">Iki leads: a 2D puppet engine where an AI agent does the rigging.</p>
-          </div>
-          <div class="thread">
-            <p class="thread-name">Coding agents put to work</p>
-            <p class="tape-row">
-              {% include unit-tape.html name="hyperclaude" %}
-              {% include unit-tape.html name="ludoweft" %}
-              {% include unit-tape.html name="tangent" %}
-            </p>
-            <p class="thread-note">In hyperclaude, Claude writes the code and Codex reviews it until nothing blocking is left.</p>
-          </div>
-        </dd>
-      </div>
-
-      <div class="spec-row">
-        <dt>How I work</dt>
-        <dd>
-          <p>
-            Start small, ship something embarrassing, iterate until it stops
-            embarrassing me. Most of the time.
-          </p>
-        </dd>
-      </div>
-
-      <div class="spec-row">
-        <dt>By day</dt>
-        <dd>
-          <p>
-            Software engineer on AI workflow platforms, media automation and
-            distributed systems. <a href="{{ '/resume/' | relative_url }}">The resume</a>
-            has the serious version.
-          </p>
-        </dd>
-      </div>
-
-      {% comment %} Dated on purpose: bump the month when the work moves on. {% endcomment %}
-      <div class="spec-row">
-        <dt>Now <span class="spec-date">October 2026</span></dt>
-        <dd>
-          <p>
-            Getting Iki's agent to draw a head turn that actually looks like one,
-            and teaching chordotomy to notice when a song changes key.
-          </p>
-        </dd>
+        <dt>Based in</dt>
+        <dd><p>Sol III · Orion Spur · Milky Way · Laniakea</p></dd>
       </div>
 
       <div class="spec-row">

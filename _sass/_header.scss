@@ -17,8 +17,8 @@
 }
 
 /* Label-maker tape: the lab's one visual device. The brand wears black tape;
-   a project card wears red when the unit has a live demo. Uppercase is the
-   tape's own vernacular, so the markup keeps normal case. */
+   a project card wears the accent colour when the unit has a live demo.
+   Uppercase is the tape's own vernacular, so the markup keeps normal case. */
 .tape {
   display: inline-flex;
   align-items: center;
@@ -35,7 +35,7 @@
   clip-path: polygon(0.3em 0, 100% 0, calc(100% - 0.3em) 100%, 0 100%);
 }
 
-.tape-red {
+.tape-live {
   background: var(--brand);
 }
 
