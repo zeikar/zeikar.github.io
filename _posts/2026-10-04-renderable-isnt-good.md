@@ -2,6 +2,7 @@
 title: "Renderable Isn't Good"
 subtitle: "Getting an agent to draw and rig a 2D character that looks right took a reference to aim at, a critic that isn't the artist, and a second reference for the head turn. The turn is still the weakest score."
 date: 2026-10-04
+unit: iki
 lang: en
 translations:
   ko: /blog/ko/renderable-isnt-good/

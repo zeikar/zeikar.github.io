@@ -2,6 +2,7 @@
 title: "My 300-Line Agent Protocol Was Working Around One Parameter"
 subtitle: "I measured why an autonomous loop burned a 5-hour limit so fast, found an upstream bug, and dropping the one parameter behind it deleted most of the protocol I'd just written about."
 date: 2026-08-18
+unit: hyperclaude
 lang: en
 translations:
   ko: /blog/ko/protocol-working-around-a-bug/

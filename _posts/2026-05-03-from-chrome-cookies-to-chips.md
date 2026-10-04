@@ -2,6 +2,7 @@
 title: "Chrome Extension Iframe Auth: From chrome.cookies to CHIPS"
 subtitle: "How a Chrome extension's iframe survives third-party cookie blocking — without bypassing the browser."
 date: 2026-05-03
+unit: commentarium
 last_modified_at: 2026-09-28
 lang: en
 translations:

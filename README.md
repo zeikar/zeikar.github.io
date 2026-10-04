@@ -72,6 +72,8 @@ translations:
   ko: /blog/ko/some-post/
 ```
 
+The blog index lists each English post once, with its Korean title under it. A post about one of the projects names it with `unit:`, the project's file name in `_projects/` (`unit: iki`), and gets that project's tape on the index and the post page. Set it on both languages.
+
 ### Sitemaps
 
 `sitemap.xml` is an index. It points to `sitemap-main.xml`, which lists this site's pages, posts and projects, and to the sitemaps of other repos deployed under zeikar.dev (`/charivo/`, `/iki/`, …).

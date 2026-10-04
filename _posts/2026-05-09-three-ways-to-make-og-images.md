@@ -2,6 +2,7 @@
 title: "Three ways to generate Open Graph images, and the one I built"
 subtitle: "Hand-designed PNGs, param-driven services like vercel/og-image, and a URL-driven generator built on @vercel/og — why the third one won."
 date: 2026-05-09
+unit: dogimg
 lang: en
 translations:
   ko: /blog/ko/three-ways-to-make-og-images/

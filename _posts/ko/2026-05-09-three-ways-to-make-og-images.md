@@ -2,6 +2,7 @@
 title: "Open Graph 이미지 만드는 세 가지 방법, 그중 내가 만든 하나"
 subtitle: "손으로 만든 PNG, vercel/og-image 같은 param-driven 서비스, 그리고 @vercel/og 위에 얹은 URL-driven 생성기. 왜 세 번째가 살아남았는가."
 date: 2026-05-09
+unit: dogimg
 translations:
   en: /blog/three-ways-to-make-og-images/
 description: "Open Graph 이미지를 만드는 세 가지 접근: 손으로 만든 PNG, param-driven 서비스, 그리고 @vercel/og 기반 URL-driven 생성기 dogimg."

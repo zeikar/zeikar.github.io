@@ -2,6 +2,7 @@
 title: "Chrome 확장 프로그램 iframe 인증: chrome.cookies에서 CHIPS로"
 subtitle: "Chrome 익스텐션의 iframe이 3rd-party 쿠키 차단 환경에서 브라우저를 우회하지 않고 어떻게 인증받는가."
 date: 2026-05-03
+unit: commentarium
 last_modified_at: 2026-09-28
 translations:
   en: /blog/from-chrome-cookies-to-chips/

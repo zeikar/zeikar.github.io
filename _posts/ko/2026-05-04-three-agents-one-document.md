@@ -2,6 +2,7 @@
 title: "에이전트 셋, 문서 하나: Claude Code 멀티 에이전트 문서 파이프라인"
 subtitle: "한국어 백엔드 면접 가이드용 가벼운 콘텐츠 파이프라인. 에이전트 하나에 다 시키지 않고 writer, reviewer, consistency-checker로 쪼갠 이유."
 date: 2026-05-04
+unit: backend-interview-guide
 translations:
   en: /blog/three-agents-one-document/
 description: "Claude Code 멀티 에이전트 문서 파이프라인: backend-interview-guide의 writer/reviewer 분리, 파싱 가능한 Output Contract, self-verification이 못 잡는 걸 잡는 hook."

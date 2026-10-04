@@ -2,6 +2,7 @@
 title: "The Model Already Knew"
 subtitle: "Three bugs in my chord analyzer, two of them found with one J-pop song. Each time, the model had the right answer and my code dropped it."
 date: 2026-10-03
+unit: chordotomy
 lang: en
 translations:
   ko: /blog/ko/the-model-already-knew/

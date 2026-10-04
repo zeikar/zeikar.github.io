@@ -1,53 +1,80 @@
-.about-panels {
-  margin-top: 1.5rem;
-  display: grid;
-  /* "What I build" carries the longest copy; a wider middle column keeps the
-     side panels from stretching into mostly empty boxes. */
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) minmax(0, 1fr);
-  gap: 1.5rem;
+/* About reads as a spec sheet: a label column and one measured text column,
+   ruled between rows instead of boxed. */
+.about-spec {
+  padding-bottom: 4.5rem;
 }
 
-.about-panel {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 0.65rem;
-  padding: 1.25rem;
-}
-
-.about-panel h2 {
+.spec {
   margin: 0;
-  font-size: 1.2rem;
+  border-top: 2px solid var(--ink);
 }
 
-.about-panel p {
-  margin: 0.65rem 0 0;
+.spec-row {
+  display: grid;
+  grid-template-columns: 12.5rem minmax(0, 46rem);
+  gap: 0.5rem 3rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.spec-row:last-child {
+  border-bottom: 0;
+}
+
+.spec dt {
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.spec-date {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
   color: var(--ink-soft);
 }
 
-.about-panel a {
-  color: var(--brand);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-thickness: 1px;
-}
-
-.about-panel a:hover {
-  color: var(--ink);
-}
-
-.about-bottom {
-  margin-top: 1rem;
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: 1fr auto;
-  align-items: end;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 0.65rem;
-  padding: 1.25rem;
-}
-
-.about-bottom h2 {
+.spec dd {
   margin: 0;
-  font-size: 1.1rem;
+}
+
+.spec dd p {
+  margin: 0;
+}
+
+.spec dd a:not(.tape) {
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: var(--brand);
+  text-underline-offset: 3px;
+}
+
+.spec dd a:not(.tape):hover {
+  color: var(--brand);
+}
+
+.thread {
+  margin-top: 1.5rem;
+}
+
+.thread-name {
+  font-weight: 700;
+}
+
+.spec .tape-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.65rem;
+}
+
+.spec .thread-note {
+  margin-top: 0.65rem;
+  color: var(--ink-soft);
+}
+
+.spec-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.75rem;
 }

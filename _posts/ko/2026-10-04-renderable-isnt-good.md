@@ -2,6 +2,7 @@
 title: "렌더된다고 잘 만든 건 아니다"
 subtitle: "에이전트가 그리고 리깅한 2D 캐릭터를 그럴듯하게 만들려면 기준이 될 레퍼런스 그림, 따로 채점하는 크리틱, 고개 돌린 레퍼런스가 하나 더 필요했다. 그래도 회전은 아직 점수가 가장 낮다."
 date: 2026-10-04
+unit: iki
 translations:
   en: /blog/renderable-isnt-good/
 description: "Iki의 Claude Code 플러그인이 리깅된 2D 캐릭터를 만드는 방식. 아티스트와 크리틱 에이전트를 따로 두고, 미리 만든 레퍼런스 이미지를 기준으로 루프를 돈다."

@@ -16,7 +16,7 @@
   <div class="project-body">
     <div class="project-head">
       <h3 class="project-name">
-        <a href="{{ project.url | relative_url }}" class="tape{% if project.demo_url %} tape-red{% endif %}">{{ project.title }}</a>
+        {% include unit-tape.html unit=project %}
       </h3>
       {% if project.gadget_no %}
       <span class="unit-no">Unit {{ project.gadget_no | prepend: '0' | slice: -2, 2 }}</span>

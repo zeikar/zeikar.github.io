@@ -2,6 +2,7 @@
 title: "내 agent-team 리바이즈 루프가 300줄짜리 프로토콜을 갖게 된 이유"
 subtitle: "의사코드 7줄을 state machine으로 키운 도그푸드 실패 모드 5가지. hyperclaude의 plan-loop와 implement-loop 이야기."
 date: 2026-05-22
+unit: hyperclaude
 translations:
   en: /blog/revise-loop-protocol/
 description: "hyperclaude의 persistent-teammate 리바이즈 루프에 긴 cross-loop 프로토콜이 붙은 이유: request-id 카운터, solicit_sent_at 타임스탬프, 오후 한나절을 통째로 잡아먹은 1-round-lag race."

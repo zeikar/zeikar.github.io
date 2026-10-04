@@ -3,15 +3,6 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .about-panels {
-    grid-template-columns: 1fr;
-  }
-
-  .about-bottom {
-    grid-template-columns: 1fr;
-    align-items: start;
-  }
-
   .resume-hero,
   .resume-grid,
   .resume-project-list {
@@ -67,11 +58,12 @@
   }
 
   .project-grid,
-  .home-notes .blog-list {
+  .home-notes .blog-list,
+  .spec-row {
     grid-template-columns: 1fr;
   }
 
-  .home-hero {
+  .page-hero {
     padding: 2rem 0 3rem;
   }
 

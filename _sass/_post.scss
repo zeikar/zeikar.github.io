@@ -10,8 +10,17 @@
   margin-bottom: 2.5rem;
 }
 
-.post-header .eyebrow {
-  margin-bottom: 0.5rem;
+/* Date and read time, then the tape of the unit the post is about. */
+.post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.post-meta .tape {
+  font-size: 0.85rem;
 }
 
 .post-title {

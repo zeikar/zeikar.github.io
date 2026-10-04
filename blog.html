@@ -5,26 +5,54 @@ description: "Build logs, architecture decisions, and the occasional rabbit hole
 permalink: /blog/
 ---
 
-<section class="section-space blog-section">
-  <div class="container narrow">
-    <header class="section-head">
-      <h1>Notes from the lab</h1>
-      <p>Build logs, architecture decisions, and the occasional rabbit hole.</p>
-    </header>
+{%- comment -%}
+  One row per post, in English with its Korean title underneath. A Korean
+  post with an English twin is reached through that row; one without a twin
+  gets a row of its own.
+{%- endcomment -%}
+{% assign listed = site.posts | where_exp: "p", "p.lang != 'ko' or p.translations.en == nil" %}
 
-    {% if site.posts.size > 0 %}
-    <div class="blog-filter" role="group" aria-label="Filter posts by language">
-      <button type="button" class="blog-filter-btn is-active" data-filter="en" aria-pressed="true">EN</button>
-      <button type="button" class="blog-filter-btn" data-filter="ko" aria-pressed="false">KO</button>
-    </div>
+<section class="page-hero">
+  <div class="container">
+    <h1 class="hero-title">Notes from the lab</h1>
+    <p class="hero-copy">
+      Build logs, architecture decisions, and the occasional rabbit hole. Every
+      post is in English and Korean, and the tape says which unit it's about.
+    </p>
+  </div>
+</section>
 
-    <ol class="blog-list" data-active="en">
-      {% for post in site.posts %}
-      {% include post-card.html %}
-      {% endfor %}
-    </ol>
-    <p class="blog-empty" data-empty-for="en" hidden>No English posts yet. Working on it.</p>
-    <p class="blog-empty" data-empty-for="ko" hidden>한국어 글이 아직 없어요.</p>
+<section class="post-index">
+  <div class="container">
+    {% if listed.size > 0 %}
+    {% assign months = listed | group_by_exp: "p", "p.date | date: '%B %Y'" %}
+    {% for month in months %}
+    <section class="post-month" aria-labelledby="month-{{ forloop.index }}">
+      <h2 id="month-{{ forloop.index }}">{{ month.name }}</h2>
+      <ol class="post-rows">
+        {% for post in month.items %}
+        <li class="post-row">
+          <span class="post-row-date">{{ post.date | date: "%b %-d" }}</span>
+          <div class="post-row-main">
+            <a href="{{ post.url | relative_url }}" class="post-row-title"{% if post.lang != site.lang %} lang="{{ post.lang }}"{% endif %}>{{ post.title }}</a>
+            {% if post.subtitle %}
+            <p class="post-row-sub"{% if post.lang != site.lang %} lang="{{ post.lang }}"{% endif %}>{{ post.subtitle }}</p>
+            {% endif %}
+            {% if post.translations.ko %}
+            {% assign ko = site.posts | where: "url", post.translations.ko | first %}
+            {% if ko %}
+            <p class="post-row-ko">한국어로 <a href="{{ ko.url | relative_url }}" lang="ko" hreflang="ko">{{ ko.title }}</a></p>
+            {% endif %}
+            {% endif %}
+          </div>
+          {% if post.unit %}
+          <span class="post-row-unit">{% include unit-tape.html name=post.unit %}</span>
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ol>
+    </section>
+    {% endfor %}
     {% else %}
     <p class="blog-empty">No posts yet. Working on it.</p>
     {% endif %}

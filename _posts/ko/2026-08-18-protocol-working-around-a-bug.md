@@ -2,6 +2,7 @@
 title: "내 300줄짜리 에이전트 프로토콜은 파라미터 하나를 우회하고 있었다"
 subtitle: "autonomous loop이 왜 5시간 한도를 그렇게 빨리 태우는지 측정하다가 업스트림 버그를 찾았고, 그 버그를 부르던 파라미터 하나를 빼니 얼마 전 글로 쓴 프로토콜 대부분이 같이 사라졌다."
 date: 2026-08-18
+unit: hyperclaude
 translations:
   en: /blog/protocol-working-around-a-bug/
 description: "로컬 트랜스크립트 434개, Agent 툴 파라미터 하나, 192줄에서 39줄로 줄어든 프로토콜. 덤으로 측정해 보고 접은 '수정' 두 가지까지."

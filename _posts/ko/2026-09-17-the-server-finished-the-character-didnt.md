@@ -2,6 +2,7 @@
 title: "서버는 끝났는데 캐릭터는 아직 말하고 있었다"
 subtitle: "음성 캐릭터의 표정이 말하는 도중에 자꾸 풀렸다. 고치는 길에는 결국 지워버린 heuristic, 엉뚱한 걸 묻던 barge-in, 그리고 SDK가 만들어낼 수 없는 이벤트 순서를 테스트한 mock이 있었다."
 date: 2026-09-17
+unit: charivo
 translations:
   en: /blog/the-server-finished-the-character-didnt/
 description: "실시간 음성에서 '서버가 다 보냈다', '응답이 끝났다', '사용자가 다 들었다'는 서로 다른 세 순간이다. 이걸 헷갈려서 Charivo의 표정, barge-in, interrupt가 OpenAI Realtime과 Gemini Live에서 어떻게 깨졌는지."

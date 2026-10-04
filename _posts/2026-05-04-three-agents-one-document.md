@@ -2,6 +2,7 @@
 title: "Three Agents, One Document: A Claude Code Multi-Agent Doc Pipeline"
 subtitle: "A lightweight content pipeline for a Korean backend interview guide — why splitting writer, reviewer, and consistency-checker beats a single all-in-one agent."
 date: 2026-05-04
+unit: backend-interview-guide
 lang: en
 translations:
   ko: /blog/ko/three-agents-one-document/

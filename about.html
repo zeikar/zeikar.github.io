@@ -10,75 +10,100 @@ redirect_from:
   - /about.html
 ---
 
-<section class="section-space about-hero">
+<section class="page-hero">
   <div class="container">
-    <header class="section-head">
-      <p class="eyebrow">About (&gt;_&lt;)</p>
-      <h1>hi &mdash; i'm Zeikar. i make things.</h1>
-      <p>
-        Some work. Some don't. Some are still in a folder I don't open. I prefer
-        shipping over planning, which is why this About is shorter than it
-        probably should be.
-      </p>
-    </header>
+    <h1 class="hero-title">hi, i'm Zeikar.<br />i make things.</h1>
+    <p class="hero-copy">
+      Some work. Some don't. Some are still in a folder I don't open. I prefer
+      shipping over planning, which is why this page is shorter than it probably
+      should be.
+    </p>
+  </div>
+</section>
 
-    <div class="about-panels">
-      <article class="about-panel">
-        <h2>How I work</h2>
-        <p>
-          Start small, ship something embarrassing, iterate until it stops
-          embarrassing me. Most of the time.
-        </p>
-      </article>
-
-      <article class="about-panel">
-        <h2>What I build</h2>
-        <p>
-          Frameworks, web apps, browser tools, desktop things. Lately it's two
-          threads: characters that talk and move
-          (<a href="{{ '/projects/charivo/' | relative_url }}">Charivo</a>,
-          <a href="{{ '/projects/liveclaw/' | relative_url }}">LiveClaw</a>,
-          <a href="{{ '/projects/charaloom/' | relative_url }}">Charaloom</a>, and
-          <a href="{{ '/projects/iki/' | relative_url }}">Iki</a>, where an AI
-          agent does the rigging), and tools that put coding agents to work
-          (<a href="{{ '/projects/hyperclaude/' | relative_url }}">hyperclaude</a>,
-          <a href="{{ '/projects/ludoweft/' | relative_url }}">Ludoweft</a>).
-          Yes, it's AI, like everyone else. I just try to ship something that
-          actually runs.
-        </p>
-      </article>
-
-      <article class="about-panel">
-        <h2>Currently</h2>
-        <p>
-          Trying to actually finish more of what I start. Build, ship, learn
-          &mdash; currently stuck on the &ldquo;finish&rdquo; verb.
-        </p>
-      </article>
-    </div>
-
-    <div class="about-bottom">
-      <div>
-        <h2>Core Stack</h2>
-        <div class="project-tags large">
-          <span>TypeScript</span>
-          <span>Next.js</span>
-          <span>React</span>
-          <span>Python</span>
-          <span>Electron</span>
-          <span>Firebase</span>
-          <span>OpenAI APIs</span>
-          <span>MCP</span>
-          <span>Claude Code plugins</span>
-        </div>
+<section class="about-spec">
+  <div class="container">
+    <dl class="spec">
+      <div class="spec-row">
+        <dt>Lately</dt>
+        <dd>
+          <p>
+            Two threads, and yes, it's AI like everyone else. I just try to ship
+            something that actually runs.
+          </p>
+          <div class="thread">
+            <p class="thread-name">Characters that talk and move</p>
+            <p class="tape-row">
+              {% include unit-tape.html name="iki" %}
+              {% include unit-tape.html name="charivo" %}
+              {% include unit-tape.html name="liveclaw" %}
+              {% include unit-tape.html name="charaloom" %}
+            </p>
+            <p class="thread-note">Iki leads: a 2D puppet engine where an AI agent does the rigging.</p>
+          </div>
+          <div class="thread">
+            <p class="thread-name">Coding agents put to work</p>
+            <p class="tape-row">
+              {% include unit-tape.html name="hyperclaude" %}
+              {% include unit-tape.html name="ludoweft" %}
+              {% include unit-tape.html name="tangent" %}
+            </p>
+            <p class="thread-note">In hyperclaude, Claude writes the code and Codex reviews it until nothing blocking is left.</p>
+          </div>
+        </dd>
       </div>
 
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="{{ '/' | relative_url }}#projects">View Projects</a>
-        {% if site.email %}
-        <a class="btn btn-ghost" href="mailto:{{ site.email }}">Contact</a>
-        {% endif %}
+      <div class="spec-row">
+        <dt>How I work</dt>
+        <dd>
+          <p>
+            Start small, ship something embarrassing, iterate until it stops
+            embarrassing me. Most of the time.
+          </p>
+        </dd>
       </div>
-    </div>
+
+      <div class="spec-row">
+        <dt>By day</dt>
+        <dd>
+          <p>
+            Software engineer on AI workflow platforms, media automation and
+            distributed systems. <a href="{{ '/resume/' | relative_url }}">The resume</a>
+            has the serious version.
+          </p>
+        </dd>
+      </div>
+
+      {% comment %} Dated on purpose: bump the month when the work moves on. {% endcomment %}
+      <div class="spec-row">
+        <dt>Now <span class="spec-date">October 2026</span></dt>
+        <dd>
+          <p>
+            Getting Iki's agent to draw a head turn that actually looks like one,
+            and teaching chordotomy to notice when a song changes key.
+          </p>
+        </dd>
+      </div>
+
+      <div class="spec-row">
+        <dt>Usually with</dt>
+        <dd>
+          <p>
+            TypeScript, Next.js, React, Python, Electron, Firebase, OpenAI APIs,
+            MCP and Claude Code plugins.
+          </p>
+        </dd>
+      </div>
+
+      <div class="spec-row">
+        <dt>Elsewhere</dt>
+        <dd class="spec-links">
+          <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://twitter.com/{{ site.twitter_username }}" target="_blank" rel="noopener">Twitter</a>
+          <a href="https://linkedin.com/in/zeikar" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+        </dd>
+      </div>
+    </dl>
   </div>
 </section>

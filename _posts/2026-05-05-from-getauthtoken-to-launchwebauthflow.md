@@ -2,6 +2,7 @@
 title: "Chrome Extension OAuth: From getAuthToken to launchWebAuthFlow"
 subtitle: "Why Chrome's account chooser sometimes silently swallows your cancel callback, why the obvious band-aid races itself, and the primitive that side-steps both."
 date: 2026-05-05
+unit: commentarium
 lang: en
 translations:
   ko: /blog/ko/from-getauthtoken-to-launchwebauthflow/

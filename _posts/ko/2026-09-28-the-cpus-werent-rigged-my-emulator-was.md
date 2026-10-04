@@ -2,6 +2,7 @@
 title: "조작된 건 대진이 아니라 내 에뮬레이터였다"
 subtitle: "옛날 유희왕 DS 게임의 CPU 듀얼리스트들은 모두 레이팅이 움직이는데, 그게 어떻게 움직이는지 적어둔 사람이 없었다. 공식을 밝히는 데는 딱 맞아떨어진 합계 하나, 아무도 조작하지 않는 에뮬레이터, 그리고 조작된 것처럼만 보였던 토너먼트 대진이 필요했다."
 date: 2026-09-28
+unit: yugioh-wc2008-rating-lab
 translations:
   en: /blog/the-cpus-werent-rigged-my-emulator-was/
 description: "유희왕 월드 챔피언십 2008의 CPU 레이팅 공식 floor(160 / (1 + 10^(gap / 1000)))를 찾아내고, melonDS DS를 headless로 돌려 얻은 듀얼 9,600판으로 검증한 과정. 도중에 멈춰 있던 rand() 상태가 토너먼트 대진에 가짜 패턴을 만들기도 했다."

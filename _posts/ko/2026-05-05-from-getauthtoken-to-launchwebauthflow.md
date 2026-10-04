@@ -2,6 +2,7 @@
 title: "Chrome 확장 프로그램 OAuth: getAuthToken에서 launchWebAuthFlow로"
 subtitle: "Chrome 계정 chooser가 가끔 cancel callback을 조용히 삼키는 이유, 그걸 막으려던 band-aid가 자기 자신과 race하는 이유, 그리고 둘 다 우회하는 primitive."
 date: 2026-05-05
+unit: commentarium
 translations:
   en: /blog/from-getauthtoken-to-launchwebauthflow/
 description: "chrome.identity.getAuthToken이 cancel callback을 조용히 떨굴 때, MV3 SW idle timer가 그걸 60초 spinner로 만든다. keepalive band-aid는 Chrome의 per-request 5분 cap과 race한다. launchWebAuthFlow는 둘 다 피해 가는 primitive다."

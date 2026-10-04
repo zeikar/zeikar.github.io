@@ -2,6 +2,7 @@
 title: "How My Agent-Team Revise Loop Earned a 300-Line Protocol"
 subtitle: "Five dogfooded failure modes that turned seven lines of pseudocode into a state machine — inside hyperclaude's plan-loop and implement-loop."
 date: 2026-05-22
+unit: hyperclaude
 lang: en
 translations:
   ko: /blog/ko/revise-loop-protocol/

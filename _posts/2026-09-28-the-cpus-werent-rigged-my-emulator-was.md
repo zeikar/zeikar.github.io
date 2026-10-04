@@ -2,6 +2,7 @@
 title: "The CPUs Weren't Rigged. My Emulator Was."
 subtitle: "Every CPU duelist in an old Yu-Gi-Oh! DS game has a rating that moves, and nobody had written down how. Pinning it down took a sum that came out exact, an emulator with nobody at the controls, and a tournament draw that only looked rigged."
 date: 2026-09-28
+unit: yugioh-wc2008-rating-lab
 lang: en
 translations:
   ko: /blog/ko/the-cpus-werent-rigged-my-emulator-was/

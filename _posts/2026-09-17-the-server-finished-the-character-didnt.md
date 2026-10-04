@@ -2,6 +2,7 @@
 title: "The Server Finished. The Character Didn't."
 subtitle: "My voice character's face kept resetting mid-sentence. Fixing it took a deleted heuristic, a barge-in that asked the wrong question, and a mock that tested an event order the SDK can't produce."
 date: 2026-09-17
+unit: charivo
 lang: en
 translations:
   ko: /blog/ko/the-server-finished-the-character-didnt/

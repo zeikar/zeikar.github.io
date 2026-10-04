@@ -2,6 +2,7 @@
 title: "모델은 이미 알고 있었다"
 subtitle: "내가 만든 화성 분석기에서 버그 세 개를 찾았다. 둘은 J-pop 한 곡으로 찾았다. 세 번 다 모델은 정답을 알고 있었고, 내가 짠 부분이 그걸 흘렸다."
 date: 2026-10-03
+unit: chordotomy
 translations:
   en: /blog/the-model-already-knew/
 redirect_from: /blog/ko/the-model-heard-it-my-code-threw-it-away/

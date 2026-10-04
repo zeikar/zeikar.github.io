@@ -1,41 +1,6 @@
 /* ---------------------------------------------------------------- */
-/* Blog index                                                        */
+/* Post cards and the blog index                                    */
 /* ---------------------------------------------------------------- */
-
-.blog-section {
-  padding-block: 5rem 4rem;
-}
-
-.blog-filter {
-  display: flex;
-  gap: 0.5rem;
-  margin: 0 0 1.5rem;
-}
-
-.blog-filter-btn {
-  font-family: inherit;
-  font-size: 0.85rem;
-  font-weight: 700;
-  min-height: 2.25rem;
-  padding: 0.35rem 0.9rem;
-  border-radius: 0.4rem;
-  border: 1px solid var(--line);
-  background: var(--surface);
-  color: var(--ink-soft);
-  cursor: pointer;
-  transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
-}
-
-.blog-filter-btn:hover {
-  border-color: var(--ink-soft);
-  color: var(--ink);
-}
-
-.blog-filter-btn.is-active {
-  background: var(--ink);
-  color: #fff;
-  border-color: var(--ink);
-}
 
 .blog-list {
   list-style: none;
@@ -43,11 +8,6 @@
   margin: 0;
   display: grid;
   gap: 1.25rem;
-}
-
-.blog-list[data-active="en"] .blog-card[data-lang]:not([data-lang="en"]),
-.blog-list[data-active="ko"] .blog-card[data-lang]:not([data-lang="ko"]) {
-  display: none;
 }
 
 .blog-card {
@@ -107,4 +67,101 @@
   color: var(--ink-soft);
   text-align: center;
   padding: 3rem 0;
+}
+
+/* Blog index: month groups of ruled rows, date | post | unit tape. */
+.post-index {
+  padding-bottom: 4.5rem;
+}
+
+.post-month + .post-month {
+  margin-top: 2.5rem;
+}
+
+.post-month h2 {
+  margin: 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--ink);
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.post-rows {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.post-row {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 46rem) 1fr;
+  align-items: start;
+  gap: 0.4rem 2rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.post-row-date {
+  font-weight: 600;
+  line-height: 1.9;
+  color: var(--ink-soft);
+}
+
+.post-row-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.post-row-title:hover,
+.post-row-ko a:hover {
+  color: var(--brand);
+}
+
+.post-row-sub {
+  margin: 0.5rem 0 0;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+
+.post-row-ko {
+  margin: 0.6rem 0 0;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+.post-row-ko a {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.post-row-unit {
+  justify-self: end;
+  padding-top: 0.3rem;
+  font-size: 0.95rem;
+}
+
+/* Here rather than in _responsive, which loads before this file and would
+   lose to the three-column rule above. Date and tape share the top line. */
+@media (max-width: 760px) {
+  .post-row {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "date unit"
+      "main main";
+  }
+
+  .post-row-date {
+    grid-area: date;
+  }
+
+  .post-row-main {
+    grid-area: main;
+  }
+
+  .post-row-unit {
+    grid-area: unit;
+    padding-top: 0;
+  }
 }
