@@ -1,7 +1,7 @@
 ---
 layout: default
 title: 이력서
-description: AI 워크플로우 플랫폼, 미디어 자동화, 분산 시스템에 집중하는 소프트웨어 엔지니어.
+description: AI 워크플로우 플랫폼, 미디어 자동화, 분산 시스템을 주로 개발해 온 소프트웨어 엔지니어.
 permalink: /resume-ko/
 lang: ko
 translations:
@@ -22,8 +22,8 @@ redirect_from:
         <p class="resume-name" data-resume-name data-pdf-title="{{ page.title }}">{{ site.author.name }}</p>
         <h1>소프트웨어 엔지니어</h1>
         <p class="resume-copy">
-          AI 워크플로우 플랫폼, 미디어 자동화, 분산 시스템에 집중하는 소프트웨어 엔지니어이며,
-          아이디어를 실제 제품 인터페이스까지 구현해본 풀스택 경험을 함께 갖고 있습니다.
+          AI 워크플로우 플랫폼, 미디어 자동화, 분산 시스템을 주로 개발해 온 소프트웨어 엔지니어입니다.
+          아이디어 단계부터 실제 제품 화면까지 직접 구현한 풀스택 경험도 있습니다.
         </p>
         <ul class="resume-contact">
           <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
@@ -76,7 +76,7 @@ redirect_from:
               <li>확장 가능한 백엔드 시스템을 위해 Go 기반 마이크로서비스를 설계하고 구현했습니다.</li>
               <li>RabbitMQ 기반 메시지 처리와 REST 기반 서비스 간 통신을 구현했습니다.</li>
               <li>ZooKeeper를 활용한 서버 헬스 체크와 로드 밸런싱 메커니즘을 개발했습니다.</li>
-              <li>watcher 기반 장애 감지와 복구를 통해 스트리밍 플랫폼 안정성을 개선했습니다.</li>
+              <li>watcher 기반 장애 감지와 복구로 스트리밍 플랫폼 안정성을 개선했습니다.</li>
             </ul>
           </div>
         </article>
@@ -86,8 +86,8 @@ redirect_from:
           <div class="resume-item-body">
             <h3>Adaptive Bitrate 로직</h3>
             <p>
-              Player SDK의 자동 화질 선택 로직을 구현하고, 알고리즘 포팅, 테스트,
-              반복적인 튜닝을 통해 스트리밍 안정성을 개선했습니다.
+              Player SDK의 자동 화질 선택 로직을 구현하고, 테스트와 튜닝을 반복해
+              스트리밍 안정성을 높였습니다.
             </p>
             <ul>
               <li>iOS Player SDK를 위해 BOLA 기반 Adaptive Bitrate 로직을 C++로 포팅하고 개선했습니다.</li>
@@ -126,23 +126,12 @@ redirect_from:
       </div>
       <div class="resume-project-list">
         <article class="resume-project">
-          <h3><a href="{{ '/projects/charivo/' | relative_url }}">Charivo</a></h3>
-          <p>
-            Live2D와 LLM을 결합한 인터랙티브 AI 캐릭터를 만들기 위한 모듈형 프레임워크입니다.
-            음성, realtime, 렌더링 레이어와 OpenAI·Gemini 백엔드를 교체 가능한 구조로 설계했습니다.
-          </p>
-          <div class="project-tags">
-            <span>TypeScript</span>
-            <span>Live2D</span>
-            <span>LLM/TTS/STT</span>
-          </div>
-        </article>
-
-        <article class="resume-project">
           <h3><a href="{{ '/projects/iki/' | relative_url }}">Iki</a></h3>
           <p>
-            웹용 오픈소스 2D 리그 엔진입니다. MCP 서버와 Claude Code 플러그인을 통해
-            AI 에이전트가 레이어 이미지로 캐릭터를 리깅하고 움직일 수 있게 했습니다.
+            AI 에이전트가 캐릭터를 리깅하는 웹용 오픈소스 2D 캐릭터 애니메이션 엔진으로, Live2D의 대안을 목표로 만들었습니다.
+            Claude Code 플러그인에 캐릭터를 설명하면 이미지 모델이 파츠를 그리고, MCP 서버가
+            눈 깜빡임, 시선, 립싱크, 고개 회전, 머리카락 물리까지 자동으로 리깅합니다.
+            모델은 텍스처까지 담은 JSON 파일 하나로 저장되고, 포맷 라이브러리와 WebGL2 런타임, MCP 서버를 npm 패키지로 배포했습니다.
           </p>
           <div class="project-tags">
             <span>TypeScript</span>
@@ -154,8 +143,10 @@ redirect_from:
         <article class="resume-project">
           <h3><a href="{{ '/projects/hyperclaude/' | relative_url }}">hyperclaude</a></h3>
           <p>
-            Claude가 계획과 구현을 맡고 Codex가 읽기 전용으로 리뷰하도록 역할을 나눈 Claude Code 플러그인입니다.
-            블로킹 이슈가 없어질 때까지 계획·구현 루프를 자동으로 반복합니다.
+            Claude가 계획과 구현을 맡고 Codex가 읽기 전용으로 리뷰하는 Claude Code 플러그인으로, 다른 개인 프로젝트도 이 플러그인으로 개발합니다.
+            블로킹 이슈가 없어질 때까지 리뷰와 수정을 자동으로 반복합니다.
+            리뷰 라운드가 늘수록 비용이 제곱으로 불어나던 문제는 로컬 세션 기록을 교차 분석해 에이전트 생성 파라미터 하나가 원인임을 찾아 고쳤습니다.
+            덕분에 에이전트 간 프로토콜도 192줄에서 39줄로 줄였습니다.
           </p>
           <div class="project-tags">
             <span>Claude Code</span>
@@ -165,10 +156,41 @@ redirect_from:
         </article>
 
         <article class="resume-project">
+          <h3><a href="{{ '/projects/tangent/' | relative_url }}">tangent</a></h3>
+          <p>
+            Claude Code 에이전트가 한국어 수학, 과학 쇼츠를 주제 선정부터 업로드 직전까지 맡는 제작 스튜디오이며,
+            이 스튜디오로 유튜브 채널 루트와이를 운영합니다. 단계별 에이전트 7개가 결과물을 파일로만 주고받고 사람은 체크포인트마다 승인하며,
+            렌더링 화면의 레이아웃 결함은 자동 검사로 잡습니다.
+            애니메이션은 Remotion 코드로 만들고, 강제 정렬(forced alignment)로 얻은 내레이션의 단어별 타임스탬프에 맞춰 움직입니다.
+          </p>
+          <div class="project-tags">
+            <span>Claude Code Agents</span>
+            <span>Remotion</span>
+            <span>Gemini TTS</span>
+          </div>
+        </article>
+
+        <article class="resume-project">
+          <h3><a href="{{ '/projects/charivo/' | relative_url }}">Charivo</a></h3>
+          <p>
+            Live2D 캐릭터에 LLM과 음성을 붙여 말하게 만드는 TypeScript 프레임워크이며, npm 패키지 9개로 배포했습니다.
+            채팅, TTS, STT, 실시간 음성(OpenAI Realtime, Gemini Live)을 각각 인터페이스를 갖춘 별도 패키지로 나눠,
+            클라이언트만 바꾸면 공급자를 교체할 수 있습니다.
+            Live2D 모델의 표정과 모션 목록을 LLM 도구로 노출해, 대화 중에 캐릭터가 표정과 자세를 스스로 바꿉니다.
+          </p>
+          <div class="project-tags">
+            <span>TypeScript</span>
+            <span>Live2D</span>
+            <span>LLM/TTS/STT</span>
+          </div>
+        </article>
+
+        <article class="resume-project">
           <h3><a href="{{ '/projects/cimulity/' | relative_url }}">Cimulity</a></h3>
           <p>
-            도로망을 따라 노동자를 일자리에 배정하고, 그 출퇴근이 교통량이 되는 브라우저용 SimCity 스타일
-            도시 건설 게임입니다. 교통 혼잡은 다시 토지 가치와 건물 성장에 영향을 줍니다.
+            브라우저용 SimCity 스타일 도시 건설 게임입니다. 도로망을 따라 노동자를 일자리에 배정하고,
+            출퇴근 이동을 최단 경로로 계산해 도로별 교통량을 만듭니다. 교통 혼잡은 다시 토지 가치와 행복도, 건물 성장에 영향을 줍니다.
+            시뮬레이션과 PixiJS 렌더링은 React 밖에서 실행하고 React는 HUD만 맡게 해, HUD가 다시 렌더링돼도 게임 세션이 재시작되지 않게 했습니다.
           </p>
           <div class="project-tags">
             <span>TypeScript</span>
@@ -180,104 +202,14 @@ redirect_from:
         <article class="resume-project">
           <h3><a href="{{ '/projects/charaloom/' | relative_url }}">Charaloom</a></h3>
           <p>
-            캐릭터와 세계관을 만들고 1:1·그룹 채팅과 분기형 인터랙티브 스토리를 즐기는
-            풀스택 AI 캐릭터 플랫폼입니다. 영어와 한국어를 지원합니다.
+            캐릭터와 세계관을 만들고 1:1 채팅, 그룹 채팅, 분기형 인터랙티브 스토리를 즐기는 풀스택 AI 캐릭터 플랫폼입니다.
+            메시지를 수정하거나 답변을 다시 생성해도 이전 버전이 분기로 남고, 그룹 채팅에서는 턴마다 답할 캐릭터를 골라 순서대로 말하게 했습니다.
+            계정, 크레딧, 커뮤니티, 영어와 한국어 지원까지 서비스 운영에 필요한 기능도 직접 만들었습니다.
           </p>
           <div class="project-tags">
             <span>Next.js</span>
             <span>Firebase</span>
             <span>Vercel AI SDK</span>
-          </div>
-        </article>
-
-        <article class="resume-project">
-          <h3><a href="{{ '/projects/commentarium/' | relative_url }}">Commentarium</a></h3>
-          <p>
-            웹 어디에서든 댓글, 평점, 커뮤니티 투표를 남길 수 있도록 페이지 위에
-            소셜 레이어를 더하는 크롬 익스텐션입니다.
-          </p>
-          <div class="project-tags">
-            <span>Chrome Extension</span>
-            <span>React</span>
-            <span>TypeScript</span>
-          </div>
-        </article>
-
-        <article class="resume-project">
-          <h3><a href="{{ '/projects/liveclaw/' | relative_url }}">LiveClaw</a></h3>
-          <p>
-            Charivo 기반 Electron 앱으로, 로컬 OpenClaw 에이전트에 Live2D 아바타와 음성 출력,
-            스트리밍 음성 입력을 연결했습니다. macOS, Windows, Linux 설치 파일로 배포합니다.
-          </p>
-          <div class="project-tags">
-            <span>Electron</span>
-            <span>Charivo</span>
-            <span>OpenClaw</span>
-          </div>
-        </article>
-
-        <article class="resume-project">
-          <h3><a href="{{ '/projects/ludoweft/' | relative_url }}">Ludoweft</a></h3>
-          <p>
-            게임 팬 번역용 Claude Code·Codex 플러그인입니다. 번역은 에이전트가 맡고,
-            결정적 CLI가 소스 해시와 보호 토큰 검사를 거쳐 게임 파일을 추출·검증·재빌드합니다.
-          </p>
-          <div class="project-tags">
-            <span>Node.js</span>
-            <span>Claude Code / Codex</span>
-            <span>JSONL</span>
-          </div>
-        </article>
-
-        <article class="resume-project">
-          <h3><a href="{{ '/projects/captiony/' | relative_url }}">Captiony</a></h3>
-          <p>
-            로컬 영상이나 YouTube 링크에 맞춰 SRT/VTT 자막을 편집하는 브라우저 기반 자막 편집기입니다.
-            타임라인 컨트롤, 실행 취소/다시 실행, 실시간 미리보기, 로컬 자동 저장을 제공합니다.
-          </p>
-          <div class="project-tags">
-            <span>Next.js</span>
-            <span>TypeScript</span>
-            <span>Media UI</span>
-          </div>
-        </article>
-
-        <article class="resume-project">
-          <h3><a href="{{ '/projects/repozine/' | relative_url }}">Repozine</a></h3>
-          <p>
-            GitHub Issues나 Discussions를 CMS로 쓰는 템플릿입니다. GitHub GraphQL API로 글을 가져와
-            정적 Astro 블로그를 만들고, GitHub Actions로 GitHub Pages에 배포합니다.
-          </p>
-          <div class="project-tags">
-            <span>Astro</span>
-            <span>GitHub GraphQL API</span>
-            <span>GitHub Actions</span>
-          </div>
-        </article>
-
-        <article class="resume-project">
-          <h3><a href="{{ '/projects/backend-interview-guide/' | relative_url }}">Backend Interview Guide</a></h3>
-          <p>
-            데이터베이스, 클라우드, 시스템 디자인, 프로그래밍을 아우르는 한국어 백엔드 면접 지식베이스입니다.
-            Codex, Claude Code, 자체 에이전트 하네스를 활용한 멀티 에이전트 워크플로우로 작성하고 검토했습니다.
-          </p>
-          <div class="project-tags">
-            <span>Markdown</span>
-            <span>Agent Harness</span>
-            <span>Codex / Claude Code</span>
-          </div>
-        </article>
-
-        <article class="resume-project">
-          <h3><a href="https://apkpure.com/tetricube/com.LuciZ.TetriCube" target="_blank" rel="noopener">TetriCube</a></h3>
-          <p>
-            Unity와 C#으로 개발한 개인 3D 테트리스 게임입니다. Google Play Game Services와
-            연동해 랭킹과 업적 기능을 구현했습니다.
-          </p>
-          <div class="project-tags">
-            <span>Unity</span>
-            <span>C#</span>
-            <span>Google Play</span>
           </div>
         </article>
       </div>
