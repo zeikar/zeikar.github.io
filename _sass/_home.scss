@@ -1,54 +1,56 @@
+/* A plain kicker line (a date, a unit number) — not a tracked-out caps label. */
 .eyebrow {
   margin: 0;
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  font-weight: 700;
-  color: var(--accent);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink-soft);
 }
 
-/* Tracking sized for Latin caps pulls Hangul apart ("기 술"). */
-.eyebrow:lang(ko) {
-  letter-spacing: 0.04em;
-}
-
-/* `.section-head p` and `.resume-section-head p` are (0,1,1) and outrank the
-   (0,1,0) `.eyebrow` class, so an eyebrow inside either container silently
-   loses its accent colour and picks up a top margin — which is why /resume/
-   renders "Resume" teal but "Experience" grey. Restore at higher specificity. */
-.section-head .eyebrow,
-.resume-section-head .eyebrow {
+/* `.section-head p` is (0,1,1) and outranks the (0,1,0) `.eyebrow` class, so
+   an eyebrow inside it would pick up that rule's top margin. */
+.section-head .eyebrow {
   margin: 0;
-  color: var(--accent);
 }
 
 .home-hero {
-  padding-top: 4.2rem;
-}
-
-.hero-shell {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.82), rgba(255, 248, 236, 0.86));
-  border: 1px solid rgba(31, 42, 55, 0.1);
-  border-radius: 1.5rem;
-  box-shadow: var(--shadow-soft);
-  padding: clamp(2rem, 3vw + 1rem, 3.2rem);
+  padding: 3.5rem 0 4.5rem;
 }
 
 .hero-title {
-  margin: 0.7rem 0 0;
-  font-family: "Bricolage Grotesque", "Space Grotesk", sans-serif;
+  max-width: 18ch;
+  margin: 0;
   font-weight: 800;
-  font-size: clamp(2rem, 5vw, 4rem);
-  line-height: 1.08;
-  letter-spacing: -0.02em;
+  font-size: clamp(2.6rem, 6vw, 5.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
 }
 
 .hero-copy {
-  max-width: 65ch;
-  margin: 1.25rem 0 0;
+  max-width: 58ch;
+  margin: 1.75rem 0 0;
   color: var(--ink-soft);
-  font-size: 1.05rem;
+  font-size: 1.2rem;
   text-wrap: pretty;
+}
+
+.hero-count {
+  margin: 1.25rem 0 0;
+  font-size: 1.1rem;
+}
+
+.hero-count a,
+.section-more a {
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--brand);
+  text-underline-offset: 4px;
+}
+
+.hero-count a:hover,
+.section-more a:hover {
+  color: var(--brand);
 }
 
 .hero-actions {
@@ -56,33 +58,6 @@
   flex-wrap: wrap;
   gap: 0.75rem;
   margin-top: 1.9rem;
-}
-.hero-metrics {
-  margin-top: 2rem;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.9rem;
-}
-
-.metric-card {
-  border: 1px solid rgba(31, 42, 55, 0.1);
-  border-radius: 1rem;
-  background: rgba(255, 253, 249, 0.72);
-  padding: 1rem;
-}
-
-.metric-value {
-  display: block;
-  font-weight: 800;
-  font-size: 1.1rem;
-  color: var(--brand-strong);
-}
-
-.metric-label {
-  display: block;
-  margin-top: 0.2rem;
-  color: var(--ink-soft);
-  font-size: 0.88rem;
 }
 
 .section-head {
@@ -93,10 +68,10 @@
 .section-head h1,
 .section-head h2 {
   margin: 0.55rem 0 0;
-  font-family: "Bricolage Grotesque", "Space Grotesk", sans-serif;
-  font-size: clamp(1.7rem, 2.7vw, 2.6rem);
-  line-height: 1.15;
-  letter-spacing: -0.015em;
+  font-size: clamp(1.9rem, 3vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 .section-head p {
@@ -104,11 +79,21 @@
   color: var(--ink-soft);
 }
 
+.section-more {
+  margin: 1.75rem 0 0;
+}
+
 /* Home "Lab notes": the latest posts side by side under the catalogue. Kept
    here, not in _blog, because _blog loads after _responsive and would beat
    its one-column override. */
+.home-notes {
+  padding-bottom: 4.5rem;
+}
+
+/* Same columns and gap as the project grid, so the cards line up with it. */
 .home-notes .blog-list {
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
 }
 
 .home-notes .blog-card-title {
@@ -116,7 +101,7 @@
 }
 
 /* Grid rows stretch the cards to equal height; without this the link stops
-   at its text, leaving a strip that lifts on hover but doesn't click. */
+   at its text, leaving a strip that doesn't click. */
 .home-notes .blog-card-link {
   height: 100%;
 }

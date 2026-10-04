@@ -1,19 +1,5 @@
 @media (prefers-reduced-motion: reduce) {
-  .ambient-orb {
-    animation: none;
-  }
-
   html {
     scroll-behavior: auto;
-  }
-}
-
-@keyframes drift {
-  0%,
-  100% {
-    transform: translateY(0) translateX(0) scale(1);
-  }
-  50% {
-    transform: translateY(-18px) translateX(8px) scale(1.04);
   }
 }

@@ -1,16 +1,14 @@
 :root {
-  --bg: #f7f3ea;
-  --surface: #fffdf8;
-  --surface-strong: #fff9ef;
+  --bg: #f1f3f5;
+  --surface: #ffffff;
+  --surface-strong: #f6f7f9;
   --ink: #1f2a37;
-  --ink-soft: #52606d;
-  --line: #d7d9d4;
-  --brand: #eb5e28;
-  --brand-strong: #c63d0f;
-  --accent: #0b7375;
-  --accent-soft: #74b9b6;
-  --shadow-soft: 0 16px 36px rgba(36, 42, 48, 0.08);
-  --shadow-strong: 0 24px 52px rgba(33, 37, 41, 0.18);
+  --ink-soft: #56616c;
+  --line: #d9dde2;
+  /* The one accent: red tape on live units, links, the active nav item. */
+  --brand: #c63d0f;
+  --font: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
 
 * {
@@ -24,14 +22,8 @@ html {
 body {
   margin: 0;
   color: var(--ink);
-  font-family: "Space Grotesk", system-ui, sans-serif;
-  /* Faint graph-paper ruling over the warm base. Cards are opaque, so the grid
-     only reads in the gutters and margins — enough to feel like a lab notebook
-     without sitting behind body copy. */
-  background:
-    repeating-linear-gradient(to right, rgba(31, 42, 55, 0.05) 0 1px, transparent 1px 28px),
-    repeating-linear-gradient(to bottom, rgba(31, 42, 55, 0.05) 0 1px, transparent 1px 28px),
-    radial-gradient(circle at top left, #fff8ef 0%, #f4f0e6 45%, #f7f3ea 100%);
+  font-family: var(--font);
+  background: var(--bg);
   line-height: 1.6;
 }
 

@@ -120,12 +120,12 @@
       rel="manifest"
       href="{{ '/assets/images/site.webmanifest' | relative_url }}"
     />
-    <meta name="theme-color" content="#f6f1e6" />
+    <meta name="theme-color" content="#f1f3f5" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&display=swap"
       rel="stylesheet"
     />
 
@@ -135,19 +135,9 @@
     />
   </head>
   <body class="site-shell" id="top">
-    <div class="ambient-bg" aria-hidden="true">
-      <div class="ambient-orb orb-a"></div>
-      <div class="ambient-orb orb-b"></div>
-      <div class="ambient-orb orb-c"></div>
-      <div class="ambient-grid"></div>
-    </div>
-
     <header class="site-header" id="site-header">
       <div class="container nav-shell">
-        <a class="brand" href="{{ '/' | relative_url }}">
-          <span class="brand-dot" aria-hidden="true"></span>
-          {{ site.title }}
-        </a>
+        <a class="brand tape" href="{{ '/' | relative_url }}">{{ site.title }}</a>
 
         <button
           class="nav-toggle"
@@ -188,7 +178,7 @@
             href="https://github.com/{{ site.github_username }}"
             target="_blank"
             rel="noopener"
-            class="nav-link nav-link-ext"
+            class="nav-link"
           >
             GitHub
           </a>

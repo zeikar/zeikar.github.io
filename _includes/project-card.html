@@ -1,10 +1,4 @@
 <article class="project-card" data-project-url="{{ project.url | relative_url }}">
-  {% if project.gadget_no %}
-  <div class="unit-strip">
-    <span class="unit-no">UNIT {{ project.gadget_no | prepend: '0' | slice: -2, 2 }}</span>
-  </div>
-  {% endif %}
-
   <div class="project-media">
     {% if project.image %}
     <img
@@ -20,24 +14,26 @@
   </div>
 
   <div class="project-body">
-    <h3>{{ project.title }}</h3>
-    <p>{{ project.description }}</p>
-
-    {% if project.tech_stack %}
-    {%- comment -%}
-      Joined with a nbsp AFTER the separator so a wrap breaks before the dot,
-      carrying it to the next line instead of leaving it dangling at the end.
-    {%- endcomment -%}
-    <p class="unit-spec">{{ project.tech_stack | slice: 0, 6 | join: " ·&nbsp;" }}</p>
-    {% endif %}
-
-    <div class="project-actions">
-      <a href="{{ project.url | relative_url }}" class="btn btn-sm btn-primary" aria-label="View {{ project.title }}">View</a>
-      {% if project.demo_url %}
-      <a href="{{ project.demo_url }}" target="_blank" rel="noopener" class="btn btn-sm btn-ghost" aria-label="Demo of {{ project.title }}">Demo</a>
+    <div class="project-head">
+      <h3 class="project-name">
+        <a href="{{ project.url | relative_url }}" class="tape{% if project.demo_url %} tape-red{% endif %}">{{ project.title }}</a>
+      </h3>
+      {% if project.gadget_no %}
+      <span class="unit-no">Unit {{ project.gadget_no | prepend: '0' | slice: -2, 2 }}</span>
       {% endif %}
-      {% if project.github_url %}
-      <a href="{{ project.github_url }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline" aria-label="Code for {{ project.title }}">Code</a>
+    </div>
+    <p class="project-desc">{{ project.description }}</p>
+
+    <div class="project-foot">
+      {% if project.tech_stack %}
+      {%- comment -%}
+        Joined with a nbsp AFTER the separator so a wrap breaks before the dot,
+        carrying it to the next line instead of leaving it dangling at the end.
+      {%- endcomment -%}
+      <p class="unit-spec">{{ project.tech_stack | slice: 0, 6 | join: " ·&nbsp;" }}</p>
+      {% endif %}
+      {% if project.demo_url %}
+      <a href="{{ project.demo_url }}" target="_blank" rel="noopener" class="project-demo" aria-label="Demo of {{ project.title }}">Demo</a>
       {% endif %}
     </div>
   </div>

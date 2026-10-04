@@ -9,51 +9,34 @@ seo:
 
 {% assign all_projects = site.projects | sort: "sequence" %}
 {% assign live_projects = all_projects | where_exp: "p", "p.demo_url" %}
-{% assign first_unit = all_projects | where: "gadget_no", 1 | first %}
 
-<section class="home-hero section-space">
-  <div class="container hero-shell">
-    <p class="eyebrow">{{ site.title }} (&gt;_&lt;)</p>
-    <h1 class="hero-title">I build small machines for oddly specific problems.</h1>
+<section class="home-hero">
+  <div class="container">
+    <h1 class="hero-title">I make small tools for oddly specific problems.</h1>
     <p class="hero-copy">
-      A 2D rig engine that hands the rigging to an AI agent. A CLI that performs
-      surgery on your liked songs. A city sim with a stricter data flow than most
-      production apps. Each one solves exactly one problem, usually mine, and gets
-      a unit number the day it starts.
+      A 2D puppet engine where an AI agent does the rigging. A CLI that untangles
+      your YouTube Music likes. A city builder where every commute turns into
+      traffic. Each one gets a unit number the day it starts.
     </p>
-
-    <div class="hero-actions">
-      <a href="#projects" class="btn btn-primary">Browse the Catalogue</a>
-      <a href="{{ '/about/' | relative_url }}" class="btn btn-ghost">About Me</a>
-    </div>
-
-    <div class="hero-metrics">
-      <article class="metric-card">
-        <span class="metric-value">{{ all_projects | size }}</span>
-        <span class="metric-label">Units catalogued</span>
-      </article>
-      <article class="metric-card">
-        <span class="metric-value">{{ first_unit.date | date: "%Y" }}</span>
-        <span class="metric-label">Year UNIT 01 switched on</span>
-      </article>
-      <article class="metric-card">
-        <span class="metric-value">{{ live_projects | size }}</span>
-        <span class="metric-label">Live right now, go poke one</span>
-      </article>
-    </div>
+    <p class="hero-count">
+      {{ all_projects | size }} units so far, {{ live_projects | size }} of them live
+      right now. <a href="#projects">Browse the catalogue</a>
+    </p>
   </div>
 </section>
 
-<section id="projects" class="section-space projects-section">
+<section id="projects" class="projects-section">
   <div class="container">
     <header class="section-head">
-      <p class="eyebrow">Catalogue</p>
       <h2>Things that survived</h2>
       <p>
         Real products, libraries, and a couple of experiments. Each one made it past
         the part where I usually lose interest.
       </p>
-      <p class="lab-note">// numbered by build order &mdash; UNIT 01 is the oldest. Listed here by preference.</p>
+      <p class="catalogue-key">
+        Listed by preference, numbered by build order.
+        <span class="tape tape-red">Red tape</span> means you can try it live.
+      </p>
     </header>
 
     <div class="project-grid">
@@ -66,11 +49,10 @@ seo:
 
 {% assign en_posts = site.posts | where: "lang", "en" %}
 {% if en_posts.size > 0 %}
-<section id="notes" class="section-space home-notes">
+<section id="notes" class="home-notes">
   <div class="container">
     <header class="section-head">
-      <p class="eyebrow">Lab notes</p>
-      <h2>What broke along the way</h2>
+      <h2>Lab notes</h2>
       <p>
         Build logs from the units above, mostly about the part that didn't work
         the first time. The blog has every one in Korean too.
@@ -83,9 +65,7 @@ seo:
       {% endfor %}
     </ol>
 
-    <div class="hero-actions">
-      <a href="{{ '/blog/' | relative_url }}" class="btn btn-ghost">Read all posts</a>
-    </div>
+    <p class="section-more"><a href="{{ '/blog/' | relative_url }}">Read all posts</a></p>
   </div>
 </section>
 {% endif %}

@@ -22,20 +22,11 @@
     justify-content: flex-start;
   }
 
-  /* One column at the full container width runs ~120 characters a line. */
-  .home-notes .blog-list {
-    grid-template-columns: 1fr;
-    max-width: 46rem;
-  }
 }
 
 @media (max-width: 760px) {
   .section-space {
     padding: 4.8rem 0;
-  }
-
-  .site-main {
-    padding-top: 1.35rem;
   }
 
   .nav-toggle {
@@ -50,10 +41,9 @@
     flex-direction: column;
     align-items: stretch;
     padding: 0.6rem;
-    border-radius: 0.85rem;
-    border: 1px solid rgba(31, 42, 55, 0.14);
-    background: rgba(255, 253, 248, 0.95);
-    box-shadow: var(--shadow-soft);
+    border-radius: 0.5rem;
+    border: 1px solid var(--line);
+    background: var(--surface);
     transform-origin: top right;
     transform: scale(0.96);
     opacity: 0;
@@ -64,6 +54,10 @@
     transition: opacity 160ms ease, transform 160ms ease, visibility 0s linear 160ms;
   }
 
+  .primary-nav .nav-link {
+    padding: 0.65rem 0.75rem;
+  }
+
   .primary-nav.is-open {
     opacity: 1;
     transform: scale(1);
@@ -72,40 +66,21 @@
     transition-delay: 0s;
   }
 
-  .project-grid {
+  .project-grid,
+  .home-notes .blog-list {
     grid-template-columns: 1fr;
   }
 
-  .hero-metrics {
-    grid-template-columns: 1fr;
-    gap: 0.6rem;
-  }
-
-  /* Stacked at full height, the three cards pushed the first project nearly
-     two screens down; one line each keeps the stack short. */
-  .metric-card {
-    display: flex;
-    align-items: baseline;
-    gap: 0.6rem;
-    padding: 0.7rem 1rem;
-  }
-
-  .metric-label {
-    margin-top: 0;
-  }
-
-  .project-actions {
-    gap: 0.4rem;
+  .home-hero {
+    padding: 2rem 0 3rem;
   }
 
   .project-actions .btn {
     flex: 1;
   }
 
-  /* "Browse the Catalogue" is wide enough that the pair overflows a 390px
-     content box. Equal halves wrapped its label onto two lines; growing from
-     content width keeps each label on one line, and a pair that doesn't fit
-     stacks as two full-width buttons instead of ragged ones. */
+  /* Growing from content width keeps each label on one line, and a pair that
+     doesn't fit stacks as two full-width buttons instead of ragged ones. */
   .hero-actions .btn {
     flex: 1 1 auto;
     white-space: nowrap;

@@ -1,63 +1,43 @@
+.projects-section {
+  padding-bottom: 4.5rem;
+}
+
+.catalogue-key .tape {
+  font-size: 0.78rem;
+  vertical-align: 0.1em;
+}
+
 .project-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
-/* Flex column so every card's action row lands on the same baseline within a
-   grid row — otherwise short descriptions leave the buttons floating mid-card. */
+/* Flex column so every card's spec line lands on the same baseline within a
+   grid row, whatever the description's length. Flat on purpose: the tape on
+   the title is the card's one accent. */
 .project-card {
   display: flex;
   flex-direction: column;
   background: var(--surface);
-  border: 1px solid rgba(31, 42, 55, 0.11);
-  border-radius: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 0.65rem;
   overflow: hidden;
-  box-shadow: var(--shadow-soft);
-  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
   cursor: pointer;
+  transition: border-color 160ms ease;
 }
 
 .project-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-strong);
-  border-color: rgba(15, 139, 141, 0.35);
+  border-color: var(--ink-soft);
 }
 
-/* Catalogue header strip: mono unit number + a dashed rule running to the edge,
-   so a card reads as a numbered entry rather than a portfolio tile. */
-.unit-strip {
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  gap: 0.7rem;
-  padding: 0.5rem 0 0.5rem 1rem;
-  background: rgba(235, 94, 40, 0.075);
-  border-bottom: 1px solid rgba(31, 42, 55, 0.09);
-}
-
-/* Runs flush to the card edge — stopping short of it reads as a dangling dash
-   rather than a ruled sheet. */
-.unit-strip::after {
-  content: "";
-  flex: 1;
-  border-bottom: 1px dashed rgba(31, 42, 55, 0.24);
-}
-
-.unit-no {
-  font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  color: var(--brand-strong);
-}
-
-/* flex-shrink:0 — the card is now a flex column stretched by the grid row, so
-   without this the thumbnail and strip get squeezed to absorb the extra height. */
+/* flex-shrink:0 — the card is a flex column stretched by the grid row, so
+   without this the thumbnail gets squeezed to absorb the extra height. */
 .project-media {
   flex-shrink: 0;
   aspect-ratio: 16 / 9;
-  background: linear-gradient(135deg, #ffd8b8, #b8ebe6);
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
   overflow: hidden;
 }
 
@@ -65,11 +45,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 260ms ease;
-}
-
-.project-card:hover .project-media img {
-  transform: scale(1.04);
 }
 
 .project-fallback {
@@ -77,62 +52,79 @@
   height: 100%;
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg, rgba(235, 94, 40, 0.22), rgba(15, 139, 141, 0.25));
 }
 
 .project-fallback span {
-  font-family: "Bricolage Grotesque", "Space Grotesk", sans-serif;
   font-size: 1.8rem;
   font-weight: 800;
-  color: rgba(31, 42, 55, 0.66);
+  color: var(--ink-soft);
 }
 
 .project-body {
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 1rem;
+  gap: 0.8rem;
+  padding: 1.1rem 1.15rem 1.2rem;
 }
 
-.project-body .project-actions {
-  margin-top: auto;
-  padding-top: 1rem;
+.project-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem 0.75rem;
 }
 
-.project-body h3 {
+.project-name {
   margin: 0;
-  font-size: 1.25rem;
-  font-family: "Bricolage Grotesque", "Space Grotesk", sans-serif;
+  min-width: 0;
+  font-size: 1.05rem;
 }
 
-.project-body p {
-  margin: 0.55rem 0 0;
+.project-name a:focus-visible,
+.project-demo:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.unit-no {
+  flex: none;
+  margin-left: auto;
+  font-size: 0.85rem;
   color: var(--ink-soft);
-  font-size: 0.95rem;
 }
 
-/* Spec line, not tag pills — a catalogue entry lists its specs on one rule.
-   Scoped under .project-body so .project-tags elsewhere (about, project page)
-   keeps the pill treatment. */
-.project-body .unit-spec {
-  margin: 0.9rem 0 0;
-  padding-top: 0.65rem;
-  border-top: 1px dashed rgba(31, 42, 55, 0.18);
-  font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
-  font-size: 0.7rem;
-  line-height: 1.6;
-  color: rgba(82, 96, 109, 0.9);
+.project-desc {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.55;
 }
 
-/* Marginal note sitting directly above the grid. The hero can't carry this —
-   by the time you reach a card reading "UNIT 12" the explanation is offscreen. */
-.section-head .lab-note {
-  margin-top: 0.85rem;
-  font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
-  font-size: 0.78rem;
-  /* Was 0.72 alpha — 3.21:1, under AA. This line is the only thing explaining
-     why UNIT 12 sits before UNIT 16, so it has to be readable. */
-  color: rgba(82, 96, 109, 0.9);
+.project-foot {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.4rem 1rem;
+}
+
+.unit-spec {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.project-demo {
+  font-weight: 700;
+  color: var(--brand);
+  text-underline-offset: 3px;
+}
+
+.project-demo:hover {
+  text-decoration: underline;
 }
 
 .project-tags {
@@ -143,95 +135,101 @@
 }
 
 .project-tags span {
-  border: 1px solid rgba(15, 139, 141, 0.25);
-  color: #106d6f;
-  background: rgba(116, 185, 182, 0.13);
-  border-radius: 999px;
-  padding: 0.26rem 0.58rem;
-  font-size: 0.74rem;
+  border: 1px solid var(--line);
+  color: var(--ink-soft);
+  background: var(--surface);
+  border-radius: 0.35rem;
+  padding: 0.22rem 0.55rem;
+  font-size: 0.8rem;
   font-weight: 600;
 }
 
 .project-tags.large span {
-  font-size: 0.8rem;
-  padding: 0.36rem 0.7rem;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.65rem;
 }
 
 .project-actions {
   margin-top: 1rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.6rem;
 }
 
 .project-page {
-  padding-top: 3rem;
+  padding-top: 2.5rem;
 }
 
 .back-link {
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
-  color: var(--accent);
-  font-weight: 700;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+.back-link:hover {
+  color: var(--brand);
 }
 
 .project-hero {
-  margin-top: 1rem;
-  background: rgba(255, 255, 255, 0.74);
-  border: 1px solid rgba(31, 42, 55, 0.1);
-  border-radius: 1.2rem;
-  padding: clamp(1.3rem, 1.5vw + 1rem, 2.1rem);
-  box-shadow: var(--shadow-soft);
+  margin-top: 1.5rem;
 }
 
 .project-hero h1 {
-  margin: 0.45rem 0 0;
-  font-family: "Bricolage Grotesque", "Space Grotesk", sans-serif;
-  font-size: clamp(2rem, 3.4vw, 3.05rem);
-  line-height: 1.08;
+  margin: 0.4rem 0 0;
+  font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
 }
 
 .project-summary {
-  margin: 0.95rem 0 0;
+  max-width: 60ch;
+  margin: 1rem 0 0;
   color: var(--ink-soft);
-  font-size: 1.05rem;
+  font-size: 1.15rem;
+  text-wrap: pretty;
 }
 
 .project-actions-top {
-  margin-top: 1.2rem;
+  margin-top: 1.4rem;
 }
 
 .project-image {
-  margin: 1.1rem auto 0;
+  margin: 2rem 0 0;
   width: fit-content;
   max-width: 100%;
-  border-radius: 1rem;
+  border-radius: 0.65rem;
   overflow: hidden;
-  border: 1px solid rgba(31, 42, 55, 0.12);
-  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--line);
 }
 
 .project-content {
-  margin-top: 1.2rem;
-  background: rgba(255, 255, 255, 0.77);
-  border: 1px solid rgba(31, 42, 55, 0.1);
-  border-radius: 1.2rem;
-  padding: clamp(1.2rem, 1.2vw + 1rem, 1.9rem);
-  box-shadow: var(--shadow-soft);
+  margin-top: 2.5rem;
+  font-size: 1.05rem;
+  line-height: 1.7;
 }
 
 .project-content h2,
 .project-content h3,
 .project-content h4 {
-  margin: 1.5rem 0 0.7rem;
-  font-family: "Bricolage Grotesque", "Space Grotesk", sans-serif;
+  margin: 2.25rem 0 0.6rem;
+  font-weight: 800;
   line-height: 1.22;
+}
+
+.project-content h2 {
+  font-size: 1.6rem;
+}
+
+.project-content > :first-child {
+  margin-top: 0;
 }
 
 .project-content p,
 .project-content li {
-  color: #334155;
+  color: var(--ink);
 }
 
 .project-content ul,
@@ -240,8 +238,12 @@
 }
 
 .project-content a {
-  color: var(--accent);
+  color: var(--brand);
   text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.project-content a:hover {
+  color: var(--ink);
 }

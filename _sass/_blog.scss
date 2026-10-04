@@ -13,12 +13,12 @@
 }
 
 .blog-filter-btn {
-  font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  font-weight: 600;
-  padding: 0.4rem 0.8rem;
-  border-radius: 0.45rem;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  min-height: 2.25rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 0.4rem;
   border: 1px solid var(--line);
   background: var(--surface);
   color: var(--ink-soft);
@@ -27,20 +27,14 @@
 }
 
 .blog-filter-btn:hover {
-  border-color: rgba(15, 139, 141, 0.4);
+  border-color: var(--ink-soft);
   color: var(--ink);
 }
 
 .blog-filter-btn.is-active {
-  background: rgba(15, 139, 141, 0.1);
-  color: var(--accent);
-  border-color: rgba(15, 139, 141, 0.45);
-}
-
-.blog-filter-btn[data-filter="ko"].is-active {
-  background: rgba(235, 94, 40, 0.1);
-  color: var(--brand-strong);
-  border-color: rgba(235, 94, 40, 0.45);
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
 }
 
 .blog-list {
@@ -58,15 +52,13 @@
 
 .blog-card {
   border: 1px solid var(--line);
-  border-radius: 1rem;
+  border-radius: 0.65rem;
   background: var(--surface);
-  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  transition: border-color 160ms ease;
 }
 
 .blog-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-soft);
-  border-color: rgba(235, 94, 40, 0.35);
+  border-color: var(--ink-soft);
 }
 
 .blog-card-link {
@@ -84,30 +76,21 @@
 
 .blog-card-date {
   color: var(--ink-soft);
-  font-size: 0.875rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  font-size: 0.9rem;
 }
 
 .blog-card-lang {
-  font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  font-weight: 600;
-  padding: 0.2rem 0.5rem;
-  border-radius: 0.35rem;
-  background: rgba(15, 139, 141, 0.1);
-  color: var(--accent);
-}
-
-.blog-card-lang[data-lang="ko"] {
-  background: rgba(235, 94, 40, 0.1);
-  color: var(--brand-strong);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  border: 1px solid var(--line);
+  border-radius: 0.3rem;
+  color: var(--ink-soft);
 }
 
 .blog-card-title {
-  font-family: "Bricolage Grotesque", "Space Grotesk", sans-serif;
   font-size: 1.5rem;
+  font-weight: 800;
   line-height: 1.25;
   margin: 0 0 0.4rem;
   color: var(--ink);

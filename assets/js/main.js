@@ -1,22 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const siteHeader = document.getElementById('site-header');
   const navToggle = document.querySelector('.nav-toggle');
   const primaryNav = document.getElementById('primary-nav');
-
-  const setHeaderState = () => {
-    if (!siteHeader) {
-      return;
-    }
-
-    if (window.scrollY > 10) {
-      siteHeader.classList.add('is-scrolled');
-    } else {
-      siteHeader.classList.remove('is-scrolled');
-    }
-  };
-
-  setHeaderState();
-  window.addEventListener('scroll', setHeaderState, { passive: true });
 
   if (navToggle && primaryNav) {
     const closeNav = () => {
@@ -139,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Mouse convenience only: keyboard and screen-reader users get the card's
-    // own View link, so the card itself is not a focusable control.
+    // title link, so the card itself is not a focusable control.
     card.addEventListener('click', (event) => {
       const target = event.target;
       if (target instanceof Element && target.closest(interactiveSelector)) {
