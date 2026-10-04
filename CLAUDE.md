@@ -66,7 +66,7 @@ If a new sub-Pages site lands under zeikar.dev, add its sitemap to both [sitemap
 
 ## Content tone
 
-Home and About copy intentionally lean playful and self-deprecating to match the `(>_<)` favicon. Resume pages stay professional as deliberate contrast. Don't carry resume tone into home/about, or vice versa.
+Home and About copy is playful and confident. The humour is a mad scientist's lab with an otaku streak: a nod to Steins;Gate's Future Gadget Lab (gadgets numbered like lab equipment, grand names for small tools), the GitHub bio's "Ideas → Reality. Always shipping (•̀ᴗ•́)و", the `(>_<)` logo (a terminal prompt `>_` that one `<` turns into a face) and the cosmic address on About. Keep Steins;Gate a nod, not a copy: no "Future Gadget" wording. No jokes about projects failing, being abandoned or not working. Resume pages stay professional as deliberate contrast. Don't carry resume tone into home/about, or vice versa.
 
 Project pages have no shared template. Open with a paragraph that says what the thing is, then build sections around that project's strongest technical points, with project-specific headings and details checked against the source repo. The old Overview / Key Features / Challenges / What I Learned / Impact skeleton is retired. `description` is both the card text and the hero summary; the card shows the first 6 `tech_stack` items, listed without version numbers. Link sibling projects as `/projects/<name>/`. The resume's Independent Work blurbs paraphrase project descriptions, so when a description's facts change, update `resume.html` and `resume-ko.html` too.
 
