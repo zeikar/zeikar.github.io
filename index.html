@@ -1,23 +1,25 @@
 ---
 layout: default
-title: "Irregular Apparatus Lab"
-description: "Irregular Apparatus Lab — oddly specific tools, built one at a time. Frameworks, web apps, browser extensions, and desktop things that survived the drafts folder."
+description: "Singular Gadget Lab — oddly specific tools, built one at a time. Frameworks, web apps, browser extensions, and desktop things that survived the drafts folder."
+# jekyll-seo-tag names the homepage WebSite after social.name (the person)
+# unless this is set.
 seo:
-  name: "Zeikar's Lab"
+  name: "Singular Gadget Lab"
 ---
 
 {% assign all_projects = site.projects | sort: "sequence" %}
 {% assign live_projects = all_projects | where_exp: "p", "p.demo_url" %}
+{% assign first_unit = all_projects | where: "gadget_no", 1 | first %}
 
 <section class="home-hero section-space">
   <div class="container hero-shell">
-    <p class="eyebrow">Irregular Apparatus Lab (&gt;_&lt;)</p>
+    <p class="eyebrow">{{ site.title }} (&gt;_&lt;)</p>
     <h1 class="hero-title">I build small machines for oddly specific problems.</h1>
     <p class="hero-copy">
       A 2D rig engine that hands the rigging to an AI agent. A CLI that performs
       surgery on your liked songs. A city sim with a stricter data flow than most
-      production apps. Every one gets a unit number the day it starts. The rest are
-      still in a folder called /someday, pretending they'll be ready next week.
+      production apps. Each one solves exactly one problem, usually mine, and gets
+      a unit number the day it starts.
     </p>
 
     <div class="hero-actions">
@@ -31,8 +33,8 @@ seo:
         <span class="metric-label">Units catalogued</span>
       </article>
       <article class="metric-card">
-        <span class="metric-value">/someday</span>
-        <span class="metric-label">Where the rest live</span>
+        <span class="metric-value">{{ first_unit.date | date: "%Y" }}</span>
+        <span class="metric-label">Year UNIT 01 switched on</span>
       </article>
       <article class="metric-card">
         <span class="metric-value">{{ live_projects | size }}</span>

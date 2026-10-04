@@ -1,6 +1,6 @@
 # zeikar.github.io
 
-Source for [zeikar.dev](https://zeikar.dev), the Irregular Apparatus Lab: a catalogue of my projects, a blog in English and Korean, and a resume. It's a Jekyll site, built and deployed to GitHub Pages by [a GitHub Actions workflow](.github/workflows/pages.yml) on every push to `main`.
+Source for [zeikar.dev](https://zeikar.dev), the Singular Gadget Lab: a catalogue of my projects, a blog in English and Korean, and a resume. It's a Jekyll site, built and deployed to GitHub Pages by [a GitHub Actions workflow](.github/workflows/pages.yml) on every push to `main`.
 
 ## What's where
 
