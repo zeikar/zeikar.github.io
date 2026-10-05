@@ -7,6 +7,8 @@ Sitemap: https://zeikar.dev/backend-interview-guide/sitemap.xml
 Sitemap: https://zeikar.dev/charivo/sitemap.xml
 Sitemap: https://zeikar.dev/hyperclaude/sitemap.xml
 Sitemap: https://zeikar.dev/iki/sitemap.xml
+Sitemap: https://zeikar.dev/interactive-developer-clone/sitemap.xml
+Sitemap: https://zeikar.dev/javascript-30/sitemap.xml
 Sitemap: https://zeikar.dev/kakaotalk-viewer/sitemap.xml
 Sitemap: https://zeikar.dev/leetcode/sitemap.xml
 Sitemap: https://zeikar.dev/pokemon-numerals/sitemap.xml

@@ -54,9 +54,9 @@ The resume's PDF button only calls `window.print()`; the submission layout is th
 The site does **not** use `jekyll-sitemap` despite the Gemfile listing — it's not in the `plugins:` array in [_config.yml](_config.yml). [sitemap.xml](sitemap.xml) is a manual sitemap *index* pointing at:
 
 - [sitemap-main.xml](sitemap-main.xml) — pages, posts, projects, plus URLs from `extra_sitemap_urls:` in `_config.yml`
-- `/backend-interview-guide/sitemap.xml` and `/charivo/sitemap.xml` — *separate* Pages sites in other repos, deployed at sub-paths of zeikar.dev
+- `/<repo>/sitemap.xml` — one per *separate* Pages site in another repo that ships its own sitemap (atcoder, iki, javascript-30, …). Every repo with Pages on serves at `zeikar.dev/<repo>/`
 
-If a new sub-Pages site lands under zeikar.dev, add its sitemap to both [sitemap.xml](sitemap.xml) and [robots.txt](robots.txt).
+If a new sub-Pages site lands under zeikar.dev, add its sitemap to both [sitemap.xml](sitemap.xml) and [robots.txt](robots.txt). A single-page one can skip its own sitemap, since its root joins sitemap-main through its project's `demo_url`. A URL that a sub-sitemap already lists stays out of `extra_sitemap_urls`.
 
 ### Project ordering
 
