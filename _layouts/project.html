@@ -3,42 +3,75 @@ layout: default
 ---
 
 <article class="section-space project-page">
-  <div class="container narrow">
+  <div class="container">
     <a href="{{ '/#projects' | relative_url }}" class="back-link">&larr; Back to projects</a>
 
-    <header class="project-hero">
-      {% if page.gadget_no %}
-      <p class="eyebrow">Unit {{ page.gadget_no | prepend: '0' | slice: -2, 2 }}</p>
-      {% endif %}
-      <h1>{{ page.title }}</h1>
-      <p class="project-summary">{{ page.description }}</p>
-
-      {% if page.tech_stack %}
-      <div class="project-tags large">
-        {% for tech in page.tech_stack %}
-        <span>{{ tech }}</span>
-        {% endfor %}
-      </div>
-      {% endif %}
-
-      <div class="project-actions project-actions-top">
-        {% if page.github_url %}
-        <a href="{{ page.github_url }}" target="_blank" rel="noopener" class="btn btn-primary">View on GitHub</a>
+    {% comment %}
+      Two columns on a wide screen: everything to read shares the 46rem
+      measure on the left, image included, and the details sit beside it,
+      sticky, so the links stay in reach. A phone gets one column with the
+      details under the summary.
+    {% endcomment %}
+    <div class="project-layout">
+      <header class="project-hero">
+        {% if page.gadget_no %}
+        <p class="eyebrow">Unit {{ page.gadget_no | prepend: '0' | slice: -2, 2 }}</p>
         {% endif %}
-        {% if page.demo_url %}
-        <a href="{{ page.demo_url }}" target="_blank" rel="noopener" class="btn btn-ghost">Live Demo</a>
+        <h1>{{ page.title }}</h1>
+        <p class="project-summary">{{ page.description }}</p>
+      </header>
+
+      <aside class="project-spec" aria-label="Project details">
+        <div class="project-actions">
+          {% if page.github_url %}
+          <a href="{{ page.github_url }}" target="_blank" rel="noopener" class="btn btn-primary">View on GitHub</a>
+          {% endif %}
+          {% if page.demo_url %}
+          <a href="{{ page.demo_url }}" target="_blank" rel="noopener" class="btn btn-ghost">Live Demo</a>
+          {% endif %}
+        </div>
+
+        <dl>
+          <div>
+            <dt>Started</dt>
+            <dd>{{ page.date | date: "%B %Y" }}</dd>
+          </div>
+          {% if page.tech_stack %}
+          <div>
+            <dt>Built with</dt>
+            <dd>{{ page.tech_stack | join: ", " }}</dd>
+          </div>
+          {% endif %}
+        </dl>
+
+        {% comment %}
+          The page's own sections, read off kramdown's `<h2 id="…">` output.
+          Only for pages with more than one.
+        {% endcomment %}
+        {% assign toc_parts = content | split: '<h2 id="' %}
+        {% if toc_parts.size > 2 %}
+        <nav class="project-toc" aria-label="On this page">
+          <p class="project-toc-title">On this page</p>
+          <ol>
+            {% for part in toc_parts offset: 1 %}
+            {% assign heading = part | split: '</h2>' | first %}
+            {% assign toc_id = heading | split: '"' | first %}
+            <li><a href="#{{ toc_id }}">{{ heading | remove_first: toc_id | remove_first: '">' | strip_html | strip }}</a></li>
+            {% endfor %}
+          </ol>
+        </nav>
         {% endif %}
-      </div>
-    </header>
+      </aside>
 
-    {% if page.image %}
-    <figure class="project-image">
-      <img src="{% include image-src.html path=page.image %}" alt="{{ page.title }} screenshot" fetchpriority="high" />
-    </figure>
-    {% endif %}
+      {% if page.image %}
+      <figure class="project-image">
+        <img src="{% include image-src.html path=page.image %}" alt="{{ page.title }} screenshot" fetchpriority="high" />
+      </figure>
+      {% endif %}
 
-    <section class="project-content">
-      {{ content }}
-    </section>
+      <section class="project-content">
+        {{ content }}
+      </section>
+    </div>
   </div>
 </article>

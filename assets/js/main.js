@@ -84,6 +84,47 @@ document.addEventListener('DOMContentLoaded', () => {
     button.addEventListener('click', () => window.print());
   });
 
+  // Project pages: mark the section being read in the sticky contents list.
+  const tocLinks = Array.from(document.querySelectorAll('.project-toc a'));
+
+  if (tocLinks.length > 0) {
+    const headings = tocLinks.map((link) => document.getElementById(decodeURIComponent(link.hash.slice(1))));
+    let queued = false;
+
+    const markCurrent = () => {
+      queued = false;
+      // The last heading past the top third of the window, or the last one
+      // once the page bottoms out, since a short final section never gets there.
+      const line = window.innerHeight / 3;
+      const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+      let current = -1;
+      headings.forEach((heading, i) => {
+        if (heading && heading.getBoundingClientRect().top <= line) {
+          current = i;
+        }
+      });
+      if (atBottom) {
+        current = headings.length - 1;
+      }
+
+      tocLinks.forEach((link, i) => {
+        if (i === current) {
+          link.setAttribute('aria-current', 'true');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      });
+    };
+
+    window.addEventListener('scroll', () => {
+      if (!queued) {
+        queued = true;
+        window.requestAnimationFrame(markCurrent);
+      }
+    }, { passive: true });
+    markCurrent();
+  }
+
   const interactiveSelector = 'a, button, input, textarea, select, label';
   const projectCards = document.querySelectorAll('.project-card[data-project-url]');
 

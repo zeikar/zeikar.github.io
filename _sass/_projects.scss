@@ -172,8 +172,109 @@
   color: var(--brand);
 }
 
-.project-hero {
+/* Left: hero, image and text at the reading measure. Right: the details,
+   spanning those three rows so it can stay sticky the whole way down. */
+.project-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 46rem) minmax(15rem, 1fr);
+  column-gap: 4rem;
+  align-items: start;
   margin-top: 1.5rem;
+}
+
+.project-layout > :not(.project-spec) {
+  grid-column: 1;
+}
+
+.project-spec {
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  position: sticky;
+  top: 1.5rem;
+}
+
+.project-spec .project-actions {
+  margin-top: 0;
+}
+
+.project-spec dl {
+  margin: 1.5rem 0 0;
+  border-top: 2px solid var(--ink);
+}
+
+.project-spec dl > div {
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.project-spec dt {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.project-spec dd {
+  margin: 0.15rem 0 0;
+}
+
+.project-toc {
+  margin-top: 1.5rem;
+}
+
+.project-toc-title {
+  margin: 0 0 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+/* A rail down the left. main.js marks the section being read, which lights
+   its stretch of the rail in the accent. */
+.project-toc ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-left: 2px solid var(--line);
+}
+
+.project-toc a {
+  display: block;
+  margin-left: -2px;
+  padding: 0.3rem 0 0.3rem 0.9rem;
+  border-left: 2px solid transparent;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  transition: color 160ms ease, border-color 160ms ease;
+}
+
+.project-toc a:hover,
+.project-toc a[aria-current] {
+  color: var(--ink);
+}
+
+.project-toc a[aria-current] {
+  border-left-color: var(--brand);
+}
+
+/* Wider than the 760px phone cut: below this the text column gets too thin
+   beside the details. */
+@media (max-width: 860px) {
+  .project-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .project-spec {
+    grid-column: 1;
+    grid-row: auto;
+    position: static;
+    margin-top: 1.5rem;
+  }
+
+  /* Above the text on a phone, a contents list is only more to scroll past. */
+  .project-toc {
+    display: none;
+  }
 }
 
 .project-hero h1 {
@@ -192,17 +293,15 @@
   text-wrap: pretty;
 }
 
-.project-actions-top {
-  margin-top: 1.4rem;
-}
-
 .project-image {
   margin: 2rem 0 0;
-  width: fit-content;
-  max-width: 100%;
   border-radius: 0.65rem;
   overflow: hidden;
   border: 1px solid var(--line);
+}
+
+.project-image img {
+  width: 100%;
 }
 
 .project-content {
@@ -221,6 +320,7 @@
 
 .project-content h2 {
   font-size: 1.6rem;
+  scroll-margin-top: 1.5rem;
 }
 
 .project-content > :first-child {
