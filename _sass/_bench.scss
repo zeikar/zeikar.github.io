@@ -1,0 +1,56 @@
+/* Home hero bench: every unit's tape drops onto it in build order and can be
+   thrown around (assets/js/bench.js). Only the floor is drawn, and nothing
+   clips, so a thrown tape can fly over the copy above. */
+.bench {
+  position: relative;
+  height: 220px;
+  margin-top: 2.25rem;
+  border-bottom: 2px solid var(--ink);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.bench-tape {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  display: block;
+  font-size: 1.05rem;
+  cursor: grab;
+  touch-action: none;
+  visibility: hidden;
+  will-change: transform;
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+}
+
+.bench-tape.is-dropped {
+  visibility: visible;
+}
+
+/* clip-path would clip a shadow on the tape itself, so the wrapper lifts. */
+.bench-tape.is-held {
+  z-index: 3;
+  cursor: grabbing;
+  filter: drop-shadow(0 6px 6px rgb(31 42 55 / 0.28));
+}
+
+.bench-readout {
+  min-height: 1.6em;
+  margin: 0.75rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.bench-readout b {
+  color: var(--ink);
+}
+
+/* Here, not in _responsive: this partial loads after it. */
+@media (max-width: 760px) {
+  .bench-tape {
+    font-size: 0.92rem;
+  }
+}

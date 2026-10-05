@@ -9,6 +9,7 @@ seo:
 
 {% assign all_projects = site.projects | sort: "sequence" %}
 {% assign live_projects = all_projects | where_exp: "p", "p.demo_url" %}
+{% assign build_order = site.projects | sort: "gadget_no" %}
 
 <section class="page-hero">
   <div class="container">
@@ -19,8 +20,22 @@ seo:
       traffic. Each one gets a unit number the day it starts.
     </p>
     <p class="hero-count">
-      {{ all_projects | size }} units so far, {{ live_projects | size }} of them live
-      right now. <a href="#projects">Browse the catalogue</a>
+      <span data-count>{{ all_projects | size }}</span> units so far,
+      <span data-live>{{ live_projects | size }}</span> of them live right now.
+      <a href="#projects">Browse the catalogue</a>
+    </p>
+
+    {% comment %}
+      A toy copy of the catalogue below, so it is hidden from assistive tech
+      and the tab order. bench.js shows it and drops the tapes in.
+    {% endcomment %}
+    <div class="bench" data-bench aria-hidden="true" hidden>
+      {% for unit in build_order %}
+      <a class="bench-tape" href="{{ unit.url | relative_url }}" data-no="{{ unit.gadget_no }}" tabindex="-1" draggable="false"><span class="tape{% if unit.demo_url %} tape-live{% endif %}">{{ unit.title }}</span></a>
+      {% endfor %}
+    </div>
+    <p class="bench-readout" data-bench-readout aria-hidden="true" hidden>
+      Grab a tape and throw it. Click one to open that unit.
     </p>
   </div>
 </section>
@@ -68,3 +83,6 @@ seo:
   </div>
 </section>
 {% endif %}
+
+<script src="{{ '/assets/js/matter.min.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/bench.js' | relative_url }}" defer></script>

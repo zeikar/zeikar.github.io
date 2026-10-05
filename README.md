@@ -6,7 +6,7 @@ Source for [zeikar.dev](https://zeikar.dev), the Singular Gadget Lab: a catalogu
 
 ```text
 .
-├── index.html               # Home: hero, project catalogue, latest posts
+├── index.html               # Home: hero with the tape bench, project catalogue, latest posts
 ├── about.html
 ├── blog.html                # Post index
 ├── resume.html              # Resume (English)
