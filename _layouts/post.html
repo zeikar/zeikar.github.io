@@ -3,7 +3,7 @@ layout: default
 ---
 
 <article class="post-article">
-  <div class="container narrow">
+  <div class="container reading-layout">
     <header class="post-header">
       {% assign words = content | strip_html | number_of_words %}
       {% assign read_min = words | divided_by: 200 | plus: 1 %}
@@ -30,6 +30,12 @@ layout: default
       </div>
       {% endif %}
     </header>
+
+    {% if page.lang == 'ko' %}{% assign toc_title = '목차' %}{% else %}{% assign toc_title = 'On this page' %}{% endif %}
+    {% capture toc %}{% include toc.html html=content title=toc_title %}{% endcapture %}
+    {% if toc != blank %}
+    <aside class="reading-side">{{ toc }}</aside>
+    {% endif %}
 
     <div class="post-content">
       {{ content }}

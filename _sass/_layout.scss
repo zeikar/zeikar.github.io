@@ -22,3 +22,80 @@
 .section-space {
   padding: 6.5rem 0;
 }
+
+/* Project and post pages: the text keeps the 46rem measure on the left and a
+   side column (details, contents) sits beside it, sticky. It spans more rows
+   than any page has, so it stays put the whole way down; the spare rows are
+   empty and take no height. */
+.reading-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 46rem) minmax(15rem, 1fr);
+  column-gap: 4rem;
+  align-items: start;
+}
+
+.reading-layout > :not(.reading-side) {
+  grid-column: 1;
+}
+
+.reading-side {
+  grid-column: 2;
+  grid-row: 1 / span 8;
+  position: sticky;
+  top: 1.5rem;
+}
+
+/* The page's own sections, from _includes/toc.html. A rail down the left:
+   main.js marks the section being read, lighting its stretch in the accent. */
+.toc-title {
+  margin: 0 0 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.toc ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-left: 2px solid var(--line);
+}
+
+.toc a {
+  display: block;
+  margin-left: -2px;
+  padding: 0.3rem 0 0.3rem 0.9rem;
+  border-left: 2px solid transparent;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  transition: color 160ms ease, border-color 160ms ease;
+}
+
+.toc a:hover,
+.toc a[aria-current] {
+  color: var(--ink);
+}
+
+.toc a[aria-current] {
+  border-left-color: var(--brand);
+}
+
+/* Wider than the 760px phone cut: below this the text gets too thin beside
+   the side column, so it moves under the text's first block. */
+@media (max-width: 860px) {
+  .reading-layout {
+    grid-template-columns: minmax(0, 46rem);
+  }
+
+  .reading-side {
+    grid-column: 1;
+    grid-row: auto;
+    position: static;
+  }
+
+  /* Above the text, a contents list is only more to scroll past. */
+  .toc {
+    display: none;
+  }
+}

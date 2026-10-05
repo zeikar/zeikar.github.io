@@ -12,7 +12,7 @@ layout: default
       sticky, so the links stay in reach. A phone gets one column with the
       details under the summary.
     {% endcomment %}
-    <div class="project-layout">
+    <div class="reading-layout project-layout">
       <header class="project-hero">
         {% if page.gadget_no %}
         <p class="eyebrow">Unit {{ page.gadget_no | prepend: '0' | slice: -2, 2 }}</p>
@@ -21,7 +21,7 @@ layout: default
         <p class="project-summary">{{ page.description }}</p>
       </header>
 
-      <aside class="project-spec" aria-label="Project details">
+      <aside class="reading-side project-spec" aria-label="Project details">
         <div class="project-actions">
           {% if page.github_url %}
           <a href="{{ page.github_url }}" target="_blank" rel="noopener" class="btn btn-primary">View on GitHub</a>
@@ -44,23 +44,7 @@ layout: default
           {% endif %}
         </dl>
 
-        {% comment %}
-          The page's own sections, read off kramdown's `<h2 id="…">` output.
-          Only for pages with more than one.
-        {% endcomment %}
-        {% assign toc_parts = content | split: '<h2 id="' %}
-        {% if toc_parts.size > 2 %}
-        <nav class="project-toc" aria-label="On this page">
-          <p class="project-toc-title">On this page</p>
-          <ol>
-            {% for part in toc_parts offset: 1 %}
-            {% assign heading = part | split: '</h2>' | first %}
-            {% assign toc_id = heading | split: '"' | first %}
-            <li><a href="#{{ toc_id }}">{{ heading | remove_first: toc_id | remove_first: '">' | strip_html | strip }}</a></li>
-            {% endfor %}
-          </ol>
-        </nav>
-        {% endif %}
+        {% include toc.html html=content title="On this page" %}
       </aside>
 
       {% if page.image %}

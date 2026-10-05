@@ -84,8 +84,9 @@ document.addEventListener('DOMContentLoaded', () => {
     button.addEventListener('click', () => window.print());
   });
 
-  // Project pages: mark the section being read in the sticky contents list.
-  const tocLinks = Array.from(document.querySelectorAll('.project-toc a'));
+  // Project and post pages: mark the section being read in the sticky
+  // contents list (_includes/toc.html).
+  const tocLinks = Array.from(document.querySelectorAll('.toc a'));
 
   if (tocLinks.length > 0) {
     const headings = tocLinks.map((link) => document.getElementById(decodeURIComponent(link.hash.slice(1))));
