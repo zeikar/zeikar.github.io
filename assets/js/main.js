@@ -29,16 +29,16 @@ document.addEventListener('click', (event) => {
 window.addEventListener('pageshow', () => nameTape(null));
 
 // Coming back from a project page, its title tape flies back into its card.
+// Only that case reads event.viewTransition: Chrome reports a transition it
+// skipped as an error once the page has touched it.
 window.addEventListener('pagereveal', (event) => {
   const from = window.navigation && window.navigation.activation && window.navigation.activation.from;
-  if (!event.viewTransition || !from) {
-    return;
-  }
-  const match = new URL(from.url).pathname.match(/^\/projects\/([^/]+)\/$/);
+  const match = from && from.url && new URL(from.url).pathname.match(/^\/projects\/([^/]+)\/$/);
   const card = match && document.getElementById(`unit-${match[1]}`);
-  if (card) {
+  const transition = card && event.viewTransition;
+  if (transition) {
     nameTape(card.querySelector('.project-name .tape'));
-    event.viewTransition.finished.finally(() => nameTape(null));
+    transition.finished.finally(() => nameTape(null));
   }
 });
 
@@ -169,6 +169,51 @@ document.addEventListener('DOMContentLoaded', () => {
       }, { passive: true });
     });
     markCurrent();
+  }
+
+  // "Back to projects" is Back when the page before this one was home: home
+  // returns as it was left (scroll, the bench) and the title tape flies back
+  // into its card, which a fresh load of /#unit-… doesn't do. Otherwise
+  // (a direct visit, a new tab) the link goes to the card.
+  const backLink = document.querySelector('.back-link');
+
+  const homeBehind = () => {
+    const isHome = (url) => {
+      const parsed = new URL(url, window.location.href);
+      return parsed.origin === window.location.origin && parsed.pathname === '/';
+    };
+
+    if (window.navigation && typeof window.navigation.entries === 'function') {
+      const entries = window.navigation.entries();
+      // Step over this page's own #section entries from the contents list.
+      for (let i = window.navigation.currentEntry.index - 1; i >= 0; i -= 1) {
+        if (new URL(entries[i].url).pathname !== window.location.pathname) {
+          const key = entries[i].key;
+          return isHome(entries[i].url) ? () => window.navigation.traverseTo(key) : null;
+        }
+      }
+      return null;
+    }
+
+    // No Navigation API: trust the referrer, unless a #section hop on this
+    // page sits between it and here.
+    if (document.referrer && isHome(document.referrer) && !window.location.hash && window.history.length > 1) {
+      return () => window.history.back();
+    }
+    return null;
+  };
+
+  if (backLink) {
+    backLink.addEventListener('click', (event) => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+        return;
+      }
+      const goBack = homeBehind();
+      if (goBack) {
+        event.preventDefault();
+        goBack();
+      }
+    });
   }
 
   const interactiveSelector = 'a, button, input, textarea, select, label';
