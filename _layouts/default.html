@@ -122,11 +122,16 @@
     />
     <meta name="theme-color" content="#f1f3f5" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    {% comment %}
+      Bricolage is self-hosted (_sass/_fonts.scss). Preloading the latin file
+      starts it alongside the stylesheet instead of after it.
+    {% endcomment %}
     <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      href="{{ '/assets/fonts/bricolage-grotesque-latin.woff2' | relative_url }}"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
     {% comment %}
       Bricolage has no Hangul, so Korean falls through to Pretendard (--font).
