@@ -39,9 +39,9 @@ translations:
   ko: /blog/ko/some-post/
 ```
 
-Both [_layouts/default.html](_layouts/default.html) (hreflang) and [_layouts/post.html](_layouts/post.html) (translation link button) read this field. The resume page pair (`/resume/` + `/resume-ko/`) also uses it. [blog.html](blog.html) reads `translations.ko` too: it lists each English post once with its Korean title underneath, and gives a Korean post its own row only when it has no `translations.en`.
+Both [_layouts/default.html](_layouts/default.html) (hreflang) and [_layouts/post.html](_layouts/post.html) (translation link button) read this field. The resume page pair (`/resume/` + `/resume-ko/`) also uses it. [blog.html](blog.html) reads `translations.ko` too: it lists each English post once with its Korean title underneath, and gives a Korean post its own row only when it has no `translations.en`. The row is [_includes/post-row.html](_includes/post-row.html), which home's Lab notes reuse.
 
-A post about a project sets `unit: <project file name>` on both languages; [_includes/unit-tape.html](_includes/unit-tape.html) turns it into that project's tape label on the index and the post page. A `unit` that matches no project renders nothing.
+A post about a project sets `unit: <project file name>` on both languages; [_includes/unit-tape.html](_includes/unit-tape.html) turns it into that project's tape label on the index and the post page. It also links the two ways: the post ends with that project's card ("Filed under"), and the project page lists its English posts under Lab notes. A `unit` that matches no project renders nothing.
 
 ### Resume PDF is the print stylesheet
 

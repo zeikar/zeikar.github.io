@@ -84,30 +84,12 @@
   margin: 1.75rem 0 0;
 }
 
-/* Home "Lab notes": the latest posts side by side under the catalogue. Kept
-   here, not in _blog, because _blog loads after _responsive and would beat
-   its one-column override. */
+/* Home "Lab notes": the latest posts as the blog index's rows, under a
+   heavy rule like the index's month headings. */
 .home-notes {
   padding-bottom: 4.5rem;
 }
 
-/* Same columns and gap as the project grid, so the cards line up with it. */
-.home-notes .blog-list {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.5rem;
-}
-
-.home-notes .blog-card-title {
-  font-size: 1.25rem;
-}
-
-/* Grid rows stretch the cards to equal height; without this the link stops
-   at its text, leaving a strip that doesn't click. */
-.home-notes .blog-card-link {
-  height: 100%;
-}
-
-/* Only English posts are listed here, so the EN badge says nothing. */
-.home-notes .blog-card-lang {
-  display: none;
+.home-notes .post-rows {
+  border-top: 2px solid var(--ink);
 }

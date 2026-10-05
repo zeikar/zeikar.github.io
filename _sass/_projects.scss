@@ -145,6 +145,56 @@
   }
 }
 
+/* A card as a row: thumbnail on the left, tape and a two-line description on
+   the right, no stack. A post's "Filed under" card, and every catalogue card
+   at phone width, where 23 full cards ran to 13,000px. */
+@mixin compact-card {
+  flex-direction: row;
+
+  .project-media {
+    width: clamp(6.5rem, 30%, 13rem);
+    aspect-ratio: auto;
+    border-bottom: 0;
+    border-right: 1px solid var(--line);
+  }
+
+  .project-body {
+    gap: 0.5rem;
+    padding: 0.85rem 1rem 0.9rem;
+  }
+
+  .project-name {
+    font-size: 0.92rem;
+  }
+
+  .project-desc {
+    display: -webkit-box;
+    overflow: hidden;
+    font-size: 0.92rem;
+    line-height: 1.45;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .unit-spec {
+    display: none;
+  }
+}
+
+.project-card.is-compact {
+  @include compact-card;
+}
+
+@media (max-width: 760px) {
+  .project-grid {
+    gap: 1rem;
+  }
+
+  .project-grid .project-card {
+    @include compact-card;
+  }
+}
+
 .project-tags {
   display: flex;
   flex-wrap: wrap;
@@ -222,10 +272,43 @@
   margin-top: 1.5rem;
 }
 
+.unit-notes {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.unit-notes li + li {
+  margin-top: 0.4rem;
+}
+
+.unit-notes a {
+  font-weight: 600;
+  line-height: 1.4;
+  text-decoration: underline 1px var(--line);
+  text-underline-offset: 3px;
+}
+
+.unit-notes a:hover {
+  color: var(--brand);
+  text-decoration-color: currentColor;
+}
+
+/* The buttons again under the text, only once the side column has moved
+   above it. */
+.project-actions-end {
+  display: none;
+}
+
 /* One column: the details follow the summary. Matches _layout's cut. */
 @media (max-width: 860px) {
   .project-spec {
     margin-top: 1.5rem;
+  }
+
+  .project-actions-end {
+    display: flex;
+    margin-top: 2.5rem;
   }
 }
 

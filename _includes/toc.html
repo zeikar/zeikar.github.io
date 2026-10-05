@@ -3,17 +3,28 @@
   `<h2 id="…">` output. Pass the rendered page as `html` and the label as
   `title`. Renders nothing for a page with fewer than two sections.
   assets/js/main.js marks the section being read.
+
+  On a phone the side column sits above the text, so the list starts folded.
+  The script folds it inline, before the first paint, so it never flashes
+  open; without scripts it stays open.
 {%- endcomment -%}
 {%- assign toc_parts = include.html | split: '<h2 id="' -%}
 {%- if toc_parts.size > 2 -%}
 <nav class="toc" aria-label="{{ include.title }}">
-  <p class="toc-title">{{ include.title }}</p>
-  <ol>
-    {%- for part in toc_parts offset: 1 %}
-    {%- assign heading = part | split: '</h2>' | first %}
-    {%- assign toc_id = heading | split: '"' | first %}
-    <li><a href="#{{ toc_id }}">{{ heading | remove_first: toc_id | remove_first: '">' | strip_html | strip }}</a></li>
-    {%- endfor %}
-  </ol>
+  <details class="toc-fold" open>
+    <summary class="side-label">{{ include.title }}</summary>
+    <ol>
+      {%- for part in toc_parts offset: 1 %}
+      {%- assign heading = part | split: '</h2>' | first %}
+      {%- assign toc_id = heading | split: '"' | first %}
+      <li><a href="#{{ toc_id }}">{{ heading | remove_first: toc_id | remove_first: '">' | strip_html | strip }}</a></li>
+      {%- endfor %}
+    </ol>
+  </details>
+  <script>
+    if (window.matchMedia('(max-width: 860px)').matches) {
+      document.currentScript.previousElementSibling.open = false;
+    }
+  </script>
 </nav>
 {%- endif -%}

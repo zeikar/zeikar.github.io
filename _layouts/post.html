@@ -41,12 +41,52 @@ layout: default
       {{ content }}
     </div>
 
-    {% include giscus.html %}
-
+    {% comment %}
+      Where to go next: the unit the post is about, then the neighbouring
+      posts in the same language (site.posts runs newest first).
+    {% endcomment %}
+    {% assign is_ko = false %}
+    {% if page.lang == 'ko' %}{% assign is_ko = true %}{% endif %}
     <footer class="post-footer">
-      <a href="{{ '/blog/' | relative_url }}" class="btn btn-ghost">
-        {% if page.lang == 'ko' %}&larr; 모든 글{% else %}&larr; All posts{% endif %}
-      </a>
+      {% if page.unit %}
+      {% assign unit_url = '/projects/' | append: page.unit | append: '/' %}
+      {% assign project = site.projects | where: "url", unit_url | first %}
+      {% if project %}
+      <section class="post-unit" aria-labelledby="post-unit-label">
+        <p class="side-label" id="post-unit-label">{% if is_ko %}이 글이 다룬 유닛{% else %}Filed under{% endif %}</p>
+        {% include project-card.html compact=true %}
+      </section>
+      {% endif %}
+      {% endif %}
+
+      {% assign same_lang = site.posts | where: "lang", page.lang %}
+      {% for p in same_lang %}
+      {% if p.url == page.url %}{% assign here = forloop.index0 %}{% endif %}
+      {% endfor %}
+      {% assign newer = nil %}
+      {% if here > 0 %}
+      {% assign newer_index = here | minus: 1 %}
+      {% assign newer = same_lang[newer_index] %}
+      {% endif %}
+      {% assign older_index = here | plus: 1 %}
+      {% assign older = same_lang[older_index] %}
+      <nav class="post-nav" aria-label="{% if is_ko %}다른 글{% else %}More posts{% endif %}">
+        {% if older %}
+        <a href="{{ older.url | relative_url }}" class="post-nav-link post-nav-older">
+          <span class="side-label">{% if is_ko %}&larr; 이전 글{% else %}&larr; Older{% endif %}</span>
+          <span class="post-nav-title">{{ older.title }}</span>
+        </a>
+        {% endif %}
+        {% if newer %}
+        <a href="{{ newer.url | relative_url }}" class="post-nav-link post-nav-newer">
+          <span class="side-label">{% if is_ko %}다음 글 &rarr;{% else %}Newer &rarr;{% endif %}</span>
+          <span class="post-nav-title">{{ newer.title }}</span>
+        </a>
+        {% endif %}
+      </nav>
+      <p class="post-all"><a href="{{ '/blog/' | relative_url }}">{% if is_ko %}모든 글 보기{% else %}All posts{% endif %}</a></p>
     </footer>
+
+    {% include giscus.html %}
   </div>
 </article>

@@ -76,9 +76,9 @@ seo:
       </p>
     </header>
 
-    <ol class="blog-list">
+    <ol class="post-rows">
       {% for post in en_posts limit: 3 %}
-      {% include post-card.html heading="h3" %}
+      {% include post-row.html %}
       {% endfor %}
     </ol>
 

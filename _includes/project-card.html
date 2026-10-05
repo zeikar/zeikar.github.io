@@ -1,4 +1,8 @@
-<article class="project-card" id="unit-{{ project.slug }}" data-project-url="{{ project.url | relative_url }}">
+{%- comment -%}
+  compact=true lays the card out as a row (thumbnail beside a short text),
+  as a post's "Filed under" card. Phone-width catalogues get the same layout.
+{%- endcomment -%}
+<article class="project-card{% if include.compact %} is-compact{% endif %}" id="unit-{{ project.slug }}" data-project-url="{{ project.url | relative_url }}">
   <div class="project-media">
     {% if project.image %}
     <img

@@ -72,7 +72,7 @@ translations:
   ko: /blog/ko/some-post/
 ```
 
-The blog index lists each English post once, with its Korean title under it. A post about one of the projects names it with `unit:`, the project's file name in `_projects/` (`unit: iki`), and gets that project's tape on the index and the post page. Set it on both languages.
+The blog index lists each English post once, with its Korean title under it. A post about one of the projects names it with `unit:`, the project's file name in `_projects/` (`unit: iki`), and gets that project's tape on the index and the post page, the project's card at the end of the post, and a link from the project page's Lab notes. Set it on both languages.
 
 ### Sitemaps
 

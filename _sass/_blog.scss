@@ -1,67 +1,6 @@
 /* ---------------------------------------------------------------- */
-/* Post cards and the blog index                                    */
+/* Blog index, and the post rows it shares with home                */
 /* ---------------------------------------------------------------- */
-
-.blog-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  gap: 1.25rem;
-}
-
-.blog-card {
-  border: 1px solid var(--line);
-  border-radius: var(--radius-surface);
-  background: var(--surface);
-  transition: border-color 160ms ease;
-}
-
-.blog-card:hover {
-  border-color: var(--ink-soft);
-}
-
-.blog-card-link {
-  display: block;
-  padding: 1.5rem 1.75rem;
-}
-
-.blog-card-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  margin: 0 0 0.4rem;
-}
-
-.blog-card-date {
-  color: var(--ink-soft);
-  font-size: 0.9rem;
-}
-
-.blog-card-lang {
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 0.15rem 0.45rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-control);
-  color: var(--ink-soft);
-}
-
-.blog-card-title {
-  font-size: 1.5rem;
-  font-weight: 800;
-  line-height: 1.25;
-  margin: 0 0 0.4rem;
-  color: var(--ink);
-}
-
-.blog-card-subtitle {
-  margin: 0;
-  color: var(--ink-soft);
-  font-size: 0.95rem;
-  line-height: 1.5;
-}
 
 .blog-empty {
   color: var(--ink-soft);

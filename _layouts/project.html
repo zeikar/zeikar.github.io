@@ -12,6 +12,16 @@ layout: default
       sticky, so the links stay in reach. A phone gets one column with the
       details under the summary.
     {% endcomment %}
+    {% capture project_actions %}
+    {% if page.demo_url %}
+    <a href="{{ page.demo_url }}" target="_blank" rel="noopener" class="btn btn-live">{{ page.demo_label | default: "Live Demo" }}</a>
+    {% endif %}
+    {% if page.github_url %}
+    <a href="{{ page.github_url }}" target="_blank" rel="noopener" class="btn {% if page.demo_url %}btn-ghost{% else %}btn-primary{% endif %}">View on GitHub</a>
+    {% endif %}
+    {% endcapture %}
+    {% assign unit_notes = site.posts | where: "unit", page.slug | where: "lang", "en" %}
+
     <div class="reading-layout project-layout">
       <header class="project-hero">
         {% if page.gadget_no %}
@@ -22,14 +32,7 @@ layout: default
       </header>
 
       <aside class="reading-side project-spec" aria-label="Project details">
-        <div class="project-actions">
-          {% if page.demo_url %}
-          <a href="{{ page.demo_url }}" target="_blank" rel="noopener" class="btn btn-live">{{ page.demo_label | default: "Live Demo" }}</a>
-          {% endif %}
-          {% if page.github_url %}
-          <a href="{{ page.github_url }}" target="_blank" rel="noopener" class="btn {% if page.demo_url %}btn-ghost{% else %}btn-primary{% endif %}">View on GitHub</a>
-          {% endif %}
-        </div>
+        <div class="project-actions">{{ project_actions }}</div>
 
         <dl>
           <div>
@@ -40,6 +43,18 @@ layout: default
           <div>
             <dt>Built with</dt>
             <dd>{{ page.tech_stack | join: ", " }}</dd>
+          </div>
+          {% endif %}
+          {% if unit_notes.size > 0 %}
+          <div>
+            <dt>Lab notes</dt>
+            <dd>
+              <ul class="unit-notes">
+                {% for post in unit_notes %}
+                <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+                {% endfor %}
+              </ul>
+            </dd>
           </div>
           {% endif %}
         </dl>
@@ -56,6 +71,9 @@ layout: default
       <section class="project-content">
         {{ content }}
       </section>
+
+      {% comment %} On a phone the side column is far above by now. {% endcomment %}
+      <div class="project-actions project-actions-end">{{ project_actions }}</div>
     </div>
   </div>
 </article>

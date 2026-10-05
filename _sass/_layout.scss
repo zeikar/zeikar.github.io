@@ -45,13 +45,25 @@
   top: 1.5rem;
 }
 
-/* The page's own sections, from _includes/toc.html. A rail down the left:
-   main.js marks the section being read, lighting its stretch in the accent. */
-.toc-title {
+/* A small heading in a side column ("On this page", "Filed under"). */
+.side-label {
   margin: 0 0 0.5rem;
   font-size: 0.85rem;
   font-weight: 700;
   color: var(--ink-soft);
+}
+
+/* The page's own sections, from _includes/toc.html. A rail down the left:
+   main.js marks the section being read, lighting its stretch in the accent.
+   Beside the text the fold is just a label; it only folds on a phone. */
+.toc-fold summary {
+  display: block;
+  list-style: none;
+  pointer-events: none;
+}
+
+.toc-fold summary::-webkit-details-marker {
+  display: none;
 }
 
 .toc ol {
@@ -94,8 +106,33 @@
     position: static;
   }
 
-  /* Above the text, a contents list is only more to scroll past. */
-  .toc {
-    display: none;
+  /* Above the text it folds into one row, so it isn't more to scroll past. */
+  .toc-fold {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-control);
+    background: var(--surface);
+  }
+
+  .toc-fold summary {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0.8rem 1rem;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+
+  .toc-fold summary::after {
+    content: "+";
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+
+  .toc-fold[open] summary::after {
+    content: "\2212";
+  }
+
+  .toc-fold ol {
+    margin: 0 1rem 0.9rem;
   }
 }

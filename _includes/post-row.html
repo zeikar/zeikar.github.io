@@ -1,0 +1,23 @@
+{%- comment -%}
+  One post as a ruled row: date | title, subtitle and its Korean twin | the
+  unit's tape. The blog index and the home page's latest notes both use it,
+  inside an `ol.post-rows`.
+{%- endcomment -%}
+<li class="post-row">
+  <span class="post-row-date">{{ post.date | date: "%b %-d" }}</span>
+  <div class="post-row-main">
+    <a href="{{ post.url | relative_url }}" class="post-row-title"{% if post.lang != site.lang %} lang="{{ post.lang }}"{% endif %}>{{ post.title }}</a>
+    {% if post.subtitle %}
+    <p class="post-row-sub"{% if post.lang != site.lang %} lang="{{ post.lang }}"{% endif %}>{{ post.subtitle }}</p>
+    {% endif %}
+    {% if post.translations.ko %}
+    {% assign ko = site.posts | where: "url", post.translations.ko | first %}
+    {% if ko %}
+    <p class="post-row-ko">한국어로 <a href="{{ ko.url | relative_url }}" lang="ko" hreflang="ko">{{ ko.title }}</a></p>
+    {% endif %}
+    {% endif %}
+  </div>
+  {% if post.unit %}
+  <span class="post-row-unit">{% include unit-tape.html name=post.unit %}</span>
+  {% endif %}
+</li>

@@ -207,10 +207,79 @@
   border-top: 1px solid var(--line);
 }
 
+/* After the text: the unit card, the neighbouring posts, the index. */
 .post-footer {
+  display: grid;
+  gap: 2rem;
   margin-top: 4rem;
   padding-top: 2rem;
   border-top: 1px solid var(--line);
+}
+
+.post-nav {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.post-nav-link {
+  display: block;
+  padding: 1rem 1.15rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-surface);
+  transition: border-color 160ms ease;
+}
+
+.post-nav-link:hover {
+  border-color: var(--ink-soft);
+}
+
+.post-nav-link .side-label {
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.post-nav-title {
+  display: block;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+/* Newer stays on the right even when there's no older post beside it. */
+.post-nav-newer {
+  grid-column: 2;
+  text-align: right;
+}
+
+.post-all {
+  margin: 0;
+}
+
+.post-all a {
+  font-weight: 700;
+  text-decoration: underline 2px var(--brand);
+  text-underline-offset: 4px;
+}
+
+.post-all a:hover {
+  color: var(--brand);
+}
+
+@media (max-width: 760px) {
+  .post-nav {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .post-nav-newer {
+    grid-column: auto;
+    text-align: left;
+  }
+
+  /* The folded contents list sits between the header and the text. */
+  .post-article .reading-side {
+    margin-bottom: 2rem;
+  }
 }
 
 /* Rouge syntax highlighting (dark code block — github-dark inspired) */
