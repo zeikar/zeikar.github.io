@@ -1,3 +1,47 @@
+// Cross-page tape (view transition, _layout.scss): the tape that was clicked
+// carries view-transition-name: unit-title, so the project page's title tape
+// grows out of it. Only one element may hold a name, so naming one clears the
+// last. Outside DOMContentLoaded: pagereveal can fire before it.
+let namedTape = null;
+
+const nameTape = (tape) => {
+  if (namedTape) {
+    namedTape.style.viewTransitionName = '';
+  }
+  namedTape = tape || null;
+  if (namedTape) {
+    namedTape.style.viewTransitionName = 'unit-title';
+  }
+};
+
+document.addEventListener('click', (event) => {
+  // A thrown bench tape cancels its click; a modifier opens a new tab.
+  if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey) {
+    return;
+  }
+  const link = event.target instanceof Element ? event.target.closest('a[href*="/projects/"]') : null;
+  if (link) {
+    nameTape(link.classList.contains('tape') ? link : link.querySelector('.tape'));
+  }
+});
+
+// Back from a page restored from the back/forward cache, nothing is mid-flight.
+window.addEventListener('pageshow', () => nameTape(null));
+
+// Coming back from a project page, its title tape flies back into its card.
+window.addEventListener('pagereveal', (event) => {
+  const from = window.navigation && window.navigation.activation && window.navigation.activation.from;
+  if (!event.viewTransition || !from) {
+    return;
+  }
+  const match = new URL(from.url).pathname.match(/^\/projects\/([^/]+)\/$/);
+  const card = match && document.getElementById(`unit-${match[1]}`);
+  if (card) {
+    nameTape(card.querySelector('.project-name .tape'));
+    event.viewTransition.finished.finally(() => nameTape(null));
+  }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   const navToggle = document.querySelector('.nav-toggle');
   const primaryNav = document.getElementById('primary-nav');
@@ -155,6 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
+      nameTape(card.querySelector('.project-name .tape'));
       window.location.href = url;
     });
   });

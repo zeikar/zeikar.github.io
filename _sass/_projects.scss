@@ -41,15 +41,20 @@
 .project-media {
   flex-shrink: 0;
   aspect-ratio: 16 / 9;
+  padding: 0.6rem;
   background: var(--bg);
   border-bottom: 1px solid var(--line);
   overflow: hidden;
 }
 
+/* Mounted on the grey matte with a hairline, like a specimen photo, so a
+   mostly white screenshot still reads as a picture inside a white card. */
 .project-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-control);
 }
 
 .project-fallback {
@@ -154,6 +159,7 @@
   .project-media {
     width: clamp(6.5rem, 30%, 13rem);
     aspect-ratio: auto;
+    padding: 0.4rem;
     border-bottom: 0;
     border-right: 1px solid var(--line);
   }
@@ -312,12 +318,30 @@
   }
 }
 
-.project-hero h1 {
-  margin: 0.4rem 0 0;
-  font-size: clamp(2.2rem, 4.5vw, 3.6rem);
-  font-weight: 800;
-  line-height: 1.02;
-  letter-spacing: -0.02em;
+/* The title is the unit's own tape at title size, its number printed on the
+   tail. Sized to the column from the title's length (about 0.62em a
+   character, plus room for the tail), capped at 3.6rem. Named for the view
+   transition that flies a clicked tape into it (_layout.scss). */
+.project-hero {
+  container-type: inline-size;
+}
+
+.project-title {
+  margin: 0;
+  font-size: 2.4rem;
+  font-size: min(3.6rem, calc(100cqi / (var(--title-chars) * 0.62 + 4.5)));
+  view-transition-name: unit-title;
+}
+
+.project-title-unit {
+  align-self: center;
+  margin-left: 0.6em;
+  padding-left: 0.6em;
+  border-left: 1px solid rgb(255 255 255 / 0.45);
+  /* Never smaller than a readable 0.7rem, even on a long name on a phone. */
+  font-size: max(0.38em, 0.7rem);
+  letter-spacing: 0.14em;
+  opacity: 0.85;
 }
 
 .project-summary {

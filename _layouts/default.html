@@ -128,6 +128,19 @@
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&display=swap"
       rel="stylesheet"
     />
+    {% comment %}
+      Bricolage has no Hangul, so Korean falls through to Pretendard (--font).
+      Its subsets download only for the characters a page uses. The 50KB
+      stylesheet loads without blocking the first paint (media swap); until
+      then Korean shows in the system font.
+    {% endcomment %}
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
 
     <link
       rel="stylesheet"

@@ -41,6 +41,8 @@ translations:
 
 Both [_layouts/default.html](_layouts/default.html) (hreflang) and [_layouts/post.html](_layouts/post.html) (translation link button) read this field. The resume page pair (`/resume/` + `/resume-ko/`) also uses it. [blog.html](blog.html) reads `translations.ko` too: it lists each English post once with its Korean title underneath, and gives a Korean post its own row only when it has no `translations.en`. The row is [_includes/post-row.html](_includes/post-row.html), which home's Lab notes reuse.
 
+Bricolage has no Hangul, so Korean text falls through `--font` to Pretendard, loaded from jsDelivr without blocking the first paint in [_layouts/default.html](_layouts/default.html).
+
 A post about a project sets `unit: <project file name>` on both languages; [_includes/unit-tape.html](_includes/unit-tape.html) turns it into that project's tape label on the index and the post page. It also links the two ways: the post ends with that project's card ("Filed under"), and the project page lists its English posts under Lab notes. A `unit` that matches no project renders nothing.
 
 ### Resume PDF is the print stylesheet
@@ -62,7 +64,9 @@ If a new sub-Pages site lands under zeikar.dev, add its sitemap to both [sitemap
 
 ### Motion is page-scoped scripts
 
-Two pages load their own script after [assets/js/main.js](assets/js/main.js)'s site-wide one. Home's hero has a bench where every project's tape drops in by `gadget_no` and can be thrown: [index.html](index.html) renders the tapes with Liquid, and [assets/js/bench.js](assets/js/bench.js) runs them on Matter.js 0.20.0, committed as [assets/js/matter.min.js](assets/js/matter.min.js). It can't live in a `vendor/` folder: `.gitignore` drops every `vendor/` for Bundler. The bench is a toy copy of the catalogue, so it stays `aria-hidden` and out of the tab order, and a `<noscript>` style hides it when scripts are off. About's `>_<` logo looks toward the mouse and flinches when poked ([assets/js/face.js](assets/js/face.js), CSS in [_sass/_about.scss](_sass/_about.scss)). Both honour `prefers-reduced-motion`: the bench shows the pile already settled. Blog posts and the resume stay still.
+Home, About and the 404 load their own script after [assets/js/main.js](assets/js/main.js)'s site-wide one. Home's hero has a bench where every project's tape drops in by `gadget_no` and can be thrown: [index.html](index.html) renders the tapes with Liquid, and [assets/js/bench.js](assets/js/bench.js) runs them on Matter.js 0.20.0, committed as [assets/js/matter.min.js](assets/js/matter.min.js). It can't live in a `vendor/` folder: `.gitignore` drops every `vendor/` for Bundler. A tape left upside down hops to flip itself over. The bench is a toy copy of the catalogue, so it stays `aria-hidden` and out of the tab order, and a `<noscript>` style hides it when scripts are off. The `>_<` logo on About and the 404 looks toward the mouse and flinches when poked ([assets/js/face.js](assets/js/face.js), CSS in [_sass/_about.scss](_sass/_about.scss)).
+
+Site-wide, navigation is a cross-document view transition ([_sass/_layout.scss](_sass/_layout.scss)). A project page's title tape always carries `view-transition-name: unit-title`, and main.js gives the same name to the tape that was clicked (bench, card, post row, a post's unit card), so it grows into the title; back on home, the title flies into its card. Only one element per page may hold a name, or the transition is skipped, so never give it to a tape statically outside the project title. All of this honours `prefers-reduced-motion`: the bench shows the pile already settled and the transitions are off. Blog posts and the resume stay still.
 
 ### Manifest needs empty Jekyll front matter
 

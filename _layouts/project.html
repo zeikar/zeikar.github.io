@@ -24,10 +24,14 @@ layout: default
 
     <div class="reading-layout project-layout">
       <header class="project-hero">
-        {% if page.gadget_no %}
-        <p class="eyebrow">Unit {{ page.gadget_no | prepend: '0' | slice: -2, 2 }}</p>
-        {% endif %}
-        <h1>{{ page.title }}</h1>
+        {% comment %}
+          --title-chars sizes the tape so the longest names still fit on one
+          line (a tape doesn't wrap).
+        {% endcomment %}
+        <h1 class="project-title tape{% if page.demo_url %} tape-live{% endif %}" style="--title-chars: {{ page.title.size }}">
+          {{ page.title }}
+          {% if page.gadget_no %}<span class="project-title-unit">Unit {{ page.gadget_no | prepend: '0' | slice: -2, 2 }}</span>{% endif %}
+        </h1>
         <p class="project-summary">{{ page.description }}</p>
       </header>
 

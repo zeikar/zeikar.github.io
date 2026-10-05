@@ -22,6 +22,10 @@
   const CEILING = -2400;
   // Faster than this and a thrown tape can pass through a thin one.
   const MAX_SPEED = 42;
+  // A tape at rest more than this far from level is upside down, and hops
+  // to flip over, a few tries at most so a stubborn one can't hop forever.
+  const UPSIDE_DOWN = (2 * Math.PI) / 3;
+  const MAX_FLIPS = 4;
 
   const engine = Engine.create({ enableSleeping: true, positionIterations: 10, velocityIterations: 8 });
   engine.gravity.y = 1.1;
@@ -34,6 +38,7 @@
     w: 0,
     h: 0,
     body: null,
+    flips: 0,
   }));
 
   let W = 0;
@@ -73,6 +78,9 @@
     }
 
     Events.on(engine, 'beforeUpdate', limitSpeed);
+    if (!reduceMotion) {
+      Events.on(engine, 'afterUpdate', rightUpsideDown);
+    }
     el.addEventListener('pointerdown', grab);
     el.addEventListener('pointermove', move);
     el.addEventListener('pointerup', release);
@@ -190,6 +198,27 @@
           y: (body.velocity.y / speed) * MAX_SPEED,
         });
       }
+    });
+  }
+
+  function rightUpsideDown() {
+    items.forEach((it) => {
+      const { body } = it;
+      if (!body || it.flips >= MAX_FLIPS || (drag && drag.it === it)) {
+        return;
+      }
+      // Wrap the angle into (-PI, PI] to see how far from level it lies.
+      const angle = Math.atan2(Math.sin(body.angle), Math.cos(body.angle));
+      const still = body.isSleeping || (body.speed < 0.15 && Math.abs(body.angularVelocity) < 0.01);
+      if (!still || Math.abs(angle) < UPSIDE_DOWN) {
+        return;
+      }
+      it.flips += 1;
+      Sleeping.set(body, false);
+      // High enough to clear the tapes leaning on it, turning back through
+      // level the short way across the hop's ~59 steps of air time.
+      Body.setVelocity(body, { x: 0, y: -9 });
+      Body.setAngularVelocity(body, -angle / 59);
     });
   }
 

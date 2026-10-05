@@ -12,15 +12,27 @@
   margin-inline: auto;
 }
 
-/* Reading pages keep the header's left edge and cap the measure instead of
-   centring a narrower column, so the content doesn't jump sideways between
-   pages. */
-.narrow > * {
-  max-width: 46rem;
-}
-
 .section-space {
   padding: 6.5rem 0;
+}
+
+/* Page to page: a cross-fade, and the tape clicked on the way in (bench,
+   card, post row) grows into the project page's title tape. main.js names
+   the clicked tape; browsers without cross-document view transitions just
+   navigate. */
+@view-transition {
+  navigation: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+}
+
+::view-transition-group(unit-title) {
+  animation-duration: 420ms;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 /* Project and post pages: the text keeps the 46rem measure on the left and a

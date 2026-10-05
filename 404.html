@@ -5,16 +5,15 @@ description: "This page doesn't exist on this worldline. It may have moved somew
 permalink: /404.html
 ---
 
-<section class="section-space">
-  <div class="container narrow">
-    <header class="section-head">
-      <p class="eyebrow">404 (&gt;_&lt;)</p>
-      <h1>Nothing on this shelf.</h1>
-      <p>
-        This page doesn't exist on this worldline. The link may be old, or the
-        page moved somewhere else in the lab.
-      </p>
-    </header>
+<section class="page-hero">
+  <div class="container">
+    {% include logo.svg %}
+    <p class="eyebrow">Error 404</p>
+    <h1 class="hero-title">Nothing on this shelf.</h1>
+    <p class="hero-copy">
+      This page doesn't exist on this worldline. The link may be old, or the
+      page moved somewhere else in the lab.
+    </p>
 
     <div class="hero-actions">
       <a href="{{ '/' | relative_url }}" class="btn btn-primary">Back to the Catalogue</a>
@@ -22,3 +21,5 @@ permalink: /404.html
     </div>
   </div>
 </section>
+
+<script src="{{ '/assets/js/face.js' | relative_url }}" defer></script>
