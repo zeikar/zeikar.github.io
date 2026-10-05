@@ -1,9 +1,11 @@
 /* Home hero bench: every unit's tape drops onto it in build order and can be
    thrown around (assets/js/bench.js). Only the floor is drawn, and nothing
    clips, so a thrown tape can fly over the copy above. */
+/* The height is close to what bench.js measures for the pile (180px is its
+   desktop floor), so setting the real one barely moves the page. */
 .bench {
   position: relative;
-  height: 220px;
+  height: 180px;
   margin-top: 2.25rem;
   border-bottom: 2px solid var(--ink);
   user-select: none;
@@ -48,8 +50,21 @@
   color: var(--ink);
 }
 
+/* On a touchscreen a vertical swipe that starts on a tape scrolls the page,
+   as it would anywhere else; a sideways drag still picks the tape up, and the
+   browser's pointercancel lets go of it when a swipe turns into a scroll. */
+@media (pointer: coarse) {
+  .bench-tape {
+    touch-action: pan-y;
+  }
+}
+
 /* Here, not in _responsive: this partial loads after it. */
 @media (max-width: 760px) {
+  .bench {
+    height: 340px;
+  }
+
   .bench-tape {
     font-size: 0.92rem;
   }

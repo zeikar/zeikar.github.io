@@ -7,7 +7,7 @@
 .resume-panel {
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 0.65rem;
+  border-radius: var(--radius-surface);
 }
 
 /* Résumé section labels keep the small-caps treatment the print layout uses;
@@ -126,7 +126,7 @@
 
 .resume-project {
   border: 1px solid var(--line);
-  border-radius: 0.65rem;
+  border-radius: var(--radius-surface);
   background: var(--surface-strong);
   padding: 1rem;
 }

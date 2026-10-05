@@ -39,23 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener('click', (event) => {
-      const href = anchor.getAttribute('href');
-      if (!href || href === '#') {
-        return;
-      }
-
-      const target = document.querySelector(href);
-      if (!target) {
-        return;
-      }
-
-      event.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
-
   const resumeName = document.querySelector('[data-resume-name]');
 
   if (resumeName) {
@@ -91,6 +74,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (tocLinks.length > 0) {
     const headings = tocLinks.map((link) => document.getElementById(decodeURIComponent(link.hash.slice(1))));
     let queued = false;
+    // A clicked (or linked-to) entry stays marked until the reader scrolls on
+    // their own: a short last section never reaches the line that picks one.
+    let pinned = tocLinks.findIndex((link) => link.hash === window.location.hash);
 
     const markCurrent = () => {
       queued = false;
@@ -106,6 +92,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       if (atBottom) {
         current = headings.length - 1;
+      }
+      if (pinned >= 0) {
+        current = pinned;
       }
 
       tocLinks.forEach((link, i) => {
@@ -123,6 +112,18 @@ document.addEventListener('DOMContentLoaded', () => {
         window.requestAnimationFrame(markCurrent);
       }
     }, { passive: true });
+
+    tocLinks.forEach((link, i) => {
+      link.addEventListener('click', () => {
+        pinned = i;
+        markCurrent();
+      });
+    });
+    ['wheel', 'touchstart', 'keydown'].forEach((type) => {
+      window.addEventListener(type, () => {
+        pinned = -1;
+      }, { passive: true });
+    });
     markCurrent();
   }
 
@@ -140,6 +141,17 @@ document.addEventListener('DOMContentLoaded', () => {
     card.addEventListener('click', (event) => {
       const target = event.target;
       if (target instanceof Element && target.closest(interactiveSelector)) {
+        return;
+      }
+
+      // A drag that selected some of the card's text isn't a click on it.
+      if (String(window.getSelection())) {
+        return;
+      }
+
+      // Cmd/Ctrl/Shift-click opens a new tab, as it would on a real link.
+      if (event.metaKey || event.ctrlKey || event.shiftKey) {
+        window.open(url, '_blank', 'noopener');
         return;
       }
 

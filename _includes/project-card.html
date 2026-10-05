@@ -1,4 +1,4 @@
-<article class="project-card" data-project-url="{{ project.url | relative_url }}">
+<article class="project-card" id="unit-{{ project.slug }}" data-project-url="{{ project.url | relative_url }}">
   <div class="project-media">
     {% if project.image %}
     <img
@@ -32,8 +32,15 @@
       {%- endcomment -%}
       <p class="unit-spec">{{ project.tech_stack | slice: 0, 6 | join: " ·&nbsp;" }}</p>
       {% endif %}
+      {%- comment -%}
+        One action per card, on its own row: the demo when the unit is live,
+        its source otherwise. demo_label names a demo that isn't one.
+      {%- endcomment -%}
       {% if project.demo_url %}
-      <a href="{{ project.demo_url }}" target="_blank" rel="noopener" class="project-demo" aria-label="Demo of {{ project.title }}">Demo</a>
+      {% assign action = project.demo_label | default: "Demo" %}
+      <a href="{{ project.demo_url }}" target="_blank" rel="noopener" class="project-action project-demo" aria-label="{{ action }} ({{ project.title }})">{{ action }}</a>
+      {% elsif project.github_url %}
+      <a href="{{ project.github_url }}" target="_blank" rel="noopener" class="project-action" aria-label="Source ({{ project.title }})">Source</a>
       {% endif %}
     </div>
   </div>

@@ -4,7 +4,7 @@ layout: default
 
 <article class="section-space project-page">
   <div class="container">
-    <a href="{{ '/#projects' | relative_url }}" class="back-link">&larr; Back to projects</a>
+    <a href="{{ '/' | relative_url }}#unit-{{ page.slug }}" class="back-link">&larr; Back to projects</a>
 
     {% comment %}
       Two columns on a wide screen: everything to read shares the 46rem
@@ -23,11 +23,11 @@ layout: default
 
       <aside class="reading-side project-spec" aria-label="Project details">
         <div class="project-actions">
-          {% if page.github_url %}
-          <a href="{{ page.github_url }}" target="_blank" rel="noopener" class="btn btn-primary">View on GitHub</a>
-          {% endif %}
           {% if page.demo_url %}
-          <a href="{{ page.demo_url }}" target="_blank" rel="noopener" class="btn btn-ghost">Live Demo</a>
+          <a href="{{ page.demo_url }}" target="_blank" rel="noopener" class="btn btn-live">{{ page.demo_label | default: "Live Demo" }}</a>
+          {% endif %}
+          {% if page.github_url %}
+          <a href="{{ page.github_url }}" target="_blank" rel="noopener" class="btn {% if page.demo_url %}btn-ghost{% else %}btn-primary{% endif %}">View on GitHub</a>
           {% endif %}
         </div>
 

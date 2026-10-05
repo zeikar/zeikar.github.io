@@ -12,6 +12,9 @@
   const countEl = document.querySelector('[data-count]');
   const liveEl = document.querySelector('[data-live]');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // A phone's hero fills the screen, so tapes falling from the top would
+  // cover the headline and its links for seconds.
+  const dropShort = window.matchMedia('(max-width: 760px)').matches;
 
   const STEP = 1000 / 60;
   const WALL = 400;
@@ -44,8 +47,6 @@
   let last = 0;
   let acc = 0;
 
-  el.hidden = false;
-  readout.hidden = false;
   const defaultReadout = readout.textContent.trim();
 
   // Tape widths depend on the condensed web font, so measure after it loads.
@@ -133,13 +134,16 @@
     });
   }
 
-  // Drops from just above the viewport, so the tape falls past the headline.
-  // A small tilt keeps most tapes landing the right way up.
+  // Drops from just above the viewport, so the tape falls past the headline;
+  // on a phone, from just above the bench. A small tilt keeps most tapes
+  // landing the right way up.
   function drop(i) {
     const it = items[i];
     const top = Math.max(el.getBoundingClientRect().top, 0);
     const x = it.w / 2 + Math.random() * Math.max(W - it.w, 1);
-    const y = Math.max(-top - it.h - 20 - Math.random() * 100, CEILING + it.h);
+    const y = dropShort
+      ? -it.h - Math.random() * 60
+      : Math.max(-top - it.h - 20 - Math.random() * 100, CEILING + it.h);
     it.body = makeBody(it, x, y, (Math.random() - 0.5) * 0.5);
     Body.setAngularVelocity(it.body, (Math.random() - 0.5) * 0.02);
     Composite.add(engine.world, it.body);

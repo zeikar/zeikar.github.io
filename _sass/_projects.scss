@@ -21,7 +21,7 @@
   flex-direction: column;
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 0.65rem;
+  border-radius: var(--radius-surface);
   overflow: hidden;
   cursor: pointer;
   transition: border-color 160ms ease;
@@ -29,6 +29,11 @@
 
 .project-card:hover {
   border-color: var(--ink-soft);
+}
+
+/* "Back to projects" lands on the card, with a little room above it. */
+.project-card {
+  scroll-margin-top: 1.5rem;
 }
 
 /* flex-shrink:0 — the card is a flex column stretched by the grid row, so
@@ -83,7 +88,7 @@
 }
 
 .project-name a:focus-visible,
-.project-demo:focus-visible {
+.project-action:focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 3px;
 }
@@ -101,13 +106,14 @@
   line-height: 1.55;
 }
 
+/* Stack, then the action on a row of its own, so every card in a grid row
+   ends on the same line. */
 .project-foot {
   margin-top: auto;
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.4rem 1rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.45rem;
 }
 
 .unit-spec {
@@ -117,14 +123,26 @@
   color: var(--ink-soft);
 }
 
-.project-demo {
+.project-action {
   font-weight: 700;
-  color: var(--brand);
   text-underline-offset: 3px;
 }
 
-.project-demo:hover {
+.project-action:hover {
   text-decoration: underline;
+}
+
+.project-demo {
+  color: var(--brand);
+}
+
+/* A finger-sized target without a taller card: the padding grows the hit
+   area and the negative margin gives the space back. */
+@media (pointer: coarse) {
+  .project-action {
+    padding: 0.7rem 1.5rem 0.7rem 0;
+    margin: -0.7rem 0;
+  }
 }
 
 .project-tags {
@@ -138,7 +156,7 @@
   border: 1px solid var(--line);
   color: var(--ink-soft);
   background: var(--surface);
-  border-radius: 0.35rem;
+  border-radius: var(--radius-control);
   padding: 0.22rem 0.55rem;
   font-size: 0.8rem;
   font-weight: 600;
@@ -229,7 +247,7 @@
 
 .project-image {
   margin: 2rem 0 0;
-  border-radius: 0.65rem;
+  border-radius: var(--radius-surface);
   overflow: hidden;
   border: 1px solid var(--line);
 }

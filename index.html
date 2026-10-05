@@ -27,14 +27,17 @@ seo:
 
     {% comment %}
       A toy copy of the catalogue below, so it is hidden from assistive tech
-      and the tab order. bench.js shows it and drops the tapes in.
+      and the tab order. It takes its space from the first paint, so nothing
+      below jumps when bench.js drops the tapes in (a #unit-… link back from
+      a project page lands on its card); without scripts it isn't shown.
     {% endcomment %}
-    <div class="bench" data-bench aria-hidden="true" hidden>
+    <noscript><style>.bench, .bench-readout { display: none; }</style></noscript>
+    <div class="bench" data-bench aria-hidden="true">
       {% for unit in build_order %}
       <a class="bench-tape" href="{{ unit.url | relative_url }}" data-no="{{ unit.gadget_no }}" tabindex="-1" draggable="false"><span class="tape{% if unit.demo_url %} tape-live{% endif %}">{{ unit.title }}</span></a>
       {% endfor %}
     </div>
-    <p class="bench-readout" data-bench-readout aria-hidden="true" hidden>
+    <p class="bench-readout" data-bench-readout aria-hidden="true">
       Grab a tape and throw it. Click one to open that unit.
     </p>
   </div>

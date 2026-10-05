@@ -82,7 +82,7 @@
   color: var(--ink);
   min-height: 2.75rem;
   padding: 0.45rem 0.9rem;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-control);
   font: inherit;
   font-weight: 600;
   cursor: pointer;

@@ -5,6 +5,8 @@ description: "Studio where Claude Code agents make Korean math and science Short
 tech_stack: ["Claude Code agents", "Remotion", "TypeScript", "KaTeX", "Gemini TTS", "Codex CLI", "Python", "Vitest"]
 github_url: "https://github.com/zeikar/tangent"
 demo_url: "https://www.youtube.com/channel/UCQyrXQkYvmwkQ2W8oaQEy1w"
+# The live thing is the channel, not an app.
+demo_label: "Watch on YouTube"
 image: "/assets/images/projects/tangent.png"
 sequence: 10
 gadget_no: 22

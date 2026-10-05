@@ -5,7 +5,7 @@
   gap: 0.45rem;
   min-height: 2.75rem;
   border: 1px solid transparent;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-control);
   padding: 0.6rem 1.1rem;
   font-weight: 700;
   font-size: 0.95rem;
@@ -24,6 +24,16 @@ button.btn {
 
 .btn-primary:hover {
   background: var(--brand);
+}
+
+/* A unit's live demo: violet, like its tape. */
+.btn-live {
+  color: #fff;
+  background: var(--brand);
+}
+
+.btn-live:hover {
+  background: var(--ink);
 }
 
 .btn-ghost {
