@@ -39,7 +39,7 @@ translations:
   ko: /blog/ko/some-post/
 ```
 
-Both [_layouts/default.html](_layouts/default.html) (hreflang) and [_layouts/post.html](_layouts/post.html) (translation link button) read this field. The resume page pair (`/resume/` + `/resume-ko/`) also uses it. [blog.html](blog.html) reads `translations.ko` too: it lists each English post once with its Korean title underneath, and gives a Korean post its own row only when it has no `translations.en`. The row is [_includes/post-row.html](_includes/post-row.html), which home's Lab notes reuse.
+Both [_layouts/default.html](_layouts/default.html) (hreflang) and [_layouts/post.html](_layouts/post.html) (the other-language link on the meta line) read this field. The resume page pair (`/resume/` + `/resume-ko/`) also uses it. [blog.html](blog.html) reads `translations.ko` too: it lists each English post once with its Korean title underneath, and gives a Korean post its own row only when it has no `translations.en`. The row is [_includes/post-row.html](_includes/post-row.html), which home's Lab notes reuse.
 
 Bricolage has no Hangul, so Korean text falls through `--font` to Pretendard, loaded from jsDelivr without blocking the first paint in [_layouts/default.html](_layouts/default.html).
 

@@ -14,20 +14,13 @@ layout: default
         <p class="eyebrow">{{ page.date | date: "%B %-d, %Y" }} · {{ read_min }} min read</p>
         {% endif %}
         {% if page.unit %}{% include unit-tape.html name=page.unit %}{% endif %}
+        {% for tr in page.translations %}
+        <a href="{{ tr[1] | relative_url }}" class="post-translation-link" hreflang="{{ tr[0] }}" lang="{{ tr[0] }}">{% if tr[0] == 'ko' %}한국어로 읽기{% elsif tr[0] == 'en' %}Read in English{% else %}{{ tr[0] | upcase }}{% endif %}</a>
+        {% endfor %}
       </div>
       <h1 class="post-title">{{ page.title }}</h1>
       {% if page.subtitle %}
       <p class="post-subtitle">{{ page.subtitle }}</p>
-      {% endif %}
-
-      {% if page.translations %}
-      <div class="post-translations">
-        {% for tr in page.translations %}
-        <a href="{{ tr[1] | relative_url }}" class="post-translation-link" hreflang="{{ tr[0] }}">
-          {% if tr[0] == 'ko' %}한국어로 읽기{% elsif tr[0] == 'en' %}Read in English{% else %}{{ tr[0] | upcase }}{% endif %}
-        </a>
-        {% endfor %}
-      </div>
       {% endif %}
     </header>
 
@@ -90,3 +83,5 @@ layout: default
     {% include giscus.html %}
   </div>
 </article>
+
+<script src="{{ '/assets/js/reading.js' | relative_url }}" defer></script>

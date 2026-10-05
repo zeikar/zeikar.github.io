@@ -1,0 +1,90 @@
+/* Reading helpers on post and project pages (assets/js/reading.js). */
+
+/* Copy button, on the code block's wrapper so it doesn't scroll away with a
+   long line. The block is dark in both themes, so its colours are fixed. */
+.has-copy {
+  position: relative;
+}
+
+.code-copy {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.55rem;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid rgb(230 237 243 / 0.25);
+  border-radius: var(--radius-control);
+  background: var(--pre-bg);
+  color: rgb(230 237 243 / 0.8);
+  font: 600 0.78rem/1.4 var(--font);
+  cursor: pointer;
+  transition: color 160ms ease, border-color 160ms ease;
+}
+
+.code-copy:hover {
+  border-color: rgb(230 237 243 / 0.6);
+  color: #e6edf3;
+}
+
+.code-copy:focus-visible {
+  outline-color: #e6edf3;
+  outline-offset: 2px;
+}
+
+/* "#" after a section heading: hidden until the heading is hovered or the
+   link focused; always faintly there on a touchscreen, which can't hover.
+   Scoped to the content so it outranks the content's own link colours. */
+:is(.post-content, .project-content) .heading-anchor {
+  margin-left: 0.35em;
+  color: var(--ink-soft);
+  font-weight: 600;
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+
+:is(h2, h3):hover > .heading-anchor,
+:is(.post-content, .project-content) .heading-anchor:focus-visible {
+  opacity: 1;
+}
+
+:is(.post-content, .project-content) .heading-anchor:hover {
+  color: var(--brand);
+}
+
+@media (hover: none) {
+  :is(.post-content, .project-content) .heading-anchor {
+    opacity: 0.45;
+  }
+}
+
+/* Click-to-enlarge. The picture flies from its place into the dialog. */
+.is-zoomable {
+  cursor: zoom-in;
+}
+
+.zoom {
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-out;
+}
+
+.zoom::backdrop {
+  background: rgb(10 15 20 / 0.85);
+}
+
+.zoom img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 94vw;
+  max-height: 92vh;
+  border-radius: var(--radius-surface);
+}
+
+::view-transition-group(zoom) {
+  animation-duration: 320ms;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}

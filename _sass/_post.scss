@@ -10,7 +10,8 @@
   margin-bottom: 2.5rem;
 }
 
-/* Date and read time, then the tape of the unit the post is about. */
+/* Date and read time, the tape of the unit the post is about, and a link to
+   the post in the other language. */
 .post-meta {
   display: flex;
   flex-wrap: wrap;
@@ -39,29 +40,16 @@
   margin: 0;
 }
 
-.post-translations {
-  margin-top: 1.25rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
 .post-translation-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.4rem 0.85rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-control);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 600;
-  color: var(--ink);
-  background: var(--surface);
-  transition: border-color 160ms ease;
+  color: var(--brand);
+  text-decoration: underline 1px;
+  text-underline-offset: 3px;
 }
 
 .post-translation-link:hover {
-  border-color: var(--ink-soft);
+  color: var(--ink);
 }
 
 .post-content {
