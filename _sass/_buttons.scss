@@ -18,7 +18,7 @@ button.btn {
 }
 
 .btn-primary {
-  color: #fff;
+  color: var(--on-solid);
   background: var(--ink);
 }
 
@@ -28,7 +28,7 @@ button.btn {
 
 /* A unit's live demo: violet, like its tape. */
 .btn-live {
-  color: #fff;
+  color: var(--on-solid);
   background: var(--brand);
 }
 

@@ -1,4 +1,5 @@
 :root {
+  color-scheme: light;
   --bg: #f1f3f5;
   --surface: #ffffff;
   --surface-strong: #f6f7f9;
@@ -8,12 +9,37 @@
   /* The one accent, and it means live: tape and buttons for units with a
      demo, plus links and the active nav item. */
   --brand: #6d3fd6;
+  /* Text on a solid ink or brand fill: tapes and buttons. */
+  --on-solid: #ffffff;
+  --code-bg: #e6e9ed;
+  /* Code blocks stay dark in both themes (the Rouge colours in _post). */
+  --pre-bg: #0f1419;
   /* Two corner radii: controls (buttons, chips, inline code) and surfaces
      (cards, images, code blocks, the menu panel). */
   --radius-control: 0.4rem;
   --radius-surface: 0.65rem;
   --font: "Bricolage Grotesque", "Pretendard Variable", system-ui, sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+/* The lab after hours, following the system setting. Ink and paper swap, so
+   the black label tape turns into white tape with black letters, and the
+   violet lightens to the logo's "<". Screen only: a printed resume stays
+   black on white. */
+@media screen and (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --bg: #10161e;
+    --surface: #18212c;
+    --surface-strong: #1d2733;
+    --ink: #e6e9ee;
+    --ink-soft: #9aa5b1;
+    --line: #303c4a;
+    --brand: #a884ff;
+    --on-solid: #10161e;
+    --code-bg: #232e3b;
+    --pre-bg: #0a0f14;
+  }
 }
 
 * {
@@ -62,8 +88,9 @@ a {
 }
 
 /* A tape's clip-path cuts away anything drawn outside it, a ring included,
-   so a focused tape (the brand, a card's title link) gets its ring inside. */
+   so a focused tape (the brand, a card's title link) gets its ring inside,
+   in the tape's own letter colour. */
 .tape:focus-visible {
-  outline-color: #fff;
+  outline-color: currentColor;
   outline-offset: -5px;
 }

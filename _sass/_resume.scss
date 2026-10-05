@@ -88,7 +88,7 @@
   grid-template-columns: minmax(7.5rem, 0.22fr) 1fr;
   gap: 1rem;
   padding-top: 1rem;
-  border-top: 1px solid rgba(31, 42, 55, 0.1);
+  border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
 }
 
 .resume-item-meta {
@@ -216,7 +216,7 @@
 .resume-contact li + li::before {
   content: "·";
   margin-right: 0.6rem;
-  color: rgba(31, 42, 55, 0.35);
+  color: color-mix(in srgb, var(--ink) 35%, transparent);
 }
 
 .resume-contact a:hover {

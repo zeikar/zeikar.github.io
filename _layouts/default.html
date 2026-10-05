@@ -120,7 +120,8 @@
       rel="manifest"
       href="{{ '/assets/images/site.webmanifest' | relative_url }}"
     />
-    <meta name="theme-color" content="#f1f3f5" />
+    <meta name="theme-color" content="#f1f3f5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#10161e" media="(prefers-color-scheme: dark)" />
 
     {% comment %}
       Bricolage is self-hosted (_sass/_fonts.scss). Preloading the latin file

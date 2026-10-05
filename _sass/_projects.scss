@@ -331,7 +331,7 @@
   align-self: center;
   margin-left: 0.6em;
   padding-left: 0.6em;
-  border-left: 1px solid rgb(255 255 255 / 0.45);
+  border-left: 1px solid color-mix(in srgb, currentColor 45%, transparent);
   /* Never smaller than a readable 0.7rem, even on a long name on a phone. */
   font-size: max(0.38em, 0.7rem);
   letter-spacing: 0.14em;

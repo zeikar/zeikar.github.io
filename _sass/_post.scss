@@ -133,7 +133,7 @@
 :is(.post-content, .project-content) code {
   font-family: var(--font-mono);
   font-size: 0.88em;
-  background: #e6e9ed;
+  background: var(--code-bg);
   color: var(--ink);
   padding: 0.15em 0.4em;
   border-radius: var(--radius-control);
@@ -144,8 +144,10 @@
 }
 
 :is(.post-content, .project-content) pre {
-  background: #0f1419;
+  background: var(--pre-bg);
   color: #e6edf3;
+  /* Keeps the block's edge on a dark page, where its fill nearly matches. */
+  border: 1px solid var(--line);
   padding: 1.25rem 1.5rem;
   border-radius: var(--radius-surface);
   overflow-x: auto;

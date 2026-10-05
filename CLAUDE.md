@@ -68,6 +68,10 @@ Home, About and the 404 load their own script after [assets/js/main.js](assets/j
 
 Site-wide, navigation is a cross-document view transition ([_sass/_layout.scss](_sass/_layout.scss)). A project page's title tape always carries `view-transition-name: unit-title`, and main.js gives the same name to the tape that was clicked (bench, card, post row, a post's unit card), so it grows into the title; back on home, the title flies into its card. Only one element per page may hold a name, or the transition is skipped, so never give it to a tape statically outside the project title. All of this honours `prefers-reduced-motion`: the bench shows the pile already settled and the transitions are off. Blog posts and the resume stay still.
 
+### Colours are tokens, in two themes
+
+Every colour comes from the custom properties in [_sass/_tokens.scss](_sass/_tokens.scss), which a `prefers-color-scheme: dark` block redefines (screen only, so a printed resume stays black on white). There's no toggle; the site follows the system. A literal colour in a partial breaks one of the two themes, so text on an ink or brand fill uses `--on-solid`, and a tint of ink is `color-mix(in srgb, var(--ink) N%, transparent)`. In dark, the black label tape becomes white tape with black letters. Code blocks stay dark in both themes. Giscus follows the system too (`preferred_color_scheme`).
+
 ### Manifest needs empty Jekyll front matter
 
 [assets/images/site.webmanifest](assets/images/site.webmanifest) starts with `---` / `---` so Jekyll runs Liquid on it. Without that, `{{ site.title }}` ships as a literal string. The IDE will flag the file as invalid JSON — that's expected; Jekyll strips the front matter at build time.
