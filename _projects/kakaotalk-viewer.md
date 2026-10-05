@@ -6,7 +6,7 @@ tech_stack: ["Preact", "TypeScript", "Vite", "Tailwind CSS", "Vitest"]
 github_url: "https://github.com/zeikar/kakaotalk-viewer"
 demo_url: "https://zeikar.dev/kakaotalk-viewer/"
 image: "/assets/images/projects/kakaotalk-viewer.png"
-sequence: 17
+sequence: 18
 gadget_no: 3
 date: 2021-12-17
 ---

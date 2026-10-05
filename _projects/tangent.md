@@ -8,7 +8,7 @@ demo_url: "https://www.youtube.com/channel/UCQyrXQkYvmwkQ2W8oaQEy1w"
 # The live thing is the channel, not an app.
 demo_label: "Watch on YouTube"
 image: "/assets/images/projects/tangent.png"
-sequence: 10
+sequence: 11
 gadget_no: 22
 date: 2026-09-24
 ---

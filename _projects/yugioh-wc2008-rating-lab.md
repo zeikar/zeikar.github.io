@@ -6,7 +6,7 @@ tech_stack: ["React", "TypeScript", "Firebase", "Recharts", "Python", "melonDS D
 github_url: "https://github.com/zeikar/yugioh-wc2008-rating-lab"
 demo_url: "https://zeikar.dev/yugioh-wc2008-rating-lab/"
 image: "/assets/images/projects/yugioh-wc2008-rating-lab.png"
-sequence: 9
+sequence: 10
 gadget_no: 21
 date: 2026-09-23
 ---

@@ -5,7 +5,7 @@ description: "Local-first CLI that snapshots YouTube Music and YouTube likes int
 tech_stack: ["Python", "ytmusicapi", "YouTube Data API v3", "SQLite", "RapidFuzz", "Typer", "SQLAlchemy"]
 github_url: "https://github.com/zeikar/like-surgeon"
 image: "/assets/images/projects/like-surgeon.png"
-sequence: 11
+sequence: 12
 gadget_no: 15
 date: 2026-05-05
 ---

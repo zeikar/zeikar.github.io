@@ -6,7 +6,7 @@ tech_stack: ["Python", "Claude Code plugin", "LeetCode GraphQL", "GitHub Discuss
 github_url: "https://github.com/zeikar/leetcode"
 demo_url: "https://zeikar.dev/leetcode/"
 image: "/assets/images/projects/leetcode.png"
-sequence: 14
+sequence: 15
 gadget_no: 19
 date: 2021-11-03
 ---
