@@ -60,6 +60,10 @@ If a new sub-Pages site lands under zeikar.dev, add its sitemap to both [sitemap
 
 `_projects/*.md` are sorted by integer `sequence:` in front matter on the home page and in [sitemap-main.xml](sitemap-main.xml). `sequence` is the curated display order ("listed here by preference"); `gadget_no` is the UNIT number by build order and never changes. New project entries need both, plus `date:` (the repo's creation date): a collection doc without one gets the build time, which jekyll-seo-tag then publishes as `datePublished` on every deploy. Never today's date — the UTC build skips future-dated docs, so a same-day KST date silently drops the project. If `demo_url` is on `zeikar.dev`, it auto-joins the sitemap — don't also list it in `extra_sitemap_urls`.
 
+### Motion is page-scoped scripts
+
+Two pages load their own script after [assets/js/main.js](assets/js/main.js)'s site-wide one. Home's hero has a bench where every project's tape drops in by `gadget_no` and can be thrown: [index.html](index.html) renders the tapes with Liquid, and [assets/js/bench.js](assets/js/bench.js) runs them on Matter.js 0.20.0, committed as [assets/js/matter.min.js](assets/js/matter.min.js). It can't live in a `vendor/` folder: `.gitignore` drops every `vendor/` for Bundler. The bench is a toy copy of the catalogue, so it stays `aria-hidden` and out of the tab order, and it is `hidden` until the script runs. About's `>_<` logo looks toward the mouse and flinches when poked ([assets/js/face.js](assets/js/face.js), CSS in [_sass/_about.scss](_sass/_about.scss)). Both honour `prefers-reduced-motion`: the bench shows the pile already settled. Blog posts and the resume stay still.
+
 ### Manifest needs empty Jekyll front matter
 
 [assets/images/site.webmanifest](assets/images/site.webmanifest) starts with `---` / `---` so Jekyll runs Liquid on it. Without that, `{{ site.title }}` ships as a literal string. The IDE will flag the file as invalid JSON — that's expected; Jekyll strips the front matter at build time.

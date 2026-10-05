@@ -1,8 +1,18 @@
+/* Pokeable: assets/js/face.js turns the face toward the mouse and adds
+   .is-poked on a press. It squashes from the chin, like it's sitting down. */
 .about-logo {
   display: block;
   width: 8rem;
   height: 8rem;
   margin-bottom: 1.5rem;
+  cursor: pointer;
+  touch-action: manipulation;
+  transform-origin: 50% 85%;
+}
+
+.about-logo :is(.logo-eye, .logo-cursor) {
+  transform-box: fill-box;
+  transform-origin: center;
 }
 
 /* The ">_" is a terminal prompt and the "<" turns it into a face, so the
@@ -17,8 +27,58 @@
   }
 }
 
+/* A poke: the tile squashes, the eyes squeeze shut and the mouth gasps. */
+.about-logo.is-poked {
+  animation: logo-poke 560ms ease-out;
+}
+
+.about-logo.is-poked .logo-eye-l {
+  animation: logo-squeeze-l 560ms ease-out;
+}
+
+.about-logo.is-poked .logo-eye-r {
+  animation: logo-squeeze-r 560ms ease-out;
+}
+
+.about-logo.is-poked .logo-cursor {
+  animation: logo-gasp 560ms ease-out;
+}
+
+@keyframes logo-poke {
+  22% {
+    transform: scale(1.09, 0.86);
+  }
+  50% {
+    transform: scale(0.95, 1.06);
+  }
+  75% {
+    transform: scale(1.02, 0.98);
+  }
+}
+
+/* Lengths here are SVG user units: 34 of the 512-unit viewBox. */
+@keyframes logo-squeeze-l {
+  22% {
+    transform: translateX(34px) scaleY(0.55);
+  }
+}
+
+@keyframes logo-squeeze-r {
+  22% {
+    transform: translateX(-34px) scaleY(0.55);
+  }
+}
+
+@keyframes logo-gasp {
+  22% {
+    transform: translateY(-10px) scaleX(0.45);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .about-logo .logo-cursor {
+  .about-logo .logo-cursor,
+  .about-logo.is-poked,
+  .about-logo.is-poked :is(.logo-eye, .logo-cursor) {
     animation: none;
   }
 }

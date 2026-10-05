@@ -1,6 +1,8 @@
 <svg class="about-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-hidden="true" focusable="false">
   <rect width="512" height="512" rx="112" fill="#1F2A37"/>
-  <polygon points="96.3,184.3 163.8,230.2 96.3,276.2 113.9,302.0 219.4,230.2 113.9,158.4" fill="#FFFFFF"/>
-  <polygon points="398.1,158.4 292.6,230.2 398.1,302.0 415.7,276.2 348.2,230.2 415.7,184.3" fill="#A884FF"/>
-  <polygon class="logo-cursor" points="199.0,320.4 313.0,320.4 313.0,348.0 199.0,348.0" fill="#FFFFFF"/>
+  <g class="logo-face">
+    <polygon class="logo-eye logo-eye-l" points="96.3,184.3 163.8,230.2 96.3,276.2 113.9,302.0 219.4,230.2 113.9,158.4" fill="#FFFFFF"/>
+    <polygon class="logo-eye logo-eye-r" points="398.1,158.4 292.6,230.2 398.1,302.0 415.7,276.2 348.2,230.2 415.7,184.3" fill="#A884FF"/>
+    <polygon class="logo-cursor" points="199.0,320.4 313.0,320.4 313.0,348.0 199.0,348.0" fill="#FFFFFF"/>
+  </g>
 </svg>
