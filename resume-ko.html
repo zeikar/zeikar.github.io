@@ -127,10 +127,8 @@ redirect_from:
         <article class="resume-project">
           <h3><a href="{{ '/projects/iki/' | relative_url }}">Iki</a></h3>
           <p>
-            AI 에이전트가 캐릭터를 리깅하는 웹용 오픈소스 2D 캐릭터 애니메이션 엔진으로, Live2D의 대안을 목표로 만들었습니다.
-            Claude Code 플러그인에 캐릭터를 설명하면 이미지 모델이 파츠를 그리고, MCP 서버가
-            눈 깜빡임, 시선, 립싱크, 고개 회전, 머리카락 물리까지 자동으로 리깅합니다.
-            모델은 텍스처까지 담은 JSON 파일 하나로 저장되고, 포맷 라이브러리와 WebGL2 런타임, MCP 서버를 npm 패키지로 배포했습니다.
+            Live2D 대안으로 만든 웹용 오픈소스 2D 캐릭터 애니메이션 엔진입니다.
+            캐릭터를 설명하면 이미지 모델이 파츠를 그리고, AI 에이전트가 MCP 서버로 눈 깜빡임, 시선, 립싱크, 머리카락 물리까지 리깅합니다.
           </p>
           <div class="project-tags">
             <span>TypeScript</span>
@@ -142,10 +140,8 @@ redirect_from:
         <article class="resume-project">
           <h3><a href="{{ '/projects/hyperclaude/' | relative_url }}">hyperclaude</a></h3>
           <p>
-            Claude가 계획과 구현을 맡고 Codex가 읽기 전용으로 리뷰하는 Claude Code 플러그인으로, 다른 개인 프로젝트도 이 플러그인으로 개발합니다.
-            블로킹 이슈가 없어질 때까지 리뷰와 수정을 자동으로 반복합니다.
-            리뷰 라운드가 늘수록 비용이 제곱으로 불어나던 문제는 로컬 세션 기록을 교차 분석해 에이전트 생성 파라미터 하나가 원인임을 찾아 고쳤습니다.
-            덕분에 에이전트 간 프로토콜도 192줄에서 39줄로 줄였습니다.
+            다른 개인 프로젝트 개발에도 쓰는 Claude Code 플러그인으로, Claude가 구현하고 Codex가 읽기 전용으로 리뷰하는 과정을 블로킹 이슈가 남지 않을 때까지 반복합니다.
+            리뷰 라운드가 늘수록 비용이 제곱으로 불어나던 문제는 에이전트 생성 파라미터 하나에서 원인을 찾아 고쳤습니다.
           </p>
           <div class="project-tags">
             <span>Claude Code</span>
@@ -158,9 +154,7 @@ redirect_from:
           <h3><a href="{{ '/projects/tangent/' | relative_url }}">tangent</a></h3>
           <p>
             Claude Code 에이전트가 한국어 수학, 과학 쇼츠를 주제 선정부터 업로드 직전까지 맡는 제작 스튜디오이며,
-            이 스튜디오로 유튜브 채널 루트와이를 운영합니다. 단계별 에이전트 7개가 결과물을 파일로만 주고받고 사람은 체크포인트마다 승인하며,
-            렌더링 화면의 레이아웃 결함은 자동 검사로 잡습니다.
-            애니메이션은 Remotion 코드로 만들고, 강제 정렬(forced alignment)로 얻은 내레이션의 단어별 타임스탬프에 맞춰 움직입니다.
+            유튜브 채널 루트와이 운영에 쓰고 있습니다. 단계별 에이전트 7개가 결과물을 파일로만 주고받고, 사람은 체크포인트마다 승인합니다.
           </p>
           <div class="project-tags">
             <span>Claude Code Agents</span>
@@ -172,10 +166,8 @@ redirect_from:
         <article class="resume-project">
           <h3><a href="{{ '/projects/charivo/' | relative_url }}">Charivo</a></h3>
           <p>
-            Live2D 캐릭터에 LLM과 음성을 붙여 말하게 만드는 TypeScript 프레임워크이며, npm 패키지 9개로 배포했습니다.
-            채팅, TTS, STT, 실시간 음성(OpenAI Realtime, Gemini Live)을 각각 인터페이스를 갖춘 별도 패키지로 나눠,
-            클라이언트만 바꾸면 공급자를 교체할 수 있습니다.
-            Live2D 모델의 표정과 모션 목록을 LLM 도구로 노출해, 대화 중에 캐릭터가 표정과 자세를 스스로 바꿉니다.
+            Live2D 캐릭터에 LLM과 음성을 붙이는 TypeScript 프레임워크로, 채팅, TTS, STT, 실시간 음성 프로바이더를 갈아 끼울 수 있게 npm 패키지 9개로 나눠 배포했습니다.
+            Live2D 모델의 표정과 모션을 LLM 도구로 노출해, 대화 중에 캐릭터가 스스로 표정을 바꾸고 움직입니다.
           </p>
           <div class="project-tags">
             <span>TypeScript</span>
@@ -185,25 +177,23 @@ redirect_from:
         </article>
 
         <article class="resume-project">
-          <h3><a href="{{ '/projects/cimulity/' | relative_url }}">Cimulity</a></h3>
+          <h3><a href="{{ '/projects/commentarium/' | relative_url }}">Commentarium</a></h3>
           <p>
-            브라우저용 SimCity 스타일 도시 건설 게임입니다. 도로망을 따라 노동자를 일자리에 배정하고,
-            출퇴근 이동을 최단 경로로 계산해 도로별 교통량을 만듭니다. 교통 혼잡은 다시 토지 가치와 행복도, 건물 성장에 영향을 줍니다.
-            시뮬레이션과 PixiJS 렌더링은 React 밖에서 실행하고 React는 HUD만 맡게 해, HUD가 다시 렌더링돼도 게임 세션이 재시작되지 않게 했습니다.
+            Chrome 웹 스토어에 출시한 확장 프로그램으로, 어떤 웹 페이지에든 댓글, 평점, 투표 기능을 더합니다.
+            서드파티 쿠키가 차단돼도 iframe 안에서 로그인이 유지되도록, 모든 사이트 접근 권한을 요구하는 대신 CHIPS 파티션 쿠키로 인증을 재설계했습니다.
           </p>
           <div class="project-tags">
-            <span>TypeScript</span>
-            <span>PixiJS</span>
+            <span>Chrome Extension</span>
             <span>Next.js</span>
+            <span>Firebase</span>
           </div>
         </article>
 
         <article class="resume-project">
           <h3><a href="{{ '/projects/charaloom/' | relative_url }}">Charaloom</a></h3>
           <p>
-            캐릭터와 세계관을 만들고 1:1 채팅, 그룹 채팅, 분기형 인터랙티브 스토리를 즐기는 풀스택 AI 캐릭터 플랫폼입니다.
-            메시지를 수정하거나 답변을 다시 생성해도 이전 버전이 분기로 남고, 그룹 채팅에서는 턴마다 답할 캐릭터를 골라 순서대로 말하게 했습니다.
-            계정, 크레딧, 커뮤니티, 영어와 한국어 지원까지 서비스 운영에 필요한 기능도 직접 만들었습니다.
+            캐릭터와 세계관을 만들어 1:1 채팅, 그룹 채팅, 분기형 인터랙티브 스토리를 즐길 수 있는 AI 캐릭터 플랫폼이며, 풀스택으로 개발했습니다.
+            메시지를 수정하거나 답변을 다시 생성해도 이전 버전이 분기로 남고, 그룹 채팅은 턴마다 답할 캐릭터를 골라 한 명씩 차례로 답하게 합니다.
           </p>
           <div class="project-tags">
             <span>Next.js</span>
