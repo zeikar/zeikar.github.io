@@ -55,7 +55,7 @@ redirect_from:
               and reliable LLM workflow execution across Kakao's media ecosystem.
             </p>
             <ul>
-              <li>Implemented an AI highlight extraction workflow for Kakao Shopping Live and shipped it to production: it merges PySceneDetect shot cuts into scenes using subtitles, matches each scene to the products sold in that broadcast, and scores it against a rubric to pick highlights.</li>
+              <li>Implemented an AI highlight extraction workflow for Kakao Shopping Live and shipped it to production: it merges PySceneDetect shot cuts into scenes using subtitles, then GPT matches each scene to the products sold in that broadcast and scores it against a rubric to pick highlights.</li>
               <li>Designed a rubric-based LLM-as-judge evaluation that runs blind pairwise comparisons of highlights from two workflow versions.</li>
               <li>Built Temporal-based workflow infrastructure for reliable LLM API execution, including monitoring, retries, and recovery workflows, and extended it to long-running image-to-video generation jobs.</li>
               <li>Contributed platform services in a Go monorepo architecture to improve maintainability and consistency across AI platform development.</li>
