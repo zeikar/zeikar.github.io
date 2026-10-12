@@ -29,7 +29,7 @@ Three of the machines have no finish line, so they're built to keep going withou
 
 - **196 never ends,** as far as anyone knows. Its digits live in `Uint8Array` buffers, ones digit first, swapped each step and doubled when full. Each frame gets a 9 ms budget, and the speed holds at three steps a second for the first 12 lines, then doubles every 1.3 seconds. The printout stores marks as alpha only and tints them when drawn, so switching to dark mode recolours a run that's already thousands of lines long.
 - **The Mersenne hunt runs in a Web Worker.** It runs the Lucas–Lehmer test on every odd prime exponent, in BigInt, and reduces modulo 2^p − 1 by folding `(s & M) + (s >> p)` instead of dividing. The first 20 perfect numbers arrive quickly; after that each one takes noticeably longer, which is the point.
-- **Following 276 means factoring huge numbers.** The aliquot worker does trial division by primes below 65,536, then Miller–Rabin, then Pollard's rho with Brent's cycle finding, batching 128 multiplications per gcd. The worker posts each term before it starts factoring, so the page can show which number it's working on and for how long.
+- **Following 276 means factoring huge numbers.** The aliquot worker does trial division by primes below 65,536, then Miller–Rabin (the 13 primes up to 41 as bases, which prove primality below 3.3 × 10²⁴, plus 20 random bases above that), then Pollard's rho with Brent's cycle finding, batching 128 multiplications per gcd. The worker posts each term before it starts factoring, so the page can show which number it's working on and for how long.
 
 ## Ten thousand of everything
 
@@ -42,7 +42,7 @@ Four of the machines take on thousands of cases at once instead of one example, 
 
 ## Every number the browser can compute is a test
 
-Number facts are easy to get slightly wrong, so each experiment keeps its arithmetic in a pure module with Node's built-in test runner, 79 tests in all. The numbers the pages state are asserted there: the 55 values and seven rounds of 6174, the 246 numbers below 10,000 with no palindrome after 1,000 steps, Recamán's 19 at step 99,734. Records the browser can't reproduce, like Goldbach verified to 4 × 10¹⁸ or the 52 known Mersenne primes, are quoted as records instead.
+Number facts are easy to get slightly wrong, so each experiment keeps its arithmetic in a pure module with Node's built-in test runner, 80 tests in all. The numbers the pages state are asserted there: the 55 values and seven rounds of 6174, the 246 numbers below 10,000 with no palindrome after 1,000 steps, Recamán's 19 at step 99,734. Records the browser can't reproduce, like Goldbach verified to 4 × 10¹⁸ or the 52 known Mersenne primes, are quoted as records instead, and the notes link each one to its source.
 
 The lab's rules count edge cases too: 6174's first draft ignored the ten repdigits like 7777, which fall to 0000 instead.
 
