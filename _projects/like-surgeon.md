@@ -1,7 +1,7 @@
 ---
 layout: project
 title: "like-surgeon"
-description: "Local-first CLI that backs up your YouTube Music liked songs, finds relinked, duplicate and dead likes, and fixes the ones it can prove."
+description: "Fix the mismatches between your YouTube Music liked songs and YouTube likes — swapped, duplicated, missing and dead songs. A local CLI that fixes only what it can prove."
 tech_stack: ["Python", "ytmusicapi", "YouTube Data API v3", "SQLite", "SQLAlchemy", "Typer", "Rich"]
 github_url: "https://github.com/zeikar/like-surgeon"
 demo_url: "https://pypi.org/project/likesurgeon/"
@@ -12,7 +12,7 @@ gadget_no: 15
 date: 2026-05-05
 ---
 
-like-surgeon keeps a local backup of my YouTube Music liked songs and repairs the ones that quietly broke: songs YT Music swapped for another release, songs that show up twice, likes on videos that no longer exist. It scans YouTube Music and YouTube into SQLite, keeps every scan as a snapshot, works out which YouTube like is behind each song, and fixes only what it can prove. It's on PyPI as `likesurgeon`.
+like-surgeon fixes the YouTube Music liked songs that quietly stopped matching my YouTube likes: songs YT Music swapped for another release, songs that show up twice, music it never shows, likes left on videos that no longer exist. It scans YouTube Music and YouTube into SQLite, keeps every scan as a snapshot (the backup YouTube Music doesn't offer), works out which YouTube like is behind each song, and fixes only what it can prove. It's on PyPI as `likesurgeon`.
 
 ## Liked songs is a view, not a second list
 
@@ -22,9 +22,11 @@ Up to 0.10 the tool treated YouTube's Liked videos and YT Music's Liked songs as
 
 YT Music never says which like backs an entry; its feedback tokens are opaque. What it does keep is order: in my library, all 1,142 non-duplicate Liked songs entries sit in the same order as Liked videos, where a shuffled list would keep about 62. So `compare-likes` lines the two lists up by position. Entries whose video is itself liked on YouTube become anchors, trimmed to the longest increasing subsequence of their positions, since a greedy pass collapsed on real data. Between anchors the leftover entries pair up in order, but only when both sides have the same count; every other gap is reported and left alone. Titles never decide a pair. They only show up in a same-recording check (duration within 3 seconds, plus the same channel or overlapping titles) before a repoint.
 
-## Two writes, each checked against the whole list
+## Three writes, each checked against the whole list
 
-`sync` makes two kinds of change, both on YouTube. A *repoint* likes the playable track, confirms the rating, then unlikes the dead original and confirms again. An *unlike shadow* removes the extra like that made a song appear twice. After each one it re-reads the entire Liked songs list: a repoint must leave it unchanged, an unlike must remove exactly one copy. If the list doesn't match, it reads again 15 seconds later, then re-likes the original, undoes any like it added, and stops the run, because a mismatch means the alignment itself may be wrong. Every write is recorded in SQLite as it happens, so an interrupted run still shows what it left behind.
+`sync` makes three kinds of change, all on YouTube. A *repoint* likes the playable track, confirms the rating, then unlikes the dead original and confirms again. An *unlike shadow* removes the extra like that made a song appear twice. After each one it re-reads the entire Liked songs list: a repoint must leave it unchanged, an unlike must remove exactly one copy. If the list doesn't match, it reads again 15 seconds later, then re-likes the original, undoes any like it added, and stops the run, because a mismatch means the alignment itself may be wrong. Every write is recorded in SQLite as it happens, so an interrupted run still shows what it left behind.
+
+The third, added in 0.12, is opt-in. A *relike* unlikes and re-likes a video that looks like music but that YT Music never shows, which gives YT Music another chance to list it. A re-like moves the video to the top of both lists, so it works oldest first. Its check expects nothing removed and at most one entry added; anything else stops the run. I tried it by hand before building it: of 26 such videos, 18 showed up in Liked songs and nothing else moved.
 
 It never presses YT Music's own like button. That button sets the same rating as YouTube's: liking appends a duplicate entry, and un-liking can take the YouTube like with it.
 
