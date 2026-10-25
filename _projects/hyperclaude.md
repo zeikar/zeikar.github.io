@@ -6,7 +6,7 @@ tech_stack: ["Claude Code plugin", "Codex CLI", "Node.js", "git"]
 github_url: "https://github.com/zeikar/hyperclaude"
 demo_url: "https://zeikar.dev/hyperclaude/"
 image: "/assets/images/projects/hyperclaude.png"
-sequence: 3
+sequence: 4
 gadget_no: 16
 date: 2026-05-10
 ---

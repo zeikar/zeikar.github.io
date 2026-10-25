@@ -6,7 +6,7 @@ tech_stack: ["TypeScript", "React", "Vite", "Vitest", "Canvas 2D", "SVG", "local
 github_url: "https://github.com/zeikar/project-wander"
 demo_url: "https://zeikar.dev/project-wander/"
 image: "/assets/images/projects/project-wander.png"
-sequence: 9
+sequence: 12
 gadget_no: 24
 date: 2026-07-28
 ---

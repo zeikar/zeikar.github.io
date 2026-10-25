@@ -6,7 +6,7 @@ tech_stack: ["Vanilla JavaScript", "Canvas", "Web Workers", "BigInt", "Web Audio
 github_url: "https://github.com/zeikar/number-lab"
 demo_url: "https://zeikar.dev/number-lab/"
 image: "/assets/images/projects/number-lab.png"
-sequence: 20
+sequence: 22
 gadget_no: 25
 date: 2026-10-11
 ---
