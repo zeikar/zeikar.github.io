@@ -77,4 +77,4 @@ OSC 9를 알림에만 쓰는 것도 아니다. Windows Terminal과 ConEmu는 `9;
 
 사이드바에 필요한 정보는 에이전트가 이미 말하고 있었다. vaquita가 따로 하는 일은 질의 하나에 답하고 `codex`에 옵션 몇 개를 붙이는 것뿐이다. 나머지는 어차피 화면에 그리던 출력에서 읽는다.
 
-vaquita는 아직 0.1 버전이고 Apple Silicon Mac에서만 돌아간다. 나는 매일 일하면서 직접 쓰고 있다. [최신 릴리스](https://github.com/zeikar/vaquita/releases/latest)를 써 보다가 버그를 만나면 [이슈](https://github.com/zeikar/vaquita/issues)로 남겨 주면 큰 도움이 된다.
+vaquita는 아직 0.1 버전이고 Apple Silicon Mac에서만 돌아간다. [최신 릴리스](https://github.com/zeikar/vaquita/releases/latest)에서 받을 수 있다. 나도 매일 쓰면서 고쳐 나가는 중이라, 써 보다가 버그가 보이면 [이슈](https://github.com/zeikar/vaquita/issues)로 알려 주면 고맙겠다.
