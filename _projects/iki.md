@@ -2,6 +2,7 @@
 layout: project
 title: "Iki"
 description: "Open, MIT-licensed 2D puppet engine for the web, a Live2D alternative whose Claude Code plugin has an image model draw a character's parts and then rigs them over MCP."
+tagline: "Open-Source Live2D Alternative with AI Rigging"
 tech_stack:
   [
     "TypeScript",

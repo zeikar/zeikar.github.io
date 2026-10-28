@@ -2,6 +2,7 @@
 layout: project
 title: "Charivo"
 description: "TypeScript framework for Live2D AI characters that talk, react, and look at you, with swappable OpenAI and Gemini backends for chat and voice."
+tagline: "TypeScript Framework for Live2D AI Characters"
 tech_stack: ["TypeScript", "Live2D", "OpenAI Realtime", "Gemini Live", "LLM/TTS/STT", "pnpm Monorepo", "Changesets"]
 github_url: "https://github.com/zeikar/charivo"
 demo_url: "https://charivo.vercel.app/"

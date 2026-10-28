@@ -2,6 +2,7 @@
 layout: project
 title: "Next.js Firebase Boilerplate"
 description: "A Next.js + Firebase starter where the server does the Firebase work: session cookies verified by the Admin SDK, and per-user Firestore data."
+tagline: "Server-Side Session Cookie Auth"
 tech_stack: ["Next.js", "Firebase Admin SDK", "Firebase Auth", "Firestore", "TypeScript", "Vitest", "Tailwind CSS"]
 github_url: "https://github.com/zeikar/nextjs-firebase-boilerplate"
 demo_url: "https://nextjs-firebase-starter.vercel.app/"

@@ -2,6 +2,7 @@
 layout: project
 title: "Ludoweft"
 description: "Claude Code and Codex plugin where an agent translates a game's text and a deterministic CLI extracts, validates and rebuilds the game files."
+tagline: "AI Fan Translation Toolkit for Visual Novels"
 tech_stack: ["Node.js", "Claude Code plugin", "Codex plugin", "JSONL", "FreeMote"]
 github_url: "https://github.com/zeikar/ludoweft"
 image: "/assets/images/projects/ludoweft.png"

@@ -2,6 +2,7 @@
 layout: project
 title: "WC2008 Rating Lab"
 description: "Tracker for the CPU ratings in Yu-Gi-Oh! World Championship 2008 (DS), with a headless emulator harness that played 1,600 tournaments and pinned down the game's rating formula."
+tagline: "Yu-Gi-Oh! World Championship 2008 Tracker"
 tech_stack: ["React", "TypeScript", "Firebase", "Recharts", "Python", "melonDS DS", "libretro.py", "Vitest"]
 github_url: "https://github.com/zeikar/yugioh-wc2008-rating-lab"
 demo_url: "https://zeikar.dev/yugioh-wc2008-rating-lab/"

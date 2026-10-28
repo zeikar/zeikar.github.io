@@ -2,6 +2,7 @@
 layout: project
 title: "Number Lab"
 description: "Seven browser machines for famous number facts, from Kaprekar's constant to aliquot sequences, each doing its arithmetic live as you watch, with no libraries."
+tagline: "Interactive Number Theory Visualizations"
 tech_stack: ["Vanilla JavaScript", "Canvas", "Web Workers", "BigInt", "Web Audio", "Node test runner", "GitHub Pages"]
 github_url: "https://github.com/zeikar/number-lab"
 demo_url: "https://zeikar.dev/number-lab/"

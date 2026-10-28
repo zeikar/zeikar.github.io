@@ -2,6 +2,7 @@
 layout: project
 title: "chordotomy"
 description: "Local harmony analyzer that finds a recording's chords on the beat, inversions included, and labels them with Roman numerals that flag secondary dominants and borrowed chords."
+tagline: "Chord Recognition & Roman Numeral Analysis"
 tech_stack: ["Python", "librosa", "lv-chordia", "Beat This!", "Vanilla JavaScript", "Claude Code plugin", "PyTorch", "mir_eval"]
 github_url: "https://github.com/zeikar/chordotomy"
 demo_url: "https://zeikar.dev/chordotomy/"

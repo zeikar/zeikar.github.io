@@ -2,6 +2,7 @@
 layout: project
 title: "Wander"
 description: "Text-first travel game in the browser: cross a seeded map of a region you don't know, read the signs on the road, and keep nothing between journeys but what you've learned."
+tagline: "Text-Based Travel Game for the Browser"
 tech_stack: ["TypeScript", "React", "Vite", "Vitest", "Canvas 2D", "SVG", "localStorage", "GitHub Actions"]
 github_url: "https://github.com/zeikar/project-wander"
 demo_url: "https://zeikar.dev/project-wander/"

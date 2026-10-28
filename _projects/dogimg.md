@@ -2,6 +2,7 @@
 layout: project
 title: "DOGimg"
 description: "Dynamic Open Graph image generator that creates share-ready preview cards from any URL."
+tagline: "Dynamic Open Graph Image Generator"
 tech_stack: ["Next.js", "next/og", "Node.js", "undici", "TypeScript", "Tailwind CSS"]
 github_url: "https://github.com/zeikar/dogimg"
 demo_url: "https://dogimg.vercel.app"

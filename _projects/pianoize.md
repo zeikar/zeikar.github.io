@@ -2,6 +2,7 @@
 layout: project
 title: "pianoize"
 description: "Claude Code plugin that turns a song into a two-hand piano arrangement: transcribed on your machine, written by Claude bar by bar, built and checked by code, and played as falling notes."
+tagline: "AI Piano Arrangement Plugin for Claude Code"
 tech_stack: ["Claude Code plugin", "Python", "tsumugi", "FluidSynth", "Canvas", "FFmpeg", "tsumugi-piano-cover", "Playwright", "Vanilla JavaScript", "mido", "NumPy", "Typer"]
 github_url: "https://github.com/zeikar/pianoize"
 demo_url: "https://zeikar.dev/pianoize/"

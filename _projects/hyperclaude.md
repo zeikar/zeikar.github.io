@@ -2,6 +2,7 @@
 layout: project
 title: "hyperclaude"
 description: "Claude Code plugin where Claude plans and writes the code and Codex reviews it read-only, looping until Codex has nothing blocking left."
+tagline: "Claude Code Plugin for Codex Plan & Code Review"
 tech_stack: ["Claude Code plugin", "Codex CLI", "Node.js", "git"]
 github_url: "https://github.com/zeikar/hyperclaude"
 demo_url: "https://zeikar.dev/hyperclaude/"

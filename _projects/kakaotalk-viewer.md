@@ -2,6 +2,7 @@
 layout: project
 title: "KakaoTalk Viewer"
 description: "Browser-only viewer for KakaoTalk export files with search, date navigation, and multi-platform parser support."
+tagline: "In-Browser Reader for Chat Exports"
 tech_stack: ["Preact", "TypeScript", "Vite", "Tailwind CSS", "Vitest"]
 github_url: "https://github.com/zeikar/kakaotalk-viewer"
 demo_url: "https://zeikar.dev/kakaotalk-viewer/"

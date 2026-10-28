@@ -2,6 +2,7 @@
 layout: project
 title: "like-surgeon"
 description: "Fix the mismatches between your YouTube Music liked songs and YouTube likes — swapped, duplicated, missing and dead songs. A local CLI that fixes only what it can prove."
+tagline: "CLI to Fix YouTube Music Liked Songs"
 tech_stack: ["Python", "ytmusicapi", "YouTube Data API v3", "SQLite", "SQLAlchemy", "Typer", "Rich"]
 github_url: "https://github.com/zeikar/like-surgeon"
 demo_url: "https://pypi.org/project/likesurgeon/"

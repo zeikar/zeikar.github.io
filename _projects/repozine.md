@@ -2,6 +2,7 @@
 layout: project
 title: "Repozine"
 description: "Template that turns a GitHub repository's Issues or Discussions into a static Astro blog, rebuilt and deployed to GitHub Pages by GitHub Actions."
+tagline: "GitHub Issues & Discussions to Astro Blog"
 tech_stack: ["Astro", "GitHub GraphQL API", "GitHub Actions", "TypeScript", "React", "Tailwind CSS"]
 github_url: "https://github.com/zeikar/repozine"
 demo_url: "https://zeikar.dev/repozine/"

@@ -27,6 +27,7 @@ A project's explicit `image:` is therefore also its `og:image`, so keep it PNG (
 - WebSite JSON-LD with `alternateName` — homepage only (gated on `page.url == '/'`)
 - Person JSON-LD with `sameAs` — `/about/` only
 - `<link rel="alternate" hreflang>` (en / ko / x-default) — for any page with `translations:` in front matter
+- `<title>` as `title — tagline` instead of `title | site` — for any page with `tagline:` (every project). `og:title` stays the bare title, since link previews show the description under it
 
 When debugging Google/social cards, check the layout AND [_plugins/og_image.rb](_plugins/og_image.rb) before `_config.yml`.
 
@@ -60,7 +61,7 @@ If a new sub-Pages site lands under zeikar.dev, add its sitemap to both [sitemap
 
 ### Project ordering
 
-`_projects/*.md` are sorted by integer `sequence:` in front matter on the home page and in [sitemap-main.xml](sitemap-main.xml). `sequence` is the curated display order ("listed here by preference"); `gadget_no` is the UNIT number by build order and never changes. New project entries need both, plus `date:` (the repo's creation date): a collection doc without one gets the build time, which jekyll-seo-tag then publishes as `datePublished` on every deploy. Never today's date — the UTC build skips future-dated docs, so a same-day KST date silently drops the project. If `demo_url` is on `zeikar.dev`, it auto-joins the sitemap — don't also list it in `extra_sitemap_urls`.
+`_projects/*.md` are sorted by integer `sequence:` in front matter on the home page and in [sitemap-main.xml](sitemap-main.xml). `sequence` is the curated display order ("listed here by preference"); `gadget_no` is the UNIT number by build order and never changes. New project entries need both, plus `tagline:` and `date:` (the repo's creation date): a collection doc without a date gets the build time, which jekyll-seo-tag then publishes as `datePublished` on every deploy. Never today's date — the UTC build skips future-dated docs, so a same-day KST date silently drops the project. If `demo_url` is on `zeikar.dev`, it auto-joins the sitemap — don't also list it in `extra_sitemap_urls`.
 
 ### Motion is page-scoped scripts
 
@@ -80,6 +81,6 @@ Every colour comes from the custom properties in [_sass/_tokens.scss](_sass/_tok
 
 Home and About copy is playful and confident. The humour is a mad scientist's lab with an otaku streak: a nod to Steins;Gate's Future Gadget Lab (gadgets numbered like lab equipment, grand names for small tools), the GitHub bio's "Ideas → Reality. Always shipping (•̀ᴗ•́)و", the `(>_<)` logo (a terminal prompt `>_` that one `<` turns into a face) and the cosmic address on About. Keep Steins;Gate a nod, not a copy: no "Future Gadget" wording. No jokes about projects failing, being abandoned or not working. Resume pages stay professional as deliberate contrast. Don't carry resume tone into home/about, or vice versa.
 
-Project pages have no shared template. Open with a paragraph that says what the thing is, then build sections around that project's strongest technical points, with project-specific headings and details checked against the source repo. Each `##` heading is also an entry in the page's sticky contents list beside the text, which appears once a page has two. The old Overview / Key Features / Challenges / What I Learned / Impact skeleton is retired. `description` is both the card text and the hero summary; the card shows the first 6 `tech_stack` items, listed without version numbers. Link sibling projects as `/projects/<name>/`. The resume's Independent Work blurbs paraphrase project descriptions, so when a description's facts change, update `resume.html` and `resume-ko.html` too.
+Project pages have no shared template. Open with a paragraph that says what the thing is, then build sections around that project's strongest technical points, with project-specific headings and details checked against the source repo. Each `##` heading is also an entry in the page's sticky contents list beside the text, which appears once a page has two. The old Overview / Key Features / Challenges / What I Learned / Impact skeleton is retired. `description` is both the card text and the hero summary; `tagline` is a short search title that says what the thing is (keep `title — tagline` near 60 characters), shown nowhere on the page. The card shows the first 6 `tech_stack` items, listed without version numbers. Link sibling projects as `/projects/<name>/`. The resume's Independent Work blurbs paraphrase project descriptions, so when a description's facts change, update `resume.html` and `resume-ko.html` too.
 
 In `.html` page bodies, HTML-escape angle brackets in copy: `(&gt;_&lt;)`, not `(>_<)`. Kramdown only processes `.md`, but the HTML parser can still misread a bare `<`.

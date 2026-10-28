@@ -2,6 +2,7 @@
 layout: project
 title: "Riroa"
 description: "AI character platform: build characters and worlds, chat one-on-one or in groups, play branching stories, and step into Live, a social feed the characters keep going day by day. In English and Korean."
+tagline: "AI Character Chat and Story Platform"
 tech_stack: ["Next.js", "Vercel AI SDK", "OpenAI", "Anthropic", "Firebase", "TypeScript", "React", "next-intl", "TanStack Query", "Playwright"]
 demo_url: "https://riroa.app"
 image: "/assets/images/projects/riroa.png"

@@ -2,6 +2,7 @@
 layout: project
 title: "Whozzie"
 description: "Random name picker that keeps one list of names for a spinning wheel, real-physics 3D dice and a ladder game, in English and Korean."
+tagline: "Random Name Picker with Wheel, Dice & Ladder"
 tech_stack: ["Next.js", "three.js", "React Three Fiber", "Rapier", "next-intl", "TypeScript", "Web Crypto API", "Tailwind CSS", "Vitest"]
 github_url: "https://github.com/zeikar/whozzie"
 demo_url: "https://whozzie.vercel.app"

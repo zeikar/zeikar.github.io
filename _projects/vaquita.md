@@ -2,6 +2,7 @@
 layout: project
 title: "vaquita"
 description: "A lightweight macOS app for running Claude Code and Codex side by side, with every agent's state in one sidebar (working, waiting for you, or done) and no hooks to install."
+tagline: "Claude Code & Codex Session Manager for macOS"
 tech_stack: ["Go", "Tauri", "Svelte", "xterm.js", "Claude Code", "Codex CLI", "Rust", "TypeScript", "WebSocket"]
 github_url: "https://github.com/zeikar/vaquita"
 demo_url: "https://github.com/zeikar/vaquita/releases/latest"

@@ -2,6 +2,7 @@
 layout: project
 title: "Cimulity"
 description: "A SimCity-style city builder for the browser, where workers are matched to jobs over the road network and their commutes become traffic."
+tagline: "SimCity-Style Browser City Builder"
 tech_stack: ["PixiJS", "TypeScript", "Next.js", "React", "Vitest"]
 github_url: "https://github.com/zeikar/cimulity"
 demo_url: "https://zeikar.dev/cimulity/"

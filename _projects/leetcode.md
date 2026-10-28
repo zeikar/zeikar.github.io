@@ -2,6 +2,7 @@
 layout: project
 title: "LeetCode Study"
 description: "A LeetCode study log kept as GitHub Discussions and published with Repozine, plus a Claude Code plugin that gives one hint level at a time instead of handing over the answer."
+tagline: "Solutions and a Claude Code Hint Plugin"
 tech_stack: ["Python", "Claude Code plugin", "LeetCode GraphQL", "GitHub Discussions", "GitHub Actions", "Repozine"]
 github_url: "https://github.com/zeikar/leetcode"
 demo_url: "https://zeikar.dev/leetcode/"

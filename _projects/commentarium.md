@@ -2,6 +2,7 @@
 layout: project
 title: "Commentarium"
 description: "Chrome extension that adds a social layer to any page with ratings, comments, and community voting."
+tagline: "Chrome Extension for Comments on Any Website"
 tech_stack: ["Chrome Extension", "Next.js", "React", "TypeScript", "Firebase"]
 github_url: "https://github.com/zeikar/commentarium-extension"
 demo_url: "https://commentarium.app"

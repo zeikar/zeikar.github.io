@@ -2,6 +2,7 @@
 layout: project
 title: "Fairy of Grass"
 description: "GitHub Actions template that auto-generates daily contributions by creating scheduled empty commits."
+tagline: "GitHub Actions Template for Daily Commits"
 tech_stack: ["GitHub Actions", "Cron Schedule", "Template Repository", "Git"]
 github_url: "https://github.com/zeikar/fairy-of-grass"
 image: "/assets/images/projects/fairy-of-grass.png"

@@ -2,6 +2,7 @@
 layout: project
 title: "Pokémon Numerals"
 description: "A numeral system where n is the Pokémon with National Pokédex number n, shown on a live clock and a converter, with a silhouette hardcore mode."
+tagline: "Pokédex Number Clock and Converter"
 tech_stack: ["Vanilla JavaScript", "BigInt", "CSS", "PokéAPI", "Node test runner", "GitHub Pages"]
 github_url: "https://github.com/zeikar/pokemon-numerals"
 demo_url: "https://zeikar.dev/pokemon-numerals/"

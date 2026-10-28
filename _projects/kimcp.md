@@ -2,6 +2,7 @@
 layout: project
 title: "KiMCP"
 description: "MCP server that exposes Korean APIs (Naver, Kakao, TMAP) as tools for LLM applications and agent workflows."
+tagline: "MCP Server for Naver, Kakao & TMAP APIs"
 tech_stack: ["Python", "MCP Python SDK", "uv", "HTTPX", "Korean Open APIs"]
 github_url: "https://github.com/zeikar/kimcp"
 image: "/assets/images/projects/kimcp.png"

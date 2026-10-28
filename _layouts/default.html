@@ -14,7 +14,17 @@
     </script>
     {% endif %}
 
+    {% comment %}
+      A project's tagline replaces the site name in <title>, so the search
+      result says what the thing is. og:title stays the bare name, since a
+      link preview already shows the description under it.
+    {% endcomment %}
+    {% if page.tagline %}
+    <title>{{ page.title | append: ' — ' | append: page.tagline | escape_once }}</title>
+    {% seo title=false %}
+    {% else %}
     {% seo %}
+    {% endif %}
 
     {% comment %}
       RSS auto-discovery. jekyll-feed builds /feed.xml but doesn't inject the

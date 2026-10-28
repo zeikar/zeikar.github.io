@@ -2,6 +2,7 @@
 layout: project
 title: "tangent"
 description: "Studio where Claude Code agents make Korean math and science Shorts, from topic to upload file, with code-rendered Remotion animation and a human approving at checkpoints."
+tagline: "Claude Code Agents for Korean Math & Science Shorts"
 tech_stack: ["Claude Code agents", "Remotion", "TypeScript", "KaTeX", "Gemini TTS", "Codex CLI", "Python", "Vitest"]
 github_url: "https://github.com/zeikar/tangent"
 demo_url: "https://www.youtube.com/channel/UCQyrXQkYvmwkQ2W8oaQEy1w"
