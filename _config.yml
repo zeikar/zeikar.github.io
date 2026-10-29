@@ -93,6 +93,7 @@ exclude:
   - gemfiles/
   - Gemfile
   - Gemfile.lock
+  - CLAUDE.md
   - node_modules/
   - vendor/bundle/
   - vendor/cache/
