@@ -8,7 +8,7 @@ github_url: "https://github.com/zeikar/like-surgeon"
 demo_url: "https://pypi.org/project/likesurgeon/"
 demo_label: "View on PyPI"
 image: "/assets/images/projects/like-surgeon.png"
-sequence: 15
+sequence: 10
 gadget_no: 15
 date: 2026-05-05
 ---

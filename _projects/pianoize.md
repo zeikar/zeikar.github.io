@@ -7,7 +7,7 @@ tech_stack: ["Claude Code plugin", "Python", "tsumugi", "FluidSynth", "Canvas", 
 github_url: "https://github.com/zeikar/pianoize"
 demo_url: "https://zeikar.dev/pianoize/"
 image: "/assets/images/projects/pianoize.png"
-sequence: 11
+sequence: 8
 gadget_no: 26
 date: 2026-10-08
 ---
