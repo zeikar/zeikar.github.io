@@ -6,7 +6,7 @@ tagline: "AI Fan Translation Toolkit for Visual Novels"
 tech_stack: ["Node.js", "Claude Code plugin", "Codex plugin", "JSONL", "FreeMote"]
 github_url: "https://github.com/zeikar/ludoweft"
 image: "/assets/images/projects/ludoweft.png"
-sequence: 7
+sequence: 8
 gadget_no: 20
 date: 2026-08-23
 ---
