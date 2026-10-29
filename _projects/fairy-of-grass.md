@@ -6,7 +6,6 @@ tagline: "GitHub Actions Template for Daily Commits"
 tech_stack: ["GitHub Actions", "Cron Schedule", "Template Repository", "Git"]
 github_url: "https://github.com/zeikar/fairy-of-grass"
 image: "/assets/images/projects/fairy-of-grass.png"
-sequence: 26
 gadget_no: 2
 date: 2020-12-15
 ---

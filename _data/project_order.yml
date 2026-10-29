@@ -1,0 +1,29 @@
+# Home page and sitemap-main.xml order, top first. One line per _projects/<name>.md;
+# a project missing here still shows up, last, with a build warning.
+- iki
+- riroa
+- charivo
+- hyperclaude
+- vaquita
+- dogimg
+- repozine
+- pianoize
+- chordotomy
+- like-surgeon
+- tangent
+- commentarium
+- ludoweft
+- cimulity
+- liveclaw
+- project-wander
+- pokemon-numerals
+- leetcode
+- nextjs-firebase-boilerplate
+- kakaotalk-viewer
+- captiony
+- number-lab
+- backend-interview-guide
+- kimcp
+- whozzie
+- fairy-of-grass
+- yugioh-wc2008-rating-lab

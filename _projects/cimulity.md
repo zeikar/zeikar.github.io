@@ -7,7 +7,6 @@ tech_stack: ["PixiJS", "TypeScript", "Next.js", "React", "Vitest"]
 github_url: "https://github.com/zeikar/cimulity"
 demo_url: "https://zeikar.dev/cimulity/"
 image: "/assets/images/projects/cimulity.png"
-sequence: 14
 gadget_no: 13
 date: 2026-01-07
 ---

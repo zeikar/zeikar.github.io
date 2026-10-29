@@ -7,7 +7,6 @@ tech_stack: ["Next.js", "Vercel AI SDK", "OpenAI", "Anthropic", "Firebase", "Typ
 demo_url: "https://riroa.app"
 image: "/assets/images/projects/riroa.png"
 redirect_from: /projects/charaloom/
-sequence: 2
 gadget_no: 10
 date: 2025-03-30
 ---

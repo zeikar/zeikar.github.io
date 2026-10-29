@@ -49,13 +49,12 @@ tech_stack: ["TypeScript", "WebGL2"]
 github_url: "https://github.com/zeikar/my-project"
 demo_url: "https://zeikar.dev/my-project/"
 image: "/assets/images/projects/my-project.png"
-sequence: 21
 gadget_no: 21
 date: 2026-10-01
 ---
 ```
 
-- `sequence` is the order on the home page. `gadget_no` is the UNIT number, assigned by build order, and never changes.
+- Add `my-project` to [_data/project_order.yml](_data/project_order.yml) where it should sit on the home page. `gadget_no` is the UNIT number, assigned by build order, and never changes.
 - `date` is when the project started (its repo's creation date). It becomes the page's `datePublished`; without it, Jekyll stamps the build time on every deploy. Never use today's date: the Pages build runs in UTC and skips documents dated in the future, so a same-day KST date can drop the project from the site without a warning.
 - The card shows the first six `tech_stack` entries. Leave out version numbers.
 - `demo_url` and `image` are optional. Without an `image`, both the social card and the home card come from DOGimg, rendered live on every visit, so save that render as the PNG instead.

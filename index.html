@@ -7,7 +7,7 @@ seo:
   name: "Singular Gadget Lab"
 ---
 
-{% assign all_projects = site.projects | sort: "sequence" %}
+{% assign all_projects = site.projects %}
 {% assign live_projects = all_projects | where_exp: "p", "p.demo_url" %}
 {% assign build_order = site.projects | sort: "gadget_no" %}
 

@@ -7,7 +7,6 @@ tech_stack: ["Python", "librosa", "lv-chordia", "Beat This!", "Vanilla JavaScrip
 github_url: "https://github.com/zeikar/chordotomy"
 demo_url: "https://zeikar.dev/chordotomy/"
 image: "/assets/images/projects/chordotomy.png"
-sequence: 9
 gadget_no: 23
 date: 2026-09-29
 ---

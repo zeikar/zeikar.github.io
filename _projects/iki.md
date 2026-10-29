@@ -17,7 +17,6 @@ tech_stack:
 github_url: "https://github.com/zeikar/iki"
 demo_url: "https://zeikar.dev/iki/"
 image: "/assets/images/projects/iki.png"
-sequence: 1
 gadget_no: 17
 date: 2026-06-04
 ---

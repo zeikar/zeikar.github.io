@@ -61,7 +61,7 @@ If a new sub-Pages site lands under zeikar.dev, add its sitemap to both [sitemap
 
 ### Project ordering
 
-`_projects/*.md` are sorted by integer `sequence:` in front matter on the home page and in [sitemap-main.xml](sitemap-main.xml). `sequence` is the curated display order ("listed here by preference"); `gadget_no` is the UNIT number by build order and never changes. New project entries need both, plus `tagline:` and `date:` (the repo's creation date): a collection doc without a date gets the build time, which jekyll-seo-tag then publishes as `datePublished` on every deploy. Never today's date — the UTC build skips future-dated docs, so a same-day KST date silently drops the project. If `demo_url` is on `zeikar.dev`, it auto-joins the sitemap — don't also list it in `extra_sitemap_urls`.
+The curated display order ("listed here by preference") is [_data/project_order.yml](_data/project_order.yml), one project file name per line. [_plugins/project_order.rb](_plugins/project_order.rb) sorts `site.projects` by it at `post_read`, so the home page and [sitemap-main.xml](sitemap-main.xml) loop over `site.projects` unsorted; a project missing from the list goes last with a build warning. `gadget_no` is the UNIT number by build order and never changes. A new project needs a line in the list and a `gadget_no`, plus `tagline:` and `date:` (the repo's creation date): a collection doc without a date gets the build time, which jekyll-seo-tag then publishes as `datePublished` on every deploy. Never today's date — the UTC build skips future-dated docs, so a same-day KST date silently drops the project. If `demo_url` is on `zeikar.dev`, it auto-joins the sitemap — don't also list it in `extra_sitemap_urls`.
 
 ### Motion is page-scoped scripts
 

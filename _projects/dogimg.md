@@ -7,7 +7,6 @@ tech_stack: ["Next.js", "next/og", "Node.js", "undici", "TypeScript", "Tailwind 
 github_url: "https://github.com/zeikar/dogimg"
 demo_url: "https://dogimg.vercel.app"
 image: "/assets/images/projects/dogimg.png"
-sequence: 6
 gadget_no: 4
 date: 2023-01-22
 ---

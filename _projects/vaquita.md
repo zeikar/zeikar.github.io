@@ -8,7 +8,6 @@ github_url: "https://github.com/zeikar/vaquita"
 demo_url: "https://github.com/zeikar/vaquita/releases/latest"
 demo_label: "Download for macOS"
 image: "/assets/images/projects/vaquita.png"
-sequence: 5
 gadget_no: 27
 date: 2026-10-21
 ---

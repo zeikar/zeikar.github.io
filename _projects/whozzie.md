@@ -7,7 +7,6 @@ tech_stack: ["Next.js", "three.js", "React Three Fiber", "Rapier", "next-intl", 
 github_url: "https://github.com/zeikar/whozzie"
 demo_url: "https://whozzie.vercel.app"
 image: "/assets/images/projects/whozzie.png"
-sequence: 25
 gadget_no: 9
 date: 2025-04-22
 ---

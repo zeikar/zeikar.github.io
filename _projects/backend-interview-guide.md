@@ -7,7 +7,6 @@ tech_stack: ["Codex", "Claude Code", "Agent Harness", "Markdown", "Python", "Git
 github_url: "https://github.com/zeikar/backend-interview-guide"
 demo_url: "https://zeikar.dev/backend-interview-guide/"
 image: "/assets/images/projects/backend-interview-guide.png"
-sequence: 23
 gadget_no: 6
 date: 2024-09-01
 ---

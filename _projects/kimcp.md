@@ -6,7 +6,6 @@ tagline: "MCP Server for Naver, Kakao & TMAP APIs"
 tech_stack: ["Python", "MCP Python SDK", "uv", "HTTPX", "Korean Open APIs"]
 github_url: "https://github.com/zeikar/kimcp"
 image: "/assets/images/projects/kimcp.png"
-sequence: 24
 gadget_no: 8
 date: 2025-04-02
 ---

@@ -7,7 +7,6 @@ tech_stack: ["Next.js", "React", "TypeScript", "Zustand", "react-player", "Tailw
 github_url: "https://github.com/zeikar/captiony"
 demo_url: "https://captiony.vercel.app"
 image: "/assets/images/projects/captiony.png"
-sequence: 21
 gadget_no: 11
 date: 2025-07-29
 ---
