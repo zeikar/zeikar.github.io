@@ -26,7 +26,7 @@ YT Music never says which like backs an entry; its feedback tokens are opaque. W
 
 ## Three writes, each checked against the whole list
 
-`sync` makes three kinds of change, all on YouTube. A *repoint* likes the playable track, confirms the rating, then unlikes the dead original and confirms again. An *unlike shadow* removes the extra like that made a song appear twice. After each one it re-reads the entire Liked songs list: a repoint must leave it unchanged, an unlike must remove exactly one copy. If the list doesn't match, it reads again 15 seconds later, then re-likes the original, undoes any like it added, and stops the run, because a mismatch means the alignment itself may be wrong. Every write is recorded in SQLite as it happens, so an interrupted run still shows what it left behind.
+`sync` makes three kinds of change, all on YouTube. A *repoint* likes the playable track, confirms the rating, then unlikes the dead original and confirms again. An *unlike shadow* removes the extra like that made a song appear twice. Both leave a like on a video that still plays alone unless `--include-playable` is passed. After each one it re-reads the entire Liked songs list: a repoint must leave it unchanged, an unlike must remove exactly one copy. If the list doesn't match, it reads again 15 seconds later, then re-likes the original, undoes any like it added, and stops the run, because a mismatch means the alignment itself may be wrong. Every write is recorded in SQLite as it happens, so an interrupted run still shows what it left behind.
 
 The third, added in 0.12, is opt-in. A *relike* unlikes and re-likes a video that looks like music but that YT Music never shows, which gives YT Music another chance to list it. A re-like moves the video to the top of both lists, so it works oldest first. Its check expects nothing removed and at most one entry added; anything else stops the run. I tried it by hand before building it: of 26 such videos, 18 showed up in Liked songs and nothing else moved.
 
@@ -34,6 +34,6 @@ It never presses YT Music's own like button. That button sets the same rating as
 
 ## What stays manual
 
-Likes on unavailable videos that YT Music doesn't show at all are reported, not removed: a region block can lift, and an unlike would lose the like for good. Deleted videos have a quirk of their own. The YouTube Data API returns 404 when you try to unlike one, while YT Music's rating call still removes it, so the README documents that path for cleaning up by hand.
+Likes on unavailable videos that YT Music doesn't show at all are reported, not removed: a region block can lift, and an unlike would lose the like for good. Deleted videos have a quirk of their own. The YouTube Data API returns 404 when you try to unlike one, while YT Music's rating call still removes it, so the README documents that path for cleaning up by hand. Some likes never reach a scan at all: an old like, mostly on a video marked made for kids, can stay in Liked videos while the API leaves it out, so `scan youtube-likes` warns when YouTube's own count is higher than what it read.
 
 The 0.11 redesign went through [hyperclaude](/projects/hyperclaude/), with Codex reviewing the diff over six rounds before it merged. After the cleanup, every one of the 1,172 songs in my Liked songs is backed by its own YouTube like.
