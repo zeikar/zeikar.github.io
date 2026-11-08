@@ -11,7 +11,11 @@ gadget_no: 26
 date: 2026-10-08
 ---
 
-pianoize turns a song into a piano arrangement for two hands and plays it as falling notes, Synthesia style, with the right hand in green and the left in blue. Give it a YouTube link or an audio file and it transcribes the song on your own machine: the band with a track per instrument, the sung melody, and a generated piano cover. Claude writes the arrangement bar by bar as a plain-text score; pianoize builds it into MIDI, checks it, and renders audio and a 1920×1080, 60 fps video. It's a Claude Code plugin and a Python CLI, and the recording never leaves your computer. The [viewer](https://zeikar.dev/pianoize/) plays a finished arrangement in the browser, and the videos are made for [pianoize's YouTube channel](https://www.youtube.com/@pianoizemusic).
+pianoize turns a song into a piano arrangement for two hands and plays it as falling notes, Synthesia style, with the right hand in green and the left in blue. Give it a YouTube link or an audio file and it transcribes the song on your own machine: the band with a track per instrument, the sung melody, and a generated piano cover. Claude writes the arrangement bar by bar as a plain-text score; pianoize builds it into MIDI, checks it, and renders audio and a 1920×1080, 60 fps video. It's a Claude Code plugin and a Python CLI, and the recording never leaves your computer. The [viewer](https://zeikar.dev/pianoize/) plays a finished arrangement in the browser, and the videos are made for [pianoize's YouTube channel](https://www.youtube.com/@pianoizemusic). This one is Ereve (Raindrop Flower) from the MapleStory soundtrack:
+
+<figure class="project-image">
+  <iframe src="https://www.youtube-nocookie.com/embed/eLgVMrafvJQ" title="Ereve (Raindrop Flower), MapleStory OST: piano arrangement by pianoize" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
+</figure>
 
 ## Why Claude writes the score
 

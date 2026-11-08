@@ -357,6 +357,13 @@
   width: 100%;
 }
 
+.project-image iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
+
 .project-content {
   margin-top: 2.5rem;
   font-size: 1.05rem;
