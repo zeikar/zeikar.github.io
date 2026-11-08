@@ -139,6 +139,19 @@ redirect_from:
         </article>
 
         <article class="resume-project">
+          <h3><a href="{{ '/projects/riroa/' | relative_url }}">Riroa</a></h3>
+          <p>
+            riroa.app에서 운영 중인 AI 캐릭터 플랫폼으로, 2025년부터 혼자 개발하고 있습니다. 채팅과 분기형 스토리에 더해, 모델을 한 번 호출해 등장인물 전원의 하루를 쓰는 세계관 속 SNS인 Live가 있습니다.
+            Live는 2주 분량 시뮬레이션을 블라인드 LLM 심사로 채점하고 튜닝에 쓰지 않은 시나리오로 과적합 여부를 확인하며 개선했습니다. 관계나 약속처럼 이어져야 하는 정보는 서버가 관리하는 상태로 옮겼고, 프롬프트 캐싱으로 턴 비용을 약 60% 줄였습니다.
+          </p>
+          <div class="project-tags">
+            <span>Next.js</span>
+            <span>Vercel AI SDK</span>
+            <span>LLM Evaluation</span>
+          </div>
+        </article>
+
+        <article class="resume-project">
           <h3><a href="{{ '/projects/hyperclaude/' | relative_url }}">hyperclaude</a></h3>
           <p>
             다른 개인 프로젝트 개발에도 쓰는 Claude Code 플러그인으로, Claude가 구현하고 Codex가 읽기 전용으로 리뷰하는 과정을 블로킹 이슈가 남지 않을 때까지 반복합니다.
@@ -187,19 +200,6 @@ redirect_from:
             <span>Chrome Extension</span>
             <span>Next.js</span>
             <span>Firebase</span>
-          </div>
-        </article>
-
-        <article class="resume-project">
-          <h3><a href="{{ '/projects/riroa/' | relative_url }}">Riroa</a></h3>
-          <p>
-            캐릭터와 세계관을 만들어 1:1 채팅, 그룹 채팅, 분기형 인터랙티브 스토리, 세계관 속 SNS인 Live를 즐길 수 있는 AI 캐릭터 플랫폼이며, 풀스택으로 개발했습니다.
-            Live는 모델 호출 한 번으로 등장인물 전원의 하루를 씁니다. 메시지를 수정하거나 답변을 다시 생성해도 이전 버전이 분기로 남고, 유료 턴은 멱등 크레딧 원장으로 먼저 차감하고, 실패한 턴은 사유별로 환불합니다.
-          </p>
-          <div class="project-tags">
-            <span>Next.js</span>
-            <span>Firebase</span>
-            <span>Vercel AI SDK</span>
           </div>
         </article>
       </div>

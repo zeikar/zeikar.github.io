@@ -139,6 +139,21 @@ redirect_from:
         </article>
 
         <article class="resume-project">
+          <h3><a href="{{ '/projects/riroa/' | relative_url }}">Riroa</a></h3>
+          <p>
+            AI character platform live at riroa.app, built solo since 2025: chat, branching stories, and Live, an
+            in-world social feed where one model call writes each day for the whole cast. Tuned Live on two-week
+            simulations scored by blind LLM judges, with a held-out scenario to catch overfitting; moved continuity
+            into server-held ledgers and cut turn cost about 60% with prompt caching.
+          </p>
+          <div class="project-tags">
+            <span>Next.js</span>
+            <span>Vercel AI SDK</span>
+            <span>LLM Evaluation</span>
+          </div>
+        </article>
+
+        <article class="resume-project">
           <h3><a href="{{ '/projects/hyperclaude/' | relative_url }}">hyperclaude</a></h3>
           <p>
             Claude Code plugin where Claude builds and Codex reviews read-only, looping until no blocking findings
@@ -191,21 +206,6 @@ redirect_from:
             <span>Chrome Extension</span>
             <span>Next.js</span>
             <span>Firebase</span>
-          </div>
-        </article>
-
-        <article class="resume-project">
-          <h3><a href="{{ '/projects/riroa/' | relative_url }}">Riroa</a></h3>
-          <p>
-            Full-stack AI character platform with one-on-one and group chat, branching interactive stories, and Live,
-            an in-world social feed where one model call writes each day for the whole cast. Edited messages and
-            regenerated replies keep earlier versions as branches, and paid turns run on an idempotent credit ledger
-            that charges up front and refunds failed turns by reason.
-          </p>
-          <div class="project-tags">
-            <span>Next.js</span>
-            <span>Firebase</span>
-            <span>Vercel AI SDK</span>
           </div>
         </article>
       </div>
