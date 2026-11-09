@@ -1,7 +1,7 @@
 ---
 layout: project
 title: "Riroa"
-description: "AI character platform: build characters and worlds, chat one-on-one or in groups, play branching stories, and step into Live, a social feed the characters keep going day by day. In English and Korean."
+description: "AI character platform: assemble a cast and run the world it lives in. Live is a social feed the characters keep going day by day, with one-on-one and group chat and branching stories beside it, in any language."
 tagline: "AI Character Chat and Story Platform"
 tech_stack: ["Next.js", "Vercel AI SDK", "OpenAI", "Anthropic", "Firebase", "TypeScript", "React", "next-intl", "TanStack Query", "Playwright"]
 demo_url: "https://riroa.app"
@@ -11,7 +11,7 @@ gadget_no: 10
 date: 2025-03-30
 ---
 
-Riroa (리로아) is a web app for writing AI characters and then spending time with them. You give a character a persona, a voice and a world to live in, then talk to it, put it in a room with other characters, start a story with it, or join its world's social feed. Around that sit the parts a real product needs: accounts, a credit balance, a community, and ways to find other people's characters. It began in March 2025 as Charaloom and moved to [riroa.app](https://riroa.app) under its new name in October 2026.
+Riroa (리로아) is a web app for assembling a cast of AI characters and running the world they live in. You give each character a persona, a voice and a place in that world, then open Live, the social feed where the whole cast moves at once, or go deeper in a one-on-one chat, a group room or a story. Around that sit the parts a real product needs: accounts, a credit balance, a community, and ways to find other people's characters. It began in March 2025 as Charaloom and moved to [riroa.app](https://riroa.app) under its new name in October 2026.
 
 ## Live: a feed the characters keep going
 
@@ -31,6 +31,8 @@ Reading a few feeds can't tell whether a prompt change helped, so Live has a har
 - **Rules don't pile up.** A test caps the length of the author's system prompt, so a new rule has to replace one or justify the growth. Moving a single obligation out of the system prompt into a section heading meant the character left waiting stopped reacting to the broken promise in two of three runs, so it went back.
 - **A model has to pass a check before it becomes the default.** The Live default is pinned instead of following chat's. High effort was dropped after a tester nearly quit over the wait: on the model then in use it took 48 to 67 seconds a day, with no consistent gain in quality.
 
+Chat has a harness too. `npm run chat:check` runs one-on-one and group rooms built from production characters against a simulated user, and it settled how group turns are written: one call writing every speaker's lines gave shorter turns at about the same cost, but blind judges ranked it last 7 times of 10, so each character keeps its own call.
+
 ## Charged first, refunded once
 
 Credits are called Sparks: a signup bonus, a daily login bonus, and a price per turn that depends on the model, with a Live day at twice the price. Replies come from OpenAI and Anthropic models through the Vercel AI SDK. Every turn is charged before anything is saved or streamed. Each balance change is a ledger entry with a deterministic id, so a retried charge or refund can't apply twice, and each refund records why. In one-on-one chat, a reply that didn't finish cleanly is never saved, even if text already streamed.
@@ -46,10 +48,12 @@ A Live day is the hardest case: it takes from ten seconds to most of a minute to
 
 Messages form a tree, and the visible thread is rebuilt by walking back from its tip. Editing a message or regenerating a reply adds a sibling, and the old version stays as a branch to switch back to. Group rooms hold two to eight characters: on each turn a director call picks up to three of them to answer, and the whole turn is stored as one message, so a group room uses the same tree. Transcript lines are labelled with system tokens instead of display names, so a character can't pose as another speaker by its name. A one-on-one chat, a group room or a Live can also take one of your characters as your persona, and the relationships written between it and the others carry into the prompt.
 
+A one-on-one message can carry an image, which the model reads as part of the scene. It stays private: the file has no public URL, the server hands its bytes to the provider itself, and sharing a chat asks before its images go public. An image the provider rejects outright is marked and left out of later turns.
+
 Stories are turn-based interactive fiction seeded by a character or a world, on the same tree: regenerating a scene adds a sibling. A style preset or a short prompt of your own sets the prose, but style gives way to canon when they conflict. Once more than four scenes or about 12,000 characters pile up, older scenes fold into a continuity summary and the latest two stay word for word. A two-call engine, a scene director plus a writer, is built but stays off: it ships only when it beats the single call on most fixtures in a judge harness without more continuity errors, and it hasn't yet. Stories can be published to a public gallery, and chats shared as read-only links.
 
 ## Everything around it, with no scheduler
 
 The app runs on Vercel and Firebase with no cron jobs or Cloud Functions, so work that would usually run in the background happens inline, on the request that needs it. Trending is the clearest case: each character keeps a weekly bucket and an activity count, and the ranking orders by bucket first, so a character nobody has played lately sinks on its own. Every generated turn counts, in chat, group rooms, stories and Live. Ratings add a bonus capped at 0.8, so one more turn always outweighs it, and a creator's turns with their own characters don't count.
 
-Firestore and Storage rules deny every client, so every read, write and upload goes through the server. The app has English and Korean routes throughout, with a community board per language. Vitest covers it in about 440 test files, and Playwright end-to-end tests run against the Firebase emulators with a mock model.
+Firestore and Storage rules deny every client, so every read, write and upload goes through the server. The interface has English and Korean routes throughout, with a community board per language. Characters and worlds store their own content language, one of 16 or a named other. Stories and Live write in it unless a session picks another, and chat follows the language the user writes in. Vitest covers the app in over 450 test files, and Playwright end-to-end tests run against the Firebase emulators with a mock model.
