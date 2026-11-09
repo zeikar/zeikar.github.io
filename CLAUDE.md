@@ -27,6 +27,7 @@ A project's explicit `image:` is therefore also its `og:image`, so keep it PNG (
 - WebSite JSON-LD with `alternateName` — homepage only (gated on `page.url == '/'`)
 - Person JSON-LD with `sameAs` — `/about/` only
 - `<link rel="alternate" hreflang>` (en / ko / x-default) — for any page with `translations:` in front matter
+- `<meta name="robots" content="noindex">` — for any page with `noindex: true` (both resumes, which also stay out of the sitemap). Never block such a page in `robots.txt`, or crawlers can't read the tag
 - `<title>` as `title — tagline` instead of `title | site` — for any page with `tagline:` (every project). `og:title` stays the bare title, since link previews show the description under it
 
 When debugging Google/social cards, check the layout AND [_plugins/og_image.rb](_plugins/og_image.rb) before `_config.yml`.

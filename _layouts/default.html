@@ -25,6 +25,7 @@
     {% else %}
     {% seo %}
     {% endif %}
+    {% if page.noindex %}<meta name="robots" content="noindex" />{% endif %}
 
     {% comment %}
       RSS auto-discovery. jekyll-feed builds /feed.xml but doesn't inject the
