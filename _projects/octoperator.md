@@ -12,7 +12,7 @@ date: 2026-06-23
 
 Octoperator lets Claude Code work through GitHub on its own. `/octoperator:auto 42` takes issue #42 from a branch to a merge: code and tests, a pull request that closes the issue, a structured review posted to it, fixes for what the review found, and a regular merge commit. `/octoperator:autopilot` repeats that over the backlog and, once nothing is left, proposes what to build next. Every step is an issue, a branch, a PR or a review, so the trail from request to merge sits in GitHub rather than in a chat transcript. It drives the `gh` CLI with your own login: no server, no stored token, no GitHub App. A Projects v2 board is optional and detected at setup.
 
-Octoperator is also built with itself. Most of its 55 merged PRs carry a review it wrote itself, posted as a comment with the verdict on top, because GitHub doesn't let authors approve their own pull requests.
+Octoperator is also built with itself. Most of its 55 merged PRs carry a review it wrote itself, posted as a comment with the verdict on top, because GitHub doesn't let authors approve their own pull requests. And it built [Elsewhere](/projects/elsewhere/), a space screensaver for the browser, from an empty repo to what's live today in 35 merged PRs over about two days.
 
 ## A merge has to get through a gate
 
