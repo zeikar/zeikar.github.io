@@ -2,7 +2,7 @@
 title: "A Claude Code Harness for Redesigning a Web App's UI"
 subtitle: "Riroa's screens looked AI-made, so I redid them over three days. Three review agents asked different questions about the same comment box, and all put the same fix first."
 date: 2026-11-18
-unit: riroa
+unit: [riroa, dotfiles]
 lang: en
 translations:
   ko: /blog/ko/claude-code-ui-redesign-harness/
@@ -29,7 +29,7 @@ Things the data doesn't have go on the same list. The model respects what the li
 
 ### With or without a screenshot
 
-Attaching a screenshot of the current screen with `-i` changes the result a lot. For the board I asked for lots of mockups with and without the screenshot ("codex image는 비용걱정말고 쓰면돼", don't worry about the cost), and from the same list of screens came 8 with the screenshot attached and 6 with only a written direction.
+Attaching a screenshot of the current screen with `-i` changes the result a lot. For the board I asked for plenty of mockups both with and without the screenshot, cost no object. From the same list of screens came 8 with the screenshot attached and 6 with only a written direction.
 
 ![Two mockups from the same board post request. On the left, with the current screen attached, the navigation and fonts match the real app. On the right, with only a written direction, the top bar and button labels differ from the app.](/assets/images/blog/riroa-ui-mockups.webp)
 
@@ -42,7 +42,7 @@ I didn't have to pick one. The board list and the mobile screens came from scree
 
 ### Mockups are references
 
-The detail pages started from a few directions. When I pointed out that character images are portrait and world images are landscape, the two pages got separate skeletons: the character page is a magazine spread with the portrait filling the left side top to bottom, and the world page opens with its landscape cover across the full page width. Claude's case for it was that the skeletons differ but still read as one app. Before that I had asked for more mockups that ignored consistency, ended up with too many, and finally said "와 못고르겠는데 ㅋㅋㅋ 일단 너의 추천대로 해줘" (wow, I can't pick, just go with your recommendation). The one thing I insisted on was a ">" on the Start button, so it reads as something that opens.
+The detail pages started from a few directions. When I pointed out that character images are portrait and world images are landscape, the two pages got separate skeletons: the character page is a magazine spread with the portrait filling the left side top to bottom, and the world page opens with its landscape cover across the full page width. Claude's case for it was that the skeletons differ but still read as one app. Before that I had asked for more mockups that ignored consistency, ended up with too many to choose from, and told Claude to go with its recommendation. The one thing I insisted on was a ">" on the Start button, so it reads as something that opens.
 
 ![Three views of the character detail page. Left, before: separate boxes for the name, the image and the introduction. Middle, the Codex mockup: a portrait fills the left, with the name and Start button on the right. Right, the build: it follows the mockup's skeleton with the real character image and data.](/assets/images/blog/riroa-ui-detail.webp)
 
