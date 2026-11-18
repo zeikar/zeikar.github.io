@@ -7,7 +7,7 @@ last_modified_at: 2026-11-18
 lang: en
 translations:
   ko: /blog/ko/revise-loop-protocol/
-description: "Five ways the lead in hyperclaude's plan-loop and implement-loop misread its teammate: an invisible plain-text reply, stale replies piling up during Codex review, idle notifications arriving one round late, the turn-start timestamp trap, and two phases that must not be merged."
+description: "Five ways the lead in hyperclaude's plan-loop and implement-loop misread its teammate, from an invisible plain-text reply to a turn-start timestamp trap."
 ---
 
 > **Update (2026-08-18):** Most of this protocol no longer exists. Measuring why these loops were so expensive turned up an upstream bug: passing `name` to the Agent tool silently drops a plugin agent's definition, and the same parameter makes the agent a team member, which is what opens the mailbox. Every race below happened in that mailbox. Dropping `name` took the shared protocol from 192 lines to 39. The failures below were real, but the cause was that parameter, not the loop design. → [Why Naming a Claude Code Plugin Agent Rewrites Its Cache Every Round](/blog/protocol-working-around-a-bug/)

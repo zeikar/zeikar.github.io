@@ -7,7 +7,7 @@ last_modified_at: 2026-11-18
 lang: en
 translations:
   ko: /blog/ko/protocol-working-around-a-bug/
-description: "Passing name: to the Agent tool drops a plugin agent's definition, and a skill listing re-attached every round breaks the prompt cache. How 434 transcripts found it, and the two cache-TTL fixes that measurement talked me out of."
+description: "Passing name: to the Agent tool drops a plugin agent's definition, and a re-attached skill listing breaks the prompt cache. How 434 transcripts found both."
 ---
 
 Three months ago I wrote up [five message races from hyperclaude's review loops](/blog/revise-loop-protocol/) and the protocol I built to stop them. As first published, that post ended on a general claim:

@@ -6,7 +6,7 @@ unit: like-surgeon
 lang: en
 translations:
   ko: /blog/ko/liked-but-not-on-the-artist-page/
-description: "Why a song you liked shows up without a like in a YouTube Music artist's Top songs, and how like-surgeon 0.13.0's canonicalize finds the same recording in the artist's song list, moves the like there, and clears same-song duplicate likes."
+description: "Why a liked song shows without a like in a YouTube Music artist's Top songs, and how like-surgeon 0.13.0's canonicalize moves the like and clears duplicates."
 ---
 
 I opened Poppin'Party's artist page on YouTube Music, and the #1 track in Top songs, キズナミュージック♪ (Kizuna Music♪), had no like on it. I had liked that song. It was right there in my Liked songs.

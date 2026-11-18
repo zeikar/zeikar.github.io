@@ -5,7 +5,7 @@ date: 2026-11-14
 unit: repozine
 translations:
   en: /blog/pagefind-korean-search/
-description: "Pagefind는 단어의 앞부분만 매칭해서 시간복잡도 같은 한국어 복합어 안의 검색어를 찾지 못한다. 직접 재현해 본 결과, 그리고 빌드 때 만든 search.json으로 단어 중간까지 찾게 바꾸면서 정한 순위 규칙과 한글 조합 중 검색 처리를 정리했다."
+description: "Pagefind는 단어의 앞부분만 매칭해 시간복잡도 같은 한국어 복합어 안의 검색어를 찾지 못한다. 재현해 본 결과와 빌드 때 만든 search.json으로 바꾼 과정."
 ---
 
 [repozine](/projects/repozine/)은 GitHub Discussions에 쓴 글을 Astro 블로그로 만들어 준다. repozine으로 만든 사이트 중 제일 큰 곳이 [zeikar.dev/leetcode](https://zeikar.dev/leetcode/)다. 2021년부터 쓴 LeetCode 풀이 노트 165개가 올라가 있다. 9월 14일에 검색을 붙였다. 정적 사이트 검색이라면 보통 Pagefind를 쓰니까 나도 그렇게 했다. 빌드가 끝나면 `pagefind --site dist`가 결과물을 읽어 인덱스를 만들고, 브라우저는 필요한 조각만 받아서 검색한다.

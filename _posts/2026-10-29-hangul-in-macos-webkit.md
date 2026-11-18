@@ -6,7 +6,7 @@ unit: vaquita
 lang: en
 translations:
   ko: /blog/ko/hangul-in-macos-webkit/
-description: "Why Korean (Hangul) typed into xterm.js in a Tauri (WKWebView) app keeps only the first consonant of most syllables, and why the Monaco editor's line shakes: macOS WebKit sends insertReplacementText instead of composition events. How vaquita fixes both."
+description: "Why Korean typed into xterm.js in a Tauri (WKWebView) app keeps only the first consonant, and Monaco's line shakes: macOS WebKit sends insertReplacementText."
 ---
 
 I'm building [vaquita](/projects/vaquita/), a macOS app for running coding agents like Claude Code and Codex across several terminals. It's built with Tauri, so the system WebKit (WKWebView) draws the window. The terminals are xterm.js and the file editor is Monaco.

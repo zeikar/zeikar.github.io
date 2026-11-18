@@ -6,7 +6,7 @@ unit: riroa
 lang: en
 translations:
   ko: /blog/ko/the-ledger-did-the-work/
-description: "How I improved Riroa Live's author prompt: 14-day simulations scored with LLM-as-a-judge, relationship, promise and storyline ledgers kept on the server, and a held-out scenario to catch overfitting."
+description: "How I improved Riroa Live's author prompt: 14-day LLM-judged simulations, server-side relationship, promise and storyline ledgers, and a held-out scenario."
 ---
 
 [Riroa](/projects/riroa/)'s Live mode takes a world and a few of its characters and runs the social network they post on, one day at a time. The player posts, comments and DMs in it. Each time the day turns over, one LLM call writes that evening's reactions and all of the next day's posts. The model is Claude Sonnet 5.5, and the output is a single structured JSON object.

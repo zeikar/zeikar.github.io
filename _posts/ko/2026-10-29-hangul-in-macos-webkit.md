@@ -5,7 +5,7 @@ date: 2026-10-29
 unit: vaquita
 translations:
   en: /blog/hangul-in-macos-webkit/
-description: "Tauri(WKWebView) 앱의 xterm.js에 한글을 치면 첫 자음만 입력되고, Monaco 편집기에서는 줄이 흔들린다. macOS WebKit이 composition 이벤트 대신 insertReplacementText를 보내서 생기는 문제이고, vaquita에서는 둘을 다르게 고쳤다."
+description: "Tauri(WKWebView) 앱의 xterm.js에 한글을 치면 첫 자음만 입력되고 Monaco 줄이 흔들리는 이유: macOS WebKit이 insertReplacementText를 보낸다."
 ---
 
 요즘 [vaquita](/projects/vaquita/)라는 macOS 앱을 만들고 있다. Claude Code나 Codex 같은 코딩 에이전트를 터미널 여러 개에 띄워 두고 쓰는 앱이다. Tauri로 만들어서 화면은 시스템 WebKit(WKWebView)이 그리고, 터미널은 xterm.js, 파일 편집기는 Monaco를 쓴다.

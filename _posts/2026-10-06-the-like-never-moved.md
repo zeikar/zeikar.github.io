@@ -7,7 +7,7 @@ last_modified_at: 2026-11-18
 lang: en
 translations:
   ko: /blog/ko/the-like-never-moved/
-description: "YouTube Music's Liked songs is an in-order rendering of your YouTube Liked videos. How like-surgeon lines the two lists up by position to find the like behind each song, and fixes relinked and duplicate likes safely."
+description: "How like-surgeon matches YouTube Music's Liked songs to YouTube Liked videos by position and safely fixes relinked and duplicate likes."
 ---
 
 [like-surgeon](/projects/like-surgeon/) is a command-line tool for a YouTube Music library that has quietly gone wrong: liked songs that stopped playing, songs that turned into a different release, songs listed twice. It scans your YouTube likes and your YT Music Liked songs into SQLite, works out which YouTube like is behind every song, and fixes the ones it can prove. At first, though, I had it wrong about where a YT Music like even lives.

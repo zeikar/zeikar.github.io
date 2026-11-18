@@ -6,7 +6,7 @@ unit: hyperclaude
 lang: en
 translations:
   ko: /blog/ko/codex-sub-agent-spawns/
-description: "Codex review sessions spawned forked sub-agents because a shared AGENTS.md asked for delegation. Measured from Codex rollout logs: what the forks cost, why features.multi_agent=false didn't stop them, and the fix at the cause."
+description: "Codex review sessions forked sub-agents because a shared AGENTS.md asked for delegation. Their cost, and why features.multi_agent=false didn't stop them."
 ---
 
 [hyperclaude](/projects/hyperclaude/) splits a coding task between two agents: Claude Code plans and writes, and Codex reviews, read-only. Every Codex call goes through one bridge script, and each review lands as a Markdown file with Codex's token counts in its front matter.

@@ -8,7 +8,7 @@ lang: en
 translations:
   ko: /blog/ko/the-model-already-knew/
 redirect_from: /blog/the-model-heard-it-my-code-threw-it-away/
-description: "Three bugs in chordotomy: a label table that flattened 7sus4 to sus4, a bass output computed and never read, and beat tracking that cost the model accuracy. Each time, the model already knew."
+description: "Three bugs in chordotomy: a label table flattening 7sus4 to sus4, a bass output computed but never read, and beat tracking that cost accuracy."
 ---
 
 [chordotomy](/projects/chordotomy/) listens to a recording and writes out its chords, beat by beat. The hearing is done by lv-chordia, a pretrained chord model. My code turns its output into a timeline you can read. How its accuracy went from 0.52 to 0.90 is [a separate post](/blog/from-0-52-to-0-90/).

@@ -6,7 +6,7 @@ unit: commentarium
 last_modified_at: 2026-11-18
 translations:
   en: /blog/from-chrome-cookies-to-chips/
-description: "서드파티 쿠키 차단 환경에서 Chrome 확장 프로그램의 iframe을 로그인시키는 법: chrome.cookies로 파티션 쿠키를 쓸 때의 권한 문제와, 서버가 CHIPS(Partitioned) 쿠키를 내려주는 해결책."
+description: "서드파티 쿠키 차단 환경에서 Chrome 확장 프로그램의 iframe을 로그인시키는 법: 파티션 쿠키 쓰기 권한 문제와 CHIPS 쿠키 해결책."
 ---
 
 [Commentarium](https://commentarium.app)은 아무 URL에나 댓글을 달 수 있는 웹앱이다. [Chrome 확장 프로그램](https://github.com/zeikar/commentarium-extension)은 콘텐츠 스크립트로 모든 페이지에 댓글 패널을 붙이고, 그 안에 `commentarium.app/comments?url=…` iframe을 띄운다. 그러니 iframe은 아무 사이트에나 박힌 `commentarium.app` 페이지, 전형적인 서드파티 컨텍스트다.

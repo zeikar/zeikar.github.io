@@ -6,7 +6,7 @@ unit: yugioh-wc2008-rating-lab
 last_modified_at: 2026-11-18
 translations:
   en: /blog/the-cpus-werent-rigged-my-emulator-was/
-description: "유희왕 월드 챔피언십 2008의 CPU 레이팅 공식 floor(160 / (1 + 10^(gap / 1000)))를 찾아내고, melonDS DS를 headless로 돌려 얻은 듀얼 9,600판으로 검증한 과정. 도중에 멈춰 있던 rand() 상태가 토너먼트 대진에 가짜 패턴을 만들기도 했다."
+description: "유희왕 월드 챔피언십 2008의 CPU 레이팅 공식 floor(160 / (1 + 10^(gap / 1000)))를 찾아 melonDS로 돌린 듀얼 9,600판으로 검증한 과정."
 ---
 
 닌텐도 DS의 *유희왕 월드 챔피언십 2008*에는 CPU 듀얼리스트가 78명 있고, 모두 레이팅이 하나씩 있다. 상대 카드에 작은 노란 삼각형과 함께 찍혀 있는 숫자다. 내가 찾은 커뮤니티 표들은 전부 듀얼리스트마다 숫자 하나, 그러니까 새 세이브의 값만 적어 두었다. 이 숫자가 움직인다는 얘기는 어디에도 없었다.
@@ -107,4 +107,4 @@ class Rand:
 
 승패는 레이팅보다 덱이 더 많이 가른다. 승률은 Marcel Bonaparte의 6.8%(44판), Stray Lambs의 7.2%(180판)부터 Jaden Yuki의 72%(332판)까지 벌어지고, 시작 레이팅과의 상관계수는 0.36밖에 안 된다. Manju의 의식 덱은 풀리면 강하지만 말리면 끝이다. 레이팅은 지금까지 누가 누구를 이겼는지 쌓아 온 점수일 뿐이다.
 
-앱은 지금도 이 공식으로 레이팅을 계산하지 않고, 게임이 보여주는 값을 그대로 기록한다. 토너먼트 1,600개 전부는 [Research 페이지](https://zeikar.dev/yugioh-wc2008-rating-lab/research/research)에서 누구나 확인할 수 있다. 노트, 하네스, 추첨 재현 코드는 [저장소](https://github.com/zeikar/yugioh-wc2008-rating-lab)에 있다. 확인한 건 한국판(`YG8K`)뿐이고, 다른 판은 주소가 다르다.
+앱은 지금도 이 공식으로 레이팅을 계산하지 않고, 게임이 보여주는 값을 그대로 기록한다. 토너먼트 1,600개 전부는 [앱](https://zeikar.dev/yugioh-wc2008-rating-lab/)의 Research 페이지에서 누구나 확인할 수 있다. 노트, 하네스, 추첨 재현 코드는 [저장소](https://github.com/zeikar/yugioh-wc2008-rating-lab)에 있다. 확인한 건 한국판(`YG8K`)뿐이고, 다른 판은 주소가 다르다.

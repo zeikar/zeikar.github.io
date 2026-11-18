@@ -6,7 +6,7 @@ unit: commentarium
 last_modified_at: 2026-11-18
 translations:
   en: /blog/from-getauthtoken-to-launchwebauthflow/
-description: "chrome.identity.getAuthToken이 로그인 취소 콜백을 떨궈 서비스 워커가 멈출 때: keepalive와 timeout이 Chrome의 5분 제한과 부딪힌 이유와, launchWebAuthFlow로 옮기며 바꾼 코드와 OAuth client 설정."
+description: "chrome.identity.getAuthToken이 로그인 취소 콜백을 떨궈 서비스 워커가 멈출 때: keepalive가 5분 제한과 부딪힌 이유와 launchWebAuthFlow로 옮긴 과정."
 ---
 
 [Commentarium](https://commentarium.app) 확장 프로그램은 모든 페이지에 댓글 iframe을 띄우고, 로그인은 서비스 워커가 대신 처리한다. 구조는 [지난 글](/blog/ko/from-chrome-cookies-to-chips/)에 적었다. iframe이 `chrome.runtime.sendMessage`로 "Google 로그인"을 요청하면, 서비스 워커는 원래 이렇게 Firebase에 로그인했다.

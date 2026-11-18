@@ -6,7 +6,7 @@ unit: backend-interview-guide
 last_modified_at: 2026-11-18
 translations:
   en: /blog/three-agents-one-document/
-description: "Claude Code 멀티 에이전트 문서 파이프라인: backend-interview-guide의 writer/reviewer 분리, 파싱 가능한 Output Contract, self-verification이 못 잡는 걸 잡는 hook."
+description: "backend-interview-guide의 멀티 에이전트 문서 파이프라인: writer/reviewer 분리, Output Contract, 검증이 못 잡는 걸 잡는 hook."
 ---
 
 [backend-interview-guide](https://github.com/zeikar/backend-interview-guide)는 database, cloud, system-design, programming 네 카테고리에 문서 69개가 있는 한국어 백엔드 면접 레퍼런스다. 2024년에 쓴 문서 18개로 시작했고, 2026년 4월에 Claude Code 하네스부터 만든 다음 닷새 동안 기존 문서를 다시 쓰고 나머지를 채웠다. `.claude/` 세팅은 작다. 에이전트 정의 3개, 스킬 4개(오케스트레이터 `interview-guide`와 에이전트별 하나씩), hook 하나. 조각마다 막으려는 실패가 하나씩 있다.

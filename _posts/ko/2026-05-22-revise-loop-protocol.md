@@ -6,7 +6,7 @@ unit: hyperclaude
 last_modified_at: 2026-11-18
 translations:
   en: /blog/revise-loop-protocol/
-description: "hyperclaude의 plan-loop와 implement-loop에서 lead가 teammate 메시지를 잘못 받은 다섯 경우: 안 보이는 plain-text 답장, Codex 리뷰 중에 쌓인 stale 답장, 한 라운드씩 밀리는 idle 알림, turn 시작 시각의 함정, 합치면 안 되는 두 phase."
+description: "hyperclaude의 plan-loop와 implement-loop에서 lead가 teammate 메시지를 잘못 받은 다섯 경우: plain-text 답장, stale 답장, idle 알림 등."
 ---
 
 > **업데이트 (2026-08-18):** 이 프로토콜은 이제 거의 다 걷어냈다. 이 루프가 왜 그렇게 비싼지 측정하다가 업스트림 버그를 찾았다. Agent 툴에 `name`을 넘기면 플러그인 에이전트의 정의가 조용히 버려지는데, 같은 파라미터가 에이전트를 팀 멤버로 만들어 메일박스도 연다. 아래 race는 전부 그 메일박스에서 일어났다. `name`을 빼니 공유 프로토콜이 192줄에서 39줄이 됐다. 아래 실패는 전부 실제로 겪은 것이지만, 원인은 루프 설계가 아니라 그 파라미터에 있었다. → [Claude Code 플러그인 에이전트에 name을 넘기면 매 라운드 캐시가 깨지는 이유](/blog/ko/protocol-working-around-a-bug/)

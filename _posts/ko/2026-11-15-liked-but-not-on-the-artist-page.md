@@ -5,7 +5,7 @@ date: 2026-11-15
 unit: like-surgeon
 translations:
   en: /blog/liked-but-not-on-the-artist-page/
-description: "YouTube Music 아티스트 페이지의 Top songs에 내가 좋아요한 곡이 좋아요 없이 나오는 이유와, like-surgeon 0.13.0의 canonicalize가 아티스트 곡 목록에서 같은 녹음을 찾아 좋아요를 옮기고 같은 곡 중복 좋아요를 정리하는 방법."
+description: "YouTube Music 아티스트 Top songs에 좋아요한 곡이 좋아요 없이 나오는 이유와, like-surgeon 0.13.0의 canonicalize가 좋아요를 옮기고 중복을 정리하는 방법."
 ---
 
 YouTube Music에서 Poppin'Party 아티스트 페이지를 열었는데 Top songs 1위인 キズナミュージック♪(Kizuna Music♪)에 좋아요 표시가 없었다. 분명 좋아요한 곡이고 좋아요 목록에도 있다.

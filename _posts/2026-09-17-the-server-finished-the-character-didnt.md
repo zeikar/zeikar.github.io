@@ -7,7 +7,7 @@ last_modified_at: 2026-11-18
 lang: en
 translations:
   ko: /blog/ko/the-server-finished-the-character-didnt/
-description: "Mixing up 'sent', 'done' and 'heard' in realtime voice broke Charivo's expressions, barge-in and interrupts on OpenAI Realtime and Gemini Live, and each needed a different signal to fix."
+description: "Mixing up 'sent', 'done' and 'heard' in realtime voice broke Charivo's expressions, barge-in and interrupts on OpenAI Realtime and Gemini Live."
 ---
 
 [Charivo](/projects/charivo/) puts a Live2D character on a canvas and lets it hold a voice conversation, over OpenAI Realtime (WebRTC) or Gemini Live (WebSocket). The model can call a `setExpression` tool mid-reply, and the renderer holds that expression until the speech it came with is over. "Over" is the `tts:audio:end` event: when it fires, `RenderManager` releases the held expression and stops lip sync.

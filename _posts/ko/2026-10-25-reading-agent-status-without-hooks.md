@@ -5,7 +5,7 @@ date: 2026-10-25
 unit: vaquita
 translations:
   en: /blog/reading-agent-status-without-hooks/
-description: "vaquita가 hook이나 설정 변경 없이 OSC 7501 상태 보고와 Codex의 OSC 9 알림만으로 Claude Code, Codex 세션의 상태(작업 중, 입력 대기, 완료)를 추적하는 방법과, 녹화로 찾아낸 예외 상황."
+description: "vaquita가 hook이나 설정 변경 없이 OSC 7501 상태 보고와 Codex의 OSC 9 알림만으로 Claude Code, Codex 세션 상태를 추적하는 방법."
 ---
 
 [vaquita](/projects/vaquita/)는 Claude Code와 Codex를 나란히 띄워 쓰는 작은 macOS 앱이다. 사이드바에는 세션마다 에이전트가 뭘 하는지 표시된다. 작업 중이면 스피너, 권한이나 답을 기다리면 ⚠, 턴이 끝나면 ✓가 뜨고, 에이전트가 나를 찾을 때는 데스크톱 알림이 온다.

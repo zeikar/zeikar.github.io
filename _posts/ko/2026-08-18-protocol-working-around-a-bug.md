@@ -6,7 +6,7 @@ unit: hyperclaude
 last_modified_at: 2026-11-18
 translations:
   en: /blog/protocol-working-around-a-bug/
-description: "Agent 툴에 name을 넘기면 플러그인 에이전트의 정의가 버려지고, 매 라운드 다시 붙는 스킬 목록이 프롬프트 캐시를 깬다. 트랜스크립트 434개로 원인을 찾은 과정과, 측정해 보고 접은 캐시 TTL 수정 두 가지."
+description: "Agent 툴에 name을 넘기면 플러그인 에이전트의 정의가 버려지고, 매 라운드 붙는 스킬 목록이 프롬프트 캐시를 깬다. 트랜스크립트 434개로 찾은 과정."
 ---
 
 석 달 전에 hyperclaude 리뷰 루프에서 겪은 메시지 race 다섯 가지와, 그걸 막으려고 쌓은 프로토콜을 [글로 썼다](/blog/ko/revise-loop-protocol/). 처음 올린 그 글은 이렇게 끝났다.

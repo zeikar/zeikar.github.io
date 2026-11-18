@@ -6,7 +6,7 @@ unit: repozine
 lang: en
 translations:
   ko: /blog/ko/pagefind-korean-search/
-description: "Pagefind matches only word prefixes, so a query can't match inside a Korean compound like 시간복잡도. A reproduction, and the build-time search.json that replaced it: matching anywhere in a word, ranking word starts first, and keeping results stable while a Korean IME composes."
+description: "Pagefind matches only word prefixes, so it can't find a query inside a Korean compound like 시간복잡도. A reproduction and the build-time search.json fix."
 ---
 
 [repozine](/projects/repozine/) turns posts written in GitHub Discussions into an Astro blog. Its biggest site is [zeikar.dev/leetcode](https://zeikar.dev/leetcode/), 165 LeetCode solution notes I've written since 2021, almost all in Korean. On September 14 I added search. For a static site the usual answer is Pagefind, so that's what I used: after the build, `pagefind --site dist` reads the output and writes an index, and the browser downloads only the pieces a query needs.

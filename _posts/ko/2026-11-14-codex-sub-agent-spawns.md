@@ -5,7 +5,7 @@ date: 2026-11-14
 unit: hyperclaude
 translations:
   en: /blog/codex-sub-agent-spawns/
-description: "같이 쓰던 AGENTS.md가 위임을 요청하는 바람에 Codex 리뷰 세션이 서브에이전트를 포크해 띄웠다. Codex 세션 로그로 잰 포크 비용과 features.multi_agent=false가 듣지 않은 이유, 원인을 고친 방법을 정리했다."
+description: "공유 AGENTS.md가 위임을 요청해 Codex 리뷰 세션이 서브에이전트를 포크했다. 포크 비용과 features.multi_agent=false가 듣지 않은 이유, 원인을 고친 방법."
 ---
 
 [hyperclaude](/projects/hyperclaude/)는 코딩 작업을 두 에이전트에게 나눠 맡긴다. Claude Code가 계획하고 코드를 쓰고, Codex는 읽기 전용으로 리뷰한다. Codex 호출은 전부 브리지 스크립트 하나를 거치고, 리뷰 결과는 Codex 토큰 사용량을 front matter에 적은 마크다운 파일로 남는다.

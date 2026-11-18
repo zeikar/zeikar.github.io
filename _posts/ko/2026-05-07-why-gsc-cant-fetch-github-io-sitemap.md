@@ -5,7 +5,7 @@ date: 2026-05-07
 last_modified_at: 2026-11-18
 translations:
   en: /blog/why-gsc-cant-fetch-github-io-sitemap/
-description: "Google Search Console이 github.io 사이트맵에 'Couldn't fetch'를 계속 띄웠다. XML 스키마, Content-Type, Googlebot User-Agent, 스코프 규칙, robots.txt는 전부 통과했고, 커스텀 도메인으로 옮기자 바로 가져갔다."
+description: "GSC가 github.io 사이트맵에 'Couldn't fetch'를 띄웠다. 스키마, Content-Type, robots.txt는 통과했고, 커스텀 도메인으로 옮기자 바로 가져갔다."
 ---
 
 `zeikar.github.io`는 GitHub Pages 위에서 도는 Jekyll 사이트였다. 루트의 `sitemap.xml`은 사이트맵 *index*였고, 같은 호스트의 서브 사이트맵 세 개를 가리켰다.

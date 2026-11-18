@@ -6,7 +6,7 @@ unit: vaquita
 lang: en
 translations:
   ko: /blog/ko/reading-agent-status-without-hooks/
-description: "How vaquita tracks Claude Code and Codex sessions (working, waiting for input, done) from OSC 7501 program status reports and Codex's OSC 9 notifications, with no hooks or settings changes, and the edge cases that took recordings to find."
+description: "How vaquita tracks Claude Code and Codex session status (working, waiting, done) from OSC 7501 reports and Codex's OSC 9 notifications, with no hooks."
 ---
 
 [vaquita](/projects/vaquita/) is a small macOS app for running Claude Code and Codex side by side. Its sidebar lists every session with what its agent is doing: a spinner while it works, ⚠ when it waits for a permission or an answer, ✓ when a turn is done. A desktop notification fires when one needs you.

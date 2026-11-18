@@ -6,7 +6,7 @@ unit: charivo
 last_modified_at: 2026-11-18
 translations:
   en: /blog/the-server-finished-the-character-didnt/
-description: "실시간 음성에서 서버가 오디오를 다 보낸 순간, 응답이 끝난 순간, 사용자가 다 들은 순간은 서로 다르다. 이 셋을 헷갈려서 Charivo의 표정, barge-in, interrupt가 OpenAI Realtime과 Gemini Live에서 깨진 과정과 각각을 고친 신호."
+description: "실시간 음성에서 오디오 전송 완료, 응답 종료, 재생 완료는 서로 다르다. 이를 헷갈려 Charivo의 표정, barge-in, interrupt가 깨진 과정과 고친 신호."
 ---
 
 [Charivo](/projects/charivo/)는 캔버스 위의 Live2D 캐릭터가 음성으로 대화하게 해준다. 연결은 OpenAI Realtime(WebRTC) 아니면 Gemini Live(WebSocket)다. 모델은 답하는 도중에 `setExpression` 툴을 부를 수 있고, renderer는 그 표정을 함께 나온 말이 끝날 때까지 붙잡아 둔다. 여기서 "끝"은 `tts:audio:end` 이벤트다. 이게 뜨면 `RenderManager`가 붙잡고 있던 표정을 풀고 lip sync를 멈춘다.

@@ -6,7 +6,7 @@ unit: like-surgeon
 last_modified_at: 2026-11-18
 translations:
   en: /blog/the-like-never-moved/
-description: "YT Music 좋아요 목록은 YouTube 좋아요 목록을 같은 순서로 보여 주는 화면이다. like-surgeon이 두 목록을 위치로 맞춰 곡마다 어느 좋아요를 보여 주는지 찾고, relink와 중복 좋아요를 안전하게 고치는 방법."
+description: "YT Music 좋아요 목록은 YouTube 좋아요 목록의 순서 그대로다. like-surgeon이 두 목록을 위치로 맞춰 곡별 좋아요를 찾고 relink와 중복을 고치는 방법."
 ---
 
 [like-surgeon](/projects/like-surgeon/)은 조용히 망가진 YouTube Music 라이브러리를 고치는 명령줄 도구다. 재생이 안 되는 좋아요 곡, 다른 음원으로 바뀐 곡, 두 번씩 나오는 곡이 대상이다. YouTube 좋아요와 YT Music 좋아요 목록을 스캔해 SQLite에 넣고, 곡마다 어느 YouTube 좋아요를 보여 주는지 알아낸 다음, 증명할 수 있는 것만 고친다. 그런데 처음에는 YT Music 좋아요가 어디에 붙어 있는지부터 잘못 알고 있었다.

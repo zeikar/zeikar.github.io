@@ -7,7 +7,7 @@ last_modified_at: 2026-11-18
 lang: en
 translations:
   ko: /blog/ko/from-chrome-cookies-to-chips/
-description: "Signing in a Chrome extension's iframe under third-party cookie blocking: the permission problem with writing partitioned cookies via chrome.cookies, and the fix of having the server send a CHIPS (Partitioned) cookie."
+description: "Signing in a Chrome extension's iframe under third-party cookie blocking: the chrome.cookies permission problem, and the fix of a server-sent CHIPS cookie."
 ---
 
 [Commentarium](https://commentarium.app) is a web app for commenting on any URL. Its [Chrome extension](https://github.com/zeikar/commentarium-extension) uses a content script to attach a comment panel to every page, and the panel holds a `commentarium.app/comments?url=…` iframe. So the iframe is a `commentarium.app` page embedded in whatever site you're on: a textbook third-party context.
