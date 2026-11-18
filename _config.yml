@@ -40,6 +40,7 @@ defaults:
     values:
       layout: post
       lang: ko
+      locale: ko_KR
       permalink: /blog/ko/:title/
   # jekyll-seo-tag calls anything with a date a BlogPosting. A project page
   # describes a piece of software, and its `date:` is when the repo started.
@@ -74,13 +75,25 @@ google_analytics: "G-TL9N5ZKRN2"
 
 # SEO settings
 lang: en
+locale: en_US
+# Dates in front matter are the author's (KST) calendar dates. Under UTC a
+# post dated today was still in the future before 09:00 KST and the build
+# dropped it. Permalinks carry no date, so this moves no URL.
+timezone: Asia/Seoul
 author:
   name: Zeikar
   twitter: zeikar_dev
+  url: https://zeikar.dev/about/
 social:
   name: Zeikar
   links:
     - https://github.com/zeikar
+    - https://twitter.com/zeikar_dev
+    - https://linkedin.com/in/zeikar
+
+# jekyll-feed keeps only the latest 10 posts by default.
+feed:
+  posts_limit: 100
 
 # Additional same-origin URLs to include in sitemap.xml
 extra_sitemap_urls:

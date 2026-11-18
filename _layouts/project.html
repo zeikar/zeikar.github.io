@@ -14,10 +14,10 @@ layout: default
     {% endcomment %}
     {% capture project_actions %}
     {% if page.demo_url %}
-    <a href="{{ page.demo_url }}" target="_blank" rel="noopener" class="btn btn-live">{{ page.demo_label | default: "Live Demo" }}</a>
+    <a href="{{ page.demo_url }}" target="_blank" rel="noopener" class="btn btn-live" data-track="demo" data-project="{{ page.slug }}" data-placement="project_page">{{ page.demo_label | default: "Live Demo" }}</a>
     {% endif %}
     {% if page.github_url %}
-    <a href="{{ page.github_url }}" target="_blank" rel="noopener" class="btn {% if page.demo_url %}btn-ghost{% else %}btn-primary{% endif %}">View on GitHub</a>
+    <a href="{{ page.github_url }}" target="_blank" rel="noopener" class="btn {% if page.demo_url %}btn-ghost{% else %}btn-primary{% endif %}" data-track="github" data-project="{{ page.slug }}" data-placement="project_page">View on GitHub</a>
     {% endif %}
     {% endcapture %}
     {% assign unit_notes = site.posts | where: "unit", page.slug | where: "lang", "en" %}

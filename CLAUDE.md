@@ -30,9 +30,15 @@ A project's explicit `image:` is therefore also its `og:image`, so keep it PNG (
 - Person JSON-LD with `sameAs` — `/about/` only
 - `<link rel="alternate" hreflang>` (en / ko / x-default) — for any page with `translations:` in front matter
 - `<meta name="robots" content="noindex">` — for any page with `noindex: true` (both resumes, which also stay out of the sitemap). Never block such a page in `robots.txt`, or crawlers can't read the tag
-- `<title>` as `title — tagline` instead of `title | site` — for any page with `tagline:` (every project). `og:title` stays the bare title, since link previews show the description under it
+- SoftwareSourceCode JSON-LD (name, repo, author) — every project page, beside jekyll-seo-tag's CreativeWork. AI search answers bring most visitors to project pages, so this is what they cite a project by
+- `<title>` as the bare post title, without `| site` — every post, since post titles are already near the result's width
+- `<title>` as `title — tagline` instead of `title | site` — for any page with `tagline:` (every project, and About as "Zeikar — Founder of the Singular Gadget Lab"). `og:title` stays the bare title, since link previews show the description under it
 
 When debugging Google/social cards, check the layout AND [_plugins/og_image.rb](_plugins/og_image.rb) before `_config.yml`.
+
+### Analytics events
+
+GA4 loads only in production builds ([_layouts/default.html](_layouts/default.html)). Its config sends `page_location` without the hash (the resume's `#name=` stays out of GA) and tags a browser that once opened `/?internal` as `traffic_type: internal`, which GA's Internal Traffic filter drops. Custom events, all in [assets/js/main.js](assets/js/main.js) except the bench's: `project_link` (`project`, `link_type` demo/github, `placement` project_page/card/post_unit) from any link with `data-track`, the key event, since demos on zeikar.dev never count as outbound clicks; `project_open` (`project`, `placement` bench/card/post_unit/post_meta/post_row/other); `language_switch` (`to_lang`); `resume_print` (`lang`); `bench_throw` (`project`, once per page, [assets/js/bench.js](assets/js/bench.js)). A new demo or source link gets the same `data-track` / `data-project` / `data-placement` attributes.
 
 ### Bilingual posts and resume
 
@@ -64,7 +70,7 @@ If a new sub-Pages site lands under zeikar.dev, add its sitemap to both [sitemap
 
 ### Project ordering
 
-The curated display order ("listed here by preference") is [_data/project_order.yml](_data/project_order.yml), one project file name per line. [_plugins/project_order.rb](_plugins/project_order.rb) sorts `site.projects` by it at `post_read`, so the home page and [sitemap-main.xml](sitemap-main.xml) loop over `site.projects` unsorted; a project missing from the list goes last with a build warning. `gadget_no` is the UNIT number by build order and never changes. A new project needs a line in the list and a `gadget_no`, plus `tagline:` and `date:` (the repo's creation date): a collection doc without a date gets the build time, which jekyll-seo-tag then publishes as `datePublished` on every deploy. Never today's date — the UTC build skips future-dated docs, so a same-day KST date silently drops the project. If `demo_url` is on `zeikar.dev`, it auto-joins the sitemap — don't also list it in `extra_sitemap_urls`.
+The curated display order ("listed here by preference") is [_data/project_order.yml](_data/project_order.yml), one project file name per line. [_plugins/project_order.rb](_plugins/project_order.rb) sorts `site.projects` by it at `post_read`, so the home page and [sitemap-main.xml](sitemap-main.xml) loop over `site.projects` unsorted; a project missing from the list goes last with a build warning. `gadget_no` is the UNIT number by build order and never changes. A new project needs a line in the list and a `gadget_no`, plus `tagline:` and `date:` (the repo's creation date): a collection doc without a date gets the build time, which jekyll-seo-tag then publishes as `datePublished` on every deploy. Front-matter dates are KST calendar dates (`timezone: Asia/Seoul` in [_config.yml](_config.yml)), so today's date is safe; a date after today is skipped until the first deploy on or after that date. A project's sitemap `<lastmod>` appears only when it sets `last_modified_at`. If `demo_url` is on `zeikar.dev`, it auto-joins the sitemap — don't also list it in `extra_sitemap_urls`.
 
 Home lists every project on purpose: the resume's Independent Work is the curated short list, so don't split home into featured and the rest.
 

@@ -10,7 +10,15 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', '{{ site.google_analytics }}');
+      // Visiting /?internal once marks this browser as the author's, so the
+      // GA "Internal Traffic" data filter can drop those visits. page_location
+      // is set without the hash, which can carry the resume's #name=.
+      try { if (/[?&]internal\b/.test(location.search)) localStorage.setItem('ga_internal', '1'); } catch (e) {}
+      var gaInternal = false;
+      try { gaInternal = localStorage.getItem('ga_internal') === '1'; } catch (e) {}
+      var gaConfig = { page_location: location.origin + location.pathname + location.search };
+      if (gaInternal) gaConfig.traffic_type = 'internal';
+      gtag('config', '{{ site.google_analytics }}', gaConfig);
     </script>
     {% endif %}
 
@@ -21,6 +29,10 @@
     {% endcomment %}
     {% if page.tagline %}
     <title>{{ page.title | append: ' — ' | append: page.tagline | escape_once }}</title>
+    {% seo title=false %}
+    {% elsif page.collection == 'posts' %}
+    {% comment %} A post title is long already; the site name would push it past the search result's width. {% endcomment %}
+    <title>{{ page.title | escape_once }}</title>
     {% seo title=false %}
     {% else %}
     {% seo %}
@@ -78,6 +90,27 @@
     {% endif %}
 
     {% comment %}
+      Project pages describe a piece of software. jekyll-seo-tag's CreativeWork
+      covers the page; this names the software itself, its repo and its author,
+      which is what AI search answers cite a project by.
+    {% endcomment %}
+    {% if page.collection == 'projects' %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareSourceCode",
+      "name": {{ page.title | jsonify }},
+      "description": {{ page.description | jsonify }},
+      "url": {{ page.url | absolute_url | jsonify }},
+      {% if page.github_url %}"codeRepository": {{ page.github_url | jsonify }},{% endif %}
+      {% if page.tech_stack %}"keywords": {{ page.tech_stack | join: ", " | jsonify }},{% endif %}
+      "dateCreated": {{ page.date | date: "%Y-%m-%d" | jsonify }},
+      "author": { "@type": "Person", "name": "Zeikar", "url": {{ '/about/' | absolute_url | jsonify }} }
+    }
+    </script>
+    {% endif %}
+
+    {% comment %}
       About-page Person structured data. sameAs links help Google connect
       this profile to external identities (GitHub/Twitter/LinkedIn) for
       knowledge-panel signals.
@@ -90,11 +123,7 @@
       "name": "Zeikar",
       "url": {{ '/about/' | absolute_url | jsonify }},
       "jobTitle": "Software Engineer",
-      "sameAs": [
-        "https://github.com/zeikar",
-        "https://twitter.com/zeikar_dev",
-        "https://linkedin.com/in/zeikar"
-      ]
+      "sameAs": {{ site.social.links | jsonify }}
     }
     </script>
     {% endif %}

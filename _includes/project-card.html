@@ -42,9 +42,9 @@
       {%- endcomment -%}
       {% if project.demo_url %}
       {% assign action = project.demo_label | default: "Demo" %}
-      <a href="{{ project.demo_url }}" target="_blank" rel="noopener" class="project-action project-demo" aria-label="{{ action }} ({{ project.title }})">{{ action }}</a>
+      <a href="{{ project.demo_url }}" target="_blank" rel="noopener" class="project-action project-demo" data-track="demo" data-project="{{ project.slug }}" data-placement="{{ include.placement | default: 'card' }}" aria-label="{{ action }} ({{ project.title }})">{{ action }}</a>
       {% elsif project.github_url %}
-      <a href="{{ project.github_url }}" target="_blank" rel="noopener" class="project-action" aria-label="Source ({{ project.title }})">Source</a>
+      <a href="{{ project.github_url }}" target="_blank" rel="noopener" class="project-action" data-track="github" data-project="{{ project.slug }}" data-placement="{{ include.placement | default: 'card' }}" aria-label="Source ({{ project.title }})">Source</a>
       {% endif %}
     </div>
   </div>

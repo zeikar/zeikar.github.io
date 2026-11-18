@@ -42,6 +42,7 @@
   let dropped = 0;
   let drag = null;
   let justDragged = null;
+  let thrownOnce = false;
   let visible = true;
   let raf = 0;
   let last = 0;
@@ -298,6 +299,11 @@
     Composite.remove(engine.world, drag.constraint);
     drag.it.a.classList.remove('is-held');
     justDragged = drag.moved ? drag.it : null;
+    if (drag.moved && !thrownOnce && typeof window.gtag === 'function') {
+      // Once per page: is the bench played with at all?
+      thrownOnce = true;
+      window.gtag('event', 'bench_throw', { project: (drag.it.a.getAttribute('href').match(/\/projects\/([^/]+)/) || [])[1] });
+    }
     drag = null;
     kick();
   }

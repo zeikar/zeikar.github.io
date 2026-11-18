@@ -9,9 +9,9 @@ layout: default
       {% assign read_min = words | divided_by: 200 | plus: 1 %}
       <div class="post-meta">
         {% if page.lang == 'ko' %}
-        <p class="eyebrow">{{ page.date | date: "%Y년 %-m월 %-d일" }} · {{ read_min }}분 읽기</p>
+        <p class="eyebrow"><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y년 %-m월 %-d일" }}</time>{% if page.last_modified_at %} (<time datetime="{{ page.last_modified_at | date_to_xmlschema }}">{{ page.last_modified_at | date: "%Y년 %-m월 %-d일" }}</time> 수정){% endif %} · {{ read_min }}분 읽기</p>
         {% else %}
-        <p class="eyebrow">{{ page.date | date: "%B %-d, %Y" }} · {{ read_min }} min read</p>
+        <p class="eyebrow"><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>{% if page.last_modified_at %} (updated <time datetime="{{ page.last_modified_at | date_to_xmlschema }}">{{ page.last_modified_at | date: "%b %-d, %Y" }}</time>){% endif %} · {{ read_min }} min read</p>
         {% endif %}
         {% if page.unit %}{% include unit-tape.html name=page.unit %}{% endif %}
         {% for tr in page.translations %}
@@ -54,7 +54,7 @@ layout: default
       <section class="post-unit" aria-labelledby="post-unit-label">
         <p class="side-label" id="post-unit-label">{% if is_ko %}이 글이 다룬 유닛{% else %}Filed under{% endif %}</p>
         {% for project in unit_projects %}
-        {% include project-card.html compact=true %}
+        {% include project-card.html compact=true placement='post_unit' %}
         {% endfor %}
       </section>
       {% endif %}

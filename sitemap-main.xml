@@ -13,6 +13,7 @@ permalink: /sitemap-main.xml
 {% for project in site.projects %}
   <url>
     <loc>{{ site.url }}{{ site.baseurl }}{{ project.url }}</loc>
+    {% if project.last_modified_at %}<lastmod>{{ project.last_modified_at | date_to_xmlschema }}</lastmod>{% endif %}
   </url>
   {% if project.demo_url and project.demo_url contains site.url %}
   <url>

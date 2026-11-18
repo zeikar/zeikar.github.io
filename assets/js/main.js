@@ -1,3 +1,44 @@
+// GA4 events (gtag only loads in production builds, so this is a no-op locally).
+const track = (name, params) => {
+  if (typeof window.gtag === 'function') {
+    window.gtag('event', name, params);
+  }
+};
+
+// Where a link to a project page sits, for project_open's placement.
+const projectPlacement = (el) => {
+  if (el.closest('.bench')) return 'bench';
+  if (el.closest('.post-unit')) return 'post_unit';
+  if (el.closest('.post-meta')) return 'post_meta';
+  if (el.closest('.post-row')) return 'post_row';
+  if (el.closest('.project-card')) return 'card';
+  return 'other';
+};
+
+const projectSlug = (href) => {
+  const match = href && new URL(href, location.href).pathname.match(/^\/projects\/([^/]+)\/?$/);
+  return match ? match[1] : null;
+};
+
+// Demo and source links carry data-track (_layouts/project.html,
+// _includes/project-card.html). They open in a new tab, so the page stays
+// and the event has time to send.
+document.addEventListener('click', (event) => {
+  const el = event.target instanceof Element ? event.target : null;
+  const link = el && el.closest('a[data-track]');
+  if (link) {
+    track('project_link', {
+      project: link.dataset.project,
+      link_type: link.dataset.track,
+      placement: link.dataset.placement,
+    });
+  }
+  const translation = el && el.closest('.post-translation-link');
+  if (translation) {
+    track('language_switch', { to_lang: translation.getAttribute('hreflang') });
+  }
+});
+
 // Cross-page tape (view transition, _layout.scss): the tape that was clicked
 // carries view-transition-name: unit-title, so the project page's title tape
 // grows out of it. Only one element may hold a name, so naming one clears the
@@ -15,11 +56,19 @@ const nameTape = (tape) => {
 };
 
 document.addEventListener('click', (event) => {
-  // A thrown bench tape cancels its click; a modifier opens a new tab.
-  if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey) {
+  // A thrown bench tape cancels its click.
+  if (event.defaultPrevented) {
     return;
   }
   const link = event.target instanceof Element ? event.target.closest('a[href*="/projects/"]') : null;
+  const slug = link && projectSlug(link.getAttribute('href'));
+  if (slug) {
+    track('project_open', { project: slug, placement: projectPlacement(link) });
+  }
+  // A modifier opens a new tab, which runs no transition.
+  if (event.metaKey || event.ctrlKey || event.shiftKey) {
+    return;
+  }
   if (link) {
     nameTape(link.classList.contains('tape') ? link : link.querySelector('.tape'));
   }
@@ -108,7 +157,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   document.querySelectorAll('[data-print]').forEach((button) => {
-    button.addEventListener('click', () => window.print());
+    button.addEventListener('click', () => {
+      track('resume_print', { lang: document.documentElement.lang });
+      window.print();
+    });
   });
 
   // Project and post pages: mark the section being read in the sticky
@@ -237,6 +289,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (String(window.getSelection())) {
         return;
       }
+
+      track('project_open', { project: projectSlug(url), placement: projectPlacement(card) });
 
       // Cmd/Ctrl/Shift-click opens a new tab, as it would on a real link.
       if (event.metaKey || event.ctrlKey || event.shiftKey) {
