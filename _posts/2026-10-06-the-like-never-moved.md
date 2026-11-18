@@ -1,15 +1,16 @@
 ---
-title: "The Like Never Moved"
-subtitle: "When a song's upload dies, YouTube Music seems to move your like to a replacement. It doesn't. Liked songs is your YouTube likes shown in the same order, and lining the two lists up shows which like is behind every song."
+title: "Fixing YouTube Music Likes When the Original Video Dies"
+subtitle: "YT Music seems to move your like to a replacement track, but the like never moved: Liked songs only shows your YouTube likes in the same order."
 date: 2026-10-06
 unit: like-surgeon
+last_modified_at: 2026-11-18
 lang: en
 translations:
   ko: /blog/ko/the-like-never-moved/
 description: "YouTube Music's Liked songs is an in-order rendering of your YouTube Liked videos. How like-surgeon lines the two lists up by position to find the like behind each song, and fixes relinked and duplicate likes safely."
 ---
 
-[like-surgeon](/projects/like-surgeon/) is a command-line tool for a YouTube Music library that has quietly gone wrong: liked songs that stopped playing, songs that turned into a different release, songs listed twice. It scans your YouTube likes and your YT Music Liked songs into SQLite, works out which YouTube like is behind every song, and fixes the ones it can prove. This post is about the model that makes that possible.
+[like-surgeon](/projects/like-surgeon/) is a command-line tool for a YouTube Music library that has quietly gone wrong: liked songs that stopped playing, songs that turned into a different release, songs listed twice. It scans your YouTube likes and your YT Music Liked songs into SQLite, works out which YouTube like is behind every song, and fixes the ones it can prove. At first, though, I had it wrong about where a YT Music like even lives.
 
 ## What a relink looks like
 
@@ -23,11 +24,11 @@ If YT Music had moved my like to B, A's YouTube like shouldn't have mattered. Bu
 
 ## One list, shown twice
 
-The model that fits: YouTube's Liked videos is the only place a like is stored. YT Music's Liked songs isn't a second list. It's a rendering of the first one: the same likes in the same order, minus the ones YT Music doesn't show, each displayed as a playable track whose video can differ from the one you liked. In the code the two lists are LL and LM, after their playlist ids, and the whole model fits in one line: LM is a rendering of LL.
+The model that fits: YouTube's Liked videos is the only place a like is stored. YT Music's Liked songs isn't a second list. It's a rendering of the first one: the same likes in the same order, minus the ones YT Music doesn't show, each displayed as a playable track whose video can differ from the one you liked. In the code the two lists are LL and LM, after their playlist ids.
 
 ![A diagram with YouTube Liked videos on the left and YT Music Liked songs on the right, lined up row by row. Song 1 is shown as itself. A dead old upload of Song 2 is shown as its new release, and like-surgeon re-points the like. A liked music video of Song 3 is shown as the audio track, which is also liked, so the song appears twice. A deleted video is not shown at all and is only reported.](/assets/images/blog/like-surgeon-how-it-works.webp)
 
-A relink is A's like shown as B. A liked music video can be shown as its audio track, and if you liked the audio track too, the song appears twice. YT Music's own like button sets the same rating as YouTube's: liking a song there creates a YouTube like on that video.
+A relink is A's like shown as B. A liked music video can also be shown as its audio track, and if you liked the audio track too, the song appears twice. YT Music's own like button sets the same rating as YouTube's: liking a song there creates a YouTube like on that video.
 
 That explains a couple of things that look like bugs:
 
@@ -38,7 +39,7 @@ That explains a couple of things that look like bugs:
 
 The model needs a way to tell which like is behind each entry, and YT Music doesn't offer one. Every entry carries feedback tokens, but they're opaque. What it does keep is order. In my library, all 1,142 Liked songs entries that show up once and are liked as themselves on YouTube appear in the same order as Liked videos. A random shuffle would keep about 62 in order.
 
-So `compare-likes` lines the two lists up by position. Entries whose video is itself liked on YouTube are anchors, and most songs are. Between two anchors sit a few unexplained Liked songs entries and a few unexplained YouTube likes. When the counts match, they pair up in order: the first leftover like is behind the first leftover entry, and so on. When they don't, nothing is paired, and the entries are reported and left alone. One detail took real data to get right: the anchors have to be the longest increasing subsequence of their positions, because picking them greedily collapsed to a few hundred anchors.
+So `compare-likes` lines the two lists up by position. Entries whose video is itself liked on YouTube are anchors, and most songs are. Between two anchors sit a few unexplained Liked songs entries and a few unexplained YouTube likes. When the counts match, they pair up in order: the first leftover like is behind the first leftover entry, and so on. When they don't, nothing is paired, and the entries are reported and left alone. The anchors are the longest increasing subsequence (LIS) of their positions. Picking them greedily from the top cut the anchors from over a thousand to a few hundred on several real scans.
 
 Titles never decide a pair. They come up in one place only: before a repoint, the two videos must look like the same recording, with durations within 3 seconds and either the same channel or one title containing the other. On the 24 pairs whose fixes I could verify, the order-based pairs matched 23, and got one right that a title-based guess had pinned on the wrong song.
 
@@ -46,10 +47,10 @@ Titles never decide a pair. They come up in one place only: before a repoint, th
 
 Once the backing is known, the fixes come down to two, both on YouTube:
 
-- **repoint**: A is dead and shown as B, and B isn't liked. Like B, confirm it with `getRating`, unlike A, confirm again.
-- **unlike shadow**: A is shown as B while B is liked too. Unlike A, and the song appears once.
+- `repoint`: A is dead and shown as B, and B isn't liked. Like B, confirm it with `getRating`, unlike A, confirm again.
+- `unlike shadow`: A is shown as B while B is liked too. Unlike A, and the song appears once.
 
-The disappearing song is also the failure both of them have to catch. If a pair were wrong, unliking A would remove some unrelated song from YT Music, and nothing in YouTube's response would say so. So after every unlike, `sync` reads the whole Liked songs list again. A repoint must leave every song shown the same number of times, and an unlike shadow must remove exactly one copy of B. If the list still doesn't match on a second read 15 seconds later, A is re-liked, the like a repoint just put on B is undone, and the run stops, because a mismatch means the pairs from that scan can't be trusted.
+The disappearing song is also the failure both of them have to catch. If a pair were wrong, unliking A would remove some unrelated song from YT Music, and nothing in YouTube's response would say so. So after every unlike, `sync` reads the whole Liked songs list again. A repoint must leave every song shown the same number of times, and an unlike shadow must remove exactly one copy of B. If the list still doesn't match on a second read 15 seconds later, A is re-liked, a repoint also takes back the like it put on B, and the run stops, because a mismatch means the pairs from that scan can't be trusted.
 
 ## On my library
 
