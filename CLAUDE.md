@@ -45,7 +45,7 @@ Both [_layouts/default.html](_layouts/default.html) (hreflang) and [_layouts/pos
 
 Bricolage has no Hangul, so Korean text falls through `--font` to Pretendard, loaded from jsDelivr without blocking the first paint in [_layouts/default.html](_layouts/default.html).
 
-A post about a project sets `unit: <project file name>` on both languages; [_includes/unit-tape.html](_includes/unit-tape.html) turns it into that project's tape label on the index and the post page. It also links the two ways: the post ends with that project's card ("Filed under"), and the project page lists its English posts under Lab notes. A `unit` that matches no project renders nothing.
+A post about a project sets `unit: <project file name>` on both languages, or a list (`unit: [riroa, dotfiles]`) when it is about several; [_includes/unit-tape.html](_includes/unit-tape.html) turns it into one tape label per project on the index and the post page. It also links the two ways: the post ends with each project's card ("Filed under"), and each project page lists its English posts under Lab notes (Jekyll's `where` matches a value inside a list). A name that matches no project renders nothing.
 
 ### Resume PDF is the print stylesheet
 

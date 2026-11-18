@@ -41,15 +41,22 @@ layout: default
     {% assign is_ko = false %}
     {% if page.lang == 'ko' %}{% assign is_ko = true %}{% endif %}
     <footer class="post-footer">
-      {% if page.unit %}
-      {% assign unit_url = '/projects/' | append: page.unit | append: '/' %}
-      {% assign project = site.projects | where: "url", unit_url | first %}
-      {% if project %}
+      {% comment %} unit: is one project file name, or a list of them. {% endcomment %}
+      {% assign unit_names = page.unit %}
+      {% unless unit_names.first %}{% assign unit_names = "" | split: "" | push: page.unit %}{% endunless %}
+      {% assign unit_projects = "" | split: "" %}
+      {% for name in unit_names %}
+      {% assign unit_url = '/projects/' | append: name | append: '/' %}
+      {% assign found = site.projects | where: "url", unit_url | first %}
+      {% if found %}{% assign unit_projects = unit_projects | push: found %}{% endif %}
+      {% endfor %}
+      {% if unit_projects.size > 0 %}
       <section class="post-unit" aria-labelledby="post-unit-label">
         <p class="side-label" id="post-unit-label">{% if is_ko %}이 글이 다룬 유닛{% else %}Filed under{% endif %}</p>
+        {% for project in unit_projects %}
         {% include project-card.html compact=true %}
+        {% endfor %}
       </section>
-      {% endif %}
       {% endif %}
 
       {% assign same_lang = site.posts | where: "lang", page.lang %}

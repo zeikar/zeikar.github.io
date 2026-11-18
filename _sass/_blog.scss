@@ -81,6 +81,11 @@
   font-size: 0.95rem;
 }
 
+/* A post about several projects shows a tape for each. */
+.post-row-unit .tape + .tape {
+  margin-left: 0.35rem;
+}
+
 /* Here rather than in _responsive, which loads before this file and would
    lose to the three-column rule above. Date and tape share the top line. */
 @media (max-width: 760px) {
