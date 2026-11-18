@@ -1,83 +1,50 @@
 ---
 title: "Chrome Extension Iframe Auth: From chrome.cookies to CHIPS"
-subtitle: "How a Chrome extension's iframe survives third-party cookie blocking — without bypassing the browser."
+subtitle: "To get a login cookie into an iframe under third-party cookie blocking, the extension wrote the cookie itself, and that needed cookie access to every site. The server only had to send the cookie with the Partitioned attribute."
 date: 2026-05-03
 unit: commentarium
-last_modified_at: 2026-09-28
+last_modified_at: 2026-11-18
 lang: en
 translations:
   ko: /blog/ko/from-chrome-cookies-to-chips/
-description: "Authenticating a Chrome extension's iframe under third-party cookie blocking: the chrome.cookies API trap, the CHIPS Set-Cookie fix, and the diff in between."
+description: "Signing in a Chrome extension's iframe under third-party cookie blocking: the permission problem with writing partitioned cookies via chrome.cookies, and the fix of having the server send a CHIPS (Partitioned) cookie."
 ---
 
-This is a story about authenticating a Chrome extension's iframe in a world that blocks third-party cookies — specifically, why the `chrome.cookies` API was the wrong tool and the standard CHIPS `Set-Cookie` attribute was the right one.
+[Commentarium](https://commentarium.app) is a web app for commenting on any URL. Its [Chrome extension](https://github.com/zeikar/commentarium-extension) uses a content script to attach a comment panel to every page, and the panel holds a `commentarium.app/comments?url=…` iframe. So the iframe is a `commentarium.app` page embedded in whatever site you're on: a textbook third-party context.
 
-A surprisingly mechanical change in the end. The path there was a sharp lesson on what *bypassing the browser* actually costs you.
+Chrome blocks third-party cookies by default in Incognito, and one setting blocks them in normal windows too. Once they're blocked, the iframe's session cookie doesn't stick, so you can't sign in, and without signing in you can't comment. This post is about getting sign-in to work in that iframe.
 
-The setup is small: [Commentarium](https://commentarium.app) is a comments app for any URL, and the [Chrome extension](https://github.com/zeikar/commentarium-extension) injects a side panel on every page with `commentarium.app/comments?url=…` in an iframe. So the iframe is `commentarium.app` content embedded in arbitrary top-level sites — a textbook third-party context.
+## Writing the partitioned cookie with chrome.cookies
 
-Chrome blocks third-party cookies by default in Incognito, and anyone can turn blocking on in settings. Once they're blocked, the iframe's session cookie won't stick, the user can't sign in, no comments. The whole product is dead in a third-party context.
+The first design was the usual MV3 broker. The service worker holds the auth state, and the iframe talks to it with `chrome.runtime.sendMessage` (gated by `externally_connectable.matches` to `commentarium.app`). On sign-in, the service worker did this:
 
-We had a plan. It worked. Then it didn't.
+1. Get a Firebase ID token with `chrome.identity.getAuthToken` and `signInWithCredential`.
+2. POST to `/api/login` with `Authorization: Bearer <idToken>`.
+3. The server returns `{ session, expiresAtSeconds }`.
+4. The service worker writes that session value into the iframe's cookie partition with `chrome.cookies.set({ url, name: "session", value, partitionKey })`.
 
-## First attempt: writing partitioned cookies via chrome.cookies
+Step 4 was the point. Partitioned cookies (CHIPS) survive third-party cookie blocking, so the service worker looked up the iframe's partition key with `chrome.cookies.getPartitionKey` (Chrome 132+) and put the cookie there. Unit tests passed, and clicking through it on localhost worked.
 
-The MV3 broker pattern is well-established: the service worker is the source of auth state, and the iframe talks to it via `chrome.runtime.sendMessage` (gated by `externally_connectable.matches`). On sign-in, the SW would:
+## Partitioned cookies need the top-level site's permission
 
-1. Get a Firebase ID token via `chrome.identity.getAuthToken` and `signInWithCredential`.
-2. POST `/api/login` with `Authorization: Bearer <idToken>`.
-3. Receive `{ session, expiresAtSeconds }` from the server.
-4. Write the session cookie itself, partitioned: `chrome.cookies.set({ url, name: "session", value, partitionKey })`.
+On real sites, the cookie didn't get written. Testing it by hand showed why: to write a partitioned cookie with `chrome.cookies.set`, you need `host_permissions` for the partition's top-level site, not for the cookie's host (`commentarium.app`). The extension only had `host_permissions: ["https://commentarium.app/*"]`. With the iframe on `https://example.com`, it needs `example.com`, and since this extension shows up on every site, that means `<all_urls>`.
 
-Step 4 was the clever bit. `chrome.cookies` had recently picked up `partitionKey` support (Chrome 119+), so the SW could write a cookie scoped to the iframe's CHIPS partition jar. Unit tests passed. Manual smoke on `localhost` worked. We shipped to a colleague for QA.
+`<all_urls>` makes it work. But holding the `cookies` permission together with host access to every site lets the extension read and write the cookies of every site the user is signed in to. That's not a permission a comment panel should have, and the Chrome Web Store looks harder at broad host permissions in review. So I dropped that route.
 
-The next morning: works on the page they tested first; fails everywhere else.
+## The server sends the cookie as Partitioned
 
-The catch is buried in the Chrome docs:
-
-> `chrome.cookies.set` for a partitioned cookie requires `host_permissions` for the **partition's top-level site** — not the cookie's host.
-
-Read it again. The extension already had `host_permissions: ["https://commentarium.app/*"]`, which lets it write cookies *for* `commentarium.app`. That doesn't cover the partition jar's top-level site. The iframe lives on `https://example.com`, so to write a partitioned cookie there, the extension needs permission for `example.com`.
-
-The "fix" is `host_permissions: ["<all_urls>"]`. It works. It also makes the install dialog read **"Read and change all your data on the websites you visit."** For a side-panel extension with one job, that warning is brutal. Half your users bounce.
-
-We could not justify the trust cost.
-
-## The aha moment
-
-Sometimes you stare at a problem long enough that the obvious solution surfaces: we don't actually need `chrome.cookies` at all. The browser already knows how to write a partitioned cookie if you ask politely. There's a standard cookie attribute for it.
+Looking back, `chrome.cookies` was never needed. The browser already knows how to write partitioned cookies, and there's a standard cookie attribute to ask for one.
 
 ```http
 Set-Cookie: session=…; Partitioned; SameSite=None; Secure; HttpOnly; Path=/
 ```
 
-That's [CHIPS](https://privacysandbox.google.com/cookies/chips) — Cookies Having Independent Partitioned State. Set the attribute, the browser drops the cookie into the iframe's partition jar (keyed by the embedding top-level site, exactly what we want) and serves it back on subsequent same-iframe requests. No `host_permissions` needed, because the *server* is writing the cookie, not the extension.
+That's [CHIPS](https://privacysandbox.google.com/cookies/chips) (Cookies Having Independent Partitioned State). The browser puts a cookie with this attribute into the iframe's partition (keyed by the embedding top-level site) and sends it back on the next request from that partition. The server writes the cookie, not the extension, so no `host_permissions` are needed.
 
-This is what CHIPS was designed for. We were trying to bypass it.
-
-## Second attempt: server-side Set-Cookie with the CHIPS attribute
-
-The redesign collapses the SW into a thin token vendor:
+In the new design the service worker only hands out ID tokens. With no signed-in user it cleans up and returns signed-out; it never touches cookies or calls `/api/login`. The iframe calls `/api/login` itself. The iframe is a third-party context, but code inside it calling `/api/login` is a request to its own origin.
 
 ```ts
-// SW broker — vends idTokens, never touches cookies or fetch
-async function refreshSessionOp(): Promise<AuthResponse> {
-  if (!auth.currentUser) {
-    await performSignOutCleanupBestEffort();
-    return {
-      error: { code: "auth/no-current-user", message: "no signed-in user" },
-      signedOut: true,
-    };
-  }
-  const idToken = await auth.currentUser.getIdToken(true);
-  return { ok: true, idToken };
-}
-```
-
-The iframe — whose request to `/api/login` is same-origin to `commentarium.app` from inside the iframe, even though the iframe itself is third-party relative to the top-level site — calls `/api/login` itself:
-
-```ts
-// iframe code: same-origin fetch to commentarium.app
+// iframe code
 const { idToken } = await broker.refreshSession();
 await fetch("/api/login", {
   method: "POST",
@@ -88,10 +55,10 @@ await fetch("/api/login", {
 });
 ```
 
-And the server writes the cookie:
+When the request comes from the extension, the server marks the cookie `Partitioned`.
 
 ```ts
-// /api/login route handler
+// /api/login route handler (simplified)
 const sessionCookie = await auth.createSessionCookie(idToken, { expiresIn });
 cookies().set({
   name: "session",
@@ -99,41 +66,29 @@ cookies().set({
   httpOnly: true,
   secure: true,
   sameSite: "none",
-  partitioned: isExtensionSurface, // <-- the entire CHIPS change
+  partitioned: isExtensionSurface, // this line is the CHIPS part
 });
 ```
 
-The browser drops it into the right partition jar. The next request from the iframe carries it. Done.
+Each top-level site gets its own partition, so when you open the panel on a new site, that partition has no cookie yet. The iframe then gets a token from the service worker and calls `/api/login` once, and the cookie for that site appears. That's why the service worker still holds the auth state.
 
-## What the diff looked like
+CHIPS shipped in Chrome 114, so the extension's minimum version dropped from 132 (raised for `getPartitionKey`) to 114. Firefox supports it from 141, and Safari added it in 18.4, pulled it, and supports it again from 26.2. That's enough for a Chrome Web Store extension; for other browsers, check the [support table](https://caniuse.com/mdn-http_headers_set-cookie_partitioned) first.
 
-The two approaches, side by side:
+## The manifest, before and after
 
-| | chrome.cookies path | CHIPS path |
+| | chrome.cookies route | CHIPS route |
 |---|---|---|
-| `permissions` | `activeTab`, `identity`, `storage`, **`cookies`** | `activeTab`, `identity`, `storage` |
-| `host_permissions` | `<all_urls>` (or broken) | (none) |
-| `minimum_chrome_version` | `132` (for `getPartitionKey`) | `114` (CHIPS GA) |
-| Install dialog | "Read and change all your data..." | minimal |
-| SW lines for auth | ~300 (mint, partition registry, cleanup) | ~230 (token vending only) |
+| `permissions` | `activeTab`, `identity`, `storage`, `cookies` | `activeTab`, `identity`, `storage` |
+| `host_permissions` | needs `<all_urls>` | even `https://commentarium.app/*` is gone |
+| `minimum_chrome_version` | `132` (`getPartitionKey`) | `114` (CHIPS) |
+| Service worker auth code (`auth.ts`) | 336 lines | 235 lines |
 
-No `host_permissions`, no `cookies` permission, a **lower** Chrome floor (CHIPS shipped earlier than the partition-key APIs we depended on), and one less explicit security warning at install. About 70 lines of partition-registry bookkeeping deleted from the SW.
+## A cookie per partition, and signing out
 
-## Bonus: cross-partition logout with revokeRefreshTokens
+CHIPS has one cost. Cookies stay separate per partition, so signing out on one site leaves the cookies in other sites' partitions. Sign-out therefore revokes on the server instead of deleting cookies. `auth.revokeRefreshTokens(uid)` invalidates all the user's refresh tokens, and requests from the extension are checked with `verifySessionCookie(cookie, true)`, which includes revocation. A cookie left in another partition fails verification on its next request, and the UI turns a 401 into the `commentarium:signed-out` event and shows the signed-out state.
 
-`auth.revokeRefreshTokens(uid)` invalidates all of a user's refresh tokens server-side. With each authenticated route using `verifySessionCookie(cookie, /* checkRevoked */ true)` on the extension surface, a logout on any partition propagates: other partitions' cookies stay physically in their jars but fail validation on the next request. The UI catches the resulting 401 and flips signed-out via a custom `commentarium:signed-out` event. Clean.
+A tab where you open `commentarium.app` directly is a separate sign-in with an ordinary, unpartitioned cookie. Signing out on the web triggers the same revocation, so the extension signs out too, but signing out in the extension leaves that tab signed in.
 
-(One nuance we deliberately left out: the 1st-party `commentarium.app` direct-visit context uses an unpartitioned cookie and a separate sign-in surface, so logging out of the extension does not log you out of `commentarium.app` you opened directly. That's the same model as Slack desktop vs. Slack browser — the surfaces are intentionally distinct.)
+The CHIPS change was merged in [extension PR #2](https://github.com/zeikar/commentarium-extension/pull/2).
 
-## Takeaways
-
-1. **Before reaching for a Chrome API workaround, look at the cookie spec.** CHIPS exists precisely for this case — partitioned cookies for embedded contexts. We had read the `chrome.cookies` docs four times before reading the cookie attribute docs once.
-2. **Manual E2E catches what unit tests cannot.** The chrome.cookies failure was *only* visible on a real page hosted on a real second domain. Unit tests passed. Browser permission semantics are too easy to mock past.
-3. **The thinner the service worker, the better.** Once the SW is just *vend ID tokens*, the surface area for surprise shrinks. Most of the deleted lines were carrying sample-of-one assumptions about partition semantics.
-4. **Check CHIPS support before leaning on it elsewhere.** Chrome has it from 114 (our floor), Firefox from 141, and Safari from 26.2, after shipping it in 18.4 and pulling it again. For a Chrome-Web-Store extension, this is fine. For a cross-browser extension, check the [live support table](https://caniuse.com/mdn-http_headers_set-cookie_partitioned) first.
-
-The diff was wildly in our favor. The hardest part was admitting the first design was the wrong shape.
-
----
-
-*Code: [commentarium-extension](https://github.com/zeikar/commentarium-extension). The CHIPS redesign landed as [extension PR #2](https://github.com/zeikar/commentarium-extension/pull/2).*
+*This post first described the cost of `<all_urls>` as the install dialog's "all websites" warning. The content script already runs on every site, though, so that warning showed up all along. In November 2026 I corrected it to the real cost, the scope of cookie access.*
