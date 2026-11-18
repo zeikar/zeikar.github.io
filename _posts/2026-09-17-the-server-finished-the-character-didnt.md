@@ -1,12 +1,13 @@
 ---
-title: "The Server Finished. The Character Didn't."
-subtitle: "My voice character's face kept resetting mid-sentence. Fixing it took a deleted heuristic, a barge-in that asked the wrong question, and a mock that tested an event order the SDK can't produce."
+title: "Detecting When Realtime Voice Playback Ends: OpenAI Realtime and Gemini Live"
+subtitle: "The server had finished, but the character was still talking, so its face reset mid-sentence."
 date: 2026-09-17
 unit: charivo
+last_modified_at: 2026-11-18
 lang: en
 translations:
   ko: /blog/ko/the-server-finished-the-character-didnt/
-description: "Mixing up 'sent', 'done' and 'heard' in realtime voice broke Charivo's expressions, barge-in and interrupts on OpenAI Realtime and Gemini Live."
+description: "Mixing up 'sent', 'done' and 'heard' in realtime voice broke Charivo's expressions, barge-in and interrupts on OpenAI Realtime and Gemini Live, and each needed a different signal to fix."
 ---
 
 [Charivo](/projects/charivo/) puts a Live2D character on a canvas and lets it hold a voice conversation, over OpenAI Realtime (WebRTC) or Gemini Live (WebSocket). The model can call a `setExpression` tool mid-reply, and the renderer holds that expression until the speech it came with is over. "Over" is the `tts:audio:end` event: when it fires, `RenderManager` releases the held expression and stops lip sync.
@@ -36,9 +37,9 @@ There are three moments hiding behind "the reply is over", and every bug in this
 | **done**: the response is finished | `response.done` | `response.status` becomes `"completed"` |
 | **heard**: the browser has stopped playing | `output_audio_buffer.stopped` (`.cleared` on an interrupt) | what `tts:audio:end` has to mean |
 
-## A heuristic, four times
+## The level-sampling heuristic came out
 
-My first fix ([`4dbc175`](https://github.com/zeikar/charivo/commit/4dbc175)) didn't use an event at all. The lip-sync analyzer already measures the audio coming out of the stream, so I sampled it:
+My first fix ([`4dbc175`](https://github.com/zeikar/charivo/commit/4dbc175)) didn't use an event at all. The lip-sync analyzer already measures the level of the audio coming out of the stream, so I sampled it:
 
 ```ts
 const AUDIO_DRAIN_RMS_THRESHOLD = 0.02;
@@ -47,15 +48,9 @@ const AUDIO_DRAIN_POLL_MS = 50;
 const AUDIO_DRAIN_MAX_WAIT_MS = 5_000;
 ```
 
-On `audio_stopped`, poll every 50 ms. Once the level has stayed under 0.02 for 250 ms, playback is over. A five-second ceiling covers a meter that stops updating, like a background tab throttling `requestAnimationFrame`.
+On `audio_stopped`, poll every 50 ms, and once the level has stayed under 0.02 for 250 ms, call playback over. The five-second ceiling covers a meter that stops updating because a background tab is throttling `requestAnimationFrame`.
 
-The automated code reviewer, Codex running in my [hyperclaude](/projects/hyperclaude/) implement loop, sent it back. With no analyzer attached, the meter's initial zero read as silence, so the end fired after about 300 ms. The ceiling ended playback even while the meter read loud. And speech has pauses longer than 250 ms.
-
-Round two ([`39aa63a`](https://github.com/zeikar/charivo/commit/39aa63a)) raised the window to 800 ms, tracked when the last sample arrived, and applied the ceiling only when the meter was blind. Sent back: the blind timeout was counted from `audio_stopped` instead of from when the samples stopped, and 800 ms of silence still can't prove a buffer is empty. Round three ([`b15c766`](https://github.com/zeikar/charivo/commit/b15c766)) fixed the clock and was sent back again, this time pointing at the event I'd skipped. The transport already received `output_audio_buffer.stopped`, and the *other* OpenAI client in the same package already treated it as completion.
-
-Round four ([`7144cca`](https://github.com/zeikar/charivo/commit/7144cca)) made that event authoritative and kept the heuristic as a fallback in case the event never arrived. Sent back once more, because the fallback could still fire first, and there is no taking it back afterwards. Once `RenderManager` has released the expression, a later "actually, still playing" doesn't un-release it.
-
-Round five ([`7bb0009`](https://github.com/zeikar/charivo/commit/7bb0009)) deleted the heuristic: 55 lines added, 373 removed. Four more rounds tidied the edges (`output_audio_buffer.cleared` on interrupts, connection loss during tail playback, leftover analyzer samples reopening a finished segment), and the chain came back clean. First commit to last took 47 minutes.
+Codex reviewed it inside my [hyperclaude](/projects/hyperclaude/) implement loop and sent it back four times running. With no analyzer attached, the meter's initial zero read as silence and the end fired after about 300 ms; and speech has pauses longer than 250 ms. Raising the window to 800 ms ([`39aa63a`](https://github.com/zeikar/charivo/commit/39aa63a)) and fixing when the timeout started counting ([`b15c766`](https://github.com/zeikar/charivo/commit/b15c766)) didn't change the core problem: a few hundred milliseconds of silence can't prove a buffer is empty. The third review pointed at the event I'd skipped. The transport already received `output_audio_buffer.stopped`, and the *other* OpenAI client in the same package already treated it as completion. I made that event authoritative and kept the heuristic as a fallback in case it never arrived ([`7144cca`](https://github.com/zeikar/charivo/commit/7144cca)), and that was sent back too, because the fallback could still fire first. An end can't be taken back. Once `RenderManager` has released the expression, a later "actually, still playing" doesn't un-release it. The fifth commit ([`7bb0009`](https://github.com/zeikar/charivo/commit/7bb0009)) deleted the heuristic: 55 lines added, 373 removed. Four more commits tidied edges like `output_audio_buffer.cleared` on interrupts and connection loss during tail playback, and first commit to last took 47 minutes. The realtime guide still says no timer or audio-level heuristic stands in for that signal.
 
 The client I'd been pointed at wasn't clean either. It handled `output_audio_buffer.stopped` in the same `case` as the send events:
 
@@ -73,7 +68,7 @@ Whichever arrived first ended the audio, and the send events arrive while audio 
 
 A week after the heuristic came out, I made typing work as barge-in: if the character is mid-reply, a typed message interrupts it first ([`83b40cd`](https://github.com/zeikar/charivo/commit/83b40cd)). The check was `state.response.status === "responding"`.
 
-Charivo's `response.status` flips to `"completed"` at the *done* moment, and playback runs well past it. A message typed while the character was finishing its sentence found the turn already completed, skipped the interrupt, and went out as an ordinary send. The old line played to its end and the new answer followed it, instead of cutting in. Half an hour later ([`1d9baba`](https://github.com/zeikar/charivo/commit/1d9baba)) the demo tracked playback from `tts:audio:start` / `tts:audio:end`, which by then meant *heard*, and the realtime state gained an `audioPlaying` field so nobody has to rebuild that from events ([`7884f77`](https://github.com/zeikar/charivo/commit/7884f77)).
+Charivo's `response.status` flips to `"completed"` at the *done* moment, and playback runs well past it. A message typed while the character was finishing its sentence found the turn already completed, skipped the interrupt, and went out as an ordinary send. The old line played to its end and the new answer followed it, instead of cutting in. Half an hour later ([`1d9baba`](https://github.com/zeikar/charivo/commit/1d9baba)) the demo tracked playback from `tts:audio:start` / `tts:audio:end`, which by then meant *heard*, and the realtime state gained an `audioPlaying` field so nobody has to rebuild "is the character still talking?" from events ([`7884f77`](https://github.com/zeikar/charivo/commit/7884f77)).
 
 ## Cancel doesn't stop the sound
 
@@ -92,7 +87,7 @@ interrupt() {
 }
 ```
 
-## Gemini: a clock and a queue
+## Gemini has no buffer event
 
 Gemini Live has no output-buffer event. Charivo's transport receives PCM over the socket and schedules it with Web Audio itself, so *heard* has to be worked out locally. Before writing the transport I measured the API live; the record is in [`tests/gemini-live-smoke/README.md`](https://github.com/zeikar/charivo/blob/main/tests/gemini-live-smoke/README.md). Two signals looked usable, and each was wrong on its own.
 
@@ -105,7 +100,7 @@ turnComplete              +12005 ms
 first chunk + 10.56 s     +11999 ms
 ```
 
-In a browser run, `turnComplete` landed at +12034 ms and the last buffer's `onended` at +12037 ms, three milliseconds apart. That closeness is the trap. The server is running a clock, not listening to your speakers, so a shortcut built on `turnComplete` passes every test you're likely to run and only fails when the network stalls.
+In a browser run, `turnComplete` landed at +12034 ms and the last buffer's `onended` at +12037 ms, three milliseconds apart. That closeness is the trap. What the server measures is its own clock, not your speakers, so a shortcut built on `turnComplete` passes every test you're likely to run and only fails when the network stalls.
 
 The second is the local queue draining, and the same measurements rule it out. A turn's opening chunk is short enough to finish before the next one arrives, so the scheduler empties and reports "drained" 3 ms into a twelve-second reply.
 
@@ -117,16 +112,15 @@ Interrupting opened one more gap. `RealtimeManager` holds a send lock while a re
 
 The next plan went after the stale events in the Agents SDK transport, and its regression test was a mock that fired the replacement's `response.created` before the cancelled response's `response.done`. Review rejected it: in the pinned SDK, the `ResponseCreateSequencer` doesn't send a new `response.create` while a response is still ongoing. The mock had manufactured the hole it was testing.
 
-From that I concluded there was nothing to fix, which was wrong in the other direction. Driving the real adapter and the real manager together, over an order the SDK *can* produce, showed a different path ([`7077051`](https://github.com/zeikar/charivo/commit/7077051)). `interrupt()` resets the adapter's "assistant started" flag. When the cancelled turn's `agent_end` finally arrives, the adapter calls `ensureAssistantStarted()`, which announces the dead turn again. The manager moves back to `"responding"`, takes the completion as the current turn's, and releases the replacement's lock.
+From that I concluded there was nothing to fix, which was wrong in the other direction. Driving the real adapter and the real manager together, over an order the SDK *can* produce, showed a different path ([`7077051`](https://github.com/zeikar/charivo/commit/7077051)). `interrupt()` resets the adapter's "assistant started" flag. When the cancelled turn's `agent_end` finally arrives, the adapter calls `ensureAssistantStarted()`, which announces the dead turn again. The manager moves back to `"responding"`, takes the completion as the current turn's, and releases the replacement's lock. The low-level adapter had the same hole: it dropped its cancel marker the moment the replacement went out.
 
-The fix ([`0f03dc3`](https://github.com/zeikar/charivo/commit/0f03dc3), [`77a94ea`](https://github.com/zeikar/charivo/commit/77a94ea)) marks a response as condemned only when the wire proves it's in flight at interrupt time, and drops that response's assistant events until it reports. Nothing is incremented on send, so a counter can't drift and swallow a real turn's completion. The windows this doesn't cover, like an interrupt issued before the turn's first server event, are listed as a known gap in the [realtime guide](https://github.com/zeikar/charivo/blob/main/docs/guide/realtime.md).
+Both adapters now mark a response as condemned only when the wire proves it's in flight at interrupt time, and drop that response's assistant events until it reports ([`0f03dc3`](https://github.com/zeikar/charivo/commit/0f03dc3), [`77a94ea`](https://github.com/zeikar/charivo/commit/77a94ea)). Marking one the wire hasn't confirmed would mean waiting for a report that never comes, swallowing a real turn's completion instead and stranding the lock. The low-level adapter keeps a count rather than a flag, because the next interrupt overwrote the flag. The windows this doesn't cover, like an interrupt issued before the turn's first server event, are listed as a known gap in the [realtime guide](https://github.com/zeikar/charivo/blob/main/docs/guide/realtime.md).
 
-## A test against the real thing
+## A test against a live session
 
-By now mocks had misled me in both directions, so the last commit ([`06cb391`](https://github.com/zeikar/charivo/commit/06cb391)) runs interrupt-and-replace against a live OpenAI session. The first two assertions I wrote for it were wrong:
+By now mocks had misled me in both directions, so the last commit ([`06cb391`](https://github.com/zeikar/charivo/commit/06cb391)) runs interrupt-and-replace against a live OpenAI session. The first two assertions I wrote for it were wrong.
 
-- **Counting lock releases** failed with the fix in place. The fake microphone can trip server VAD into an extra turn, so a count of turns measures the harness, not the code.
-- **Asserting that no completion arrives before the replacement's first event** passed with the fix *removed*. With its deltas suppressed, the stale report looks exactly like a short real turn, and it can land after the replacement has started. Order alone can't tell them apart.
+Counting lock releases failed with the fix in place. The fake microphone can trip server VAD into an extra turn, so a count of turns measures the harness rather than the code. Asserting that no completion arrives before the replacement's first event did the opposite: it passed with the fix *removed*. With its deltas suppressed, the stale report looks exactly like a short real turn, and it can land after the replacement has started. Order alone can't tell them apart.
 
 What does tell them apart is the text. Only the interrupted turn carries what that turn was saying:
 
@@ -136,9 +130,3 @@ expect(laterDoneTexts.filter((text) => text.includes(head))).toEqual([]);
 ```
 
 With the swallow removed from the adapter, the spec fails. With it restored, it passed twice in a row.
-
-## Where the contract landed
-
-The realtime guide now defines `tts:audio:end` as playback finished, and says no timer or audio-level heuristic stands in for that, because a guessed end can't be undone once an expression has been released.
-
-"Is the character still talking?" is `state.audioPlaying`. On OpenAI, `state.response.status` reads `"completed"` for the whole tail of every turn. On Gemini it completes at `turnComplete`, which is on time only while the network is.

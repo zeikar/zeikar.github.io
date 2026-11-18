@@ -1,22 +1,15 @@
 ---
-title: "Chrome 확장 프로그램 OAuth: getAuthToken에서 launchWebAuthFlow로"
-subtitle: "Chrome 계정 chooser가 가끔 cancel callback을 조용히 삼키는 이유, 그걸 막으려던 band-aid가 자기 자신과 race하는 이유, 그리고 둘 다 우회하는 primitive."
+title: "Chrome 확장 프로그램에서 getAuthToken이 로그인 취소를 놓칠 때"
+subtitle: "계정 선택 창을 닫아도 응답이 오지 않아 keepalive와 timeout으로 버티다가, 취소를 확실히 알려주는 launchWebAuthFlow로 옮겨 둘 다 걷어냈다."
 date: 2026-05-05
 unit: commentarium
+last_modified_at: 2026-11-18
 translations:
   en: /blog/from-getauthtoken-to-launchwebauthflow/
-description: "chrome.identity.getAuthToken이 cancel callback을 조용히 떨굴 때, MV3 SW idle timer가 그걸 60초 spinner로 만든다. keepalive band-aid는 Chrome의 per-request 5분 cap과 race한다. launchWebAuthFlow는 둘 다 피해 가는 primitive다."
+description: "chrome.identity.getAuthToken이 로그인 취소 콜백을 떨궈 서비스 워커가 멈출 때: keepalive와 timeout이 Chrome의 5분 제한과 부딪힌 이유와, launchWebAuthFlow로 옮기며 바꾼 코드와 OAuth client 설정."
 ---
 
-Chrome 익스텐션의 OAuth에서 cancel을 감지하려다 생긴 일이다. `chrome.identity.getAuthToken`을 band-aid로 둘러쌌더니 그 band-aid가 자기 자신과 race했고, 다른 `chrome.identity` primitive로 한 발짝 물러서니 band-aid가 아예 필요 없어졌다.
-
-작은 문제지만, 구도는 [지난 CHIPS 포스트](/blog/ko/from-chrome-cookies-to-chips/)와 같다. 우리는 엉뚱한 걸 고치려 했다.
-
-## 세팅
-
-빠른 복습: [Commentarium](https://commentarium.app)은 댓글 웹앱이고, [Chrome 익스텐션](https://github.com/zeikar/commentarium-extension)이 모든 페이지에 `commentarium.app/comments?url=…` iframe을 끼워 넣는다. service worker가 iframe과 배포된 웹앱 사이에서 Firebase 인증을 중개한다. 지난 포스트는 쿠키가 iframe까지 어떻게 가는지에 대한 이야기였고, 이번 포스트는 SW가 Firebase ID token을 애초에 어떻게 만드는지에 대한 이야기다.
-
-지난주까지는 이게 전부였다:
+[Commentarium](https://commentarium.app) 확장 프로그램은 모든 페이지에 댓글 iframe을 띄우고, 로그인은 서비스 워커가 대신 처리한다. 구조는 [지난 글](/blog/ko/from-chrome-cookies-to-chips/)에 적었다. iframe이 `chrome.runtime.sendMessage`로 "Google 로그인"을 요청하면, 서비스 워커는 원래 이렇게 Firebase에 로그인했다.
 
 ```ts
 const { token: accessToken } = await chrome.identity.getAuthToken({ interactive: true });
@@ -24,47 +17,33 @@ const credential = GoogleAuthProvider.credential(null, accessToken);
 await signInWithCredential(auth, credential);
 ```
 
-Chrome 계정 chooser가 뜨고, 사용자가 계정을 고르고, access token이 돌아오고, 그걸 `GoogleAuthProvider.credential`에 넘기면 Firebase가 sign-in 시킨다. 끝.
+Chrome의 계정 선택 창이 뜨고, 계정을 고르면 access token이 돌아오고, 그걸 Firebase credential로 바꾸면 끝이다. 계정을 고르지 않고 창을 닫기 전까지는 그랬다.
 
-사용자가 chooser에서 아무것도 안 고르고 닫기 전까지는.
+## 계정 선택 창을 닫으면
 
-## 60초 spinner
-
-QA 보고: "*Google로 로그인* 누르면 chooser가 뜨는데, 닫으니까 spinner가 멈추질 않는다." 얼마나? 약 1분.
-
-1분이라는 건 묘한 시간이다. "영원히"는 아니고 (진짜 hang이면 훨씬 길게 느껴진다), "즉시"도 아니고 (실제 cancel은 sub-second). 60초는 *budget*이다. 누군가 timeout을 재고 있는 거다.
-
-SW DevTools console이 결국 답을 준다:
+창을 닫아도 로그인 버튼의 스피너가 계속 돌았다. 한참 뒤에야 "Authentication failed"가 떴고, iframe 콘솔에는 이런 에러가 남아 있었다.
 
 ```
 Unchecked runtime.lastError: A listener indicated an asynchronous response by returning true,
 but the message channel closed before a response was received
 ```
 
-웹앱의 `chrome.runtime.sendMessage(EXT_ID, { type: "signIn.google" })`가 SW 응답을 기다리고 있었다. SW는 message handler에서 `true`를 반환했고 ("async로 응답하겠다"는 신호), 그 상태로 `chrome.identity.getAuthToken`을 await한 채 멍하니 앉아 있었다. 약 1분 뒤, SW가 idle out 되면서 Chrome이 message channel을 강제로 닫았다. 웹앱은 generic한 channel-closed 에러를 받았고, "Authentication failed"로 표시됐다.
+서비스 워커의 메시지 핸들러는 `true`를 반환해 비동기로 답하겠다고 해 놓고 `getAuthToken`을 await하고 있었다. 보통은 사용자가 창을 닫으면 Chrome이 `"The user did not approve access."` 에러로 이 Promise를 reject한다. 그런데 가끔 그 콜백이 아예 오지 않았다. Promise는 resolve도 reject도 되지 않고, await는 그대로 멈춘다.
 
-## 왜 60초인가
+여기에 MV3 서비스 워커의 수명 규칙이 겹친다. 서비스 워커는 이벤트를 받거나 확장 프로그램 API를 부를 때마다 30초짜리 idle 타이머를 다시 시작하고, 그동안 아무 일도 없으면 종료된다. 멈춘 await는 아무 일도 아니어서 30초쯤 지나면 서비스 워커가 내려가고, 메시지 채널이 닫히고, iframe은 구조 없는 채널 에러를 받는다. 사용자에게는 이유를 알 수 없는 실패다.
 
-플랫폼 동작 두 개가 충돌한다.
+## keepalive와 timeout
 
-**Behavior #1**: `chrome.identity.getAuthToken({ interactive: true })`의 cancel callback이 올 때도 있고 안 올 때도 있었다. 대부분의 플랫폼에선 사용자가 chooser를 안 고르고 닫으면 Chrome이 `chrome.runtime.lastError = "The user did not approve access."`로 콜백하고 Promise가 reject된다. 그런데 우리 macOS QA 환경에선 그 path가 callback을 통째로 떨궜다. Promise가 resolve도 reject도 안 된다. await가 그냥 hang.
-
-**Behavior #2**: MV3 service worker는 idle out 된다. 공식적으로는 30초 idle 타이머가 있고, SW가 이벤트를 처리할 때마다 리셋된다. 응답 대기 중인 message handler는 원칙상 SW를 살려둬야 하는데, 실제론 hang된 await만 붙들고 있으면 30~60초 사이 어딘가에서 SW가 죽는다. SW가 죽으면 message channel이 닫히고, 웹앱이 "channel closed before response"를 본다.
-
-조합하면: cancel callback이 안 옴 → SW 영원히 await → SW idle out → channel closed → 웹앱이 ~60초 후에 generic 에러를 본다.
-
-## 1차 수정: keepalive + timeout race
-
-직진형 band-aid:
+먼저 손댄 건 서비스 워커를 살려 두고, 오지 않는 콜백에는 상한을 거는 것이었다.
 
 ```ts
 async function signInGoogleOp(): Promise<AuthResponse> {
-  // OAuth가 진행 중인 동안 SW를 살려둔다.
+  // OAuth가 진행 중인 동안 서비스 워커를 살려 둔다.
   const keepAlive = setInterval(() => {
     void chrome.runtime.getPlatformInfo().catch(() => {});
   }, 20_000);
 
-  // hung callback이 영원히 hang하지 못하도록 hard cap과 race.
+  // 콜백이 끝내 오지 않아도 상한에서 끝나도록 timeout과 경주시킨다.
   const timeoutPromise = new Promise<never>((_, reject) => {
     setTimeout(() => reject({ code: "identity/timeout", message: "..." }),
       5 * 60 * 1000);
@@ -82,36 +61,24 @@ async function signInGoogleOp(): Promise<AuthResponse> {
 }
 ```
 
-`chrome.runtime.getPlatformInfo()`는 떠올릴 수 있는 가장 가벼운 `chrome.*` 호출이다. side effect가 없고, 20초마다 ping하면 SW가 idle out 안 된다. 5분 timeout은 cancel callback이 진짜 안 올 때 깔끔한 `identity/timeout` 에러를 올려준다.
+`chrome.runtime.getPlatformInfo()`는 부작용이 없는 가장 가벼운 `chrome.*` 호출이라, 20초마다 부르면 idle 타이머가 계속 초기화된다. timeout은 콜백이 끝내 오지 않을 때 `identity/timeout`이라는 이름 있는 에러를 돌려준다.
 
-작동했다. 이제 웹앱이 60초가 아니라 5분 후에 spinner를 멈춘다.
+처음 잡은 timeout은 5분이었고, 커밋 전 리뷰에서 걸렸다. Chrome은 이벤트나 API 요청 하나가 5분 넘게 걸리면 keepalive와 상관없이 서비스 워커를 [종료한다](https://developer.chrome.com/docs/extensions/develop/concepts/service-workers/lifecycle). 계정 선택 창이 열린 뒤로 `getAuthToken` 호출이 바로 그 요청이었으니, 5분 timeout은 이 제한과 경주하는 셈이었다. Chrome이 먼저 서비스 워커를 내리면 timeout은 울리지도 못하고 처음의 채널 에러로 돌아간다.
 
-5분이면 60초보다 오히려 더 나쁜 UX다.
+그래서 [60초로 내려서 커밋했다](https://github.com/zeikar/commentarium-extension/commit/4134ae2). 이제 에러에 이름은 붙었지만, 창을 닫은 사용자는 여전히 1분을 꼬박 기다려야 그 에러를 본다. keepalive가 서비스 워커를 살려서 하는 일은 결국 60초 뒤에 "포기했다"를 전하는 것뿐이었다. 문제는 서비스 워커의 수명이 아니라, 취소 신호가 `getAuthToken` 안 어딘가에서 사라진다는 데 있었다. 그 부분은 바깥에서 고칠 수 없다.
 
-## 자기 자신과 race
+## launchWebAuthFlow로 바꾸기
 
-코드 리뷰어가 다음 문제를 잡아줬다: Chrome은 익스텐션 service worker의 single event 또는 API request 하나가 ~5분을 넘기면 SW를 [종료한다](https://developer.chrome.com/docs/extensions/develop/concepts/service-workers/lifecycle). 옆에서 `chrome.*` 활동이 돌고 있어도 마찬가지다. 우리 message-handler request는 chooser가 열린 순간부터 `getAuthToken`을 await하고 있었고, 그게 in-flight single request였다. 우리 5분 timeout은 정확히 그 cap과 race하고 있었던 거다. Chrome이 SW를 먼저 죽이면 timer는 울리지도 못하고, channel이 비정상적으로 닫히고, 우리는 다시 원래의 "channel closed" 에러로 돌아간다.
+`chrome.identity`에는 대화형 로그인 API가 두 개 있다.
 
-timeout을 60초로 낮췄다. 이제 cap과 race하진 않지만, 사용자는 여전히 1분 꽉 채워서 기다린 후에야 구조화된 응답을 받는다. keepalive는 SW를 살려두는 자기 일은 잘한다. 문제는 그렇게 살려서 하는 일이 60초 뒤에 "포기했다"를 전하는 것뿐이라는 거다.
-
-여기서 우리가 엉뚱한 layer를 패치하고 있다는 걸 알았다. keepalive는 애초에 필요하지 않았어야 할 await를 연장하고 있었다. cancel 신호는 `getAuthToken` 안에서 우리가 볼 수 없는 어딘가에 가만히 있었다.
-
-## 올바른 primitive
-
-`chrome.identity`는 interactive API 두 개를 ship한다:
-
-| API | 여는 것 | Cancel 신호 |
+| API | 여는 것 | 취소 신호 |
 |---|---|---|
-| `getAuthToken` | Chrome 내부 계정 chooser | 일부 플랫폼에서 조용히 떨어짐 |
-| `launchWebAuthFlow` | OAuth URL을 가리키는 일반 브라우저 윈도우 | 윈도우 close 시 Promise reject; provider deny 시 redirect URL fragment에 `error=access_denied` |
+| `getAuthToken` | Chrome 내부 계정 선택 창 | 가끔 오지 않음 |
+| `launchWebAuthFlow` | OAuth URL을 띄운 일반 브라우저 창 | 창을 닫으면 Promise reject, provider가 거부하면 redirect URL fragment에 `error=access_denied` |
 
-`launchWebAuthFlow`는 진짜 Chromium 윈도우를 연다. 사용자가 X 버튼으로 닫으면 Chrome이 에러와 함께 callback을 확실하게 호출한다. close 이벤트를 삼킬 내부 계정 chooser surface가 없다.
+`launchWebAuthFlow`는 진짜 브라우저 창을 띄운다. 사용자가 창을 닫으면 Chrome이 Promise를 확실히 reject하고, 그 사이에서 닫힘 이벤트를 삼킬 내부 UI가 없다. 대신 "토큰만 달라"는 `getAuthToken`의 편의는 포기해야 한다. OAuth URL을 직접 만들어 넘기고, 돌아온 redirect URL의 fragment를 직접 파싱한다.
 
-`getAuthToken`이 주던 "토큰 줘, 나머지는 네가 알아서" 식의 편의는 포기한다. 대신 OAuth URL을 직접 만들고, `launchWebAuthFlow`에 넘기고, 돌아온 redirect URL fragment를 파싱한다. 코드는 대략 15-20줄 더. 그 대가로 cancel을 거의 즉시, 확실하게 알 수 있다.
-
-## 마이그레이션은 이렇게
-
-기존 Firebase 연결은 그대로 유지했다. 구체적으로 `response_type=token`을 써서 redirect가 `access_token`을 fragment에 싣고 오게 했고, 그걸 `getAuthToken` 때와 똑같이 `GoogleAuthProvider.credential(null, accessToken)`에 넘긴다. nonce 검증을 새로 붙일 필요도 없다.
+Firebase 쪽은 그대로 두려고 `response_type=token`을 썼다. 그러면 redirect가 `access_token`을 싣고 오고, 그걸 전처럼 `GoogleAuthProvider.credential(null, accessToken)`에 넘기면 된다. ID token을 받을 때처럼 nonce를 검증할 필요도 없다.
 
 ```ts
 async function signInGoogleOp(): Promise<AuthResponse> {
@@ -135,6 +102,7 @@ async function signInGoogleOp(): Promise<AuthResponse> {
     return { error: { code: "auth/popup-closed-by-user", message: "..." } };
   }
 
+  // (URL 파싱 실패, access_token 누락 처리는 생략)
   const fragment = new URLSearchParams(new URL(responseUrl!).hash.slice(1));
 
   // 다른 필드를 읽기 전에 state부터 검증한다.
@@ -155,47 +123,32 @@ async function signInGoogleOp(): Promise<AuthResponse> {
   }
 
   const accessToken = fragment.get("access_token");
-  // ...Firebase 블록은 이전과 동일
+  // ...Firebase 로그인은 이전과 동일
 }
 ```
 
-세 가지 디테일이 짚을 만하다.
+취소는 창을 닫은 경우든 `access_denied`든 `auth/popup-closed-by-user`로 돌려준다. 웹에서 `signInWithPopup` 창을 닫을 때 Firebase가 내는 코드라, 웹앱 로그인 모달에는 이 코드를 받으면 "Sign-in was cancelled"를 띄우는 분기가 원래 있었다. 웹앱은 고칠 게 없었다.
 
-**Cancel을 `auth/popup-closed-by-user`로 매핑.** Firebase의 popup-based OAuth cancellation 표준 에러 코드다. 브라우저 플로우의 `signInWithPopup`이 만들어내는 코드가 이거라서 웹앱에 이미 처리 path가 있었고, 그래서 사용자에게 보이는 "Sign-in cancelled" 카피가 공짜였다. 웹앱 변경 불필요.
+`state`는 다른 fragment 필드보다 먼저 검증한다. 성공 redirect든 에러 redirect든 `state`를 그대로 돌려주니, 이걸 먼저 확인하면 그 뒤의 처리는 모두 CSRF 검사를 통과한 값만 다룬다. 남이 만든 redirect가 `error=access_denied`를 끼워 넣어 "사용자가 취소했다"로 위장하는 것도 막힌다.
 
-**state를 먼저 검증.** 성공/실패 redirect 모두 `state`를 echo한다. 다른 fragment field를 읽기 전에 검증하면 그 뒤 처리는 모두 CSRF check를 통과한 값만 다룬다. 악의적으로 만든 redirect가 `error=access_denied`를 "사용자가 cancel함" 신호로 위장해서 끼워넣지 못한다.
+keepalive와 timeout은 지웠다. 이제 로그인은 창을 직접 띄우고 관리하는 `launchWebAuthFlow` 안에서 끝나고, 취소도 바로 돌아오니 서비스 워커의 수명을 따로 늘릴 일이 없다.
 
-**keepalive 없음, timeout race 없음.** 둘 다 사라졌다. OAuth flow가 이제 창을 직접 띄우고 관리하는 `launchWebAuthFlow` 안에서 resolve / reject되므로, SW keepalive나 직접 건 timeout으로 lifetime 제약을 우회할 필요가 없다.
+## OAuth client를 Web application으로
 
-## Cloud Console 주의사항
+`getAuthToken`에 쓰던 "Chrome App" 타입 OAuth client는 `launchWebAuthFlow`에 쓸 수 없다. Chrome App client는 매니페스트의 `oauth2` 필드에 묶여 있고, 쓸 수 있는 redirect URI가 없다. Google Cloud Console에서 "Web application" client를 새로 만들고, 인가된 redirect URI에 `https://<EXTENSION_ID>.chromiumapp.org/`를 정확히 넣어야 한다. `chrome.identity.getRedirectURL()`이 돌려주는 값이 이것이라 끝의 슬래시까지 맞아야 한다. 매니페스트의 `oauth2` 필드는 쓰는 곳이 없어져서 지웠다.
 
-"Chrome App" 타입 OAuth client_id를 `launchWebAuthFlow`에 재사용할 수 없다. Chrome App client는 manifest의 `oauth2` field에 묶여 있고 임의의 redirect URI를 받지 않는다. "Web application" client_id가 필요하고, 인가된 redirect URI는 정확히 `https://<EXTENSION_ID>.chromiumapp.org/`여야 한다. `chrome.identity.getRedirectURL()`이 돌려주는 값이 이거라서 trailing slash까지 맞아야 한다. 익스텐션의 옛 `oauth2` manifest field는 쓸모가 없어져서 지웠다.
+로컬 개발에도 걸리는 게 하나 있다. unpacked로 올린 확장 프로그램은 매니페스트의 `key`로 고정하지 않으면 배포판과 ID가 다르고, ID가 다르면 redirect URI도 달라서 Google이 `redirect_uri_mismatch`로 거절한다. 다행히 배포된 웹앱이 하드코딩된 배포판 ID로 `sendMessage`를 보내기 때문에, 로컬 서비스 워커가 그 메시지를 받으려고 이미 `VITE_EXTENSION_KEY`로 ID를 고정해 두고 있었다. 그 고정 덕분에 로컬에서도 `getRedirectURL()`이 Cloud Console에 등록한 URI와 그대로 맞았다.
 
-(unpacked-dev 워크플로우에 별도 이슈가 하나 있다: 개발자의 로컬 익스텐션 ID는 `key` field로 핀하지 않으면 prod ID와 일치하지 않는다. 배포된 웹앱이 prod EXT_ID를 하드코딩한 `runtime.sendMessage`로 로컬 SW에 닿을 수 있게, 이미 `VITE_EXTENSION_KEY`로 ID를 핀해 두고 있었다. 이번 마이그레이션 뒤로는 이 핀 덕분에 `getRedirectURL()` 결과도 Cloud Console에 인가된 URI와 맞는다. 일석이조.)
+## 바뀐 것
 
-## diff는 어땠나
-
-| | getAuthToken path | launchWebAuthFlow path |
+| | getAuthToken + keepalive | launchWebAuthFlow |
 |---|---|---|
-| Cancel 감지 | 일부 플랫폼에서 조용히 떨어짐 | ~1초 안에 Promise reject |
-| SW keepalive ping | 필요 (20초마다) | 없음 |
-| Timeout | 필요 (처음엔 5분, SW lifetime cap과 race; 이후 60초) | 없음 |
-| Cancel 시 사용자 대기 | ~60초 후 generic 에러 | ~1초, 구조화된 `auth/popup-closed-by-user` |
-| OAuth client 타입 | Chrome App (manifest `oauth2`) | Web application (Cloud Console redirect URI) |
-| State / CSRF 방어 | 없음 (Chrome 내부 처리) | 명시적, fragment 소비 전 검증 |
-| `signInGoogleOp` 라인 수 | ~30 (band-aided) | ~50 (URL build + fragment parse + error 매핑) |
+| 취소 감지 | 가끔 콜백이 오지 않음 | 창을 닫으면 바로 reject |
+| 서비스 워커 keepalive | 20초마다 ping | 없음 |
+| Timeout | 60초 (5분은 Chrome 수명 제한과 경주) | 없음 |
+| 취소한 사용자가 기다리는 시간 | 60초 뒤 `identity/timeout` | 바로 `auth/popup-closed-by-user` |
+| OAuth client | Chrome App (매니페스트 `oauth2`) | Web application (Cloud Console redirect URI) |
+| state 검증 | 없음 (Chrome이 내부에서 처리) | fragment를 읽기 전에 직접 검증 |
+| `signInGoogleOp` 코드 줄 수 (주석, 빈 줄 제외) | 49 | 90 |
 
-코드 15-20줄 더. timer 저글링 primitive 두 개 사라짐. cancel path UX 60배 개선.
-
-## 교훈
-
-1. **플랫폼 quirk band-aid는 다른 플랫폼 quirk와 race한다.** keepalive + timeout이 SW를 살려두며 버티려던 바로 그 lifetime cap과 race하고 있었다. 잘못된 layer를 패치한다는 건 한 플랫폼 제약을 다른 플랫폼 제약으로 바꾸는 것뿐이다.
-2. **"올바른 primitive"가 "올바른 workaround"를 이긴다.** `launchWebAuthFlow`에 결정론적인 cancel 신호가 있다는 걸 보고 나니, `getAuthToken` band-aid가 한물간 것처럼 보였다. timer 저글링 30줄은 엉뚱한 곳에 쏟은 노력이었다.
-3. **OAuth 응답의 다른 필드를 읽기 전에 `state`를 검증하라.** 성공/실패 redirect 모두 echo한다. 먼저 검사하는 건 공짜 CSRF 방어이고, "취소했는데 앱이 다른 걸 시도했다고 한다" 같은 이상한 버그 보고가 아예 안 나온다.
-4. **MV3 SW lifetime은 구조적 제약이지 tweak 대상이 아니다.** 30초 idle 타이머와 ~5분 per-request cap을 설계의 전제로 깔고 가라. 디자인이 single request를 5분 넘게 끌어야 한다면, 아마 구조가 잘못된 거다. 우리가 그랬듯이.
-
-이번에도 답을 찾고 나니 수정은 놀랄 만큼 기계적이었다.
-
----
-
-*코드: [commentarium-extension](https://github.com/zeikar/commentarium-extension). 마이그레이션은 커밋 [`7b95db1`](https://github.com/zeikar/commentarium-extension/commit/7b95db1)으로 머지됐다.*
+코드는 URL 조립과 fragment 파싱, 에러 매핑만큼 40줄쯤 늘었고, 타이머 두 개가 사라졌다. 마이그레이션은 커밋 [`7b95db1`](https://github.com/zeikar/commentarium-extension/commit/7b95db1)이다.

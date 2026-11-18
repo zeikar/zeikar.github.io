@@ -1,8 +1,9 @@
 ---
-title: "The CPUs Weren't Rigged. My Emulator Was."
-subtitle: "Every CPU duelist in an old Yu-Gi-Oh! DS game has a rating that moves, and nobody had written down how. Pinning it down took a sum that came out exact, an emulator with nobody at the controls, and a tournament draw that only looked rigged."
+title: "Recovering the CPU Rating Formula in Yu-Gi-Oh! World Championship 2008"
+subtitle: "While I checked it over thousands of emulated duels, the tournament draw looked rigged; the CPUs weren't, but my emulator was."
 date: 2026-09-28
 unit: yugioh-wc2008-rating-lab
+last_modified_at: 2026-11-18
 lang: en
 translations:
   ko: /blog/ko/the-cpus-werent-rigged-my-emulator-was/
@@ -19,7 +20,7 @@ So I built [WC2008 Rating Lab](/projects/yugioh-wc2008-rating-lab/) to type thos
 
 The first clue wasn't a duel. When I set up the app's roster, I recorded the current rating of 35 CPUs. They had drifted a long way since a new game, anywhere from −354 to +620 points. Yet they added up to 40,200, exactly the sum of their documented starting ratings.
 
-That only happens if every duel since the save began took from one side exactly what it gave the other. Zero-sum became the one rule the app is allowed to use: type one side's new rating and it fills in the other. Later, once I could read the save file, all 78 CPUs added up to their starting 94,800 as well.
+That only happens if every duel since the save began took from one side exactly what it gave the other. The app uses this zero-sum as its one rule: type one side's new rating and it fills in the other. Later, once I could read the save file, all 78 CPUs added up to their starting 94,800 as well.
 
 ## Seven duels, one curve
 
@@ -31,7 +32,7 @@ N = K / (1 + 10^(gap / S))
 
 The gap is the winner's rating minus the loser's before the duel. Chess Elo uses S = 400, and that's badly wrong here. Manju of the Ten Thousand Hands at 1561 beat Reaper on the Nightmare at 792, a gap of +769, and took 23 points. S = 400 predicts about 2.
 
-So I searched a grid: every integer K from 150 to 170, and S from 900 to 1100 in steps of 10. Rounding down, exactly one pair reproduced all seven duels:
+I searched a grid: every integer K from 150 to 170, and S from 900 to 1100 in steps of 10. Rounding down, exactly one pair reproduced all seven duels:
 
 ```
 N = floor(160 / (1 + 10^(gap / 1000)))
@@ -48,8 +49,6 @@ The save file came first. It's 256 KiB holding four blocks, each a `TDGY` magic,
 Watching ratings change live meant finding them in RAM, and a cheat code gave away where to look before I'd booted anything. An Action Replay code for the Korean release puts DP at 0x021146B0, and DP sits at offset 0x24 of the decompressed save. If RAM holds that data as one block, the block starts at 0x0211468C, and the rating table at 0x02114A22.
 
 The harness drives the [melonDS DS](https://github.com/JesseTG/melonds-ds) libretro core from Python through [libretro.py](https://github.com/JesseTG/libretro.py), with my own ROM and save, which never leave my machine. The core leaves saves to the frontend, so the script copies the save's bytes into save RAM before the first frame (otherwise the title screen offers NEW GAME) and writes them back out itself whenever the game saves. After A on the title screen, the 156 bytes at 0x02114A22 matched the save's table exactly, and they were the only match in the 4 MiB of main RAM.
-
-One trap on the way: libretro.py returns screenshots as RGBA whatever the core's pixel format, and reading them as BGR turns the yellow rating triangle cyan.
 
 ## Losing on purpose
 
@@ -76,7 +75,7 @@ The first theory: Level 2 is gated by rating. No Level 2 entrant had stood below
 
 The second theory, five minutes later: entrants fill fixed rating ranks. Ranked by current rating within their level, the same places entered 122 to 125 of 125 tournaments: ranks 1, 2, 3, 5, 14, 18 and 24 at Level 1, and 2, 3, 5, 7, 12, 14 and 15 at Level 2. Level 3 always had the same three guests from lower levels. That covered the six, which sat at ranks nobody drew, and it covered Level 1's shrinking field. Its first 25 tournaments had 23 different CPUs and its last 25 only 16, because winners climbed into the drawn ranks and stayed there.
 
-The third theory came from the game's code instead of its output. The draw lives in overlay 19, and it's a much more ordinary rule. The game sorts the level's unlocked CPUs by rating, makes 100 random swaps among the top 12 (the top 15 at Level 3) and takes the top 3 as seeds. The other 4 are uniform random picks from the rest of the level and the unlocked CPUs of lower levels. It's random, with a thumb on the scale for the top of the ladder.
+The third theory came from reading the game's code. The draw lives in overlay 19, and it's a much more ordinary rule. The game sorts the level's unlocked CPUs by rating, makes 100 random swaps among the top 12 (the top 15 at Level 3) and takes the top 3 as seeds. The other 4 are uniform random picks from the rest of the level and the unlocked CPUs of lower levels. It's random, with a thumb on the scale for the top of the ladder.
 
 Then why fixed ranks? The random numbers come from a plain ANSI C `rand()`:
 
@@ -95,7 +94,7 @@ In normal play this matters much less. The game reseeds `rand()` at the first du
 
 The fix, under an hour after the first theory, was a random seed written into `rand()` at boot and a random wait of 0 to 599 frames at the menu. I threw the dataset away and started over on a fresh fork. Three hours and 300 tournaments later, a random start for the frame counter joined them. `draw.py` now rebuilds the draw in Python, with the same `rand()`, the same unstable quicksort and the same picks. It matched all 41 brackets captured in experiments and every logged tournament that kept its starting save.
 
-The lesson I keep is that a deterministic emulator is a great instrument and a terrible sample. Forty-five tournaments replayed from one fork point gave all 270 of their CPU duels again, to the frame. Anything you run from the same starting state is one data point, however many times you run it.
+A deterministic emulator is a great instrument and a terrible sample. Forty-five tournaments replayed from one fork point gave all 270 of their CPU duels again, to the frame. Anything you run from the same starting state is one data point, however many times you run it.
 
 ## 9,600 duels
 
@@ -107,6 +106,6 @@ Every one moved exactly `floor(160 / (1 + 10^(gap / 1000)))` points. Every one w
 
 The formula is Elo with S = 1000, and an Elo curve is supposed to be a win probability. Read that way, this one overrates favorites. The higher-rated CPU won 62% of the 9,600 duels. Even 700 to 1,200 points ahead it won only 78%, where the curve says 83 to 94% and chess Elo 98% or more.
 
-The deck decides more than the rating does. Win rates run from 6.8% for Marcel Bonaparte (44 duels) and 7.2% for Stray Lambs (180 duels) to 72% for Jaden Yuki (332 duels), and they correlate only 0.36 with starting rating. Manju's ritual deck is strong when it works and bricks when it doesn't. The rating is a running score of who beat whom, not a forecast.
+The deck decides more than the rating does. Win rates run from 6.8% for Marcel Bonaparte (44 duels) and 7.2% for Stray Lambs (180 duels) to 72% for Jaden Yuki (332 duels), and they correlate only 0.36 with starting rating. Manju's ritual deck is strong when it works and bricks when it doesn't. The rating is just a running score of who has beaten whom.
 
-That's also why the app still doesn't use the formula. It records what the game shows, and the [Research page](https://zeikar.dev/yugioh-wc2008-rating-lab/research/research) lays out all 1,600 tournaments for anyone who wants to check. The notes, the harness and the draw rebuild are in the [repo](https://github.com/zeikar/yugioh-wc2008-rating-lab). Only the Korean release (`YG8K`) has been checked, and the other releases use different addresses.
+The app still doesn't compute ratings with the formula; it records what the game shows. The [Research page](https://zeikar.dev/yugioh-wc2008-rating-lab/research/research) lays out all 1,600 tournaments for anyone who wants to check. The notes, the harness and the draw rebuild are in the [repo](https://github.com/zeikar/yugioh-wc2008-rating-lab). Only the Korean release (`YG8K`) has been checked, and the other releases use different addresses.
