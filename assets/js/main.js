@@ -5,6 +5,51 @@ const track = (name, params) => {
   }
 };
 
+// A click that leaves for another page in this tab unloads the page before
+// gtag's batch goes out, so the event would never arrive. It waits in
+// sessionStorage with the page it leads to, and that page sends it (so its
+// page_location is the destination; page_referrer and placement say where
+// the click was). A tab makes one navigation at a time, so a new click
+// replaces the entry, and a page that isn't the destination (the navigation
+// was abandoned, or an alt-click downloaded the link) drops it. A
+// modifier-click opens a new tab and keeps this page, so it sends right away.
+const PENDING_KEY = 'ga_pending';
+
+const pagePath = (url) => url.pathname.replace(/\/$/, '');
+
+const trackOnLeave = (event, href, name, params) => {
+  if (typeof window.gtag !== 'function') {
+    return;
+  }
+  const dest = new URL(href, location.href);
+  // Another site's /projects/ path isn't one of these units.
+  if (dest.origin !== location.origin) {
+    return;
+  }
+  if (event.metaKey || event.ctrlKey || event.shiftKey) {
+    track(name, params);
+    return;
+  }
+  try {
+    sessionStorage.setItem(PENDING_KEY, JSON.stringify({ path: pagePath(dest), name, params }));
+  } catch (e) {
+    // Storage blocked: sending now is the only chance, even if unload drops it.
+    track(name, params);
+  }
+};
+
+try {
+  const raw = sessionStorage.getItem(PENDING_KEY);
+  sessionStorage.removeItem(PENDING_KEY);
+  const pending = raw && JSON.parse(raw);
+  if (pending && pending.path === pagePath(location)) {
+    track(pending.name, pending.params);
+  }
+} catch (e) {
+  // Storage blocked or a garbled entry: nothing can be sent from it.
+  console.warn('ga_pending:', e);
+}
+
 // Where a link to a project page sits, for project_open's placement.
 const projectPlacement = (el) => {
   if (el.closest('.bench')) return 'bench';
@@ -35,7 +80,7 @@ document.addEventListener('click', (event) => {
   }
   const translation = el && el.closest('.post-translation-link');
   if (translation) {
-    track('language_switch', { to_lang: translation.getAttribute('hreflang') });
+    trackOnLeave(event, translation.getAttribute('href'), 'language_switch', { to_lang: translation.getAttribute('hreflang') });
   }
 });
 
@@ -63,7 +108,7 @@ document.addEventListener('click', (event) => {
   const link = event.target instanceof Element ? event.target.closest('a[href*="/projects/"]') : null;
   const slug = link && projectSlug(link.getAttribute('href'));
   if (slug) {
-    track('project_open', { project: slug, placement: projectPlacement(link) });
+    trackOnLeave(event, link.getAttribute('href'), 'project_open', { project: slug, placement: projectPlacement(link) });
   }
   // A modifier opens a new tab, which runs no transition.
   if (event.metaKey || event.ctrlKey || event.shiftKey) {
@@ -290,7 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      track('project_open', { project: projectSlug(url), placement: projectPlacement(card) });
+      trackOnLeave(event, url, 'project_open', { project: projectSlug(url), placement: projectPlacement(card) });
 
       // Cmd/Ctrl/Shift-click opens a new tab, as it would on a real link.
       if (event.metaKey || event.ctrlKey || event.shiftKey) {
