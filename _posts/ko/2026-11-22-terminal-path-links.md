@@ -3,6 +3,8 @@ title: "터미널에 찍힌 경로를 눌러서 열기 (Claude Code 출력)"
 subtitle: "Claude Code가 찍는 경로는 색으로 칠해지고, 여러 줄로 접히고, 셸 변수나 파일 이름만으로 나오기도 한다. 화면 글자만 보고 추측한 다음 디스크로 확인하고, 애매하면 링크하지 않는 쪽으로 정리했다."
 date: 2026-11-22
 unit: vaquita
+translations:
+  en: /blog/terminal-path-links/
 description: "xterm.js 터미널에서 Claude Code가 찍은 경로를 ⌘+클릭으로 여는 법: 색 경계, 접힌 줄 잇기, 디스크 확인, 같은 명령의 셸 변수, 레포에서 하나뿐인 파일 이름."
 ---
 
