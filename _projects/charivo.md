@@ -5,7 +5,7 @@ description: "TypeScript framework for AI characters that talk, react, and look 
 tagline: "TypeScript Framework for Live2D AI Characters"
 tech_stack: ["TypeScript", "Live2D", "Iki", "OpenAI Realtime", "Gemini Live", "LLM/TTS/STT", "pnpm Monorepo", "Changesets"]
 github_url: "https://github.com/zeikar/charivo"
-demo_url: "https://charivo.vercel.app/"
+demo_url: "https://zeikar.dev/charivo/playground/"
 image: "/assets/images/projects/charivo.png"
 gadget_no: 12
 date: 2025-09-16
@@ -36,7 +36,11 @@ Every package is MIT except `@charivo/render-live2d`, which bundles the Cubism S
 
 ## Where it runs
 
-There are two live demos. The [web app](https://charivo.vercel.app/) lets you switch every provider from a settings menu and talk to Live2D or Iki characters, including Iki's [Twin](https://charivo.vercel.app/?character=twin) and full-body [Mint](https://charivo.vercel.app/?character=mint). The [Companion](https://charivo-companion.vercel.app/) is voice-first and remembers you across sessions in the same browser. The docs live at [zeikar.dev/charivo](https://zeikar.dev/charivo/), and a typed-chat character starts from:
+The quickest look is the [playground](https://zeikar.dev/charivo/playground/), which needs no API key and calls no LLM. Iki's Twin and Mint react to buttons with expressions, motions, and glances, and speak pre-recorded, lip-synced lines voiced with Gemini TTS; press Startle mid-line and the face reacts while the voice keeps going. A readout lists the expression claims in play and which one wins.
+
+![Charivo's playground with Iki's Twin smiling. Under her, the claims readout shows one explicit claim, smile, held for the next speech or 6.5 seconds. Beside her are buttons for reactions, pre-recorded voice lines, the AI pick, expressions and motions.](/assets/images/projects/charivo-playground.webp)
+
+The other two demos talk back. The [web app](https://charivo.vercel.app/) lets you switch every provider from a settings menu and talk to Live2D or Iki characters, including Iki's [Twin](https://charivo.vercel.app/?character=twin) and full-body [Mint](https://charivo.vercel.app/?character=mint). The [Companion](https://charivo-companion.vercel.app/) is voice-first and remembers you across sessions in the same browser. The docs live at [zeikar.dev/charivo](https://zeikar.dev/charivo/), and a typed-chat character starts from:
 
 ```
 pnpm add @charivo/core @charivo/llm @charivo/tts @charivo/render @charivo/render-live2d

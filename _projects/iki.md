@@ -52,7 +52,9 @@ The validator fails fast and names the exact path, e.g. `parts[3].mesh.indices[1
 
 The format, engine, a headless editing core, and the MCP server are on npm under `@ikijs`. The [landing page](https://zeikar.dev/iki/) plays the generated hero live, its head and eyes following the mouse. The [playground](https://zeikar.dev/iki/playground/) drives it with the sliders, expressions, and motions a host would use, switches to the same character cut from one picture or to full-body models, and opens any `.iki` you load. The [editor](https://zeikar.dev/iki/editor/) auto-rigs a set of named layers (or [its sample set](https://zeikar.dev/iki/editor/?sample)) in a couple of seconds, authors parts, deformers, and physics rigs, and exports a validated `.iki`.
 
-The runtime goes wherever WebGL2 does: a web page, an Electron window, an OBS browser source. [Charivo](/projects/charivo/) renders `.iki` models through [`@charivo/render-iki`](https://www.npmjs.com/package/@charivo/render-iki), and its [live demo](https://charivo.vercel.app/?character=twin) lets you talk to the hero character, Twin, and a full-body one, Mint, by chat or voice, with lip-sync.
+The runtime goes wherever WebGL2 does: a web page, an Electron window, an OBS browser source. [Charivo](/projects/charivo/) renders `.iki` models through [`@charivo/render-iki`](https://www.npmjs.com/package/@charivo/render-iki), and its [playground](https://zeikar.dev/charivo/playground/) runs the hero character, Twin, and a full-body one, Mint, with no API key: they react to buttons with expressions and glances and speak pre-recorded lines with lip-sync. Its [live demo](https://charivo.vercel.app/?character=twin) lets you talk to them by chat or voice.
+
+![Charivo's playground with Iki's Twin smiling. Under her, the claims readout shows one explicit claim, smile, held for the next speech or 6.5 seconds. Beside her are buttons for reactions, pre-recorded voice lines, the AI pick, expressions and motions.](/assets/images/projects/charivo-playground.webp)
 
 ## What it isn't, yet
 
