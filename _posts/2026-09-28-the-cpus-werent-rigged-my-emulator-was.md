@@ -3,7 +3,7 @@ title: "Recovering the CPU Rating Formula in Yu-Gi-Oh! World Championship 2008"
 subtitle: "While I checked it over thousands of emulated duels, the tournament draw looked rigged; the CPUs weren't, but my emulator was."
 date: 2026-09-28
 unit: yugioh-wc2008-rating-lab
-last_modified_at: 2026-11-18
+last_modified_at: 2026-11-24
 lang: en
 translations:
   ko: /blog/ko/the-cpus-werent-rigged-my-emulator-was/
@@ -102,10 +102,16 @@ With seeding in, the fork ran 1,600 tournaments: 1,200 rotating Levels 1, 2 and 
 
 Every one moved exactly `floor(160 / (1 + 10^(gap / 1000)))` points. Every one was zero-sum, and the 78 ratings still add up to 94,800. Transfers ran from 1 point to 156, the biggest when Winged Kuriboh at 250 beat Elemental Hero Lady Heat at 1,862.
 
+![Points moved by each of the 9,600 duels plotted against the rating gap before the duel. Every point lies on the floor(160 / (1 + 10^(gap / 1000))) curve, which falls from 156 points for the biggest upset to 1 for a big favorite. The chess Elo scale, S = 400, drops far more steeply. Marked: a +769 gap, the gap of the Manju–Reaper duel from earlier, moves 23 points where S = 400 predicts about 2.](/assets/images/blog/wc2008-points-moved.svg)
+
 ## It moves points. It doesn't pick winners.
 
 The formula is Elo with S = 1000, and an Elo curve is supposed to be a win probability. Read that way, this one overrates favorites. The higher-rated CPU won 62% of the 9,600 duels. Even 700 to 1,200 points ahead it won only 78%, where the curve says 83 to 94% and chess Elo 98% or more.
 
+![The higher-rated CPU's win rate by how far ahead it was, in 100-point bins. It rises from 53% for a lead under 100 to 92% for 1,200 or more. It about matches the S = 1000 curve read as a win probability under a 100-point lead, falls below it from there, and stays far below chess Elo. A shaded band marks 700 to 1,200 ahead, where it won 78% of 1,326 duels.](/assets/images/blog/wc2008-favorite-win-rate.svg)
+
 The deck decides more than the rating does. Win rates run from 6.8% for Marcel Bonaparte (44 duels) and 7.2% for Stray Lambs (180 duels) to 72% for Jaden Yuki (332 duels), and they correlate only 0.36 with starting rating. Manju's ritual deck is strong when it works and bricks when it doesn't. The rating is just a running score of who has beaten whom.
+
+![Sabersaurus in the app's Research data: its in-game card, a rating of 1841, up 941 from its initial 900, a peak of 2110 and a low of 873, and a rating history over 183 emulated tournaments that climbs from 900 past 2,000 and then swings between about 1,350 and 2,100.](/assets/images/blog/wc2008-sabersaurus-history.webp)
 
 The app still doesn't compute ratings with the formula; it records what the game shows. The Research page in [the app](https://zeikar.dev/yugioh-wc2008-rating-lab/) lays out all 1,600 tournaments for anyone who wants to check. The notes, the harness and the draw rebuild are in the [repo](https://github.com/zeikar/yugioh-wc2008-rating-lab). Only the Korean release (`YG8K`) has been checked, and the other releases use different addresses.
