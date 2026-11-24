@@ -2,6 +2,7 @@
 title: "Codex가 코드 리뷰 중에 서브에이전트를 띄운 이유"
 subtitle: "읽기만 하던 Codex 리뷰가 몰래 자기 자신을 포크하고 있었고, 포크마다 대화 전체가 다시 과금됐다. 막으려고 넣은 설정 플래그는 오류 없이 통과했지만 아무것도 막지 못했다. 원인은 Claude Code와 같이 쓰던 규칙 파일의 한 섹션이었다."
 date: 2026-11-14
+last_modified_at: 2026-11-24
 unit: hyperclaude
 translations:
   en: /blog/codex-sub-agent-spawns/
@@ -9,6 +10,8 @@ description: "공유 AGENTS.md가 위임을 요청해 Codex 리뷰 세션이 서
 ---
 
 [hyperclaude](/projects/hyperclaude/)는 코딩 작업을 두 에이전트에게 나눠 맡긴다. Claude Code가 계획하고 코드를 쓰고, Codex는 읽기 전용으로 리뷰한다. Codex 호출은 전부 브리지 스크립트 하나를 거치고, 리뷰 결과는 Codex 토큰 사용량을 front matter에 적은 마크다운 파일로 남는다.
+
+Codex는 `spawn_agent` 도구로 서브에이전트를 직접 띄울 수 있다. 기본 지침은 사용자나 AGENTS.md, 스킬이 서브에이전트나 위임, 병렬 작업을 분명히 요청할 때만 띄우게 하고, `features.multi_agent=false`를 줘도 꺼지지 않는다. 내 리뷰에서는 규칙 파일의 한 섹션이 그렇게 요청했고, 포크마다 리뷰 대화 전체가 다시 과금됐다.
 
 9월에 [Iki](/projects/iki/) 리뷰가 유난히 비싸게 느껴졌다. Iki에는 큰 파일이 몇 개 있어서 리뷰가 길어지는 건 이상하지 않았다. 그런데 리뷰 파일만으로는 정상인지 알 수 없었다. 거기 적힌 토큰이 전부가 아니었다.
 

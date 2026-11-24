@@ -2,6 +2,7 @@
 title: "Why Codex Spawned Sub-Agents in My Code Reviews"
 subtitle: "My read-only Codex reviews were quietly forking themselves, and each fork re-billed the whole conversation. The config flag I shipped to stop it was accepted and did nothing. The cause was one section of a rules file I shared with Claude Code."
 date: 2026-11-14
+last_modified_at: 2026-11-24
 unit: hyperclaude
 lang: en
 translations:
@@ -10,6 +11,8 @@ description: "Codex review sessions forked sub-agents because a shared AGENTS.md
 ---
 
 [hyperclaude](/projects/hyperclaude/) splits a coding task between two agents: Claude Code plans and writes, and Codex reviews, read-only. Every Codex call goes through one bridge script, and each review lands as a Markdown file with Codex's token counts in its front matter.
+
+Codex can spawn sub-agents on its own, with a `spawn_agent` tool. Its base instructions allow that only when the user, an `AGENTS.md`, or a skill explicitly asks for sub-agents, delegation, or parallel work, and `features.multi_agent=false` doesn't turn it off. In my reviews, one section of a rules file was asking, and every fork paid again for the whole review conversation.
 
 In September the reviews on [Iki](/projects/iki/) started to feel expensive. Iki has some big files, so long reviews were believable. The review files couldn't settle it, because they didn't record all of the spend.
 

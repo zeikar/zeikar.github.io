@@ -7,7 +7,7 @@ last_modified_at: 2026-11-18
 translations:
   en: /blog/the-model-already-knew/
 redirect_from: /blog/ko/the-model-heard-it-my-code-threw-it-away/
-description: "chordotomy에서 찾은 버그 세 개: 7sus4를 sus4로 뭉개던 변환표, 계산만 하고 읽지 않던 베이스 출력, 모델의 정확도를 깎던 박자 추적. 세 번 다 모델은 이미 알고 있었다."
+description: "코드 인식 모델 lv-chordia가 맞힌 답을 chordotomy가 버리던 버그 세 개: 7sus4를 sus4로 뭉개던 변환표, 계산만 하고 읽지 않던 베이스 출력, 정확도를 깎던 박자 추적."
 ---
 
 [chordotomy](/projects/chordotomy/)는 녹음을 듣고 박자마다 코드를 적어 준다. 듣는 건 사전 학습된 코드 인식 모델 lv-chordia가 하고, 내가 짠 부분은 그 출력을 읽을 수 있는 타임라인으로 바꾼다. 정확도를 0.52에서 0.90으로 올린 과정은 [따로 적었다](/blog/ko/from-0-52-to-0-90/).
